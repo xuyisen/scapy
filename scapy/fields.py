@@ -3031,7 +3031,15 @@ class FlagValue(object):
         if isinstance(value, list):
             y = 0
             for i in value:
-                y |= 1 << self.names.index(i)
+                try:
+                    y |= 1 << self.names.index(i)
+                except ValueError:
+                    # Try replacing hyphens with underscores (e.g. 'to-DS' -> 'to_DS')
+                    alt = i.replace('-', '_')
+                    if alt != i:
+                        y |= 1 << self.names.index(alt)
+                    else:
+                        raise
             value = y
         return int(value)
 
