@@ -17,12 +17,18 @@ We also provide TLS identifiers for these DH groups and also the ECDH groups.
 from scapy.config import conf
 from scapy.compat import bytes_int, int_bytes
 from scapy.error import warning
+import warnings
 from scapy.utils import long_converter
 if conf.crypto_valid:
     from cryptography.hazmat.backends import default_backend
     from cryptography.hazmat.primitives.asymmetric import dh, ec
     from cryptography.hazmat.primitives import serialization
-    from cryptography.hazmat.primitives.asymmetric.dh import DHParameterNumbers
+    from cryptography.utils import CryptographyDeprecationWarning
+    import warnings as _warnings
+    with _warnings.catch_warnings():
+        _warnings.filterwarnings("ignore",
+                                 category=CryptographyDeprecationWarning)
+        from cryptography.hazmat.primitives.asymmetric.dh import DHParameterNumbers
 if conf.crypto_valid_advanced:
     from cryptography.hazmat.primitives.asymmetric import x25519
     from cryptography.hazmat.primitives.asymmetric import x448
@@ -36,9 +42,12 @@ class _FFDHParamsMetaclass(type):
         the_class = super(_FFDHParamsMetaclass, cls).__new__(cls, ffdh_name,
                                                              bases, dct)
         if conf.crypto_valid and ffdh_name != "_FFDHParams":
-            pn = DHParameterNumbers(the_class.m, the_class.g)
-            params = pn.parameters(default_backend())
-            _ffdh_groups[ffdh_name] = [params, the_class.mLen]
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore",
+                                        category=CryptographyDeprecationWarning)
+                pn = DHParameterNumbers(the_class.m, the_class.g)
+                params = pn.parameters(default_backend())
+                _ffdh_groups[ffdh_name] = [params, the_class.mLen]
         return the_class
 
 
@@ -419,8 +428,11 @@ def _tls_named_groups_import(group, pubbytes):
         params = _ffdh_groups[_tls_named_ffdh_groups[group]][0]
         pn = params.parameter_numbers()
         y = bytes_int(pubbytes)
-        public_numbers = dh.DHPublicNumbers(y, pn)
-        return public_numbers.public_key(default_backend())
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore",
+                                    category=CryptographyDeprecationWarning)
+            public_numbers = dh.DHPublicNumbers(y, pn)
+            return public_numbers.public_key(default_backend())
     elif group in _tls_named_curves:
         # https://datatracker.ietf.org/doc/html/rfc8446#section-4.2.8.2
         if _tls_named_curves[group] in ["x25519", "x448"]:
@@ -451,35 +463,42 @@ def _tls_named_groups_import(group, pubbytes):
 
 
 def _tls_named_groups_pubbytes(privkey):
-    if isinstance(privkey, dh.DHPrivateKey):
-        # https://datatracker.ietf.org/doc/html/rfc8446#section-4.2.8.1
-        pubkey = privkey.public_key()
-        return int_bytes(pubkey.public_numbers().y, privkey.key_size // 8)
-    elif isinstance(privkey, (x25519.X25519PrivateKey,
-                              x448.X448PrivateKey)):
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore",
+                                category=CryptographyDeprecationWarning)
+        if isinstance(privkey, dh.DHPrivateKey):
+            # https://datatracker.ietf.org/doc/html/rfc8446#section-4.2.8.1
+            pubkey = privkey.public_key()
+            return int_bytes(pubkey.public_numbers().y, privkey.key_size // 8)
+    
+    if isinstance(privkey, (x25519.X25519PrivateKey,
+                            x448.X448PrivateKey)):
         # https://datatracker.ietf.org/doc/html/rfc8446#section-4.2.8.2
         pubkey = privkey.public_key()
         return pubkey.public_bytes(
             serialization.Encoding.Raw,
             serialization.PublicFormat.Raw
         )
-    else:
-        pubkey = privkey.public_key()
-        try:
-            # cryptography >= 2.5
-            return pubkey.public_bytes(
-                serialization.Encoding.X962,
-                serialization.PublicFormat.UncompressedPoint
-            )
-        except TypeError:
-            # older versions
-            return pubkey.public_numbers().encode_point()
+    
+    pubkey = privkey.public_key()
+    try:
+        # cryptography >= 2.5
+        return pubkey.public_bytes(
+            serialization.Encoding.X962,
+            serialization.PublicFormat.UncompressedPoint
+        )
+    except TypeError:
+        # older versions
+        return pubkey.public_numbers().encode_point()
 
 
 def _tls_named_groups_generate(group):
     if group in _tls_named_ffdh_groups:
         params = _ffdh_groups[_tls_named_ffdh_groups[group]][0]
-        return params.generate_private_key()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore",
+                                    category=CryptographyDeprecationWarning)
+            return params.generate_private_key()
     elif group in _tls_named_curves:
         group_name = _tls_named_curves[group]
         if group_name in ["x25519", "x448"]:
@@ -512,7 +531,8 @@ def _tls_named_groups_generate(group):
 #
 # import math
 #
-# from scapy.utils import long_converter, binrepr
+# import warnings
+from scapy.utils import long_converter, binrepr
 # from scapy.layers.tls.crypto.pkcs1 import pkcs_i2osp, pkcs_os2ip
 #
 #

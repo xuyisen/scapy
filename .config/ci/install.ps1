@@ -8,8 +8,38 @@
 & "$PSScriptRoot\windows\InstallNpcap.ps1"
 & "$PSScriptRoot\windows\InstallWindumpNpcap.ps1"
 
-# Install wireshark
-choco install -y wireshark
+# Install wireshark with retry logic for transient failures
+$maxRetries = 3
+$retryDelay = 15
+$attempt = 0
+$installed = $false
+while ($attempt -lt $maxRetries -and -not $installed) {
+    $attempt++
+    Write-Host "Attempt $attempt of $maxRetries to install Wireshark..."
+    try {
+        choco install -y wireshark --force
+        if ($LASTEXITCODE -eq 0) {
+            $installed = $true
+            Write-Host "Wireshark installed successfully on attempt $attempt."
+        } else {
+            Write-Host "choco install exited with code $LASTEXITCODE on attempt $attempt."
+            if ($attempt -lt $maxRetries) {
+                Write-Host "Waiting $retryDelay seconds before retry..."
+                Start-Sleep -Seconds $retryDelay
+            }
+        }
+    } catch {
+        Write-Host "Exception on attempt $attempt : $_"
+        if ($attempt -lt $maxRetries) {
+            Write-Host "Waiting $retryDelay seconds before retry..."
+            Start-Sleep -Seconds $retryDelay
+        }
+    }
+}
+if (-not $installed) {
+    Write-Error "Failed to install Wireshark after $maxRetries attempts."
+    exit 1
+}
 
 # Add to PATH
 echo "C:\Program Files\Wireshark;C:\Program Files\Windump" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append

@@ -15,9 +15,8 @@ import enum
 import functools
 import struct
 
-from scapy.automaton import Automaton, ATMT
+from scapy.automaton import ATMT, Automaton
 from scapy.config import conf
-from scapy.main import interact
 from scapy.fields import (
     ByteEnumField,
     ByteField,
@@ -27,12 +26,12 @@ from scapy.fields import (
     FlagsField,
     LEIntField,
     LELongField,
+    LenField,
     LEShortEnumField,
     LEShortField,
     LESignedIntField,
     LESignedLongField,
     LESignedShortField,
-    LenField,
     MSBExtendedField,
     MultipleTypeField,
     PacketField,
@@ -43,9 +42,9 @@ from scapy.fields import (
     StrLenField,
     StrLenFieldUtf16,
 )
+from scapy.main import interact
 from scapy.packet import Packet
 from scapy.supersocket import StreamSocket
-
 
 # [MS-NRTP] sect 2.2.3.2.1
 
@@ -255,7 +254,7 @@ class NRTPUnknownHeader(NRTPHeader):
 class NRTPSingleMessageContent(Packet):
     name = "NRTP Single Message Content"
     fields_desc = [
-        StrFixedLenField("ProtocolId", b"\x2e\x4E\x45\x54", 4),
+        StrFixedLenField("ProtocolId", b"\x2e\x4e\x45\x54", 4),
         ByteField("MajorVersion", 1),
         ByteField("MinorVersion", 0),
         LEShortEnumField(
@@ -335,7 +334,7 @@ class MSBExtendedFieldLen(MSBExtendedField):
 
     def __init__(self, name, default, length_of=None):
         FieldLenField.__init__(self, name, default, length_of=length_of)
-        super(MSBExtendedFieldLen, self).__init__(name, default)
+        super().__init__(name, default)
 
     i2m = FieldLenField.i2m
 
@@ -646,11 +645,13 @@ class NRBFAdditionalInfo(Packet):
             [
                 (
                     ByteEnumField("Value", 0, PrimitiveTypeEnum),
-                    lambda pkt: pkt.type
-                    in [
-                        BinaryTypeEnum.Primitive,
-                        BinaryTypeEnum.PrimitiveArray,
-                    ],
+                    lambda pkt: (
+                        pkt.type
+                        in [
+                            BinaryTypeEnum.Primitive,
+                            BinaryTypeEnum.PrimitiveArray,
+                        ]
+                    ),
                 ),
                 (
                     PacketField(
@@ -670,15 +671,15 @@ class NRBFAdditionalInfo(Packet):
     def __init__(self, _pkt=None, **kwargs):
         self.type = kwargs.pop("type", BinaryTypeEnum.Primitive)
         assert isinstance(self.type, BinaryTypeEnum)
-        super(NRBFAdditionalInfo, self).__init__(_pkt, **kwargs)
+        super().__init__(_pkt, **kwargs)
 
     def clone_with(self, *args, **kwargs):
-        pkt = super(NRBFAdditionalInfo, self).clone_with(*args, **kwargs)
+        pkt = super().clone_with(*args, **kwargs)
         pkt.type = self.type
         return pkt
 
     def copy(self):
-        pkt = super(NRBFAdditionalInfo, self).copy()
+        pkt = super().copy()
         pkt.type = self.type
         return pkt
 
@@ -712,7 +713,7 @@ def _member_type_infos_cb(pkt, lst, cur, remain):
     except StopIteration:
         return None
     typeEnum = BinaryTypeEnum(typeEnum)
-    # Return BinaryTypeEnum tainted with a pre-selected type.
+    # Return BinaryTypeEnum tainted with a preselected type.
     return functools.partial(
         NRBFAdditionalInfo,
         type=typeEnum,
@@ -761,15 +762,15 @@ class NRBFMemberPrimitiveUnTyped(Packet):
     def __init__(self, _pkt=None, **kwargs):
         self.type = kwargs.pop("type", PrimitiveTypeEnum.Byte)
         assert isinstance(self.type, PrimitiveTypeEnum)
-        super(NRBFMemberPrimitiveUnTyped, self).__init__(_pkt, **kwargs)
+        super().__init__(_pkt, **kwargs)
 
     def clone_with(self, *args, **kwargs):
-        pkt = super(NRBFMemberPrimitiveUnTyped, self).clone_with(*args, **kwargs)
+        pkt = super().clone_with(*args, **kwargs)
         pkt.type = self.type
         return pkt
 
     def copy(self):
-        pkt = super(NRBFMemberPrimitiveUnTyped, self).copy()
+        pkt = super().copy()
         pkt.type = self.type
         return pkt
 

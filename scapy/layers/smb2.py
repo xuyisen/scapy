@@ -21,29 +21,28 @@ import struct
 from scapy.automaton import select_objects
 from scapy.config import conf, crypto_validator
 from scapy.error import log_runtime
-from scapy.packet import Packet, bind_layers, bind_top_down
 from scapy.fields import (
     ByteEnumField,
     ByteField,
     ConditionalField,
     FieldLenField,
     FieldListField,
-    FlagValue,
     FlagsField,
+    FlagValue,
+    IntField,
     IP6Field,
     IPField,
-    IntField,
-    LEIntField,
     LEIntEnumField,
+    LEIntField,
     LELongField,
     LenField,
     LEShortEnumField,
     LEShortField,
     MultipleTypeField,
-    PadField,
     PacketField,
     PacketLenField,
     PacketListField,
+    PadField,
     ReversePadField,
     ScalingField,
     ShortEnumField,
@@ -59,10 +58,11 @@ from scapy.fields import (
     XLEIntField,
     XLELongField,
     XLEShortField,
-    XStrLenField,
     XStrFixedLenField,
+    XStrLenField,
     YesNoByteField,
 )
+from scapy.packet import Packet, bind_layers, bind_top_down
 from scapy.sessions import DefaultSession
 from scapy.supersocket import StreamSocket
 
@@ -72,12 +72,11 @@ if conf.crypto_valid:
 from scapy.layers.gssapi import GSSAPI_BLOB
 from scapy.layers.netbios import NBTSession
 from scapy.layers.ntlm import (
-    _NTLMPayloadField,
-    _NTLMPayloadPacket,
     _NTLM_ENUM,
     _NTLM_post_build,
+    _NTLMPayloadField,
+    _NTLMPayloadPacket,
 )
-
 
 # EnumField
 SMB_DIALECTS = {
@@ -1510,7 +1509,8 @@ class WINNT_ACL(Packet):
             None,
             length_of="Aces",
             adjust=lambda _, x: x + 8,
-            fmt="<H",  # total size including header : AclRevision(1) + Sbz1(1) + AclSize(2) + AceCount(2) + Sbz2(2)
+            # total size: AclRevision(1) + Sbz1(1) + AclSize(2) + AceCount(2) + Sbz2(2)
+            fmt="<H",
         ),
         FieldLenField("AceCount", None, count_of="Aces", fmt="<H"),
         ShortField("Sbz2", 0),
@@ -1835,7 +1835,7 @@ class SMB2_Header(Packet):
     def __init__(self, *args, **kwargs):
         # The parent passes whether this packet was decrypted or not.
         self._decrypted = kwargs.pop("_decrypted", False)
-        super(SMB2_Header, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def guess_payload_class(self, payload):
         if self.Flags.SMB2_FLAGS_SERVER_TO_REDIR and self.Status != 0x00000000:
@@ -1904,7 +1904,7 @@ class SMB2_Header(Packet):
             if self.Flags.SMB2_FLAGS_SERVER_TO_REDIR:
                 return SMB2_IOCTL_Response
             return SMB2_IOCTL_Request
-        return super(SMB2_Header, self).guess_payload_class(payload)
+        return super().guess_payload_class(payload)
 
     def _calc_signature(
         self, s, dialect, SigningSessionKey, SigningAlgorithmId=None, IsClient=None
@@ -2046,7 +2046,7 @@ class _SMB2_Payload(Packet):
                 if padlen:
                     self.add_payload(s[:padlen])
                     s = s[padlen:]
-        super(_SMB2_Payload, self).do_dissect_payload(s)
+        super().do_dissect_payload(s)
 
     def answers(self, other):
         return (
@@ -2059,7 +2059,7 @@ class _SMB2_Payload(Packet):
         if self.underlayer and isinstance(self.underlayer, SMB2_Header):
             if self.underlayer.NextCommand:
                 return SMB2_Header
-        return super(_SMB2_Payload, self).guess_payload_class(s)
+        return super().guess_payload_class(s)
 
 
 # sect 2.2.2
@@ -2623,18 +2623,13 @@ class SMB2_Session_Setup_Response(_SMB2_Payload, _NTLMPayloadPacket):
     def __getattr__(self, attr):
         # Ease SMB1 backward compatibility
         if attr == "SecurityBlob":
-            return (
-                super(SMB2_Session_Setup_Response, self).__getattr__("Buffer")
-                or [(None, None)]
-            )[0][1]
-        return super(SMB2_Session_Setup_Response, self).__getattr__(attr)
+            return (super().__getattr__("Buffer") or [(None, None)])[0][1]
+        return super().__getattr__(attr)
 
     def setfieldval(self, attr, val):
         if attr == "SecurityBlob":
-            return super(SMB2_Session_Setup_Response, self).setfieldval(
-                "Buffer", [("Security", val)]
-            )
-        return super(SMB2_Session_Setup_Response, self).setfieldval(attr, val)
+            return super().setfieldval("Buffer", [("Security", val)])
+        return super().setfieldval(attr, val)
 
     def post_build(self, pkt, pay):
         # type: (bytes, bytes) -> bytes
@@ -4706,7 +4701,7 @@ class SMBStreamSocket(StreamSocket):
     def __init__(self, *args, **kwargs):
         self.queue = collections.deque()
         self.session = SMBSession()
-        super(SMBStreamSocket, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def recv(self, x=None):
         # note: normal StreamSocket takes care of NBTSession / DirectTCP fragments.
@@ -4714,7 +4709,7 @@ class SMBStreamSocket(StreamSocket):
         if self.queue:
             pkt = self.queue.popleft()
         else:
-            pkt = super(SMBStreamSocket, self).recv(x)
+            pkt = super().recv(x)
         # If there are multiple SMB2_Header requests (aka. compounded),
         # take the first and store the rest in a queue.
         if pkt is not None and (
@@ -4761,7 +4756,7 @@ class SMBStreamSocket(StreamSocket):
         for pkt in self.session.out_pkt(
             x, Compounded=Compounded, ForceSign=ForceSign, ForceEncrypt=ForceEncrypt
         ):
-            return super(SMBStreamSocket, self).send(pkt, **kwargs)
+            return super().send(pkt, **kwargs)
 
     @staticmethod
     def select(sockets, remain=conf.recv_poll_rate):
@@ -4817,7 +4812,7 @@ class SMBSession(DefaultSession):
         if conf.winssps_passive:
             for ssp in conf.winssps_passive:
                 self.sniffsspcontexts[ssp] = None
-        super(SMBSession, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     # SMB crypto functions
 
@@ -5014,7 +5009,7 @@ class SMBSession(DefaultSession):
 
     def process(self, pkt: Packet):
         # Called when passively sniffing
-        pkt = super(SMBSession, self).process(pkt)
+        pkt = super().process(pkt)
         if pkt is not None and SMB2_Header in pkt:
             return self.in_pkt(pkt)
         return pkt

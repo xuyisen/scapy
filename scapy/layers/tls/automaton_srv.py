@@ -272,7 +272,11 @@ class TLSServerAutomaton(_TLSAutomaton):
         self.vprint()
         self.vprint("Waiting for a new client on %s:%d" % (self.local_ip,
                                                            self.local_port))
-        self.socket, addr = self.serversocket.accept()
+        try:
+            self.socket, addr = self.serversocket.accept()
+        except OSError:
+            self.vprint("Accept failed, retrying...")
+            raise self.WAITING_CLIENT()
         if not isinstance(addr, tuple):
             addr = self.socket.getpeername()
         if len(addr) > 2:

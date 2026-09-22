@@ -54,3 +54,10 @@ python -m pip install -U tox --ignore-installed
 
 # Dump Environment (so that we can check PATH, UT_FLAGS, etc.)
 set
+
+# Install a compatible version of cryptography for PyPy
+# (PyO3 0.20+ requires Python 3.11+, which is incompatible with PyPy 3.10)
+if python --version 2>&1 | grep -q PyPy
+then
+  python -m pip install cryptography==41.0.7
+fi

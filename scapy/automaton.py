@@ -1011,7 +1011,13 @@ class Automaton(metaclass=Automaton_metaclass):
             try:
                 while True:
                     atmt_server = None
-                    clientsocket, address = ssock.accept()
+                    try:
+                        clientsocket, address = ssock.accept()
+                    except OSError:
+                        if kwargs.get("debug", 0) > 0:
+                            traceback.print_exc()
+                        time.sleep(0.1)
+                        continue
                     if kwargs.get("verb", True):
                         print(conf.color_theme.gold(
                             "\u2503 Connection received from %s" % repr(address)
