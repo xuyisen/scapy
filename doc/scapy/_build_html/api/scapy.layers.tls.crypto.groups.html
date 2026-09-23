@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.tls.crypto.groups &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.tls.crypto.h_mac" href="scapy.layers.tls.crypto.h_mac.html" />
+    <link rel="prev" title="scapy.layers.tls.crypto.compression" href="scapy.layers.tls.crypto.compression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="scapy.layers.tls.crypto.html">scapy.layers.tls.crypto package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.all.html">scapy.layers.tls.all</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton.html">scapy.layers.tls.automaton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton_cli.html">scapy.layers.tls.automaton_cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton_srv.html">scapy.layers.tls.automaton_srv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.basefields.html">scapy.layers.tls.basefields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.cert.html">scapy.layers.tls.cert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.extensions.html">scapy.layers.tls.extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.handshake.html">scapy.layers.tls.handshake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.handshake_sslv2.html">scapy.layers.tls.handshake_sslv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.keyexchange.html">scapy.layers.tls.keyexchange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.keyexchange_tls13.html">scapy.layers.tls.keyexchange_tls13</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.quic.html">scapy.layers.tls.quic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record.html">scapy.layers.tls.record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record_sslv2.html">scapy.layers.tls.record_sslv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record_tls13.html">scapy.layers.tls.record_tls13</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.session.html">scapy.layers.tls.session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.tools.html">scapy.layers.tls.tools</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.tls.crypto.html">scapy.layers.tls.crypto package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.tls.crypto.groups</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.tls.crypto.groups.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.tls.crypto.groups">
+<span id="scapy-layers-tls-crypto-groups"></span><h1>scapy.layers.tls.crypto.groups<a class="headerlink" href="#module-scapy.layers.tls.crypto.groups" title="Link to this heading"></a></h1>
+<p>This is a register for DH groups from RFC 3526 and RFC 4306.
+At this time the groups from RFC 7919 have not been registered by openssl,
+thus they cannot be imported from the cryptography library.</p>
+<p>We also provide TLS identifiers for these DH groups and also the ECDH groups.
+(Note that the equivalent of _ffdh_groups for ECDH is ec._CURVE_TYPES.)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe2048">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">ffdhe2048</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L234-L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe2048" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe2048.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe2048.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe2048.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32317006071311007300153513477825163362488057133489075174588434139269806834136210002792056362640164685458556357935330816928829023080573472625273554742461245741026202527916572972862706300325263428213145766931414223654220941111348629991657478268034230553086349050635557712219187890332729569696129743856241741236237225197346402691855797767976823014625397933058015226858730761197532436467475855460715043896844940366130497697812854295958659597567051283852132784468522925504568272879113720098931873959143374175837826000278034973198552060607533234122603254684088120031105907484281003994966956119696956248629032338072839127039</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe2048.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe2048.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2048</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe2048.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe3072">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">ffdhe3072</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L252-L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe3072" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe3072.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe3072.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe3072.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5809605995369958062758586654274580047791722104970656507438869740087793294939022179753100900150316602414836960597893531254315756065700170507943025794723871619068282822579148207659984331724286057133800207014820356957933334364535176201393094406964280368146360322417397201921556656310696298417414318434929392806928868314831784332237038568260988712237196665742900353512788403877776568945491183287529096888884348887176901995757588549340219807606149955056871781046117195453427070254533858964729101754281121787330325506574928503501334937579191349178901801866451262831560570379780282604068262795024384318599710948857446185134652829941527736472860172354516733867877780829051346167153594329592339252295871976889069885964128038593002336846153522149026229984394781638501125312676451837144945451331832522946684620954184360294871798125320434686136230055213248587935623124338652624786221871129902570119964134282018641257113252046271726747647</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe3072.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe3072.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3072</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe3072.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe4096">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">ffdhe4096</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L275-L301"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe4096" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe4096.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe4096.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe4096.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1044388881413152506673611132423542708364181673367771525125030890756881099188024532056304793061869328458723091803972939229793654985168401497491717574483844225116618212565649899896238061528255690984013755361148305106047581812557457571303413897964307070369153233034916545609049161117676542252417034306148432734874401682098205055813065377495410934435776008569464677021023433005437163880753068613673525551966829473007537177831003494630326494021352410947409155250518131329542947165352164089215019548909074312164647627938366550236314760864116934087960021077839688388383033906117940935023026686459274599124189299486771919466921436930468113859003854695674493896608503326776616230412252016237753188005160515672431703429026925450722225213972891936880551722374424500117253400391608019951133386097176734162660461073160502839490488652900367939577292447038637156268014222959401811270825513710710113193757653852931049810187522670964988718456427706279024201400130351029277257873323362974483425793829163819060563081096261611614988801585554385004830748976181157545121697905898543562330970182151097394600286811868072516047394404389555706298311761588649133904051123770516767707951778179308436153604841663369568605395358405635911568855382987714763476172799</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe4096.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe4096.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4096</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe4096.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe6144">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">ffdhe6144</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L304-L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe6144" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe6144.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe6144.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe6144.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">33751521821438561184324892992841956031256524096764762523080427484131368183681238652286303439277919364419605375975741556865385545908845926426890806171934808386673338677817446992026011784349026750519375730205067498701350657030856602039247991829540145540001367697563530312238373189195859410680196740818496273776863982316239487439125584973486191474973070378586678136324790578680454630958344992260559731819239256040561423139407134895441043521777796400880951101664061960549417775619248830729218197463598192224062477224088661984618875141239361375810191700348746470517603586330742337739315086785758610522626080327305070861763732997096646270232538049631764978124370714033713690749348727603833565215088374348155839869467418301934486261774031333194202002514049598635757051715292153270068806927857370077400854342621469193035173582620808395011965872285119963665326566931152118419683195410230531880091058340135241442529412915698052541447285219904877547903853970539536057866360165883117245413187530187706879654021604384751733362734886086447963479243086334556742008371133320333144330529868075901065270101499033142677098456216621473599132476055885593228992805674421717912030137492923124370487889214032208165952268509981501451774970889626262931401169981636584425302941104561318586295950568633223864381392065855785614286866466034588630668284169362643876828113430270351563540045399616908093185001539414731258530233312567034617287652871707877648601789117465138822759448972467259851264567429611605233655993068745892528795005477239451835762239158148450946495583269774730192968123453831376884299400027264972551783838651516361577307080496493669697500674115993933560984134638146861375527138211765789496434131148421504162050232089029807657513443213647811723915569891007483031985943458980395910188354328838067537352640645494922975415613895710751245784814785127169311178294820863</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe6144.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe6144.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6144</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe6144.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe8192">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">ffdhe8192</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L343-L390"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe8192" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe8192.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe8192.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe8192.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1090748135619415929444037382073202164125305063117061359021210911270577744302484095783585256262132857867507012151327745319420949480631077659230943007731372290338916318467056551341312388724237204552630979526938946243971958249567992270660707645223444998212375042421215776901548713954608377879903140801084739259304885738884241557789963639848414142435545413461220375392883746746009571997041033445022502762816331857033727315823681421531580986559568582495054304419334754793864359536511580585755680437972489876200744058648895832633694632513670176667389094435272527511943458451278617893700596377728765952665861962906447628133961178002643746220845591569312550242539556477924846824431386227398784372946565741502410953510925086230339755945668395462836859386976915262545264219099083866412323338929445556193690276085130255735707017517324908584556020047122304601806052013210478673966121765822384984613134062610932880821764360557629800471942620120350089258471142266672486905811824890197561222168259425622075380074970894661940191022351313937794403179128925897399112543950028771599485900567258712506491423242565563135524281249329012935005778031068703683453260896098798641811119050812310043452672866472626886632040451127891259822859833579017734578653167790168028670602474730129723339966367629299069464612922206043242915619930604287973659968151168649532362252217391606094542229202850891990149423286722373933582772946978151293864418092658361871788530836011433246848517279350728403540496593224145424561966649653985963026020941223187837459880455379494869707430746485961836217272806165182791750397289355418934743450060932235238237908010122017218143239665855653767803345566744660974127130587188591627469364051467546830550982678041483517603551345004201416166657317979133177076850863915723452487089990921274837044452675718747451622274394568025709298240157360143554038242669443266557467589294627069491899039816156659993760960331555864960579941903669595533661959937683218286259759942024512967175841717416769943853374953316002333533954475281180536503757029544656828281916590129722443603212328905281386443054134068074845098476931062612287259260077268525729384552957078890543508903050684066466350832645258291471581992414681774952272964607180615323323707230823981670673369901279153005955624089037761236230721391005676907275360233030103877306374767486038871773571307196997482447151534288054433129088702568193019402125710114040359224543481208871491986232520827933323475832217514514887471827867630829567</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe8192.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.ffdhe8192.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8192</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.ffdhe8192.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1024">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp1024</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L59-L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1024" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1024.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1024.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1024.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">179769313486231590770839156793787453197860296048756011706444423684197180216158519368947833795864925541502180565485980503646440548199239100050792877003355816639229553136239076508735759914822574862575007425302077447712589550957937778424442426617334727629299387668709205606050270810842907692932019128194467627007</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1024.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1024.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1024</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1024.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1536">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp1536</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L70-L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1536" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1536.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1536.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1536.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2410312426921032588552076022197566074856950548502459942654116941958108831682612228890093858261341614673227141477904012196503648957050582631942730706805009223062734745341073406696246014589361659774041027169249453200378729434170325843778659198143763193776859869524088940195577346119843545301547043747207749969763750084308926339295559968882457872412993810129130294592999947926365264059284647209730384947211681434464714438488520940127459844288859336526896320919633919</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1536.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp1536.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1536</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp1536.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp2048">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp2048</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L84-L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp2048" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp2048.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp2048.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp2048.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32317006071311007300338913926423828248817941241140239112842009751400741706634354222619689417363569347117901737909704191754605873209195028853758986185622153212175412514901774520270235796078236248884246189477587641105928646099411723245426622522193230540919037680524235519125679715870117001058055877651038861847280257976054903569732561526167081339361799541336476559160368317896729073178384589680639671900977202194168647225871031411336429319536193471636533209717077448227988588565369208645296636077250268955505928362751121174096972998068410554359584866583291642136218231078990999448652468262416972035911852507045361090559</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp2048.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp2048.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2048</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp2048.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp3072">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp3072</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L101-L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp3072" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp3072.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp3072.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp3072.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5809605995369958062791915965639201402176612226902900533702900882779736177890990861472094774477339581147373410185646378328043729800750470098210924487866935059164371588168047540943981644516632755067501626434556398193186628990071248660819361205119793693985433297036118232914410171876807536457391277857011849897410207519105333355801121109356897459426271845471397952675959440793493071628394122780510124618488232602464649876850458861245784240929258426287699705312584509625419513463605155428017165714465363094021609290561084025893662561222573202082865797821865270991145082200656978177192827024538990239969175546190770645685893438011714430426409338676314743571154537142031573004276428701433036381801705308659830751190352946025482059931306571004727362479688415574702596946457770284148435989129632853918392117997472632693078113129886487399347796982772784615865232621289656944284216824611318709764535152507354116344703769998514148343807</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp3072.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp3072.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3072</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp3072.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp4096">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp4096</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L123-L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp4096" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp4096.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp4096.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp4096.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1044388881413152506679602719846529545831269060992135009022588756444338172022322690710444046669809783930111585737890362691860127079270495454517218673016928427459146001866885779762982229321192368303346235204368051010309155674155697460347176946394076535157284994895284821633700921811716738972451834979455897010306333468590751358365138782250372269117968985194322444535687415522007151638638141456178420621277822674995027990278673458629544391736919766299005511505446177668154446234882665961680796576903199116089347634947187778906528008004756692571666922964122566174582776707332452371001272163776841229318324903125740713574141005124561965913888899753461735347970011693256316751660678950830027510255804846105583465055446615090444309583050775808509297040039680057435342253926566240898195863631588888936364129920059308455669454034010391478238784189888594672336242763795138176353222845524644040094258962433613354036104643881925238489224010194193088911666165584229424668165441688927790460608264864204237717002054744337988941974661214699689706521543006262604535890998125752275942608772174376107314217749233048217904944409836238235772306749874396760463376480215133461333478395682746608242585133953883882226786118030184028136755970045385534758453247</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp4096.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp4096.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4096</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp4096.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp6144">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp6144</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L151-L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp6144" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp6144.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp6144.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp6144.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">33751521821438561184518523159967412330064897805741846548173890474429429901326672445203235101919165483964194359460994881062089387893762814044257438204432573941083014827006090258925875161018096327732335800595831915976014208822304007327848132734933297885803213675261564962603340457220776826322500058091310967253976619973988033663666385188155212656268079501726223369693427999804134467810120772356498596945532366527400517575471969335854905274504119509592366013711954148258884879224599915203456315881034776553083676995718335598586395591169999570824515035017543533352697525287753332500527176569576894926734950469293596134095086603716860086302051544539652689091299099784588919052383463057789440565460681441902442399956419060521629604697347879024654313800186078316526964529288062740879011035175920059192178561473199006205896719435014765345518490882366607110905303449152556221163232127426440691921134648766635695850239231304591744215610985029636895406718880766308249227315984267542266259489684372223916445411015900506239419267909716320331208988978180868987431623710347617992356201449023892203230133009421463914291201346063125219636964261683591541014344239275340735690997732222069758773963390876360546515755280517042160525487302898122311669799679447530453600399342697032714458549591285939453949034981248114322322367238645042515984447890788917823576330019151696568654314153058547592091366014550143819685170068343700104677609041166369760080933413605498962382077778845599834907475953430787446201384567328530675275792962354883770806900827183685718353469574731680520621944540947734619035177180057973022652571032196598229259194875709994709721793154158686515748507274224181316948797104601068212015232921691482496346854413698719750190601102705274481050543239815130686073601076304512284549218459846046082253596762433827419060089029417044871218316020923109988915707117567</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp6144.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp6144.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6144</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp6144.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp768">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp768</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L49-L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp768" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp768.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp768.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp768.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1552518092300708935130918131258481755631334049434514313202351194902966239949102107258669453876591642442910007680288864229150803718918046342632727613031282983744380820890196288509170691316593175367469551763119843371637221007210577919</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp768.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp768.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">768</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp768.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp8192">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.crypto.groups.</span></span><span class="sig-name descname"><span class="pre">modp8192</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/crypto/groups.py#L185-L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp8192" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FFDHParams</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp8192.g">
+<span class="sig-name descname"><span class="pre">g</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp8192.g" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp8192.m">
+<span class="sig-name descname"><span class="pre">m</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1090748135619415929450294929359784500348155124953172211774101106966150168922785639028532473848836817769712164169076432969224698752674677662739994265785437233596157045970922338040698100507861033047312331823982435279475700199860971612732540528796554502867919746776983759391475987142521315878719577519148811830879919426939958487087540965716419167467499326156226529675209172277001377591248147563782880558861083327174154014975134893125116015776318890295960698011614157721282527539468816519319333337503114777192360412281721018955834377615480468479252748867320362385355596601795122806756217713579819870634321561907813255153703950795271232652404894983869492174481652303803498881366210508647263668376514131031102336837488999775744046733651827239395353540348414872854639719294694323450186884189822544540647226987292160693184734654941906936646576130260972193280317171696418971553954161446191759093719524951116705577362073481319296041201283516154269044389257727700289684119460283480452306204130024913879981135908026983868205969318167819680850998649694416907952712904962404937775789698917207356355227455066183815847669135530549755439819480321732925869069136146085326382334628745456398071603058051634209386708703306545903199608523824513729625136659128221100967735450519952404248198262813831097374261650380017277916975324134846574681307337017380830353680623216336949471306191686438249305686413380231046096450953594089375540285037292470929395114028305547452584962074309438151825437902976012891749355198678420603722034900311364893046495761404333938686140037848030916292543273684533640032637639100774502371542479302473698388692892420946478947733800387782741417786484770190108867879778991633218628640533982619322466154883011452291890252336487236086654396093853898628805813177559162076363154436494477507871294119841637867701722166609831201845484078070518041336869808398454625586921201308185638888082699408686536045192649569198110353659943111802300636106509865023943661829436426563007917282050894429388841748885398290707743052973605359277515749619730823773215894755121761467887865327707115573804264519206349215850195195364813387526811742474131549802130246506341207020335797706780705406945275438806265978516209706795702579244075380490231741030862614968783306207869687868108423639971983209077624758080499988275591392787267627182442892809646874228263172435642368588260139161962836121481966092745325488641054238839295138992979335446110090325230955276870524611359124918392740353154294858383359</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp8192.m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.tls.crypto.groups.modp8192.mLen">
+<span class="sig-name descname"><span class="pre">mLen</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8192</span></span><a class="headerlink" href="#scapy.layers.tls.crypto.groups.modp8192.mLen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.tls.crypto.compression.html" class="btn btn-neutral float-left" title="scapy.layers.tls.crypto.compression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.tls.crypto.h_mac.html" class="btn btn-neutral float-right" title="scapy.layers.tls.crypto.h_mac" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

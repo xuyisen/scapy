@@ -1,0 +1,826 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.spnego &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.ssh" href="scapy.layers.ssh.html" />
+    <link rel="prev" title="scapy.layers.snmp" href="scapy.layers.snmp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.spnego</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.spnego.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.spnego">
+<span id="scapy-layers-spnego"></span><h1>scapy.layers.spnego<a class="headerlink" href="#module-scapy.layers.spnego" title="Link to this heading"></a></h1>
+<p>SPNEGO</p>
+<p>Implements parts of:</p>
+<ul class="simple">
+<li><p>GSSAPI SPNEGO: RFC4178 &gt; RFC2478</p></li>
+<li><p>GSSAPI SPNEGO NEGOEX: [MS-NEGOEX]</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will find more complete documentation for this layer over at
+<a class="reference external" href="https://scapy.readthedocs.io/en/latest/layers/gssapi.html#spnego">GSSAPI</a></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_BYTE_VECTOR">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_BYTE_VECTOR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ByteArrayBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ByteArrayLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L328-L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_BYTE_VECTOR" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_BYTE_VECTOR.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_BYTE_VECTOR'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_BYTE_VECTOR.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_BYTE_VECTOR.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntField</span> <span class="pre">(NEGOEX_BYTE_VECTOR).ByteArrayBufferOffset&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_BYTE_VECTOR).ByteArrayLength&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_BYTE_VECTOR.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_BYTE_VECTOR.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L334-L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_BYTE_VECTOR.guess_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_CHECKSUM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_CHECKSUM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbHeaderLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ChecksumScheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ChecksumType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ChecksumValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L439-L445"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_CHECKSUM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_CHECKSUM.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_CHECKSUM'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_CHECKSUM.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_CHECKSUM.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LELongField</span> <span class="pre">(NEGOEX_CHECKSUM).cbHeaderLength&gt;,</span> <span class="pre">&lt;LELongEnumField</span> <span class="pre">(NEGOEX_CHECKSUM).ChecksumScheme&gt;,</span> <span class="pre">&lt;LELongEnumField</span> <span class="pre">(NEGOEX_CHECKSUM).ChecksumType&gt;,</span> <span class="pre">&lt;XStrLenField</span> <span class="pre">(NEGOEX_CHECKSUM).ChecksumValue&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_CHECKSUM.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_EXCHANGE_MESSAGE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NEGOEXTS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SequenceNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbHeaderLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbMessageLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ConversationId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AuthScheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExchangeBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExchangeLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L448-L477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_NTLMPayloadPacket</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.OFFSET">
+<span class="sig-name descname"><span class="pre">OFFSET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.OFFSET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).MessageType&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).SequenceNum&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbHeaderLength&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbMessageLength&gt;,</span> <span class="pre">&lt;UUIDField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).ConversationId&gt;,</span> <span class="pre">&lt;UUIDEnumField</span> <span class="pre">(NEGOEX_EXCHANGE_MESSAGE).AuthScheme&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_EXCHANGE_MESSAGE).ExchangeBufferOffset&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_EXCHANGE_MESSAGE).ExchangeLen&gt;,</span> <span class="pre">&lt;_NTLMPayloadField</span> <span class="pre">(NEGOEX_EXCHANGE_MESSAGE).Payload&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.show_indent">
+<span class="sig-name descname"><span class="pre">show_indent</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXCHANGE_MESSAGE.show_indent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_EXTENSION_VECTOR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExtensionArrayOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExtensionCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L338-L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LELongField</span> <span class="pre">(NEGOEX_EXTENSION_VECTOR).ExtensionArrayOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NEGOEX_EXTENSION_VECTOR).ExtensionCount&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_EXTENSION_VECTOR.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_MESSAGE_HEADER">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_MESSAGE_HEADER</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NEGOEXTS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SequenceNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbHeaderLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbMessageLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ConversationId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L280-L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_MESSAGE_HEADER" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_MESSAGE_HEADER.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_MESSAGE_HEADER'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_MESSAGE_HEADER.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_MESSAGE_HEADER.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).MessageType&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).SequenceNum&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbHeaderLength&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbMessageLength&gt;,</span> <span class="pre">&lt;UUIDField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).ConversationId&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_MESSAGE_HEADER.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_MESSAGE_HEADER.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L303-L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_MESSAGE_HEADER.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_NEGO_MESSAGE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NEGOEXTS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SequenceNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbHeaderLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbMessageLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ConversationId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Random</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProtocolVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AuthSchemeBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AuthSchemeCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExtensionBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExtensionCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L345-L402"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_NTLMPayloadPacket</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.OFFSET">
+<span class="sig-name descname"><span class="pre">OFFSET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">92</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.OFFSET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_NEGO_MESSAGE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.dispatch_hook">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dispatch_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L394-L402"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.dispatch_hook" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).MessageType&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).SequenceNum&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbHeaderLength&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbMessageLength&gt;,</span> <span class="pre">&lt;UUIDField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).ConversationId&gt;,</span> <span class="pre">&lt;XStrFixedLenField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).Random&gt;,</span> <span class="pre">&lt;LELongField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).ProtocolVersion&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).AuthSchemeBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).AuthSchemeCount&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).ExtensionBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).ExtensionCount&gt;,</span> <span class="pre">&lt;_NTLMPayloadField</span> <span class="pre">(NEGOEX_NEGO_MESSAGE).Payload&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_NEGO_MESSAGE'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L379-L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.show_indent">
+<span class="sig-name descname"><span class="pre">show_indent</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_NEGO_MESSAGE.show_indent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_VERIFY_MESSAGE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NEGOEXTS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SequenceNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbHeaderLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbMessageLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ConversationId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AuthScheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;NEGOEX_CHECKSUM</span>&#160; <span class="pre">|&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L480-L486"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).MessageType&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).SequenceNum&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbHeaderLength&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).cbMessageLength&gt;,</span> <span class="pre">&lt;UUIDField</span> <span class="pre">(NEGOEX_MESSAGE_HEADER,NEGOEX_NEGO_MESSAGE,NEGOEX_EXCHANGE_MESSAGE,NEGOEX_VERIFY_MESSAGE).ConversationId&gt;,</span> <span class="pre">&lt;UUIDEnumField</span> <span class="pre">(NEGOEX_VERIFY_MESSAGE).AuthScheme&gt;,</span> <span class="pre">&lt;PacketField</span> <span class="pre">(NEGOEX_VERIFY_MESSAGE).Checksum&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE.show_indent">
+<span class="sig-name descname"><span class="pre">show_indent</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.layers.spnego.NEGOEX_VERIFY_MESSAGE.show_indent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGOSSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssps</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L497-L1144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP" title="scapy.layers.gssapi.SSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">SSP</span></code></a></p>
+<p>The SPNEGO SSP</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ssps</strong> – a dict with keys being the SSP class, and the value being a
+dictionary of the keyword arguments to pass it on init.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="n">NTLMSSP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.kerberos</span><span class="w"> </span><span class="kn">import</span> <span class="n">KerberosSSP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.spnego</span><span class="w"> </span><span class="kn">import</span> <span class="n">SPNEGOSSP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbserver</span><span class="w"> </span><span class="kn">import</span> <span class="n">smbserver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.libs.rfc3961</span><span class="w"> </span><span class="kn">import</span> <span class="n">Encryption</span><span class="p">,</span> <span class="n">Key</span>
+
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">SPNEGOSSP</span><span class="p">([</span>
+    <span class="n">NTLMSSP</span><span class="p">(</span>
+        <span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"User1"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password1"</span><span class="p">),</span>
+            <span class="s2">"Administrator"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password123!"</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="p">),</span>
+    <span class="n">KerberosSSP</span><span class="p">(</span>
+        <span class="n">SPN</span><span class="o">=</span><span class="s2">"cifs/server2.domain.local"</span><span class="p">,</span>
+        <span class="n">KEY</span><span class="o">=</span><span class="n">Key</span><span class="p">(</span>
+            <span class="n">Encryption</span><span class="o">.</span><span class="n">AES256</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="n">hex_bytes</span><span class="p">(</span><span class="s2">"5e9255c907b2f7e969ddad816eabbec8f1f7a387c7194ecc98b827bdc9421c2b"</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+<span class="n">smbserver</span><span class="p">(</span><span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CONTEXT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">supported_ssps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_supported_mechtypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L541-L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP.CONTEXT" title="scapy.layers.gssapi.SSP.CONTEXT"><code class="xref py py-class docutils literal notranslate"><span class="pre">CONTEXT</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.clifailure">
+<span class="sig-name descname"><span class="pre">clifailure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L575-L576"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.clifailure" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.first_choice">
+<span class="sig-name descname"><span class="pre">first_choice</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.first_choice" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.flags">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">flags</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.flags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.negotiated_mechtype">
+<span class="sig-name descname"><span class="pre">negotiated_mechtype</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.negotiated_mechtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.req_flags">
+<span class="sig-name descname"><span class="pre">req_flags</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.req_flags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.requested_mechtypes">
+<span class="sig-name descname"><span class="pre">requested_mechtypes</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.requested_mechtypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.ssp">
+<span class="sig-name descname"><span class="pre">ssp</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.ssp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.sub_context">
+<span class="sig-name descname"><span class="pre">sub_context</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.sub_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.CONTEXT.supported_mechtypes">
+<span class="sig-name descname"><span class="pre">supported_mechtypes</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT.supported_mechtypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_Accept_sec_context">
+<span class="sig-name descname"><span class="pre">GSS_Accept_sec_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="scapy.layers.spnego.SPNEGOSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GSS_S_FLAGS" title="scapy.layers.gssapi.GSS_S_FLAGS"><span class="pre">GSS_S_FLAGS</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;GSS_S_FLAGS.GSS_S_ALLOW_MISSING_BINDINGS:</span> <span class="pre">268435456&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan_bindings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GssChannelBindings" title="scapy.layers.gssapi.GssChannelBindings"><span class="pre">GssChannelBindings</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L1080-L1093"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_Accept_sec_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_GetMICEx">
+<span class="sig-name descname"><span class="pre">GSS_GetMICEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L825-L827"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_GetMICEx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_Init_sec_context">
+<span class="sig-name descname"><span class="pre">GSS_Init_sec_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="scapy.layers.spnego.SPNEGOSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GSS_C_FLAGS" title="scapy.layers.gssapi.GSS_C_FLAGS"><span class="pre">GSS_C_FLAGS</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan_bindings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GssChannelBindings" title="scapy.layers.gssapi.GssChannelBindings"><span class="pre">GssChannelBindings</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L1063-L1078"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_Init_sec_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_Passive">
+<span class="sig-name descname"><span class="pre">GSS_Passive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="scapy.layers.spnego.SPNEGOSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L1095-L1136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_Passive" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_Passive_set_Direction">
+<span class="sig-name descname"><span class="pre">GSS_Passive_set_Direction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="scapy.layers.spnego.SPNEGOSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">IsAcceptor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L1138-L1141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_Passive_set_Direction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_UnwrapEx">
+<span class="sig-name descname"><span class="pre">GSS_UnwrapEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L821-L823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_UnwrapEx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_VerifyMICEx">
+<span class="sig-name descname"><span class="pre">GSS_VerifyMICEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L829-L831"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_VerifyMICEx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.GSS_WrapEx">
+<span class="sig-name descname"><span class="pre">GSS_WrapEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L817-L819"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.GSS_WrapEx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.LegsAmount">
+<span class="sig-name descname"><span class="pre">LegsAmount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="scapy.layers.spnego.SPNEGOSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L833-L834"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.LegsAmount" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.MaximumSignatureLength">
+<span class="sig-name descname"><span class="pre">MaximumSignatureLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.spnego.SPNEGOSSP.CONTEXT" title="scapy.layers.spnego.SPNEGOSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L1143-L1144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.MaximumSignatureLength" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.NegTokenInit2">
+<span class="sig-name descname"><span class="pre">NegTokenInit2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L785-L815"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.NegTokenInit2" title="Link to this definition"></a></dt>
+<dd><p>Server-Initiation of GSSAPI/SPNEGO.
+See [MS-SPNG] sect 3.2.5.2</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.STATE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">STATE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L536-L539"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.STATE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP.STATE" title="scapy.layers.gssapi.SSP.STATE"><code class="xref py py-class docutils literal notranslate"><span class="pre">STATE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.STATE.CHANGESSP">
+<span class="sig-name descname"><span class="pre">CHANGESSP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.STATE.CHANGESSP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.STATE.FIRST">
+<span class="sig-name descname"><span class="pre">FIRST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.STATE.FIRST" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.STATE.NORMAL">
+<span class="sig-name descname"><span class="pre">NORMAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.STATE.NORMAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.auth_type">
+<span class="sig-name descname"><span class="pre">auth_type</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.auth_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.force_supported_mechtypes">
+<span class="sig-name descname"><span class="pre">force_supported_mechtypes</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.force_supported_mechtypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.from_cli_arguments">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_cli_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">UPN</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashNt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashAes256Sha96</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashAes128Sha96</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kerberos_required</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ST</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KEY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L632-L740"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.from_cli_arguments" title="Link to this definition"></a></dt>
+<dd><p>Initialize a SPNEGOSSP from a list of many arguments.
+This is useful in a CLI, with NTLM and Kerberos supported by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>UPN</strong> – the UPN of the user to use.</p></li>
+<li><p><strong>target</strong> – the target IP/hostname entered by the user.</p></li>
+<li><p><strong>kerberos_required</strong> – require kerberos</p></li>
+<li><p><strong>password</strong> – (string) if provided, used for auth</p></li>
+<li><p><strong>HashNt</strong> – (bytes) if provided, used for auth (NTLM)</p></li>
+<li><p><strong>HashAes256Sha96</strong> – (bytes) if provided, used for auth (Kerberos)</p></li>
+<li><p><strong>HashAes128Sha96</strong> – (bytes) if provided, used for auth (Kerberos)</p></li>
+<li><p><strong>ST</strong> – if provided, the service ticket to use (Kerberos)</p></li>
+<li><p><strong>KEY</strong> – if ST provided, the session key associated to the ticket (Kerberos).
+Else, the user secret key.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGOSSP.supported_ssps">
+<span class="sig-name descname"><span class="pre">supported_ssps</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGOSSP.supported_ssps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechListMIC">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_MechListMIC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_STRING['']&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L117-L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechListMIC" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechListMIC.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechListMIC.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechListMIC.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scapy.asn1fields.ASN1F_STRING</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechListMIC.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechListMIC.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_MechListMIC'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechListMIC.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechListMIC.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_STRING</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechListMIC.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_MechType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">oid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L107-L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechType.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechType.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechType.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechType.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechType.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_MechType'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechType.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechType.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechType.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechTypes">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_MechTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mechTypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L112-L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechTypes" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechTypes.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechTypes.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechTypes.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">mechTypes&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechTypes.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechTypes.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_MechTypes'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechTypes.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_MechTypes.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">mechTypes&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_MechTypes.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_Token">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L146-L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_Token" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_Token.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_Token.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_Token.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scapy.layers.spnego._SPNEGO_Token_Field</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_Token.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_Token.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_Token'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_Token.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_Token.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.spnego._SPNEGO_Token_Field</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_Token.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negHints">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_negHints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hintName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_GENERAL_STRING['not_defined_in_RFC4178&#64;please_ignore']&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hintAddress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L163-L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negHints" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negHints.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negHints.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negHints.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negHints.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negHints.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_negHints'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negHints.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negHints.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_GENERAL_STRING</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_GENERAL_STRING</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negHints.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negToken">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_negToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;SPNEGO_negTokenInit</span>&#160; <span class="pre">|&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L236-L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negToken" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negToken.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negToken.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negToken.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scapy.asn1fields.ASN1F_CHOICE</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negToken.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negToken.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_negToken'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negToken.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negToken.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_CHOICE</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negToken.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenInit">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_negTokenInit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mechTypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reqFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mechToken</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negHints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mechListMIC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_mechListMIC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L178-L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenInit" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenInit.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenInit.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenInit.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenInit.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenInit.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_negTokenInit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenInit.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenInit.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">mechTypes&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_FLAGS</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenInit.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenResp">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">SPNEGO_negTokenResp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negResult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_ENUMERATED[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supportedMech</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;SPNEGO_MechType</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">responseToken</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mechListMIC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L206-L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenResp" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenResp.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenResp.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenResp.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenResp.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenResp.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.spnego.SPNEGO_negTokenResp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenResp.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.spnego.SPNEGO_negTokenResp.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_ENUMERATED</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PACKET</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.spnego.SPNEGO_negTokenResp.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.spnego.mechListMIC">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.spnego.</span></span><span class="sig-name descname"><span class="pre">mechListMIC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oids</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/spnego.py#L262-L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.spnego.mechListMIC" title="Link to this definition"></a></dt>
+<dd><p>Implementation of RFC 4178 - Appendix D. mechListMIC Computation</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.snmp.html" class="btn btn-neutral float-left" title="scapy.layers.snmp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.ssh.html" class="btn btn-neutral float-right" title="scapy.layers.ssh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

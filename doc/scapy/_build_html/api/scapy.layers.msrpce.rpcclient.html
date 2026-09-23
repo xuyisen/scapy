@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.msrpce.rpcclient &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.msrpce.rpcserver" href="scapy.layers.msrpce.rpcserver.html" />
+    <link rel="prev" title="scapy.layers.msrpce.mspac" href="scapy.layers.msrpce.mspac.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.ept.html">scapy.layers.msrpce.ept</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.msdcom.html">scapy.layers.msrpce.msdcom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.msdrsr.html">scapy.layers.msrpce.msdrsr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.mseerr.html">scapy.layers.msrpce.mseerr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.msnrpc.html">scapy.layers.msrpce.msnrpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.mspac.html">scapy.layers.msrpce.mspac</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">scapy.layers.msrpce.rpcclient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.rpcserver.html">scapy.layers.msrpce.rpcserver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.msrpce.rpcclient</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.msrpce.rpcclient.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.msrpce.rpcclient">
+<span id="scapy-layers-msrpce-rpcclient"></span><h1>scapy.layers.msrpce.rpcclient<a class="headerlink" href="#module-scapy.layers.msrpce.rpcclient" title="Link to this heading"></a></h1>
+<p>DCE/RPC client as per [MS-RPCE]</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.rpcclient.</span></span><span class="sig-name descname"><span class="pre">DCERPC_Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transport</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport" title="scapy.layers.dcerpc.DCERPC_Transport"><span class="pre">DCERPC_Transport</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndr64</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndrendian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'little'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.RPC_C_AUTHN_LEVEL" title="scapy.layers.dcerpc.RPC_C_AUTHN_LEVEL"><span class="pre">RPC_C_AUTHN_LEVEL</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_context_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L74-L839"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A basic DCE/RPC client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transport</strong> – the transport to use.</p></li>
+<li><p><strong>ndr64</strong> – should ask for NDR64 when binding (default conf.ndr64)</p></li>
+<li><p><strong>ndrendian</strong> – the endianness to use (default little)</p></li>
+<li><p><strong>verb</strong> – enable verbose logging (default True)</p></li>
+<li><p><strong>auth_level</strong> – the DCE_C_AUTHN_LEVEL to use</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.alter_context">
+<span class="sig-name descname"><span class="pre">alter_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.DceRpcInterface" title="scapy.layers.dcerpc.DceRpcInterface"><span class="pre">DceRpcInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.ComInterface" title="scapy.layers.dcerpc.ComInterface"><span class="pre">ComInterface</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L603-L609"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.alter_context" title="Link to this definition"></a></dt>
+<dd><p>Alter context: post-bind context negotiation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interface</strong> – the DceRpcInterface object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.DceRpcInterface" title="scapy.layers.dcerpc.DceRpcInterface"><span class="pre">DceRpcInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.ComInterface" title="scapy.layers.dcerpc.ComInterface"><span class="pre">ComInterface</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L595-L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.bind" title="Link to this definition"></a></dt>
+<dd><p>Bind the client to an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interface</strong> – the DceRpcInterface object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.bind_or_alter">
+<span class="sig-name descname"><span class="pre">bind_or_alter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.DceRpcInterface" title="scapy.layers.dcerpc.DceRpcInterface"><span class="pre">DceRpcInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.ComInterface" title="scapy.layers.dcerpc.ComInterface"><span class="pre">ComInterface</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L611-L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.bind_or_alter" title="Link to this definition"></a></dt>
+<dd><p>Bind the client to an interface or alter the context if already bound</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interface</strong> – the DceRpcInterface object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L196-L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.close" title="Link to this definition"></a></dt>
+<dd><p>Close the DCE/RPC client.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.close_smbpipe">
+<span class="sig-name descname"><span class="pre">close_smbpipe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L633-L639"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.close_smbpipe" title="Link to this definition"></a></dt>
+<dd><p>Close the previously opened pipe</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smb_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L147-L194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.connect" title="Link to this definition"></a></dt>
+<dd><p>Initiate a connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – the host to connect to</p></li>
+<li><p><strong>port</strong> – (optional) the port to connect to</p></li>
+<li><p><strong>timeout</strong> – (optional) the connection timeout (default 5)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.connect_and_bind">
+<span class="sig-name descname"><span class="pre">connect_and_bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.DceRpcInterface" title="scapy.layers.dcerpc.DceRpcInterface"><span class="pre">DceRpcInterface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smb_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L641-L693"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.connect_and_bind" title="Link to this definition"></a></dt>
+<dd><p>Asks the Endpoint Mapper what address to use to connect to the interface,
+then uses connect() followed by a bind()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – the ip to connect to</p></li>
+<li><p><strong>interface</strong> – the DceRpcInterface object</p></li>
+<li><p><strong>port</strong> – (optional, NCACN_NP only) the port to connect to</p></li>
+<li><p><strong>timeout</strong> – (optional) the connection timeout (default 5)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.epm_map">
+<span class="sig-name descname"><span class="pre">epm_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L695-L839"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.epm_map" title="Link to this definition"></a></dt>
+<dd><p>Calls ept_map (the EndPoint Manager)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.from_smblink">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_smblink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smbcli</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smb_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L126-L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.from_smblink" title="Link to this definition"></a></dt>
+<dd><p>Build a DCERPC_Client from a SMB_Client.smblink directly</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.host">
+<span class="sig-name descname"><span class="pre">host</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.host" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.ndr64">
+<span class="sig-name descname"><span class="pre">ndr64</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.ndr64" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.open_smbpipe">
+<span class="sig-name descname"><span class="pre">open_smbpipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L624-L631"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.open_smbpipe" title="Link to this definition"></a></dt>
+<dd><p>Open a certain filehandle with the SMB automaton.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – the name of the pipe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.port">
+<span class="sig-name descname"><span class="pre">port</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.port" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L228-L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.send" title="Link to this definition"></a></dt>
+<dd><p>Send a DCE/RPC message.</p>
+<p>The DCE/RPC header is added automatically.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.session">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">session</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.DceRpcSession" title="scapy.layers.dcerpc.DceRpcSession"><span class="pre">DceRpcSession</span></a></span><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.session" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.sr1">
+<span class="sig-name descname"><span class="pre">sr1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L204-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.sr1" title="Link to this definition"></a></dt>
+<dd><p>Send/Receive a DCE/RPC message.</p>
+<p>The DCE/RPC header is added automatically.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.sr1_req">
+<span class="sig-name descname"><span class="pre">sr1_req</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L252-L344"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.sr1_req" title="Link to this definition"></a></dt>
+<dd><p>Send/Receive a DCE/RPC request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pkt</strong> – the inner DCE/RPC message, without any header.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.DCERPC_Client.ssp">
+<span class="sig-name descname"><span class="pre">ssp</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP" title="scapy.layers.gssapi.SSP"><span class="pre">SSP</span></a></span><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.DCERPC_Client.ssp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.rpcclient.get_endpoint">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.rpcclient.</span></span><span class="sig-name descname"><span class="pre">get_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DCERPC_Transport.NCACN_IP_TCP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndrendian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'little'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smb_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/rpcclient.py#L842-L875"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.rpcclient.get_endpoint" title="Link to this definition"></a></dt>
+<dd><p>Call the endpoint mapper on a remote IP to find an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong></p></li>
+<li><p><strong>interface</strong></p></li>
+<li><p><strong>mode</strong></p></li>
+<li><p><strong>verb</strong></p></li>
+<li><p><strong>ssp</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of connection tuples for this interface</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.msrpce.mspac.html" class="btn btn-neutral float-left" title="scapy.layers.msrpce.mspac" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.msrpce.rpcserver.html" class="btn btn-neutral float-right" title="scapy.layers.msrpce.rpcserver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

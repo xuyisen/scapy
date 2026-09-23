@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.llmnr &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.lltd" href="scapy.layers.lltd.html" />
+    <link rel="prev" title="scapy.layers.ldap" href="scapy.layers.ldap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.llmnr</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.llmnr.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.llmnr">
+<span id="scapy-layers-llmnr"></span><h1>scapy.layers.llmnr<a class="headerlink" href="#module-scapy.layers.llmnr" title="Link to this heading"></a></h1>
+<p>LLMNR (Link Local Multicast Node Resolution).</p>
+<p>[RFC 4795]</p>
+<p>LLMNR is based on the DNS packet format (RFC1035 Section 4)
+RFC also envisions LLMNR over TCP. Like vista, we don’t support it – arno</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRQuery">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.llmnr.</span></span><span class="sig-name descname"><span class="pre">LLMNRQuery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qdcount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nscount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arcount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">an</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L40-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNRQuery" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dns.html#scapy.layers.dns.DNSCompressedPacket" title="scapy.layers.dns.DNSCompressedPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">DNSCompressedPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRQuery.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.llmnr.LLMNRQuery'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dns.DNSCompressedPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNRQuery.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRQuery.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).id&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).qr&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).opcode&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).c&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).tc&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).t&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).z&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).rcode&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).qdcount&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).ancount&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).nscount&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).arcount&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).qd&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).an&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).ns&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).ar&gt;]</span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNRQuery.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRQuery.get_full">
+<span class="sig-name descname"><span class="pre">get_full</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L54-L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNRQuery.get_full" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRQuery.hashret">
+<span class="sig-name descname"><span class="pre">hashret</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L58-L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNRQuery.hashret" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRQuery.mysummary">
+<span class="sig-name descname"><span class="pre">mysummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L61-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNRQuery.mysummary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.llmnr.</span></span><span class="sig-name descname"><span class="pre">LLMNRResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qdcount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nscount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arcount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">an</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L80-L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNRResponse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.llmnr.LLMNRQuery" title="scapy.layers.llmnr.LLMNRQuery"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLMNRQuery</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRResponse.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.llmnr.LLMNRResponse'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.llmnr.LLMNRQuery'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dns.DNSCompressedPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNRResponse.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRResponse.answers">
+<span class="sig-name descname"><span class="pre">answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L84-L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNRResponse.answers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNRResponse.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).id&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).qr&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).opcode&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).c&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).tc&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).t&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLMNRQuery,LLMNRResponse).z&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).rcode&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).qdcount&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).ancount&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).nscount&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).arcount&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).qd&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).an&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).ns&gt;,</span> <span class="pre">&lt;_DNSPacketListField</span> <span class="pre">(DNS,LLMNRQuery,LLMNRResponse).ar&gt;]</span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNRResponse.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.llmnr.</span></span><span class="sig-name descname"><span class="pre">LLMNR_am</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srvmatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joker6</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_ip6</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_ip6</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jokerarpa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L112-L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dns.html#scapy.layers.dns.DNS_am" title="scapy.layers.dns.DNS_am"><code class="xref py py-class docutils literal notranslate"><span class="pre">DNS_am</span></code></a></p>
+<p>LLMNR answering machine.</p>
+<p>This has the same arguments as DNS_am. See help(DNS_am)</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">llmnrd</span><span class="p">(</span><span class="n">joker</span><span class="o">=</span><span class="s2">"192.168.0.2"</span><span class="p">,</span> <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llmnrd</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="p">{</span><span class="s2">"TEST"</span><span class="p">:</span> <span class="s2">"192.168.0.2"</span><span class="p">})</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.cls">
+<span class="sig-name descname"><span class="pre">cls</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/llmnr.py#L40-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.cls" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#scapy.layers.llmnr.LLMNRQuery" title="scapy.layers.llmnr.LLMNRQuery"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLMNRQuery</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'udp</span> <span class="pre">port</span> <span class="pre">5355'</span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.filter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.function_name">
+<span class="sig-name descname"><span class="pre">function_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'llmnrd'</span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.function_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.optam0">
+<span class="sig-name descname"><span class="pre">optam0</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.optam0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.optam1">
+<span class="sig-name descname"><span class="pre">optam1</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.optam1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.optam2">
+<span class="sig-name descname"><span class="pre">optam2</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.optam2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.optsend">
+<span class="sig-name descname"><span class="pre">optsend</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.optsend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.llmnr.LLMNR_am.optsniff">
+<span class="sig-name descname"><span class="pre">optsniff</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.llmnr.LLMNR_am.optsniff" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.ldap.html" class="btn btn-neutral float-left" title="scapy.layers.ldap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.lltd.html" class="btn btn-neutral float-right" title="scapy.layers.lltd" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

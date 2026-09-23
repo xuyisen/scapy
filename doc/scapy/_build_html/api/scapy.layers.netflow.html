@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.netflow &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.ntlm" href="scapy.layers.ntlm.html" />
+    <link rel="prev" title="scapy.layers.netbios" href="scapy.layers.netbios.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.netflow</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.netflow.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.netflow">
+<span id="scapy-layers-netflow"></span><h1>scapy.layers.netflow<a class="headerlink" href="#module-scapy.layers.netflow" title="Link to this heading"></a></h1>
+<p>Cisco NetFlow protocol v1, v5, v9 and v10 (IPFix)</p>
+<p>HowTo dissect NetflowV9/10 (IPFix) packets</p>
+<p># From a pcap / list of packets</p>
+<p>Using sniff and sessions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">offline</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">"my_great_pcap.pcap"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">),</span> <span class="n">session</span><span class="o">=</span><span class="n">NetflowSession</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the netflowv9_defragment/ipfix_defragment commands:</p>
+<ul class="simple">
+<li><p>get a list of packets containing NetflowV9/10 packets</p></li>
+<li><p>call <cite>netflowv9_defragment(plist)</cite> to defragment the list</p></li>
+</ul>
+<p>(ipfix_defragment is an alias for netflowv9_defragment)</p>
+<p># Live / on-the-flow / other: use NetflowSession:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">NetflowSession</span><span class="p">,</span> <span class="n">prn</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.netflow.GetNetflowRecordV9">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">GetNetflowRecordV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templateID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1371-L1396"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.GetNetflowRecordV9" title="Link to this definition"></a></dt>
+<dd><p>Get a NetflowRecordV9/10 for a specific NetflowFlowsetV9/10.</p>
+<p>Have a look at the online doc for examples.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.N9SecondsIntField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">N9SecondsIntField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L230-L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.N9SecondsIntField" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.SecondsIntField" title="scapy.fields.SecondsIntField"><code class="xref py py-class docutils literal notranslate"><span class="pre">SecondsIntField</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_AdjustableNetflowField</span></code></p>
+<p>Defines dateTimeSeconds (without EPOCH: just seconds)</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.N9UTCTimeField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">N9UTCTimeField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L240-L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.N9UTCTimeField" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.UTCTimeField" title="scapy.fields.UTCTimeField"><code class="xref py py-class docutils literal notranslate"><span class="pre">UTCTimeField</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_AdjustableNetflowField</span></code></p>
+<p>Defines dateTimeSeconds (EPOCH)</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowDataflowsetV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowDataflowsetV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">templateID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1407-L1439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowDataflowsetV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowDataflowsetV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowDataflowsetV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowDataflowsetV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowDataflowsetV9.dispatch_hook">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dispatch_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1416-L1430"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowDataflowsetV9.dispatch_hook" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowDataflowsetV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowDataflowsetV9).templateID&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowDataflowsetV9).length&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowDataflowsetV9).records&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowDataflowsetV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowDataflowsetV9.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowDataflowsetV9'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowDataflowsetV9.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowDataflowsetV9.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1432-L1439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowDataflowsetV9.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowFlowsetV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowFlowsetV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSetID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1317-L1323"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowFlowsetV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowFlowsetV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowFlowsetV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowFlowsetV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowFlowsetV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowFlowsetV9).flowSetID&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(NetflowFlowsetV9).length&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowFlowsetV9).templates&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowFlowsetV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowFlowsetV9.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowDataflowsetV9'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowFlowsetV9.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeader">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowHeader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L82-L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeader" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeader.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeader'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeader.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeader.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowHeader).version&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeader.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeader.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({'version':</span> <span class="pre">1},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV1'&gt;),</span> <span class="pre">({'version':</span> <span class="pre">5},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV5'&gt;),</span> <span class="pre">({'version':</span> <span class="pre">9},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV9'&gt;),</span> <span class="pre">({'version':</span> <span class="pre">10},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV10'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeader.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowHeaderV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sysUptime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unixSecs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unixNanoSeconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L98-L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV1.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV1'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV1.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV1.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowHeaderV1).count&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV1).sysUptime&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NetflowHeaderV1).unixSecs&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NetflowHeaderV1).unixNanoSeconds&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV1.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV1.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV1'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV1.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV1.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L105-L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV1.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV10">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowHeaderV10</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExportTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ObservationDomainID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1269-L1281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV10" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>IPFix (Netflow V10) Header</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV10.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV10'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV10.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV10.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowHeaderV10).length&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NetflowHeaderV10).ExportTime&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV10).flowSequence&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV10).ObservationDomainID&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV10.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV10.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowDataflowsetV9'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV10.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV10.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1277-L1281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV10.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV5">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowHeaderV5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sysUptime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unixSecs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unixNanoSeconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engineType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engineID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samplingInterval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L142-L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV5" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV5.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV5'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV5.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV5.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowHeaderV5).count&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV5).sysUptime&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NetflowHeaderV5).unixSecs&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NetflowHeaderV5).unixNanoSeconds&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV5).flowSequence&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowHeaderV5).engineType&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowHeaderV5).engineID&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowHeaderV5).samplingInterval&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV5.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV5.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV5'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV5.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV5.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L153-L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV5.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowHeaderV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sysUptime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unixSecs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packageSequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SourceID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1237-L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowHeaderV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowHeaderV9).count&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV9).sysUptime&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NetflowHeaderV9).unixSecs&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV9).packageSequence&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowHeaderV9).SourceID&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV9.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowDataflowsetV9'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV9.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowHeaderV9.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1245-L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowHeaderV9.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowset10">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowOptionsFlowset10</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSetID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templateID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope_field_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1667-L1704"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowset10" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9" title="scapy.layers.netflow.NetflowOptionsFlowsetV9"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetflowOptionsFlowsetV9</span></code></a></p>
+<p>Netflow V10 (IPFix) Options Template FlowSet</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowset10.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsFlowset10'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsFlowsetV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowset10.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowset10.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowset10).flowSetID&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowset10).length&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowset10).templateID&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(NetflowOptionsFlowset10).field_count&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(NetflowOptionsFlowset10).scope_field_count&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowOptionsFlowset10).scopes&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowOptionsFlowset10).options&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(NetflowOptionsFlowset10).pad&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowset10.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowset10.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1697-L1704"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowset10.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetOptionV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowOptionsFlowsetOptionV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">enterpriseBit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionFieldType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optionFieldlength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enterpriseNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1608-L1618"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetOptionV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetOptionV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsFlowsetOptionV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetOptionV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetOptionV9.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1617-L1618"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetOptionV9.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetOptionV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitField</span> <span class="pre">(NetflowOptionsFlowsetOptionV9).enterpriseBit&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(NetflowOptionsFlowsetOptionV9).optionFieldType&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowsetOptionV9).optionFieldlength&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetOptionV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetScopeV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowOptionsFlowsetScopeV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopeFieldType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopeFieldlength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1622-L1628"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetScopeV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetScopeV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsFlowsetScopeV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetScopeV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetScopeV9.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1627-L1628"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetScopeV9.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetScopeV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortEnumField</span> <span class="pre">(NetflowOptionsFlowsetScopeV9).scopeFieldType&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowsetScopeV9).scopeFieldlength&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetScopeV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowOptionsFlowsetV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSetID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templateID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option_scope_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option_field_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1631-L1663"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsFlowsetV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetV9.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1653-L1654"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowsetV9).flowSetID&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowsetV9).length&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowOptionsFlowsetV9).templateID&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(NetflowOptionsFlowsetV9).option_scope_length&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(NetflowOptionsFlowsetV9).option_field_length&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowOptionsFlowsetV9).scopes&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowOptionsFlowsetV9).options&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(NetflowOptionsFlowsetV9).pad&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetV9.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowDataflowsetV9'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsFlowsetV9.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1656-L1663"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsFlowsetV9.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsRecordOptionV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowOptionsRecordOptionV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1603-L1604"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsRecordOptionV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.netflow.NetflowRecordV9" title="scapy.layers.netflow.NetflowRecordV9"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetflowRecordV9</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsRecordOptionV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsRecordOptionV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsRecordOptionV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsRecordOptionV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrField</span> <span class="pre">(NetflowRecordV9,NetflowOptionsRecordScopeV9,NetflowOptionsRecordOptionV9).fieldValue&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsRecordOptionV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsRecordScopeV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowOptionsRecordScopeV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1599-L1600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsRecordScopeV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.netflow.NetflowRecordV9" title="scapy.layers.netflow.NetflowRecordV9"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetflowRecordV9</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsRecordScopeV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowOptionsRecordScopeV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsRecordScopeV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowOptionsRecordScopeV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrField</span> <span class="pre">(NetflowRecordV9,NetflowOptionsRecordScopeV9,NetflowOptionsRecordOptionV9).fieldValue&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowOptionsRecordScopeV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowRecordV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipsrc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipdst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nexthop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputIfIndex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpuIfIndex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpkts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starttime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endtime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dstport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L112-L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV1.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV1'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV1.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV1.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;IPField</span> <span class="pre">(NetflowRecordV1).ipsrc&gt;,</span> <span class="pre">&lt;IPField</span> <span class="pre">(NetflowRecordV1).ipdst&gt;,</span> <span class="pre">&lt;IPField</span> <span class="pre">(NetflowRecordV1).nexthop&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV1).inputIfIndex&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV1).outpuIfIndex&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV1).dpkts&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV1).dbytes&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV1).starttime&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV1).endtime&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV1).srcport&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV1).dstport&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV1).padding&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowRecordV1).proto&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowRecordV1).tos&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV1).padding1&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV1).padding2&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV1.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV1.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV1'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV1.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV5">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowRecordV5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nexthop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpkts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dOctets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dstport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tcpFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">2</span> <span class="pre">(S)&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L160-L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV5" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV5.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV5'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV5.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV5.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;IPField</span> <span class="pre">(NetflowRecordV5).src&gt;,</span> <span class="pre">&lt;IPField</span> <span class="pre">(NetflowRecordV5).dst&gt;,</span> <span class="pre">&lt;IPField</span> <span class="pre">(NetflowRecordV5).nexthop&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).input&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).output&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV5).dpkts&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV5).dOctets&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV5).first&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(NetflowRecordV5).last&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).srcport&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).dstport&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowRecordV5).pad1&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(NetflowRecordV5).tcpFlags&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(NetflowRecordV5).prot&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowRecordV5).tos&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).src_as&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).dst_as&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowRecordV5).src_mask&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NetflowRecordV5).dst_mask&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowRecordV5).pad2&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV5.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV5.payload_guess">
+<span class="sig-name descname"><span class="pre">payload_guess</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[({},</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV5'&gt;)]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV5.payload_guess" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowRecordV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1399-L1404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowRecordV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV9.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1403-L1404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV9.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowRecordV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrField</span> <span class="pre">(NetflowRecordV9,NetflowOptionsRecordScopeV9,NetflowOptionsRecordOptionV9).fieldValue&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowRecordV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowSession">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1578-L1596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowSession" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.sessions.html#scapy.sessions.IPSession" title="scapy.sessions.IPSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPSession</span></code></a></p>
+<p>Session used to defragment NetflowV9/10 packets on the flow.
+See help(scapy.layers.netflow) for more infos.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowSession.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1588-L1596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowSession.process" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateFieldV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowTemplateFieldV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">enterpriseBit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enterpriseNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1284-L1303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateFieldV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateFieldV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowTemplateFieldV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateFieldV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateFieldV9.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1302-L1303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateFieldV9.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateFieldV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitField</span> <span class="pre">(NetflowTemplateFieldV9).enterpriseBit&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(NetflowTemplateFieldV9).fieldType&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(NetflowTemplateFieldV9).fieldLength&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateFieldV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateV9">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">NetflowTemplateV9</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">templateID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1306-L1314"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateV9" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateV9.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.netflow.NetflowTemplateV9'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateV9.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateV9.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1313-L1314"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateV9.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.netflow.NetflowTemplateV9.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ShortField</span> <span class="pre">(NetflowTemplateV9).templateID&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(NetflowTemplateV9).fieldCount&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NetflowTemplateV9).template_fields&gt;]</span></span><a class="headerlink" href="#scapy.layers.netflow.NetflowTemplateV9.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.netflow.ShortOrInt">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">ShortOrInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L210-L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.ShortOrInt" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.IntField" title="scapy.fields.IntField"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntField</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.netflow.ShortOrInt.getfield">
+<span class="sig-name descname"><span class="pre">getfield</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L211-L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.ShortOrInt.getfield" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.netflow.ipfix_defragment">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">ipfix_defragment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1573-L1575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.ipfix_defragment" title="Link to this definition"></a></dt>
+<dd><p>Alias for netflowv9_defragment</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.netflow.netflowv9_defragment">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.netflow.</span></span><span class="sig-name descname"><span class="pre">netflowv9_defragment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/netflow.py#L1547-L1570"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.netflow.netflowv9_defragment" title="Link to this definition"></a></dt>
+<dd><p>Process all NetflowV9/10 Packets to match IDs of the DataFlowsets
+with the Headers</p>
+<dl class="simple">
+<dt>params:</dt><dd><ul class="simple">
+<li><p>plist: the list of mixed NetflowV9/10 packets.</p></li>
+<li><p>verb: verbose print (0/1)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.netbios.html" class="btn btn-neutral float-left" title="scapy.layers.netbios" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.ntlm.html" class="btn btn-neutral float-right" title="scapy.layers.ntlm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

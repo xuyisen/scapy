@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netflow &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PROFINET IO RTC" href="pnio.html" />
+    <link rel="prev" title="LDAP" href="ldap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Netflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#netflow-v1">Netflow V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#netflow-v5">Netflow V5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#netflowv9-ipfix">NetflowV9 / IPfix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">Netflow</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/netflow.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="netflow">
+<h1>Netflow<a class="headerlink" href="#netflow" title="Link to this heading"></a></h1>
+<p>Netflow packets mainly comes in 3 versions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- ``Netflow V5``
+- ``Netflow V7``
+- ``Netflow V9 / V10 (IPfix)``
+</pre></div>
+</div>
+<p>While the two first versions are pretty straightforward, building or dissecting Netflow v9/v10 isn’t easy.</p>
+<section id="netflow-v1">
+<h2>Netflow V1<a class="headerlink" href="#netflow-v1" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">netflow</span> <span class="o">=</span> <span class="n">NetflowHeader</span><span class="p">()</span><span class="o">/</span><span class="n">NetflowHeaderV1</span><span class="p">()</span><span class="o">/</span><span class="n">NetflowRecordV1</span><span class="p">()</span>
+<span class="n">pkt</span> <span class="o">=</span> <span class="n">Ether</span><span class="p">()</span><span class="o">/</span><span class="n">IP</span><span class="p">()</span><span class="o">/</span><span class="n">UDP</span><span class="p">()</span><span class="o">/</span><span class="n">netflow</span>
+</pre></div>
+</div>
+</section>
+<section id="netflow-v5">
+<h2>Netflow V5<a class="headerlink" href="#netflow-v5" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">netflow</span> <span class="o">=</span> <span class="n">NetflowHeader</span><span class="p">()</span><span class="o">/</span><span class="n">NetflowHeaderV5</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">NetflowRecordV5</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="s2">"192.168.0.1"</span><span class="p">)</span>
+<span class="n">pkt</span> <span class="o">=</span> <span class="n">Ether</span><span class="p">()</span><span class="o">/</span><span class="n">IP</span><span class="p">()</span><span class="o">/</span><span class="n">UDP</span><span class="p">()</span><span class="o">/</span><span class="n">netflow</span>
+</pre></div>
+</div>
+</section>
+<section id="netflowv9-ipfix">
+<h2>NetflowV9 / IPfix<a class="headerlink" href="#netflowv9-ipfix" title="Link to this heading"></a></h2>
+<p>Netflow v9 and IPfix use a template based system. This means that records that are sent over the wire require a “Template” to be sent previously in a Flowset packet.</p>
+<p>This template is required to understand thr format of the record, therefore needs to be provided when building or dissecting those.</p>
+<p>Fortunately, Scapy knows how to detect the templates and will provide dissecting methods that take care of that.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following examples apply to Netflow V9. When using IPfix, use the exact same format but replace the class names with their V10 counterpart (if they exist ! Scapy shares some classes between the two). Have a look at <a class="reference internal" href="../api/scapy.layers.netflow.html#module-scapy.layers.netflow" title="scapy.layers.netflow"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netflow</span></code></a></p>
+</div>
+<ul class="simple">
+<li><p><strong>Build</strong></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">header</span> <span class="o">=</span> <span class="n">Ether</span><span class="p">()</span><span class="o">/</span><span class="n">IP</span><span class="p">()</span><span class="o">/</span><span class="n">UDP</span><span class="p">()</span>
+<span class="n">netflow_header</span> <span class="o">=</span> <span class="n">NetflowHeader</span><span class="p">()</span><span class="o">/</span><span class="n">NetflowHeaderV9</span><span class="p">()</span>
+
+<span class="c1"># Let's first build the template. Those need an ID &gt; 255.</span>
+<span class="c1"># The (full) list of possible fieldType is available in the</span>
+<span class="c1"># NetflowV910TemplateFieldTypes list. You can also use the int value.</span>
+<span class="n">flowset</span> <span class="o">=</span> <span class="n">NetflowFlowsetV9</span><span class="p">(</span>
+    <span class="n">templates</span><span class="o">=</span><span class="p">[</span><span class="n">NetflowTemplateV9</span><span class="p">(</span>
+        <span class="n">template_fields</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">NetflowTemplateFieldV9</span><span class="p">(</span><span class="n">fieldType</span><span class="o">=</span><span class="s2">"IN_BYTES"</span><span class="p">,</span> <span class="n">fieldLength</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">NetflowTemplateFieldV9</span><span class="p">(</span><span class="n">fieldType</span><span class="o">=</span><span class="s2">"IN_PKTS"</span><span class="p">,</span> <span class="n">fieldLength</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+            <span class="n">NetflowTemplateFieldV9</span><span class="p">(</span><span class="n">fieldType</span><span class="o">=</span><span class="s2">"PROTOCOL"</span><span class="p">),</span>
+            <span class="n">NetflowTemplateFieldV9</span><span class="p">(</span><span class="n">fieldType</span><span class="o">=</span><span class="s2">"IPV4_SRC_ADDR"</span><span class="p">),</span>
+            <span class="n">NetflowTemplateFieldV9</span><span class="p">(</span><span class="n">fieldType</span><span class="o">=</span><span class="s2">"IPV4_DST_ADDR"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">templateID</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+        <span class="n">fieldCount</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="n">flowSetID</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+<span class="c1"># Let's generate the record class. This will be a Packet class</span>
+<span class="c1"># In case you provided several templates in ghe flowset, you will need</span>
+<span class="c1"># to pass the template ID as second parameter</span>
+<span class="n">recordClass</span> <span class="o">=</span> <span class="n">GetNetflowRecordV9</span><span class="p">(</span><span class="n">flowset</span><span class="p">)</span>
+<span class="c1"># Now lets build the data records</span>
+<span class="n">dataFS</span> <span class="o">=</span> <span class="n">NetflowDataflowsetV9</span><span class="p">(</span>
+    <span class="n">templateID</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">records</span><span class="o">=</span><span class="p">[</span> <span class="c1"># Some random data.</span>
+        <span class="n">recordClass</span><span class="p">(</span>
+            <span class="n">IN_BYTES</span><span class="o">=</span><span class="sa">b</span><span class="s2">"</span><span class="se">\x12</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">IN_PKTS</span><span class="o">=</span><span class="sa">b</span><span class="s2">"</span><span class="se">\0\0\0\0</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">PROTOCOL</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+            <span class="n">IPV4_SRC_ADDR</span><span class="o">=</span><span class="s2">"192.168.0.10"</span><span class="p">,</span>
+            <span class="n">IPV4_DST_ADDR</span><span class="o">=</span><span class="s2">"192.168.0.11"</span>
+        <span class="p">),</span>
+        <span class="n">recordClass</span><span class="p">(</span>
+            <span class="n">IN_BYTES</span><span class="o">=</span><span class="sa">b</span><span class="s2">"</span><span class="se">\x0c</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">IN_PKTS</span><span class="o">=</span><span class="sa">b</span><span class="s2">"</span><span class="se">\1\1\1\1</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">PROTOCOL</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">IPV4_SRC_ADDR</span><span class="o">=</span><span class="s2">"172.0.0.10"</span><span class="p">,</span>
+            <span class="n">IPV4_DST_ADDR</span><span class="o">=</span><span class="s2">"172.0.0.11"</span>
+        <span class="p">)</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="n">pkt</span> <span class="o">=</span> <span class="n">header</span> <span class="o">/</span> <span class="n">netflow_header</span> <span class="o">/</span> <span class="n">flowset</span> <span class="o">/</span> <span class="n">dataFS</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Dissection</strong></p></li>
+</ul>
+<p>Scapy provides two methods to parse NetflowV9/IPFix:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.netflow.html#scapy.layers.netflow.NetflowSession" title="scapy.layers.netflow.NetflowSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetflowSession</span></code></a>: to use with <code class="docutils literal notranslate"><span class="pre">sniff(session=NetflowV9Session,</span> <span class="pre">[...])</span></code></p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.netflow.html#scapy.layers.netflow.netflowv9_defragment" title="scapy.layers.netflow.netflowv9_defragment"><code class="xref py py-func docutils literal notranslate"><span class="pre">netflowv9_defragment()</span></code></a>: to use on a packet or list of packets.</p></li>
+</ul>
+<p>With the previous example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pkt</span> <span class="o">=</span> <span class="n">Ether</span><span class="p">(</span><span class="n">raw</span><span class="p">(</span><span class="n">pkt</span><span class="p">))</span>  <span class="c1"># will loose the defragmentation</span>
+<span class="n">pkt</span> <span class="o">=</span> <span class="n">netflowv9_defragment</span><span class="p">(</span><span class="n">pkt</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ldap.html" class="btn btn-neutral float-left" title="LDAP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pnio.html" class="btn btn-neutral float-right" title="PROFINET IO RTC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

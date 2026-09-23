@@ -1,0 +1,907 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.msrpce.mspac &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.msrpce.rpcclient" href="scapy.layers.msrpce.rpcclient.html" />
+    <link rel="prev" title="scapy.layers.msrpce.msnrpc" href="scapy.layers.msrpce.msnrpc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.ept.html">scapy.layers.msrpce.ept</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.msdcom.html">scapy.layers.msrpce.msdcom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.msdrsr.html">scapy.layers.msrpce.msdrsr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.mseerr.html">scapy.layers.msrpce.mseerr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.msnrpc.html">scapy.layers.msrpce.msnrpc</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">scapy.layers.msrpce.mspac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.rpcclient.html">scapy.layers.msrpce.rpcclient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.msrpce.rpcserver.html">scapy.layers.msrpce.rpcserver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.msrpce.mspac</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.msrpce.mspac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.msrpce.mspac">
+<span id="scapy-layers-msrpce-mspac"></span><h1>scapy.layers.msrpce.mspac<a class="headerlink" href="#module-scapy.layers.msrpce.mspac" title="Link to this heading"></a></h1>
+<p>[MS-PAC]</p>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-pac/166d8064-c863-41e1-9c23-edaaa5f36962">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-pac/166d8064-c863-41e1-9c23-edaaa5f36962</a>
+Up to date with version: 23.0</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_ARRAY">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIMS_ARRAY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">usClaimsSourceType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulClaimsCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ClaimEntries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L576-L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_ARRAY" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_ARRAY.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_ARRAY.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_ARRAY.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIMS_ARRAY'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_ARRAY.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_ARRAY.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRInt3264EnumField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(CLAIMS_ARRAY).ulClaimsCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_ARRAY.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIMS_COMPRESSION_FORMAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L458-L462"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_LZNT1">
+<span class="sig-name descname"><span class="pre">COMPRESSION_FORMAT_LZNT1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_LZNT1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_NONE">
+<span class="sig-name descname"><span class="pre">COMPRESSION_FORMAT_NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_NONE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_XPRESS">
+<span class="sig-name descname"><span class="pre">COMPRESSION_FORMAT_XPRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_XPRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_XPRESS_HUFF">
+<span class="sig-name descname"><span class="pre">COMPRESSION_FORMAT_XPRESS_HUFF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_COMPRESSION_FORMAT.COMPRESSION_FORMAT_XPRESS_HUFF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIMS_SET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulClaimsArrayCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ClaimsArrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usReservedType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulReservedFieldSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ReservedField</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L592-L611"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIMS_SET'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(CLAIMS_SET).ulClaimsArrayCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRShortField</span> <span class="pre">(CLAIMS_SET).usReservedType&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(CLAIMS_SET).ulReservedFieldSize&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIMS_SET_METADATA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulClaimsSetSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ClaimsSet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usCompressionFormat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulUncompressedClaimsSetSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usReservedType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulReservedFieldSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ReservedField</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L640-L663"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(CLAIMS_SET_METADATA).ulClaimsSetSize&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRInt3264EnumField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(CLAIMS_SET_METADATA).ulUncompressedClaimsSetSize&gt;,</span> <span class="pre">&lt;NDRShortField</span> <span class="pre">(CLAIMS_SET_METADATA).usReservedType&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(CLAIMS_SET_METADATA).ulReservedFieldSize&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SET_METADATA.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SOURCE_TYPE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIMS_SOURCE_TYPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L453-L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SOURCE_TYPE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SOURCE_TYPE.CLAIMS_SOURCE_TYPE_AD">
+<span class="sig-name descname"><span class="pre">CLAIMS_SOURCE_TYPE_AD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SOURCE_TYPE.CLAIMS_SOURCE_TYPE_AD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIMS_SOURCE_TYPE.CLAIMS_SOURCE_TYPE_CERTIFICATE">
+<span class="sig-name descname"><span class="pre">CLAIMS_SOURCE_TYPE_CERTIFICATE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIMS_SOURCE_TYPE.CLAIMS_SOURCE_TYPE_CERTIFICATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIM_ENTRY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L521-L573"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIM_ENTRY'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRInt3264EnumField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRUnionField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIM_ENTRY_sub0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ValueCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Int64Values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L465-L477"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(CLAIM_ENTRY_sub0).ValueCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub0.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIM_ENTRY_sub1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ValueCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Uint64Values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L480-L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(CLAIM_ENTRY_sub1).ValueCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub1.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIM_ENTRY_sub2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ValueCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">StringValues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L492-L506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(CLAIM_ENTRY_sub2).ValueCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub2.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIM_ENTRY_sub3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ValueCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BooleanValues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L509-L518"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(CLAIM_ENTRY_sub3).ValueCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_ENTRY_sub3.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_TYPE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CLAIM_TYPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L446-L450"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_TYPE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_BOOLEAN">
+<span class="sig-name descname"><span class="pre">CLAIM_TYPE_BOOLEAN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_BOOLEAN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_INT64">
+<span class="sig-name descname"><span class="pre">CLAIM_TYPE_INT64</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_INT64" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_STRING">
+<span class="sig-name descname"><span class="pre">CLAIM_TYPE_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_UINT64">
+<span class="sig-name descname"><span class="pre">CLAIM_TYPE_UINT64</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CLAIM_TYPE.CLAIM_TYPE_UINT64" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CYPHER_BLOCK">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">CYPHER_BLOCK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L140-L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.CYPHER_BLOCK" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CYPHER_BLOCK.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.CYPHER_BLOCK'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CYPHER_BLOCK.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.CYPHER_BLOCK.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(CYPHER_BLOCK).data&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.CYPHER_BLOCK.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">DOMAIN_GROUP_MEMBERSHIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GroupCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GroupIds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L678-L691"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(DOMAIN_GROUP_MEMBERSHIP).GroupCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.DOMAIN_GROUP_MEMBERSHIP.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.FILETIME">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">FILETIME</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dwLowDateTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dwHighDateTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L130-L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.FILETIME" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.FILETIME.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">4)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.FILETIME.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.FILETIME.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.FILETIME'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.FILETIME.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.FILETIME.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(FILETIME).dwLowDateTime&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(FILETIME).dwHighDateTime&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.FILETIME.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">GROUP_MEMBERSHIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">RelativeId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L135-L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">4)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(GROUP_MEMBERSHIP).RelativeId&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(GROUP_MEMBERSHIP).Attributes&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.GROUP_MEMBERSHIP.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">KERB_SID_AND_ATTRIBUTES</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Sid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L176-L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_SID_AND_ATTRIBUTES).Attributes&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_SID_AND_ATTRIBUTES.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">KERB_VALIDATION_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogonTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;FILETIME</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogoffTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;FILETIME</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KickOffTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;FILETIME</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PasswordLastSet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;FILETIME</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PasswordCanChange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;FILETIME</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PasswordMustChange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;FILETIME</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EffectiveName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FullName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogonScript</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProfilePath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HomeDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HomeDirectoryDrive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogonCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BadPasswordCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PrimaryGroupId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GroupCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GroupIds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserSessionKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;USER_SESSION_KEY</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogonServer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogonDomainName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LogonDomainId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Reserved1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserAccountControl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Reserved3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SidCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExtraSids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ResourceGroupDomainSid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ResourceGroupCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ResourceGroupIds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L184-L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRShortField</span> <span class="pre">(KERB_VALIDATION_INFO).LogonCount&gt;,</span> <span class="pre">&lt;NDRShortField</span> <span class="pre">(KERB_VALIDATION_INFO).BadPasswordCount&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).UserId&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).PrimaryGroupId&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).GroupCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).UserFlags&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRFieldListField</span> <span class="pre">(KERB_VALIDATION_INFO).Reserved1&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).UserAccountControl&gt;,</span> <span class="pre">&lt;NDRFieldListField</span> <span class="pre">(KERB_VALIDATION_INFO).Reserved3&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).SidCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(KERB_VALIDATION_INFO).ResourceGroupCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.KERB_VALIDATION_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PACTYPE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PACTYPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">_pkt,</span> <span class="pre">/,</span> <span class="pre">*,</span> <span class="pre">cBuffers=None,</span> <span class="pre">Version=0,</span> <span class="pre">Buffers=[&lt;PAC_INFO_BUFFER</span>&#160; <span class="pre">|&gt;],</span> <span class="pre">Payloads=[]</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L850-L871"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PACTYPE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PACTYPE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PACTYPE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PACTYPE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PACTYPE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;FieldLenField</span> <span class="pre">(PACTYPE).cBuffers&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(PACTYPE).Version&gt;,</span> <span class="pre">&lt;_PACTYPEBuffers</span> <span class="pre">(PACTYPE).Buffers&gt;,</span> <span class="pre">&lt;_PACTYPEPayloads</span> <span class="pre">(PACTYPE).Payloads&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PACTYPE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PACTYPE.getPayload">
+<span class="sig-name descname"><span class="pre">getPayload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ulType</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L864-L871"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PACTYPE.getPayload" title="Link to this definition"></a></dt>
+<dd><p>Get a payload if it exists.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_ATTRIBUTES_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">_pkt,</span> <span class="pre">/,</span> <span class="pre">*,</span> <span class="pre">FlagsLength=2,</span> <span class="pre">Flags=[&lt;Flag</span> <span class="pre">1</span> <span class="pre">(PAC_WAS_REQUESTED)&gt;]</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L737-L754"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntField</span> <span class="pre">(PAC_ATTRIBUTES_INFO).FlagsLength&gt;,</span> <span class="pre">&lt;FieldListField</span> <span class="pre">(PAC_ATTRIBUTES_INFO).Flags&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_ATTRIBUTES_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_CLIENT_CLAIMS_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Claims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;CLAIMS_SET_METADATA</span>&#160; <span class="pre">|&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L666-L667"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CLIENT_CLAIMS_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CLIENT_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_CLIENT_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ClientId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NameLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L272-L279"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CLIENT_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CLIENT_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_CLIENT_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CLIENT_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CLIENT_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;UTCTimeField</span> <span class="pre">(PAC_CLIENT_INFO).ClientId&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(PAC_CLIENT_INFO).NameLength&gt;,</span> <span class="pre">&lt;StrLenFieldUtf16</span> <span class="pre">(PAC_CLIENT_INFO).Name&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CLIENT_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_CREDENTIAL_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptionType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SerializedData</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L249-L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntField</span> <span class="pre">(PAC_CREDENTIAL_INFO).Version&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(PAC_CREDENTIAL_INFO).EncryptionType&gt;,</span> <span class="pre">&lt;XStrField</span> <span class="pre">(PAC_CREDENTIAL_INFO).SerializedData&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_CREDENTIAL_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_DEVICE_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_DEVICE_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PrimaryGroupId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountDomainId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountGroupCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountGroupIds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SidCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExtraSids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainGroupCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainGroup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L694-L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_DEVICE_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_DEVICE_INFO.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_DEVICE_INFO.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_DEVICE_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_DEVICE_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_DEVICE_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_DEVICE_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRIntField</span> <span class="pre">(PAC_DEVICE_INFO).UserId&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(PAC_DEVICE_INFO).PrimaryGroupId&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(PAC_DEVICE_INFO).AccountGroupCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(PAC_DEVICE_INFO).SidCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(PAC_DEVICE_INFO).DomainGroupCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_DEVICE_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_INFO_BUFFER">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_INFO_BUFFER</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbBufferSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L76-L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_INFO_BUFFER" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_INFO_BUFFER.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_INFO_BUFFER'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_INFO_BUFFER.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_INFO_BUFFER.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L102-L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_INFO_BUFFER.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_INFO_BUFFER.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntEnumField</span> <span class="pre">(PAC_INFO_BUFFER).ulType&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(PAC_INFO_BUFFER).cbBufferSize&gt;,</span> <span class="pre">&lt;LELongField</span> <span class="pre">(PAC_INFO_BUFFER).Offset&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_INFO_BUFFER.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_REQUESTOR_GUID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Guid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L773-L776"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;UUIDField</span> <span class="pre">(PAC_REQUESTOR_GUID).Guid&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_REQUESTOR_GUID.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_REQUESTOR_SID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Sid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;WINNT_SID</span>&#160; <span class="pre">IdentifierAuthority=&lt;WINNT_SID_IDENTIFIER_AUTHORITY</span>&#160; <span class="pre">|&gt;</span> <span class="pre">SubAuthority=[0]</span> <span class="pre">|&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L762-L765"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;PacketField</span> <span class="pre">(PAC_REQUESTOR_SID).Sid&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_REQUESTOR_SID.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">PAC_SIGNATURE_DATA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">SignatureType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RODCIdentifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L287-L305"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntEnumField</span> <span class="pre">(PAC_SIGNATURE_DATA).SignatureType&gt;,</span> <span class="pre">&lt;XStrLenField</span> <span class="pre">(PAC_SIGNATURE_DATA).Signature&gt;,</span> <span class="pre">&lt;StrField</span> <span class="pre">(PAC_SIGNATURE_DATA).RODCIdentifier&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.PAC_SIGNATURE_DATA.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">RPC_SID_IDENTIFIER_AUTHORITY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L148-L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(RPC_SID_IDENTIFIER_AUTHORITY).Value&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_SID_IDENTIFIER_AUTHORITY.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_UNICODE_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">RPC_UNICODE_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MaximumLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Buffer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L112-L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_UNICODE_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_UNICODE_STRING.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_UNICODE_STRING.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_UNICODE_STRING.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.RPC_UNICODE_STRING'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_UNICODE_STRING.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.RPC_UNICODE_STRING.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;NDRShortField</span> <span class="pre">(RPC_UNICODE_STRING).Length&gt;,</span> <span class="pre">&lt;NDRShortField</span> <span class="pre">(RPC_UNICODE_STRING).MaximumLength&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.RPC_UNICODE_STRING.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">S4U_DELEGATION_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S4U2proxyTarget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_UNICODE_STRING</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TransitedListSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S4UTransitedServices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L316-L329"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRIntField</span> <span class="pre">(S4U_DELEGATION_INFO).TransitedListSize&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRFullEmbPointerField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.S4U_DELEGATION_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.SID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">SID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Revision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SubAuthorityCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IdentifierAuthority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;RPC_SID_IDENTIFIER_AUTHORITY</span>&#160; <span class="pre">|&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SubAuthority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L152-L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.SID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.SID.ALIGNMENT">
+<span class="sig-name descname"><span class="pre">ALIGNMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(4,</span> <span class="pre">8)</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.SID.ALIGNMENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.SID.DEPORTED_CONFORMANTS">
+<span class="sig-name descname"><span class="pre">DEPORTED_CONFORMANTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['SubAuthority']</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.SID.DEPORTED_CONFORMANTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.SID.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.SID'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.SID.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.SID.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;_VirtualField</span> <span class="pre">().max_count&gt;,</span> <span class="pre">&lt;NDRByteField</span> <span class="pre">(SID).Revision&gt;,</span> <span class="pre">&lt;NDRByteField</span> <span class="pre">(SID).SubAuthorityCount&gt;,</span> <span class="pre">&lt;scapy.layers.dcerpc.NDRPacketField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;NDRConfFieldListField</span> <span class="pre">(SID).SubAuthority&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.SID.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.SID.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L172-L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.SID.summary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.UPN_DNS_INFO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">UPN_DNS_INFO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UpnLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UpnBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DnsDomainNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DnsDomainNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SamNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SamNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SidLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SidBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L350-L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.UPN_DNS_INFO" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_NTLMPayloadPacket</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.UPN_DNS_INFO.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.UPN_DNS_INFO'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.UPN_DNS_INFO.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.UPN_DNS_INFO.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEShortField</span> <span class="pre">(UPN_DNS_INFO).UpnLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(UPN_DNS_INFO).UpnBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(UPN_DNS_INFO).DnsDomainNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(UPN_DNS_INFO).DnsDomainNameBufferOffset&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(UPN_DNS_INFO).Flags&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.UPN_DNS_INFO.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.UPN_DNS_INFO.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L414-L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.UPN_DNS_INFO.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.USER_SESSION_KEY">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.msrpce.mspac.</span></span><span class="sig-name descname"><span class="pre">USER_SESSION_KEY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/msrpce/mspac.py#L144-L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.msrpce.mspac.USER_SESSION_KEY" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.dcerpc.html#scapy.layers.dcerpc.NDRPacket" title="scapy.layers.dcerpc.NDRPacket"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRPacket</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.USER_SESSION_KEY.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.msrpce.mspac.USER_SESSION_KEY'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc.NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dcerpc._NDRPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.USER_SESSION_KEY.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.msrpce.mspac.USER_SESSION_KEY.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;PacketListField</span> <span class="pre">(USER_SESSION_KEY).data&gt;]</span></span><a class="headerlink" href="#scapy.layers.msrpce.mspac.USER_SESSION_KEY.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.msrpce.msnrpc.html" class="btn btn-neutral float-left" title="scapy.layers.msrpce.msnrpc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.msrpce.rpcclient.html" class="btn btn-neutral float-right" title="scapy.layers.msrpce.rpcclient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

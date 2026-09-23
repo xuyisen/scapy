@@ -1,0 +1,1316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.contrib.tcpros &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.contrib.tzsp" href="scapy.contrib.tzsp.html" />
+    <link rel="prev" title="scapy.contrib.tcpao" href="scapy.contrib.tcpao.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isotp.html">scapy.contrib.isotp package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtps.html">scapy.contrib.rtps package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.altbeacon.html">scapy.contrib.altbeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.aoe.html">scapy.contrib.aoe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.avs.html">scapy.contrib.avs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bfd.html">scapy.contrib.bfd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bgp.html">scapy.contrib.bgp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bier.html">scapy.contrib.bier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bp.html">scapy.contrib.bp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket.html">scapy.contrib.cansocket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_native.html">scapy.contrib.cansocket_native</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_python_can.html">scapy.contrib.cansocket_python_can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.carp.html">scapy.contrib.carp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cdp.html">scapy.contrib.cdp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.chdlc.html">scapy.contrib.chdlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.coap.html">scapy.contrib.coap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.concox.html">scapy.contrib.concox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.diameter.html">scapy.contrib.diameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.dtp.html">scapy.contrib.dtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eddystone.html">scapy.contrib.eddystone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eigrp.html">scapy.contrib.eigrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.enipTCP.html">scapy.contrib.enipTCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.erspan.html">scapy.contrib.erspan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.esmc.html">scapy.contrib.esmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ethercat.html">scapy.contrib.ethercat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.etherip.html">scapy.contrib.etherip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.exposure_notification.html">scapy.contrib.exposure_notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.geneve.html">scapy.contrib.geneve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp.html">scapy.contrib.gtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp_v2.html">scapy.contrib.gtp_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gxrp.html">scapy.contrib.gxrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.hicp.html">scapy.contrib.hicp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugav.html">scapy.contrib.homeplugav</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homepluggp.html">scapy.contrib.homepluggp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugsg.html">scapy.contrib.homeplugsg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.http2.html">scapy.contrib.http2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ibeacon.html">scapy.contrib.ibeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.icmp_extensions.html">scapy.contrib.icmp_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ife.html">scapy.contrib.ife</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmp.html">scapy.contrib.igmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmpv3.html">scapy.contrib.igmpv3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ikev2.html">scapy.contrib.ikev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isis.html">scapy.contrib.isis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.knx.html">scapy.contrib.knx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lacp.html">scapy.contrib.lacp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ldp.html">scapy.contrib.ldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lldp.html">scapy.contrib.lldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.loraphy2wan.html">scapy.contrib.loraphy2wan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ltp.html">scapy.contrib.ltp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mac_control.html">scapy.contrib.mac_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.macsec.html">scapy.contrib.macsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.metawatch.html">scapy.contrib.metawatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.modbus.html">scapy.contrib.modbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mount.html">scapy.contrib.mount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mpls.html">scapy.contrib.mpls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqtt.html">scapy.contrib.mqtt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqttsn.html">scapy.contrib.mqttsn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nfs.html">scapy.contrib.nfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nlm.html">scapy.contrib.nlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nrf_sniffer.html">scapy.contrib.nrf_sniffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nsh.html">scapy.contrib.nsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oam.html">scapy.contrib.oam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oncrpc.html">scapy.contrib.oncrpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.opc_da.html">scapy.contrib.opc_da</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow.html">scapy.contrib.openflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow3.html">scapy.contrib.openflow3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ospf.html">scapy.contrib.ospf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pfcp.html">scapy.contrib.pfcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pim.html">scapy.contrib.pim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio.html">scapy.contrib.pnio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_dcp.html">scapy.contrib.pnio_dcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_rpc.html">scapy.contrib.pnio_rpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.portmap.html">scapy.contrib.portmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.postgres.html">scapy.contrib.postgres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_cace.html">scapy.contrib.ppi_cace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_geotag.html">scapy.contrib.ppi_geotag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.psp.html">scapy.contrib.psp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ripng.html">scapy.contrib.ripng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.roce.html">scapy.contrib.roce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl.html">scapy.contrib.rpl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl_metrics.html">scapy.contrib.rpl_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rsvp.html">scapy.contrib.rsvp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtcp.html">scapy.contrib.rtcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtr.html">scapy.contrib.rtr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtsp.html">scapy.contrib.rtsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sdnv.html">scapy.contrib.sdnv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sebek.html">scapy.contrib.sebek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.send.html">scapy.contrib.send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.skinny.html">scapy.contrib.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.slowprot.html">scapy.contrib.slowprot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.socks.html">scapy.contrib.socks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stamp.html">scapy.contrib.stamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stun.html">scapy.contrib.stun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tacacs.html">scapy.contrib.tacacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpao.html">scapy.contrib.tcpao</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.contrib.tcpros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tzsp.html">scapy.contrib.tzsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vqp.html">scapy.contrib.vqp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vtp.html">scapy.contrib.vtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.wireguard.html">scapy.contrib.wireguard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.html">scapy.contrib package</a></li>
+      <li class="breadcrumb-item active">scapy.contrib.tcpros</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.contrib.tcpros.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.contrib.tcpros">
+<span id="scapy-contrib-tcpros"></span><h1>scapy.contrib.tcpros<a class="headerlink" href="#module-scapy.contrib.tcpros" title="Link to this heading"></a></h1>
+<p>TCPROS transport layer for ROS Melodic Morenia 1.14.5</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROS">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">TCPROS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L28-L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>TCPROS is a transport layer for ROS Messages and Services. It uses standard
+TCP/IP sockets for transporting message data. Inbound connections are
+received via a TCP Server Socket with a header containing message data type
+and routing information.</p>
+<p>This class focuses on capturing the ROS Slave API</p>
+<p>An example package is presented below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B0</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">26</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">63</span> <span class="mi">61</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">69</span> <span class="mi">64</span>  <span class="o">....&amp;...</span><span class="n">callerid</span>
+<span class="mi">3</span><span class="n">D</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">72</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">70</span> <span class="mi">69</span> <span class="mi">63</span> <span class="mi">5</span><span class="n">F</span> <span class="mi">38</span> <span class="mi">38</span> <span class="mi">33</span> <span class="mi">30</span> <span class="mi">35</span>  <span class="o">=/</span><span class="n">rostopic_88305</span>
+<span class="mi">5</span><span class="n">F</span> <span class="mi">31</span> <span class="mi">35</span> <span class="mi">39</span> <span class="mi">31</span> <span class="mi">35</span> <span class="mi">33</span> <span class="mi">38</span> <span class="mi">37</span> <span class="mi">38</span> <span class="mi">37</span> <span class="mi">35</span> <span class="mi">30</span> <span class="mi">31</span> <span class="mi">0</span><span class="n">A</span> <span class="mi">00</span>  <span class="n">_1591538787501</span><span class="o">..</span>
+<span class="mi">00</span> <span class="mi">00</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">63</span> <span class="mi">68</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">67</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">31</span> <span class="mi">27</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="o">..</span><span class="n">latching</span><span class="o">=</span><span class="mi">1</span><span class="s1">'...</span>
+<span class="mi">6</span><span class="n">D</span> <span class="mi">64</span> <span class="mi">35</span> <span class="mi">73</span> <span class="mi">75</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">39</span> <span class="mi">39</span> <span class="mi">32</span> <span class="mi">63</span> <span class="mi">65</span> <span class="mi">38</span> <span class="mi">61</span> <span class="mi">31</span> <span class="mi">36</span>  <span class="n">md5sum</span><span class="o">=</span><span class="mi">992</span><span class="n">ce8a16</span>
+<span class="mi">38</span> <span class="mi">37</span> <span class="mi">63</span> <span class="mi">65</span> <span class="mi">63</span> <span class="mi">38</span> <span class="mi">63</span> <span class="mi">38</span> <span class="mi">62</span> <span class="mi">64</span> <span class="mi">38</span> <span class="mi">38</span> <span class="mi">33</span> <span class="mi">65</span> <span class="mi">63</span> <span class="mi">37</span>  <span class="mi">87</span><span class="n">cec8c8bd883ec7</span>
+<span class="mi">33</span> <span class="mi">63</span> <span class="mi">61</span> <span class="mi">34</span> <span class="mi">31</span> <span class="mi">64</span> <span class="mi">31</span> <span class="mi">1</span><span class="n">F</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">65</span> <span class="mi">73</span> <span class="mi">73</span> <span class="mi">61</span>  <span class="mi">3</span><span class="n">ca41d1</span><span class="o">....</span><span class="n">messa</span>
+<span class="mi">67</span> <span class="mi">65</span> <span class="mi">5</span><span class="n">F</span> <span class="mi">64</span> <span class="mi">65</span> <span class="mi">66</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">69</span> <span class="mi">74</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">73</span> <span class="mi">74</span>  <span class="n">ge_definition</span><span class="o">=</span><span class="n">st</span>
+<span class="mi">72</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">67</span> <span class="mi">20</span> <span class="mi">64</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">61</span> <span class="mi">0</span><span class="n">A</span> <span class="mi">0</span><span class="n">E</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="mi">6</span><span class="n">F</span>  <span class="n">ring</span> <span class="n">data</span><span class="o">.....</span><span class="n">to</span>
+<span class="mi">70</span> <span class="mi">69</span> <span class="mi">63</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">63</span> <span class="mi">68</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">74</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">14</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="n">pic</span><span class="o">=/</span><span class="n">chatter</span><span class="o">....</span>
+<span class="mi">74</span> <span class="mi">79</span> <span class="mi">70</span> <span class="mi">65</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">64</span> <span class="mi">5</span><span class="n">F</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">73</span> <span class="mi">67</span> <span class="mi">73</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">53</span> <span class="mi">74</span>  <span class="nb">type</span><span class="o">=</span><span class="n">std_msgs</span><span class="o">/</span><span class="n">St</span>
+<span class="mi">72</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">67</span>                                      <span class="n">ring</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Sources:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="http://wiki.ros.org/ROS/TCPROS">http://wiki.ros.org/ROS/TCPROS</a></p></li>
+<li><p><a class="reference external" href="http://wiki.ros.org/ROS/Connection%20Header">http://wiki.ros.org/ROS/Connection%20Header</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/struct.html">https://docs.python.org/3/library/struct.html</a></p></li>
+<li><p><a class="reference external" href="https://scapy.readthedocs.io/en/latest/build_dissect.html">https://scapy.readthedocs.io/en/latest/build_dissect.html</a></p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>4-byte length + [4-byte field length + field=value ]*</p></li>
+<li><dl class="simple">
+<dt>All length fields are little-endian integers. Field names and</dt><dd><p>values are strings.</p>
+</dd>
+</dl>
+</li>
+<li><p>Cooked as of ROS Melodic Morenia v1.14.5.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROS.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.TCPROS'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROS.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROS.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L71-L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROS.guess_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">TCPROSBody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L235-L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>TCPROS body type of package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span><span class="n">body_l</span><span class="o">.|</span>  <span class="n">len1</span> <span class="o">|</span>                    <span class="n">element1</span>                   <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>               <span class="o">|</span>  <span class="n">len2</span> <span class="o">|</span>                                       <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+</span>                                       <span class="o">+</span>
+<span class="o">|</span>                            <span class="n">element2</span>                           <span class="o">|</span>
+<span class="o">+</span>                       <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                       <span class="o">|</span>  <span class="o">...</span>  <span class="o">|</span>                               <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>                               <span class="o">+</span>
+<span class="o">|</span>                                                               <span class="o">|</span>
+<span class="o">+</span>                              <span class="o">...</span>                              <span class="o">+</span>
+<span class="o">|</span>                                                               <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Generated with::</dt><dd><dl class="simple">
+<dt>protocol “body_length:4,len1:4,element1:32,len2:4,</dt><dd><p>element2:64,…:4,…:80” –bits 32</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>As per ROS Melodic Morenia v1.14.5. this package is generally
+seen separated from a TCPROSHeader. A simple such package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">12</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">0</span><span class="n">E</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">68</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">20</span> <span class="mi">77</span> <span class="mi">6</span><span class="n">F</span>  <span class="o">........</span><span class="n">hello</span> <span class="n">wo</span>
+<span class="mi">72</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">64</span> <span class="mi">20</span> <span class="mi">31</span> <span class="mi">36</span>                                <span class="n">rld</span> <span class="mi">16</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.TCPROSBody'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.comments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.default_fields">
+<span class="sig-name descname"><span class="pre">default_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.default_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.direction">
+<span class="sig-name descname"><span class="pre">direction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.direction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.do_dissect_payload">
+<span class="sig-name descname"><span class="pre">do_dissect_payload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L302-L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.do_dissect_payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.explicit">
+<span class="sig-name descname"><span class="pre">explicit</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.explicit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.extract_padding">
+<span class="sig-name descname"><span class="pre">extract_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L305-L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.extract_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;FieldLenField</span> <span class="pre">(TCPROSBody).body_length&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(TCPROSBody).list&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.fieldtype">
+<span class="sig-name descname"><span class="pre">fieldtype</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.fieldtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.nfields_body">
+<span class="sig-name descname"><span class="pre">nfields_body</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.nfields_body" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.original">
+<span class="sig-name descname"><span class="pre">original</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.original" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.overload_fields">
+<span class="sig-name descname"><span class="pre">overload_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.overload_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.overloaded_fields">
+<span class="sig-name descname"><span class="pre">overloaded_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.overloaded_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.packetfields">
+<span class="sig-name descname"><span class="pre">packetfields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.packetfields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.parent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.payload">
+<span class="sig-name descname"><span class="pre">payload</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.post_transforms">
+<span class="sig-name descname"><span class="pre">post_transforms</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.post_transforms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.pre_dissect">
+<span class="sig-name descname"><span class="pre">pre_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L278-L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.pre_dissect" title="Link to this definition"></a></dt>
+<dd><p>Called to prepare the layer before dissection</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.process_information">
+<span class="sig-name descname"><span class="pre">process_information</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.process_information" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.raw_packet_cache">
+<span class="sig-name descname"><span class="pre">raw_packet_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.raw_packet_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.raw_packet_cache_fields">
+<span class="sig-name descname"><span class="pre">raw_packet_cache_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.raw_packet_cache_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.sent_time">
+<span class="sig-name descname"><span class="pre">sent_time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.sent_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.sniffed_on">
+<span class="sig-name descname"><span class="pre">sniffed_on</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.sniffed_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.stop_dissection_after">
+<span class="sig-name descname"><span class="pre">stop_dissection_after</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.stop_dissection_after" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.time">
+<span class="sig-name descname"><span class="pre">time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.underlayer">
+<span class="sig-name descname"><span class="pre">underlayer</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.underlayer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBody.wirelen">
+<span class="sig-name descname"><span class="pre">wirelen</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBody.wirelen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBodyVariation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">TCPROSBodyVariation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L309-L380"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBodyVariation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.tcpros.TCPROSBody" title="scapy.contrib.tcpros.TCPROSBody"><code class="xref py py-class docutils literal notranslate"><span class="pre">TCPROSBody</span></code></a></p>
+<p>TCPROS body variation type of package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span><span class="n">body_l</span><span class="o">.|</span><span class="n">sequen</span><span class="o">.|</span>        <span class="n">signature</span>        <span class="o">|</span>  <span class="n">len1</span> <span class="o">|</span>             <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                     <span class="n">element1</span>                    <span class="o">|</span>  <span class="o">...</span>  <span class="o">|</span>     <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>     <span class="o">+</span>
+<span class="o">|</span>                                                               <span class="o">|</span>
+<span class="o">+</span>                              <span class="o">...</span>                              <span class="o">+</span>
+<span class="o">|</span>                                                               <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Generated with::</dt><dd><dl class="simple">
+<dt>protocol “body_length:4,sequence:4,signature:13,len1:4,</dt><dd><p>element1:32,…:4,…:67” –bits 32</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>As per ROS Melodic Morenia v1.14.5. this package is generally
+seen separated from a TCPROSHeader. An exemplary such package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AB 00 00 00 00 00 00 00 7D 81 03 5F 7C A4 3F 0E  ........}.._|.?.
+00 00 00 00 02 09 00 00 00 2F 6C 69 73 74 65 6E  ........./listen
+65 72 18 00 00 00 49 20 68 65 61 72 64 3A 20 5B  er....I heard: [
+68 65 6C 6C 6F 20 77 6F 72 6C 64 20 33 5D 47 00  hello world 3]G.
+00 00 2F 74 6D 70 2F 62 69 6E 61 72 79 64 65 62  ../tmp/binarydeb
+2F 72 6F 73 2D 6D 65 6C 6F 64 69 63 2D 72 6F 73  /ros-melodic-ros
+63 70 70 2D 74 75 74 6F 72 69 61 6C 73 2D 30 2E  cpp-tutorials-0.
+39 2E 32 2F 6C 69 73 74 65 6E 65 72 2F 6C 69 73  9.2/listener/lis
+74 65 6E 65 72 2E 63 70 70 0F 00 00 00 63 68 61  tener.cpp....cha
+74 74 65 72 43 61 6C 6C 62 61 63 6B 26 00 00 00  tterCallback&amp;...
+01 00 00 00 07 00 00 00 2F 72 6F 73 6F 75 74     ......../rosout
+</pre></div>
+</div>
+<p>and the next one referring also to ‘/listener’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AB</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">7</span><span class="n">D</span> <span class="mi">81</span> <span class="mi">03</span> <span class="mi">5</span><span class="n">F</span> <span class="mi">00</span> <span class="mi">54</span> <span class="mi">42</span> <span class="mi">14</span>  <span class="o">........</span><span class="p">}</span><span class="o">..</span><span class="n">_</span><span class="o">.</span><span class="n">TB</span><span class="o">.</span>
+<span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">09</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">69</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">E</span>  <span class="o">........./</span><span class="n">listen</span>
+<span class="mi">65</span> <span class="mi">72</span> <span class="mi">18</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">49</span> <span class="mi">20</span> <span class="mi">68</span> <span class="mi">65</span> <span class="mi">61</span> <span class="mi">72</span> <span class="mi">64</span> <span class="mi">3</span><span class="n">A</span> <span class="mi">20</span> <span class="mi">5</span><span class="n">B</span>  <span class="n">er</span><span class="o">....</span><span class="n">I</span> <span class="n">heard</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">68</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">20</span> <span class="mi">77</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">72</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">64</span> <span class="mi">20</span> <span class="mi">34</span> <span class="mi">5</span><span class="n">D</span> <span class="mi">47</span> <span class="mi">00</span>  <span class="n">hello</span> <span class="n">world</span> <span class="mi">4</span><span class="p">]</span><span class="n">G</span><span class="o">.</span>
+<span class="mi">00</span> <span class="mi">00</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">74</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">70</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">62</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">61</span> <span class="mi">72</span> <span class="mi">79</span> <span class="mi">64</span> <span class="mi">65</span> <span class="mi">62</span>  <span class="o">../</span><span class="n">tmp</span><span class="o">/</span><span class="n">binarydeb</span>
+<span class="mi">2</span><span class="n">F</span> <span class="mi">72</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">73</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">64</span> <span class="mi">69</span> <span class="mi">63</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">72</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">73</span>  <span class="o">/</span><span class="n">ros</span><span class="o">-</span><span class="n">melodic</span><span class="o">-</span><span class="n">ros</span>
+<span class="mi">63</span> <span class="mi">70</span> <span class="mi">70</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">74</span> <span class="mi">75</span> <span class="mi">74</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">72</span> <span class="mi">69</span> <span class="mi">61</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">73</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">30</span> <span class="mi">2</span><span class="n">E</span>  <span class="n">cpp</span><span class="o">-</span><span class="n">tutorials</span><span class="o">-</span><span class="mf">0.</span>
+<span class="mi">39</span> <span class="mi">2</span><span class="n">E</span> <span class="mi">32</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">69</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">69</span> <span class="mi">73</span>  <span class="mf">9.2</span><span class="o">/</span><span class="n">listener</span><span class="o">/</span><span class="n">lis</span>
+<span class="mi">74</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">2</span><span class="n">E</span> <span class="mi">63</span> <span class="mi">70</span> <span class="mi">70</span> <span class="mi">0</span><span class="n">F</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">63</span> <span class="mi">68</span> <span class="mi">61</span>  <span class="n">tener</span><span class="o">.</span><span class="n">cpp</span><span class="o">....</span><span class="n">cha</span>
+<span class="mi">74</span> <span class="mi">74</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">43</span> <span class="mi">61</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">62</span> <span class="mi">61</span> <span class="mi">63</span> <span class="mi">6</span><span class="n">B</span> <span class="mi">26</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>  <span class="n">tterCallback</span><span class="o">&amp;...</span>
+<span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">07</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">72</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">73</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">75</span> <span class="mi">74</span>     <span class="o">......../</span><span class="n">rosout</span>
+</pre></div>
+</div>
+<p>NOTE: not all packages are disgested appropriately and some
+fields need to be better understood (e.g. signature) for
+appropriate building.</p>
+<p>NOTE 2: Needs further research to convert Padding at the end to
+something that makes sense.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBodyVariation.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.TCPROSBodyVariation'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tcpros.TCPROSBody'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBodyVariation.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSBodyVariation.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;FieldLenField</span> <span class="pre">(TCPROSBodyVariation).body_length&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(TCPROSBodyVariation).sequence&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(TCPROSBodyVariation).signature&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(TCPROSBodyVariation).list&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSBodyVariation.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSElement">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">TCPROSElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L136-L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSElement" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>Captures each one of the elements in the
+TCPROSHeader or TCPROSBody packages.</p>
+<p>NOTE: Used within other packages</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSElement.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.TCPROSElement'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSElement.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSElement.extract_padding">
+<span class="sig-name descname"><span class="pre">extract_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L153-L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSElement.extract_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSElement.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;FieldLenField</span> <span class="pre">(TCPROSElement).field_length&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(TCPROSElement).field&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSElement.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">TCPROSHeader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L157-L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>The Header of the TCPROS package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span><span class="n">header</span><span class="o">.|</span>  <span class="n">len1</span> <span class="o">|</span>                    <span class="n">element1</span>                   <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>               <span class="o">|</span>  <span class="n">len2</span> <span class="o">|</span>                                       <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+</span>                                       <span class="o">+</span>
+<span class="o">|</span>                            <span class="n">element2</span>                           <span class="o">|</span>
+<span class="o">+</span>                       <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                       <span class="o">|</span>  <span class="o">...</span>  <span class="o">|</span>                               <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>                               <span class="o">+</span>
+<span class="o">|</span>                                                               <span class="o">|</span>
+<span class="o">+</span>                              <span class="o">...</span>                              <span class="o">+</span>
+<span class="o">|</span>                                                               <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Generated with::</dt><dd><dl class="simple">
+<dt>protocol “header_length:4,len1:4,element1:32,len2:4,</dt><dd><p>element2:64,…:4,…:80” –bits 32</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Typical header looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">7</span><span class="n">C</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">12</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">63</span> <span class="mi">61</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">69</span> <span class="mi">64</span>  <span class="o">|.......</span><span class="n">callerid</span>
+<span class="mi">3</span><span class="n">D</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">69</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">27</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">64</span>  <span class="o">=/</span><span class="n">listener</span><span class="s1">'...md</span>
+<span class="mi">35</span> <span class="mi">73</span> <span class="mi">75</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">39</span> <span class="mi">39</span> <span class="mi">32</span> <span class="mi">63</span> <span class="mi">65</span> <span class="mi">38</span> <span class="mi">61</span> <span class="mi">31</span> <span class="mi">36</span> <span class="mi">38</span> <span class="mi">37</span>  <span class="mi">5</span><span class="nb">sum</span><span class="o">=</span><span class="mi">992</span><span class="n">ce8a1687</span>
+<span class="mi">63</span> <span class="mi">65</span> <span class="mi">63</span> <span class="mi">38</span> <span class="mi">63</span> <span class="mi">38</span> <span class="mi">62</span> <span class="mi">64</span> <span class="mi">38</span> <span class="mi">38</span> <span class="mi">33</span> <span class="mi">65</span> <span class="mi">63</span> <span class="mi">37</span> <span class="mi">33</span> <span class="mi">63</span>  <span class="n">cec8c8bd883ec73c</span>
+<span class="mi">61</span> <span class="mi">34</span> <span class="mi">31</span> <span class="mi">64</span> <span class="mi">31</span> <span class="mi">0</span><span class="n">D</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="mi">63</span> <span class="mi">70</span> <span class="mi">5</span><span class="n">F</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">64</span>  <span class="n">a41d1</span><span class="o">....</span><span class="n">tcp_nod</span>
+<span class="mi">65</span> <span class="mi">6</span><span class="n">C</span> <span class="mi">61</span> <span class="mi">79</span> <span class="mi">3</span><span class="n">D</span> <span class="mi">30</span> <span class="mi">0</span><span class="n">E</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="mi">6</span><span class="n">F</span> <span class="mi">70</span> <span class="mi">69</span> <span class="mi">63</span> <span class="mi">3</span><span class="n">D</span>  <span class="n">elay</span><span class="o">=</span><span class="mf">0.</span><span class="o">...</span><span class="n">topic</span><span class="o">=</span>
+<span class="mi">2</span><span class="n">F</span> <span class="mi">63</span> <span class="mi">68</span> <span class="mi">61</span> <span class="mi">74</span> <span class="mi">74</span> <span class="mi">65</span> <span class="mi">72</span> <span class="mi">14</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">74</span> <span class="mi">79</span> <span class="mi">70</span> <span class="mi">65</span>  <span class="o">/</span><span class="n">chatter</span><span class="o">....</span><span class="n">type</span>
+<span class="mi">3</span><span class="n">D</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">64</span> <span class="mi">5</span><span class="n">F</span> <span class="mi">6</span><span class="n">D</span> <span class="mi">73</span> <span class="mi">67</span> <span class="mi">73</span> <span class="mi">2</span><span class="n">F</span> <span class="mi">53</span> <span class="mi">74</span> <span class="mi">72</span> <span class="mi">69</span> <span class="mi">6</span><span class="n">E</span> <span class="mi">67</span>  <span class="o">=</span><span class="n">std_msgs</span><span class="o">/</span><span class="n">String</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.TCPROSHeader'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.comments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.default_fields">
+<span class="sig-name descname"><span class="pre">default_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.default_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.direction">
+<span class="sig-name descname"><span class="pre">direction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.direction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.do_dissect_payload">
+<span class="sig-name descname"><span class="pre">do_dissect_payload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L228-L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.do_dissect_payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.explicit">
+<span class="sig-name descname"><span class="pre">explicit</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.explicit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.extract_padding">
+<span class="sig-name descname"><span class="pre">extract_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L231-L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.extract_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;FieldLenField</span> <span class="pre">(TCPROSHeader).header_length&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(TCPROSHeader).list&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.fieldtype">
+<span class="sig-name descname"><span class="pre">fieldtype</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.fieldtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.nfields">
+<span class="sig-name descname"><span class="pre">nfields</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.nfields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.original">
+<span class="sig-name descname"><span class="pre">original</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.original" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.overload_fields">
+<span class="sig-name descname"><span class="pre">overload_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.overload_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.overloaded_fields">
+<span class="sig-name descname"><span class="pre">overloaded_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.overloaded_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.packetfields">
+<span class="sig-name descname"><span class="pre">packetfields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.packetfields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.parent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.payload">
+<span class="sig-name descname"><span class="pre">payload</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.post_transforms">
+<span class="sig-name descname"><span class="pre">post_transforms</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.post_transforms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.pre_dissect">
+<span class="sig-name descname"><span class="pre">pre_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L204-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.pre_dissect" title="Link to this definition"></a></dt>
+<dd><p>Called to prepare the layer before dissection</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.process_information">
+<span class="sig-name descname"><span class="pre">process_information</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.process_information" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.raw_packet_cache">
+<span class="sig-name descname"><span class="pre">raw_packet_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.raw_packet_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.raw_packet_cache_fields">
+<span class="sig-name descname"><span class="pre">raw_packet_cache_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.raw_packet_cache_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.sent_time">
+<span class="sig-name descname"><span class="pre">sent_time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.sent_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.sniffed_on">
+<span class="sig-name descname"><span class="pre">sniffed_on</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.sniffed_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.stop_dissection_after">
+<span class="sig-name descname"><span class="pre">stop_dissection_after</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.stop_dissection_after" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.time">
+<span class="sig-name descname"><span class="pre">time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.underlayer">
+<span class="sig-name descname"><span class="pre">underlayer</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.underlayer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.TCPROSHeader.wirelen">
+<span class="sig-name descname"><span class="pre">wirelen</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.TCPROSHeader.wirelen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPC">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">XMLRPC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L383-L517"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPC" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>XML-RPC is a remote procedure call (RPC) protocol which uses XML to encode
+its calls and HTTP as a transport mechanism.</p>
+<dl class="simple">
+<dt>ROS uses XML-RPC for a variety of interactions including:</dt><dd><ul class="simple">
+<li><p>Register/unregister subscribers and publishers</p></li>
+<li><p>Set or get parameters</p></li>
+<li><p>Updates in the ROS computational graph, across endpoints</p></li>
+<li><p>Request of transports, between endpoints</p></li>
+</ul>
+</dd>
+</dl>
+<p>This class aims to abstract all these interactions while building on top
+of the Master and Parameter APIs of ROS (the Slave API is abstracted in
+the ROSTCP class).</p>
+<p>An example package of a publisher initiating communication is presented
+below wherein this particular package requests the Master’s PID
+(HTTP Request):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0000  02 42 0C 00 00 02 02 42 0C 00 00 04 08 00 45 00  .B.....B......E.
+0010  01 7C 4F F8 40 00 40 06 D1 7E 0C 00 00 04 0C 00  .|O.@.@..~......
+0020  00 02 8E 62 2C 2F C7 A9 92 A9 87 00 82 4C 80 18  ...b,/.......L..
+0030  01 FD 19 74 00 00 01 01 08 0A BB 36 D2 1A 39 82  ...t.......6..9.
+0040  4B 7A 50 4F 53 54 20 2F 52 50 43 32 20 48 54 54  KzPOST /RPC2 HTT
+0050  50 2F 31 2E 31 0D 0A 48 6F 73 74 3A 20 31 32 2E  P/1.1..Host: 12.
+0060  30 2E 30 2E 32 3A 31 31 33 31 31 0D 0A 41 63 63  0.0.2:11311..Acc
+0070  65 70 74 2D 45 6E 63 6F 64 69 6E 67 3A 20 67 7A  ept-Encoding: gz
+0080  69 70 0D 0A 55 73 65 72 2D 41 67 65 6E 74 3A 20  ip..User-Agent:
+0090  78 6D 6C 72 70 63 6C 69 62 2E 70 79 2F 31 2E 30  xmlrpclib.py/1.0
+00a0  2E 31 20 28 62 79 20 77 77 77 2E 70 79 74 68 6F  .1 (by www.pytho
+00b0  6E 77 61 72 65 2E 63 6F 6D 29 0D 0A 43 6F 6E 74  nware.com)..Cont
+00c0  65 6E 74 2D 54 79 70 65 3A 20 74 65 78 74 2F 78  ent-Type: text/x
+00d0  6D 6C 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67  ml..Content-Leng
+00e0  74 68 3A 20 31 35 39 0D 0A 0D 0A 3C 3F 78 6D 6C  th: 159....&lt;?xml
+00f0  20 76 65 72 73 69 6F 6E 3D 27 31 2E 30 27 3F 3E   version='1.0'?&gt;
+0100  0A 3C 6D 65 74 68 6F 64 43 61 6C 6C 3E 0A 3C 6D  .&lt;methodCall&gt;.&lt;m
+0110  65 74 68 6F 64 4E 61 6D 65 3E 67 65 74 50 69 64  ethodName&gt;getPid
+0120  3C 2F 6D 65 74 68 6F 64 4E 61 6D 65 3E 0A 3C 70  &lt;/methodName&gt;.&lt;p
+0130  61 72 61 6D 73 3E 0A 3C 70 61 72 61 6D 3E 0A 3C  arams&gt;.&lt;param&gt;.&lt;
+0140  76 61 6C 75 65 3E 3C 73 74 72 69 6E 67 3E 2F 72  value&gt;&lt;string&gt;/r
+0150  6F 73 74 6F 70 69 63 3C 2F 73 74 72 69 6E 67 3E  ostopic&lt;/string&gt;
+0160  3C 2F 76 61 6C 75 65 3E 0A 3C 2F 70 61 72 61 6D  &lt;/value&gt;.&lt;/param
+0170  3E 0A 3C 2F 70 61 72 61 6D 73 3E 0A 3C 2F 6D 65  &gt;.&lt;/params&gt;.&lt;/me
+0180  74 68 6F 64 43 61 6C 6C 3E 0A                    thodCall&gt;.
+</pre></div>
+</div>
+<p>The counterpart (the Master) answers with (HTTP Response):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0000  02 42 0C 00 00 04 02 42 0C 00 00 02 08 00 45 00  .B.....B......E.
+0010  01 A2 8C CD 40 00 40 06 94 83 0C 00 00 02 0C 00  ....@.@.........
+0020  00 04 2C 2F 8E 62 87 00 82 4C C7 A9 93 F1 80 18  ..,/.b...L......
+0030  01 F6 19 9A 00 00 01 01 08 0A 39 82 4B 7B BB 36  ..........9.K{.6
+0040  D2 1A 48 54 54 50 2F 31 2E 31 20 32 30 30 20 4F  ..HTTP/1.1 200 O
+0050  4B 0D 0A 53 65 72 76 65 72 3A 20 42 61 73 65 48  K..Server: BaseH
+0060  54 54 50 2F 30 2E 33 20 50 79 74 68 6F 6E 2F 32  TTP/0.3 Python/2
+0070  2E 37 2E 31 37 0D 0A 44 61 74 65 3A 20 53 75 6E  .7.17..Date: Sun
+0080  2C 20 30 36 20 44 65 63 20 32 30 32 30 20 31 35  , 06 Dec 2020 15
+0090  3A 31 37 3A 33 38 20 47 4D 54 0D 0A 43 6F 6E 74  :17:38 GMT..Cont
+00a0  65 6E 74 2D 74 79 70 65 3A 20 74 65 78 74 2F 78  ent-type: text/x
+00b0  6D 6C 0D 0A 43 6F 6E 74 65 6E 74 2D 6C 65 6E 67  ml..Content-leng
+00c0  74 68 3A 20 32 32 39 0D 0A 0D 0A 3C 3F 78 6D 6C  th: 229....&lt;?xml
+00d0  20 76 65 72 73 69 6F 6E 3D 27 31 2E 30 27 3F 3E   version='1.0'?&gt;
+00e0  0A 3C 6D 65 74 68 6F 64 52 65 73 70 6F 6E 73 65  .&lt;methodResponse
+00f0  3E 0A 3C 70 61 72 61 6D 73 3E 0A 3C 70 61 72 61  &gt;.&lt;params&gt;.&lt;para
+0100  6D 3E 0A 3C 76 61 6C 75 65 3E 3C 61 72 72 61 79  m&gt;.&lt;value&gt;&lt;array
+0110  3E 3C 64 61 74 61 3E 0A 3C 76 61 6C 75 65 3E 3C  &gt;&lt;data&gt;.&lt;value&gt;&lt;
+0120  69 6E 74 3E 31 3C 2F 69 6E 74 3E 3C 2F 76 61 6C  int&gt;1&lt;/int&gt;&lt;/val
+0130  75 65 3E 0A 3C 76 61 6C 75 65 3E 3C 73 74 72 69  ue&gt;.&lt;value&gt;&lt;stri
+0140  6E 67 3E 3C 2F 73 74 72 69 6E 67 3E 3C 2F 76 61  ng&gt;&lt;/string&gt;&lt;/va
+0150  6C 75 65 3E 0A 3C 76 61 6C 75 65 3E 3C 69 6E 74  lue&gt;.&lt;value&gt;&lt;int
+0160  3E 33 39 38 3C 2F 69 6E 74 3E 3C 2F 76 61 6C 75  &gt;398&lt;/int&gt;&lt;/value
+0170  65 3E 0A 3C 2F 64 61 74 61 3E 3C 2F 61 72 72 61  e&gt;.&lt;/data&gt;&lt;/arra
+0180  79 3E 3C 2F 76 61 6C 75 65 3E 0A 3C 2F 70 61 72  y&gt;&lt;/value&gt;.&lt;/par
+0190  61 6D 3E 0A 3C 2F 70 61 72 61 6D 73 3E 0A 3C 2F  am&gt;.&lt;/params&gt;.&lt;/
+01a0  6D 65 74 68 6F 64 52 65 73 70 6F 6E 73 65 3E 0A  methodResponse&gt;.
+</pre></div>
+</div>
+<p>In another communication, and endpoint could request a parameter using the
+Parameter Server API (HTTP Request):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0000  02 42 0C 00 00 02 02 42 0C 00 00 04 08 00 45 00  .B.....B......E.
+0010  01 C0 8B 72 40 00 40 06 95 C0 0C 00 00 04 0C 00  ...r@.@.........
+0020  00 02 90 10 2C 2F 9D 09 47 7F EC C3 08 BD 80 18  ....,/..G.......
+0030  01 FD 19 B8 00 00 01 01 08 0A BB 86 68 91 39 D1  ............h.9.
+0040  E1 F1 50 4F 53 54 20 2F 52 50 43 32 20 48 54 54  ..POST /RPC2 HTT
+0050  50 2F 31 2E 31 0D 0A 48 6F 73 74 3A 20 31 32 2E  P/1.1..Host: 12.
+0060  30 2E 30 2E 32 3A 31 31 33 31 31 0D 0A 41 63 63  0.0.2:11311..Acc
+0070  65 70 74 2D 45 6E 63 6F 64 69 6E 67 3A 20 67 7A  ept-Encoding: gz
+0080  69 70 0D 0A 55 73 65 72 2D 41 67 65 6E 74 3A 20  ip..User-Agent:
+0090  78 6D 6C 72 70 63 6C 69 62 2E 70 79 2F 31 2E 30  xmlrpclib.py/1.0
+00a0  2E 31 20 28 62 79 20 77 77 77 2E 70 79 74 68 6F  .1 (by www.pytho
+00b0  6E 77 61 72 65 2E 63 6F 6D 29 0D 0A 43 6F 6E 74  nware.com)..Cont
+00c0  65 6E 74 2D 54 79 70 65 3A 20 74 65 78 74 2F 78  ent-Type: text/x
+00d0  6D 6C 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67  ml..Content-Leng
+00e0  74 68 3A 20 32 32 37 0D 0A 0D 0A 3C 3F 78 6D 6C  th: 227....&lt;?xml
+00f0  20 76 65 72 73 69 6F 6E 3D 27 31 2E 30 27 3F 3E   version='1.0'?&gt;
+0100  0A 3C 6D 65 74 68 6F 64 43 61 6C 6C 3E 0A 3C 6D  .&lt;methodCall&gt;.&lt;m
+0110  65 74 68 6F 64 4E 61 6D 65 3E 67 65 74 50 61 72  ethodName&gt;getPar
+0120  61 6D 3C 2F 6D 65 74 68 6F 64 4E 61 6D 65 3E 0A  am&lt;/methodName&gt;.
+0130  3C 70 61 72 61 6D 73 3E 0A 3C 70 61 72 61 6D 3E  &lt;params&gt;.&lt;param&gt;
+0140  0A 3C 76 61 6C 75 65 3E 3C 73 74 72 69 6E 67 3E  .&lt;value&gt;&lt;string&gt;
+0150  2F 72 6F 73 70 61 72 61 6D 2D 38 32 30 34 33 3C  /rosparam-82043&lt;
+0160  2F 73 74 72 69 6E 67 3E 3C 2F 76 61 6C 75 65 3E  /string&gt;&lt;/value&gt;
+0170  0A 3C 2F 70 61 72 61 6D 3E 0A 3C 70 61 72 61 6D  .&lt;/param&gt;.&lt;param
+0180  3E 0A 3C 76 61 6C 75 65 3E 3C 73 74 72 69 6E 67  &gt;.&lt;value&gt;&lt;string
+0190  3E 2F 72 6F 73 64 69 73 74 72 6F 3C 2F 73 74 72  &gt;/rosdistro&lt;/str
+01a0  69 6E 67 3E 3C 2F 76 61 6C 75 65 3E 0A 3C 2F 70  ing&gt;&lt;/value&gt;.&lt;/p
+01b0  61 72 61 6D 3E 0A 3C 2F 70 61 72 61 6D 73 3E 0A  aram&gt;.&lt;/params&gt;.
+01c0  3C 2F 6D 65 74 68 6F 64 43 61 6C 6C 3E 0A        &lt;/methodCall&gt;.
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Sources:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://aliasrobotics.com/files/">https://aliasrobotics.com/files/</a></dt><dd><p>securing_robot_endpoints_ot_environment.pdf</p>
+</dd>
+</dl>
+</li>
+<li><p><a class="reference external" href="http://wiki.ros.org/ROS/Master_API">http://wiki.ros.org/ROS/Master_API</a></p></li>
+<li><p><a class="reference external" href="http://wiki.ros.org/ROS/Slave_API">http://wiki.ros.org/ROS/Slave_API</a></p></li>
+<li><p><a class="reference external" href="http://wiki.ros.org/ROS/Parameter%20Server%20API">http://wiki.ros.org/ROS/Parameter%20Server%20API</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPC.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.XMLRPC'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPC.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPC.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L503-L517"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPC.guess_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">XMLRPCCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b&quot;&lt;?xml</span> <span class="pre">version='1.0'?&gt;\n&quot;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodcall_opentag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;methodCall&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodname_opentag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;methodName&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'getParam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodname_closetag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;/methodName&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_opentag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;params&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;param&gt;\n&lt;value&gt;&lt;string&gt;/rosparam-82043&lt;/string&gt;&lt;/value&gt;\n&lt;/param&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_closetag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;/params&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodcall_closetag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;/methodCall&gt;\n'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L532-L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>Request side of the ROS XMLPC elements used by Master and Parameter APIs
+Exemplary package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0000  02 42 0C 00 00 02 02 42 0C 00 00 04 08 00 45 00  .B.....B......E.
+0010  01 C0 8B 72 40 00 40 06 95 C0 0C 00 00 04 0C 00  ...r@.@.........
+0020  00 02 90 10 2C 2F 9D 09 47 7F EC C3 08 BD 80 18  ....,/..G.......
+0030  01 FD 19 B8 00 00 01 01 08 0A BB 86 68 91 39 D1  ............h.9.
+0040  E1 F1 50 4F 53 54 20 2F 52 50 43 32 20 48 54 54  ..POST /RPC2 HTT
+0050  50 2F 31 2E 31 0D 0A 48 6F 73 74 3A 20 31 32 2E  P/1.1..Host: 12.
+0060  30 2E 30 2E 32 3A 31 31 33 31 31 0D 0A 41 63 63  0.0.2:11311..Acc
+0070  65 70 74 2D 45 6E 63 6F 64 69 6E 67 3A 20 67 7A  ept-Encoding: gz
+0080  69 70 0D 0A 55 73 65 72 2D 41 67 65 6E 74 3A 20  ip..User-Agent:
+0090  78 6D 6C 72 70 63 6C 69 62 2E 70 79 2F 31 2E 30  xmlrpclib.py/1.0
+00a0  2E 31 20 28 62 79 20 77 77 77 2E 70 79 74 68 6F  .1 (by www.pytho
+00b0  6E 77 61 72 65 2E 63 6F 6D 29 0D 0A 43 6F 6E 74  nware.com)..Cont
+00c0  65 6E 74 2D 54 79 70 65 3A 20 74 65 78 74 2F 78  ent-Type: text/x
+00d0  6D 6C 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67  ml..Content-Leng
+00e0  74 68 3A 20 32 32 37 0D 0A 0D 0A 3C 3F 78 6D 6C  th: 227....&lt;?xml
+00f0  20 76 65 72 73 69 6F 6E 3D 27 31 2E 30 27 3F 3E   version='1.0'?&gt;
+0100  0A 3C 6D 65 74 68 6F 64 43 61 6C 6C 3E 0A 3C 6D  .&lt;methodCall&gt;.&lt;m
+0110  65 74 68 6F 64 4E 61 6D 65 3E 67 65 74 50 61 72  ethodName&gt;getPar
+0120  61 6D 3C 2F 6D 65 74 68 6F 64 4E 61 6D 65 3E 0A  am&lt;/methodName&gt;.
+0130  3C 70 61 72 61 6D 73 3E 0A 3C 70 61 72 61 6D 3E  &lt;params&gt;.&lt;param&gt;
+0140  0A 3C 76 61 6C 75 65 3E 3C 73 74 72 69 6E 67 3E  .&lt;value&gt;&lt;string&gt;
+0150  2F 72 6F 73 70 61 72 61 6D 2D 38 32 30 34 33 3C  /rosparam-82043&lt;
+0160  2F 73 74 72 69 6E 67 3E 3C 2F 76 61 6C 75 65 3E  /string&gt;&lt;/value&gt;
+0170  0A 3C 2F 70 61 72 61 6D 3E 0A 3C 70 61 72 61 6D  .&lt;/param&gt;.&lt;param
+0180  3E 0A 3C 76 61 6C 75 65 3E 3C 73 74 72 69 6E 67  &gt;.&lt;value&gt;&lt;string
+0190  3E 2F 72 6F 73 64 69 73 74 72 6F 3C 2F 73 74 72  &gt;/rosdistro&lt;/str
+01a0  69 6E 67 3E 3C 2F 76 61 6C 75 65 3E 0A 3C 2F 70  ing&gt;&lt;/value&gt;.&lt;/p
+01b0  61 72 61 6D 3E 0A 3C 2F 70 61 72 61 6D 73 3E 0A  aram&gt;.&lt;/params&gt;.
+01c0  3C 2F 6D 65 74 68 6F 64 43 61 6C 6C 3E 0A        &lt;/methodCall&gt;.
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.XMLRPCCall'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.comments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.default_fields">
+<span class="sig-name descname"><span class="pre">default_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.default_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.direction">
+<span class="sig-name descname"><span class="pre">direction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.direction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.do_dissect_payload">
+<span class="sig-name descname"><span class="pre">do_dissect_payload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L629-L630"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.do_dissect_payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.explicit">
+<span class="sig-name descname"><span class="pre">explicit</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.explicit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).version&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).methodcall_opentag&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).methodname_opentag&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(XMLRPCCall).methodname&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).methodname_closetag&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).params_opentag&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(XMLRPCCall).params&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).params_closetag&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCCall).methodcall_closetag&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.fieldtype">
+<span class="sig-name descname"><span class="pre">fieldtype</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.fieldtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.methodname_size">
+<span class="sig-name descname"><span class="pre">methodname_size</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.methodname_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.original">
+<span class="sig-name descname"><span class="pre">original</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.original" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.overload_fields">
+<span class="sig-name descname"><span class="pre">overload_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.overload_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.overloaded_fields">
+<span class="sig-name descname"><span class="pre">overloaded_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.overloaded_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.packetfields">
+<span class="sig-name descname"><span class="pre">packetfields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.packetfields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.params_size">
+<span class="sig-name descname"><span class="pre">params_size</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.params_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.parent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.payload">
+<span class="sig-name descname"><span class="pre">payload</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.post_transforms">
+<span class="sig-name descname"><span class="pre">post_transforms</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.post_transforms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.pre_dissect">
+<span class="sig-name descname"><span class="pre">pre_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L599-L627"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.pre_dissect" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Calculate the sizes of:</dt><dd><ul class="simple">
+<li><p>methodname</p></li>
+<li><p>params</p></li>
+</ul>
+</dd>
+<dt>See <a class="reference external" href="https://docs.python.org/3/library/struct.html">https://docs.python.org/3/library/struct.html</a></dt><dd><p>for the unpack (e.g. “&lt;I”) options</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.process_information">
+<span class="sig-name descname"><span class="pre">process_information</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.process_information" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.raw_packet_cache">
+<span class="sig-name descname"><span class="pre">raw_packet_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.raw_packet_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.raw_packet_cache_fields">
+<span class="sig-name descname"><span class="pre">raw_packet_cache_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.raw_packet_cache_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.sent_time">
+<span class="sig-name descname"><span class="pre">sent_time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.sent_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.sniffed_on">
+<span class="sig-name descname"><span class="pre">sniffed_on</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.sniffed_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.stop_dissection_after">
+<span class="sig-name descname"><span class="pre">stop_dissection_after</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.stop_dissection_after" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.time">
+<span class="sig-name descname"><span class="pre">time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.underlayer">
+<span class="sig-name descname"><span class="pre">underlayer</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.underlayer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCCall.wirelen">
+<span class="sig-name descname"><span class="pre">wirelen</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCCall.wirelen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">XMLRPCResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b&quot;&lt;?xml</span> <span class="pre">version='1.0'?&gt;\n&quot;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodcall_opentag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;methodResponse&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_opentag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;params&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_closetag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;/params&gt;\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methodcall_closetag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'&lt;/methodResponse&gt;\n'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L633-L714"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>Response side of the ROS XMLPC elements used by Master and Parameter APIs
+Exemplary package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0000  02 42 0C 00 00 04 02 42 0C 00 00 02 08 00 45 00  .B.....B......E.
+0010  01 A2 8C CD 40 00 40 06 94 83 0C 00 00 02 0C 00  ....@.@.........
+0020  00 04 2C 2F 8E 62 87 00 82 4C C7 A9 93 F1 80 18  ..,/.b...L......
+0030  01 F6 19 9A 00 00 01 01 08 0A 39 82 4B 7B BB 36  ..........9.K{.6
+0040  D2 1A 48 54 54 50 2F 31 2E 31 20 32 30 30 20 4F  ..HTTP/1.1 200 O
+0050  4B 0D 0A 53 65 72 76 65 72 3A 20 42 61 73 65 48  K..Server: BaseH
+0060  54 54 50 2F 30 2E 33 20 50 79 74 68 6F 6E 2F 32  TTP/0.3 Python/2
+0070  2E 37 2E 31 37 0D 0A 44 61 74 65 3A 20 53 75 6E  .7.17..Date: Sun
+0080  2C 20 30 36 20 44 65 63 20 32 30 32 30 20 31 35  , 06 Dec 2020 15
+0090  3A 31 37 3A 33 38 20 47 4D 54 0D 0A 43 6F 6E 74  :17:38 GMT..Cont
+00a0  65 6E 74 2D 74 79 70 65 3A 20 74 65 78 74 2F 78  ent-type: text/x
+00b0  6D 6C 0D 0A 43 6F 6E 74 65 6E 74 2D 6C 65 6E 67  ml..Content-leng
+00c0  74 68 3A 20 32 32 39 0D 0A 0D 0A 3C 3F 78 6D 6C  th: 229....&lt;?xml
+00d0  20 76 65 72 73 69 6F 6E 3D 27 31 2E 30 27 3F 3E   version='1.0'?&gt;
+00e0  0A 3C 6D 65 74 68 6F 64 52 65 73 70 6F 6E 73 65  .&lt;methodResponse
+00f0  3E 0A 3C 70 61 72 61 6D 73 3E 0A 3C 70 61 72 61  &gt;.&lt;params&gt;.&lt;para
+0100  6D 3E 0A 3C 76 61 6C 75 65 3E 3C 61 72 72 61 79  m&gt;.&lt;value&gt;&lt;array
+0110  3E 3C 64 61 74 61 3E 0A 3C 76 61 6C 75 65 3E 3C  &gt;&lt;data&gt;.&lt;value&gt;&lt;
+0120  69 6E 74 3E 31 3C 2F 69 6E 74 3E 3C 2F 76 61 6C  int&gt;1&lt;/int&gt;&lt;/val
+0130  75 65 3E 0A 3C 76 61 6C 75 65 3E 3C 73 74 72 69  ue&gt;.&lt;value&gt;&lt;stri
+0140  6E 67 3E 3C 2F 73 74 72 69 6E 67 3E 3C 2F 76 61  ng&gt;&lt;/string&gt;&lt;/va
+0150  6C 75 65 3E 0A 3C 76 61 6C 75 65 3E 3C 69 6E 74  lue&gt;.&lt;value&gt;&lt;int
+0160  3E 33 39 38 3C 2F 69 6E 74 3E 3C 2F 76 61 6C 75  &gt;398&lt;/int&gt;&lt;/value
+0170  65 3E 0A 3C 2F 64 61 74 61 3E 3C 2F 61 72 72 61  e&gt;.&lt;/data&gt;&lt;/arra
+0180  79 3E 3C 2F 76 61 6C 75 65 3E 0A 3C 2F 70 61 72  y&gt;&lt;/value&gt;.&lt;/par
+0190  61 6D 3E 0A 3C 2F 70 61 72 61 6D 73 3E 0A 3C 2F  am&gt;.&lt;/params&gt;.&lt;/
+01a0  6D 65 74 68 6F 64 52 65 73 70 6F 6E 73 65 3E 0A  methodResponse&gt;.
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tcpros.XMLRPCResponse'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.comments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.default_fields">
+<span class="sig-name descname"><span class="pre">default_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.default_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.direction">
+<span class="sig-name descname"><span class="pre">direction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.direction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.do_dissect_payload">
+<span class="sig-name descname"><span class="pre">do_dissect_payload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L713-L714"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.do_dissect_payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.explicit">
+<span class="sig-name descname"><span class="pre">explicit</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.explicit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(XMLRPCResponse).version&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCResponse).methodcall_opentag&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCResponse).params_opentag&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(XMLRPCResponse).params&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCResponse).params_closetag&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(XMLRPCResponse).methodcall_closetag&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.fieldtype">
+<span class="sig-name descname"><span class="pre">fieldtype</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.fieldtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.original">
+<span class="sig-name descname"><span class="pre">original</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.original" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.overload_fields">
+<span class="sig-name descname"><span class="pre">overload_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.overload_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.overloaded_fields">
+<span class="sig-name descname"><span class="pre">overloaded_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.overloaded_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.packetfields">
+<span class="sig-name descname"><span class="pre">packetfields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.packetfields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.params_size">
+<span class="sig-name descname"><span class="pre">params_size</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.params_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.parent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.payload">
+<span class="sig-name descname"><span class="pre">payload</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.post_transforms">
+<span class="sig-name descname"><span class="pre">post_transforms</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.post_transforms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.pre_dissect">
+<span class="sig-name descname"><span class="pre">pre_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L691-L711"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.pre_dissect" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Calculate the sizes of:</dt><dd><ul class="simple">
+<li><p>methodname</p></li>
+<li><p>params</p></li>
+</ul>
+</dd>
+<dt>See <a class="reference external" href="https://docs.python.org/3/library/struct.html">https://docs.python.org/3/library/struct.html</a></dt><dd><p>for the unpack (e.g. “&lt;I”) options</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.process_information">
+<span class="sig-name descname"><span class="pre">process_information</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.process_information" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.raw_packet_cache">
+<span class="sig-name descname"><span class="pre">raw_packet_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.raw_packet_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.raw_packet_cache_fields">
+<span class="sig-name descname"><span class="pre">raw_packet_cache_fields</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.raw_packet_cache_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.sent_time">
+<span class="sig-name descname"><span class="pre">sent_time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.sent_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.sniffed_on">
+<span class="sig-name descname"><span class="pre">sniffed_on</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.sniffed_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.stop_dissection_after">
+<span class="sig-name descname"><span class="pre">stop_dissection_after</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.stop_dissection_after" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.time">
+<span class="sig-name descname"><span class="pre">time</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.EDecimal" title="scapy.utils.EDecimal"><span class="pre">EDecimal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.underlayer">
+<span class="sig-name descname"><span class="pre">underlayer</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.underlayer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCResponse.wirelen">
+<span class="sig-name descname"><span class="pre">wirelen</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCResponse.wirelen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tcpros.XMLRPCSeparator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tcpros.</span></span><span class="sig-name descname"><span class="pre">XMLRPCSeparator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0x0a'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tcpros.py#L521-L528"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tcpros.XMLRPCSeparator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.ByteField" title="scapy.fields.ByteField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ByteField</span></code></a></p>
+<p>Separator of XML-RPC components - 0x0a</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.contrib.tcpao.html" class="btn btn-neutral float-left" title="scapy.contrib.tcpao" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.contrib.tzsp.html" class="btn btn-neutral float-right" title="scapy.contrib.tzsp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

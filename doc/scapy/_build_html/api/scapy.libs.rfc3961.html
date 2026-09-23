@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.libs.rfc3961 &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.modules package" href="scapy.modules.html" />
+    <link rel="prev" title="scapy.libs.extcap" href="scapy.libs.extcap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.libs.extcap.html">scapy.libs.extcap</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.libs.rfc3961</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.libs.html">scapy.libs package</a></li>
+      <li class="breadcrumb-item active">scapy.libs.rfc3961</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.libs.rfc3961.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.libs.rfc3961">
+<span id="scapy-libs-rfc3961"></span><h1>scapy.libs.rfc3961<a class="headerlink" href="#module-scapy.libs.rfc3961" title="Link to this heading"></a></h1>
+<p>Implementation of cryptographic functions for Kerberos 5</p>
+<ul class="simple">
+<li><p>RFC 3961: Encryption and Checksum Specifications for Kerberos 5</p></li>
+<li><p>RFC 3962: Advanced Encryption Standard (AES) Encryption for Kerberos 5</p></li>
+<li><p>RFC 4757: The RC4-HMAC Kerberos Encryption Types Used by Microsoft Windows</p></li>
+<li><p>RFC 6113: A Generalized Framework for Kerberos Pre-Authentication</p></li>
+<li><p>RFC 8009: AES Encryption with HMAC-SHA2 for Kerberos 5</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will find more complete documentation for Kerberos over at
+<a class="reference external" href="https://scapy.readthedocs.io/en/latest/layers/kerberos.html">SMB</a></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.libs.rfc3961.</span></span><span class="sig-name descname"><span class="pre">ChecksumType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L156-L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.CRC32">
+<span class="sig-name descname"><span class="pre">CRC32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.CRC32" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.HMAC_MD5">
+<span class="sig-name descname"><span class="pre">HMAC_MD5</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-138</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.HMAC_MD5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.HMAC_SHA1_96_AES128">
+<span class="sig-name descname"><span class="pre">HMAC_SHA1_96_AES128</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.HMAC_SHA1_96_AES128" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.HMAC_SHA1_96_AES256">
+<span class="sig-name descname"><span class="pre">HMAC_SHA1_96_AES256</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.HMAC_SHA1_96_AES256" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.HMAC_SHA1_DES3_KD">
+<span class="sig-name descname"><span class="pre">HMAC_SHA1_DES3_KD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.HMAC_SHA1_DES3_KD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.HMAC_SHA256_128_AES128">
+<span class="sig-name descname"><span class="pre">HMAC_SHA256_128_AES128</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.HMAC_SHA256_128_AES128" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.HMAC_SHA384_192_AES256">
+<span class="sig-name descname"><span class="pre">HMAC_SHA384_192_AES256</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.HMAC_SHA384_192_AES256" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.RSA_MD4">
+<span class="sig-name descname"><span class="pre">RSA_MD4</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.RSA_MD4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.RSA_MD4_DES">
+<span class="sig-name descname"><span class="pre">RSA_MD4_DES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.RSA_MD4_DES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.ChecksumType.RSA_MD5_DES">
+<span class="sig-name descname"><span class="pre">RSA_MD5_DES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></span><a class="headerlink" href="#scapy.libs.rfc3961.ChecksumType.RSA_MD5_DES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.libs.rfc3961.</span></span><span class="sig-name descname"><span class="pre">EncryptionType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L137-L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.AES128_CTS_HMAC_SHA1_96">
+<span class="sig-name descname"><span class="pre">AES128_CTS_HMAC_SHA1_96</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">17</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.AES128_CTS_HMAC_SHA1_96" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.AES128_CTS_HMAC_SHA256_128">
+<span class="sig-name descname"><span class="pre">AES128_CTS_HMAC_SHA256_128</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.AES128_CTS_HMAC_SHA256_128" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.AES256_CTS_HMAC_SHA1_96">
+<span class="sig-name descname"><span class="pre">AES256_CTS_HMAC_SHA1_96</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.AES256_CTS_HMAC_SHA1_96" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.AES256_CTS_HMAC_SHA384_192">
+<span class="sig-name descname"><span class="pre">AES256_CTS_HMAC_SHA384_192</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.AES256_CTS_HMAC_SHA384_192" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.DES3_CBC_SHA1_KD">
+<span class="sig-name descname"><span class="pre">DES3_CBC_SHA1_KD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.DES3_CBC_SHA1_KD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.DES_CBC_CRC">
+<span class="sig-name descname"><span class="pre">DES_CBC_CRC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.DES_CBC_CRC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.DES_CBC_MD4">
+<span class="sig-name descname"><span class="pre">DES_CBC_MD4</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.DES_CBC_MD4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.DES_CBC_MD5">
+<span class="sig-name descname"><span class="pre">DES_CBC_MD5</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.DES_CBC_MD5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.RC4_HMAC">
+<span class="sig-name descname"><span class="pre">RC4_HMAC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">23</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.RC4_HMAC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.EncryptionType.RC4_HMAC_EXP">
+<span class="sig-name descname"><span class="pre">RC4_HMAC_EXP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24</span></span><a class="headerlink" href="#scapy.libs.rfc3961.EncryptionType.RC4_HMAC_EXP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.InvalidChecksum">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.libs.rfc3961.</span></span><span class="sig-name descname"><span class="pre">InvalidChecksum</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L176-L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.InvalidChecksum" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.KRB_FX_CF2">
+<span class="sig-prename descclassname"><span class="pre">scapy.libs.rfc3961.</span></span><span class="sig-name descname"><span class="pre">KRB_FX_CF2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.Key" title="scapy.libs.rfc3961.Key"><span class="pre">Key</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">key2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.Key" title="scapy.libs.rfc3961.Key"><span class="pre">Key</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pepper1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pepper2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.libs.rfc3961.Key" title="scapy.libs.rfc3961.Key"><span class="pre">Key</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1423-L1446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.KRB_FX_CF2" title="Link to this definition"></a></dt>
+<dd><p>KRB-FX-CF2 RFC6113</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.libs.rfc3961.</span></span><span class="sig-name descname"><span class="pre">Key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.EncryptionType" title="scapy.libs.rfc3961.EncryptionType"><span class="pre">EncryptionType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cksumtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.ChecksumType" title="scapy.libs.rfc3961.ChecksumType"><span class="pre">ChecksumType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1250-L1415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.decrypt">
+<span class="sig-name descname"><span class="pre">decrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyusage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciphertext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1317-L1327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.decrypt" title="Link to this definition"></a></dt>
+<dd><p>Decrypt data using the current Key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyusage</strong> – the key usage</p></li>
+<li><p><strong>ciphertext</strong> – the encrypted text to decrypt</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.encrypt">
+<span class="sig-name descname"><span class="pre">encrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyusage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plaintext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confounder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1306-L1315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.encrypt" title="Link to this definition"></a></dt>
+<dd><p>Encrypt data using the current Key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyusage</strong> – the key usage</p></li>
+<li><p><strong>plaintext</strong> – the plain text to encrypt</p></li>
+<li><p><strong>confounder</strong> – (optional) choose the confounder. Otherwise random.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.make_checksum">
+<span class="sig-name descname"><span class="pre">make_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyusage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cksumtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1333-L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.make_checksum" title="Link to this definition"></a></dt>
+<dd><p>Create a checksum using the current Key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyusage</strong> – the key usage</p></li>
+<li><p><strong>text</strong> – the text to create a checksum from</p></li>
+<li><p><strong>cksumtype</strong> – (optional) override the checksum type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.new_random_key">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">new_random_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.EncryptionType" title="scapy.libs.rfc3961.EncryptionType"><span class="pre">EncryptionType</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.libs.rfc3961.Key" title="scapy.libs.rfc3961.Key"><span class="pre">Key</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1391-L1401"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.new_random_key" title="Link to this definition"></a></dt>
+<dd><p>Generates a seed then calls random-to-key</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.prf">
+<span class="sig-name descname"><span class="pre">prf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1329-L1331"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.prf" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.random_to_key">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">random_to_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.EncryptionType" title="scapy.libs.rfc3961.EncryptionType"><span class="pre">EncryptionType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.libs.rfc3961.Key" title="scapy.libs.rfc3961.Key"><span class="pre">Key</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1375-L1389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.random_to_key" title="Link to this definition"></a></dt>
+<dd><p>random-to-key per RFC3961</p>
+<p>This is used to create a random Key from a seed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.string_to_key">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">string_to_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.libs.rfc3961.EncryptionType" title="scapy.libs.rfc3961.EncryptionType"><span class="pre">EncryptionType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.libs.rfc3961.Key" title="scapy.libs.rfc3961.Key"><span class="pre">Key</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1403-L1415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.string_to_key" title="Link to this definition"></a></dt>
+<dd><p>string-to-key per RFC3961</p>
+<p>This is typically used to create a Key object from a password + salt</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.Key.verify_checksum">
+<span class="sig-name descname"><span class="pre">verify_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyusage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cksum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cksumtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L1352-L1373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.Key.verify_checksum" title="Link to this definition"></a></dt>
+<dd><p>Verify a checksum using the current Key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyusage</strong> – the key usage</p></li>
+<li><p><strong>text</strong> – the text to verify</p></li>
+<li><p><strong>cksum</strong> – the expected checksum</p></li>
+<li><p><strong>cksumtype</strong> – (optional) override the checksum type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.libs.rfc3961.SP800108_KDFCTR">
+<span class="sig-prename descclassname"><span class="pre">scapy.libs.rfc3961.</span></span><span class="sig-name descname"><span class="pre">SP800108_KDFCTR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K_I</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashmod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_GenericHash</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'scapy.layers.tls.crypto.hash.Hash_SHA256'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/libs/rfc3961.py#L109-L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.libs.rfc3961.SP800108_KDFCTR" title="Link to this definition"></a></dt>
+<dd><p>KDF in Counter Mode as section 5.1 of [SP800-108]</p>
+<p>This assumes r=32, and defaults to SHA256 ([MS-SMB2] default).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.libs.extcap.html" class="btn btn-neutral float-left" title="scapy.libs.extcap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.modules.html" class="btn btn-neutral float-right" title="scapy.modules package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

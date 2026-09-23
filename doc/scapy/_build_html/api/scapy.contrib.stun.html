@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.contrib.stun &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.contrib.tacacs" href="scapy.contrib.tacacs.html" />
+    <link rel="prev" title="scapy.contrib.stamp" href="scapy.contrib.stamp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isotp.html">scapy.contrib.isotp package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtps.html">scapy.contrib.rtps package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.altbeacon.html">scapy.contrib.altbeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.aoe.html">scapy.contrib.aoe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.avs.html">scapy.contrib.avs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bfd.html">scapy.contrib.bfd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bgp.html">scapy.contrib.bgp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bier.html">scapy.contrib.bier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bp.html">scapy.contrib.bp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket.html">scapy.contrib.cansocket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_native.html">scapy.contrib.cansocket_native</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_python_can.html">scapy.contrib.cansocket_python_can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.carp.html">scapy.contrib.carp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cdp.html">scapy.contrib.cdp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.chdlc.html">scapy.contrib.chdlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.coap.html">scapy.contrib.coap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.concox.html">scapy.contrib.concox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.diameter.html">scapy.contrib.diameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.dtp.html">scapy.contrib.dtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eddystone.html">scapy.contrib.eddystone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eigrp.html">scapy.contrib.eigrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.enipTCP.html">scapy.contrib.enipTCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.erspan.html">scapy.contrib.erspan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.esmc.html">scapy.contrib.esmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ethercat.html">scapy.contrib.ethercat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.etherip.html">scapy.contrib.etherip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.exposure_notification.html">scapy.contrib.exposure_notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.geneve.html">scapy.contrib.geneve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp.html">scapy.contrib.gtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp_v2.html">scapy.contrib.gtp_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gxrp.html">scapy.contrib.gxrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.hicp.html">scapy.contrib.hicp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugav.html">scapy.contrib.homeplugav</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homepluggp.html">scapy.contrib.homepluggp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugsg.html">scapy.contrib.homeplugsg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.http2.html">scapy.contrib.http2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ibeacon.html">scapy.contrib.ibeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.icmp_extensions.html">scapy.contrib.icmp_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ife.html">scapy.contrib.ife</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmp.html">scapy.contrib.igmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmpv3.html">scapy.contrib.igmpv3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ikev2.html">scapy.contrib.ikev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isis.html">scapy.contrib.isis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.knx.html">scapy.contrib.knx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lacp.html">scapy.contrib.lacp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ldp.html">scapy.contrib.ldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lldp.html">scapy.contrib.lldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.loraphy2wan.html">scapy.contrib.loraphy2wan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ltp.html">scapy.contrib.ltp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mac_control.html">scapy.contrib.mac_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.macsec.html">scapy.contrib.macsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.metawatch.html">scapy.contrib.metawatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.modbus.html">scapy.contrib.modbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mount.html">scapy.contrib.mount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mpls.html">scapy.contrib.mpls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqtt.html">scapy.contrib.mqtt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqttsn.html">scapy.contrib.mqttsn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nfs.html">scapy.contrib.nfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nlm.html">scapy.contrib.nlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nrf_sniffer.html">scapy.contrib.nrf_sniffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nsh.html">scapy.contrib.nsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oam.html">scapy.contrib.oam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oncrpc.html">scapy.contrib.oncrpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.opc_da.html">scapy.contrib.opc_da</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow.html">scapy.contrib.openflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow3.html">scapy.contrib.openflow3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ospf.html">scapy.contrib.ospf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pfcp.html">scapy.contrib.pfcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pim.html">scapy.contrib.pim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio.html">scapy.contrib.pnio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_dcp.html">scapy.contrib.pnio_dcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_rpc.html">scapy.contrib.pnio_rpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.portmap.html">scapy.contrib.portmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.postgres.html">scapy.contrib.postgres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_cace.html">scapy.contrib.ppi_cace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_geotag.html">scapy.contrib.ppi_geotag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.psp.html">scapy.contrib.psp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ripng.html">scapy.contrib.ripng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.roce.html">scapy.contrib.roce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl.html">scapy.contrib.rpl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl_metrics.html">scapy.contrib.rpl_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rsvp.html">scapy.contrib.rsvp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtcp.html">scapy.contrib.rtcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtr.html">scapy.contrib.rtr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtsp.html">scapy.contrib.rtsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sdnv.html">scapy.contrib.sdnv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sebek.html">scapy.contrib.sebek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.send.html">scapy.contrib.send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.skinny.html">scapy.contrib.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.slowprot.html">scapy.contrib.slowprot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.socks.html">scapy.contrib.socks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stamp.html">scapy.contrib.stamp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.contrib.stun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tacacs.html">scapy.contrib.tacacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpao.html">scapy.contrib.tcpao</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpros.html">scapy.contrib.tcpros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tzsp.html">scapy.contrib.tzsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vqp.html">scapy.contrib.vqp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vtp.html">scapy.contrib.vtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.wireguard.html">scapy.contrib.wireguard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.html">scapy.contrib package</a></li>
+      <li class="breadcrumb-item active">scapy.contrib.stun</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.contrib.stun.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.contrib.stun">
+<span id="scapy-contrib-stun"></span><h1>scapy.contrib.stun<a class="headerlink" href="#module-scapy.contrib.stun" title="Link to this heading"></a></h1>
+<p>STUN (RFC 8489)</p>
+<dl class="simple">
+<dt>TLV code derived from the DTP implementation:</dt><dd><dl class="simple">
+<dt>Thanks to Nicolas Bareil,</dt><dd><p>Arnaud Ebalard,
+Jochen Bartl.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUN">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">RESERVED</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stun_message_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magic_cookie</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">554869826</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transaction_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L288-L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUN" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUN.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUN'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUN.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUN.description">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#scapy.contrib.stun.STUN.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUN.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitField</span> <span class="pre">(STUN).RESERVED&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(STUN).stun_message_type&gt;,</span> <span class="pre">&lt;LenField</span> <span class="pre">(STUN).length&gt;,</span> <span class="pre">&lt;XIntField</span> <span class="pre">(STUN).magic_cookie&gt;,</span> <span class="pre">&lt;XBitField</span> <span class="pre">(STUN).transaction_id&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(STUN).attributes&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUN.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUN.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L300-L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUN.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNFingerprint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNFingerprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32808</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crc_32</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L225-L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNFingerprint" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNFingerprint.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNFingerprint'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNFingerprint.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNFingerprint.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNFingerprint).type&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNFingerprint).length&gt;,</span> <span class="pre">&lt;XIntField</span> <span class="pre">(STUNFingerprint).crc_32&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNFingerprint.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGenericTlv">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNGenericTlv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L74-L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNGenericTlv" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGenericTlv.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNGenericTlv.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGenericTlv.dispatch_hook">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dispatch_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L83-L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNGenericTlv.dispatch_hook" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGenericTlv.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNGenericTlv).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(STUNGenericTlv).length&gt;,</span> <span class="pre">&lt;scapy.fields.PadField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNGenericTlv.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGenericTlv.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L90-L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNGenericTlv.guess_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGoogNetworkInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNGoogNetworkInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">49239</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_cost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L245-L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNGoogNetworkInfo" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGoogNetworkInfo.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGoogNetworkInfo'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNGoogNetworkInfo.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNGoogNetworkInfo.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNGoogNetworkInfo).type&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNGoogNetworkInfo).length&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNGoogNetworkInfo).network_id&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNGoogNetworkInfo).network_cost&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNGoogNetworkInfo.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNIceControlling">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNIceControlling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32810</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_breaker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L235-L242"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNIceControlling" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNIceControlling.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNIceControlling'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNIceControlling.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNIceControlling.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNIceControlling).type&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNIceControlling).length&gt;,</span> <span class="pre">&lt;XLongField</span> <span class="pre">(STUNIceControlling).tie_breaker&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNIceControlling.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMappedAddress">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNMappedAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RESERVED</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L196-L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNMappedAddress" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMappedAddress.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNMappedAddress'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNMappedAddress.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMappedAddress.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNMappedAddress).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(STUNMappedAddress).length&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(STUNMappedAddress).RESERVED&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(STUNMappedAddress).address_family&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNMappedAddress).port&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNMappedAddress.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMessageIntegrity">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNMessageIntegrity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmac_sha1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L107-L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNMessageIntegrity" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMessageIntegrity.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNMessageIntegrity'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNMessageIntegrity.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMessageIntegrity.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNMessageIntegrity).type&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNMessageIntegrity).length&gt;,</span> <span class="pre">&lt;XNBytesField</span> <span class="pre">(STUNMessageIntegrity).hmac_sha1&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNMessageIntegrity.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNMessageIntegrity.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L116-L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNMessageIntegrity.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNPriority">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNPriority</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L121-L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNPriority" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNPriority.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNPriority'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNPriority.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNPriority.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNPriority).type&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(STUNPriority).length&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(STUNPriority).priority&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNPriority.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNUseCandidate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNUseCandidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">37</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L215-L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNUseCandidate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNUseCandidate.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNUseCandidate'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNUseCandidate.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNUseCandidate.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNUseCandidate).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(STUNUseCandidate).length&gt;,</span> <span class="pre">&lt;scapy.fields.PadField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNUseCandidate.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNUsername">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNUsername</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L94-L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNUsername" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNUsername.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNUsername'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNUsername.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNUsername.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNUsername).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(STUNUsername).length&gt;,</span> <span class="pre">&lt;scapy.fields.PadField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNUsername.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNXorMappedAddress">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">STUNXorMappedAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RESERVED</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L177-L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.STUNXorMappedAddress" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.stun.STUNGenericTlv" title="scapy.contrib.stun.STUNGenericTlv"><code class="xref py py-class docutils literal notranslate"><span class="pre">STUNGenericTlv</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNXorMappedAddress.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNXorMappedAddress'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.stun.STUNGenericTlv'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNXorMappedAddress.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.stun.STUNXorMappedAddress.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XShortField</span> <span class="pre">(STUNXorMappedAddress).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(STUNXorMappedAddress).length&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(STUNXorMappedAddress).RESERVED&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(STUNXorMappedAddress).address_family&gt;,</span> <span class="pre">&lt;XorPort</span> <span class="pre">(STUNXorMappedAddress).xport&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.stun.STUNXorMappedAddress.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorIp">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">XorIp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L146-L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorIp" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.IPField" title="scapy.fields.IPField"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPField</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorIp.i2m">
+<span class="sig-name descname"><span class="pre">i2m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L151-L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorIp.i2m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorIp.m2i">
+<span class="sig-name descname"><span class="pre">m2i</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L148-L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorIp.m2i" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorIp6">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">XorIp6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L157-L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorIp6" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.IP6Field" title="scapy.fields.IP6Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">IP6Field</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorIp6.i2m">
+<span class="sig-name descname"><span class="pre">i2m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L163-L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorIp6.i2m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorIp6.m2i">
+<span class="sig-name descname"><span class="pre">m2i</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L159-L161"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorIp6.m2i" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorPort">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.stun.</span></span><span class="sig-name descname"><span class="pre">XorPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L137-L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorPort" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.ShortField" title="scapy.fields.ShortField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShortField</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorPort.i2m">
+<span class="sig-name descname"><span class="pre">i2m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L142-L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorPort.i2m" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.stun.XorPort.m2i">
+<span class="sig-name descname"><span class="pre">m2i</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/stun.py#L139-L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.stun.XorPort.m2i" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.contrib.stamp.html" class="btn btn-neutral float-left" title="scapy.contrib.stamp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.contrib.tacacs.html" class="btn btn-neutral float-right" title="scapy.contrib.tacacs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

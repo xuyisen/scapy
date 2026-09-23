@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROFINET IO RTC &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SCTP" href="sctp.html" />
+    <link rel="prev" title="Netflow" href="netflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PROFINET IO RTC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rtc-data-packet">RTC data packet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtc-packet">RTC packet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">PROFINET IO RTC</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/pnio.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="profinet-io-rtc">
+<h1>PROFINET IO RTC<a class="headerlink" href="#profinet-io-rtc" title="Link to this heading"></a></h1>
+<p>PROFINET IO is an industrial protocol composed of different layers such as the Real-Time Cyclic (RTC) layer, used to exchange data. However, this RTC layer is stateful and depends on a configuration sent through another layer: the DCE/RPC endpoint of PROFINET. This configuration defines where each exchanged piece of data must be located in the RTC <code class="docutils literal notranslate"><span class="pre">data</span></code> buffer, as well as the length of this same buffer. Building such packet is then a bit more complicated than other protocols.</p>
+<section id="rtc-data-packet">
+<h2>RTC data packet<a class="headerlink" href="#rtc-data-packet" title="Link to this heading"></a></h2>
+<p>The first thing to do when building the RTC <code class="docutils literal notranslate"><span class="pre">data</span></code> buffer is to instantiate each Scapy packet which represents a piece of data. Some of the basic packets are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ProfinetIO</span></code>: the building block for PROFINET packets. Can be layered on top of Ether() or UDP()</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PROFIsafe</span></code>: the PROFIsafe profile to perform functional safety</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PNIORealTime_IOxS</span></code>: either an IO Consumer or Provider Status byte</p></li>
+</ul>
+<p>Instantiate the packets as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_contrib</span><span class="p">(</span><span class="s1">'pnio'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw</span><span class="p">(</span><span class="n">ProfinetIO</span><span class="p">()</span><span class="o">/</span><span class="sa">b</span><span class="s1">'AAA'</span><span class="p">)</span>
+<span class="go">b'\x00\x00AAA'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw</span><span class="p">(</span><span class="n">PROFIsafe</span><span class="o">.</span><span class="n">build_PROFIsafe_class</span><span class="p">(</span><span class="n">PROFIsafeControl</span><span class="p">,</span> <span class="mi">4</span><span class="p">)(</span><span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">'AAA'</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="mh">0x20</span><span class="p">,</span> <span class="n">crc</span><span class="o">=</span><span class="mh">0x424242</span><span class="p">))</span>
+<span class="go">b'AAA\x00 BBB'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hexdump</span><span class="p">(</span><span class="n">PNIORealTime_IOxS</span><span class="p">())</span>
+<span class="go">0000   80                                                 .</span>
+</pre></div>
+</div>
+</section>
+<section id="rtc-packet">
+<h2>RTC packet<a class="headerlink" href="#rtc-packet" title="Link to this heading"></a></h2>
+<p>Now that a data packet can be instantiated, a whole RTC packet may be built. <code class="docutils literal notranslate"><span class="pre">PNIORealTimeCyclicPDU</span></code> contains a field <code class="docutils literal notranslate"><span class="pre">data</span></code> which is a list of all data packets to add in the buffer, however, without the configuration, Scapy won’t be
+able to dissect it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_contrib</span><span class="p">(</span><span class="s1">'pnio'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">PNIORealTimeCyclicPDU</span><span class="p">(</span><span class="n">cycleCounter</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span><span class="n">PNIORealTime_IOxS</span><span class="p">(),</span>
+<span class="gp">... </span><span class="n">PNIORealTimeCyclicPDU</span><span class="o">.</span><span class="n">build_fixed_len_raw_type</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">'AAA'</span><span class="p">)</span> <span class="o">/</span> <span class="n">PNIORealTime_IOxS</span><span class="p">(),</span>
+<span class="gp">... </span><span class="n">PROFIsafe</span><span class="o">.</span><span class="n">build_PROFIsafe_class</span><span class="p">(</span><span class="n">PROFIsafeControl</span><span class="p">,</span> <span class="mi">4</span><span class="p">)(</span><span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">'AAA'</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="mh">0x20</span><span class="p">,</span> <span class="n">crc</span><span class="o">=</span><span class="mh">0x424242</span><span class="p">)</span><span class="o">/</span><span class="n">PNIORealTime_IOxS</span><span class="p">(),</span>
+<span class="gp">... </span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">###[ PROFINET Real-Time ]###</span>
+<span class="go">  \data      \</span>
+<span class="go">   |###[ PNIO RTC IOxS ]###</span>
+<span class="go">   |  dataState = good</span>
+<span class="go">   |  instance  = subslot</span>
+<span class="go">   |  reserved  = 0x0</span>
+<span class="go">   |  extension = 0</span>
+<span class="go">   |###[ FixedLenRawPacketLen4 ]###</span>
+<span class="go">   |  data      = 'AAA'</span>
+<span class="go">   |###[ PNIO RTC IOxS ]###</span>
+<span class="go">   |     dataState = good</span>
+<span class="go">   |     instance  = subslot</span>
+<span class="go">   |     reserved  = 0x0</span>
+<span class="go">   |     extension = 0</span>
+<span class="go">   |###[ PROFISafe Control Message with F_CRC_Seed=0 ]###</span>
+<span class="go">   |  dat(      = 'AAA'</span>
+<span class="go">   |  control   = Toggle_h</span>
+<span class="go">   |  crc       = 0x424242</span>
+<span class="go">   |###[ PNIO RTC IOxS ]###</span>
+<span class="go">   |     dataState = good</span>
+<span class="go">   |     instance  = subslot</span>
+<span class="go">   |     reserved  = 0x0</span>
+<span class="go">   |     extension = 0</span>
+<span class="go">  padding   = ''</span>
+<span class="go">  cycleCounter= 1024</span>
+<span class="go">  dataStatus= primary+validData+run+no_problem</span>
+<span class="go">  transferStatus= 0</span>
+</pre></div>
+</div>
+<p>For Scapy to be able to dissect it correctly, one must also configure the layer for it to know the location of each data in the buffer. This configuration is saved in the dictionary <code class="docutils literal notranslate"><span class="pre">conf.contribs[&quot;PNIO_RTC&quot;]</span></code> which can be updated with the <code class="docutils literal notranslate"><span class="pre">conf.contribs[&quot;PNIO_RTC&quot;].update</span></code> method. Each item in the dictionary uses the tuple <code class="docutils literal notranslate"><span class="pre">(Ether.src,</span> <span class="pre">Ether.dst,</span> <span class="pre">ProfinetIO.frameID)</span></code> as key, to be able to separate the configuration of each communication. Each value is then a list of classes which describes a data packet. If we continue the previous example, here is the configuration to set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">=</span><span class="n">Ether</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="s1">'00:01:02:03:04:05'</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s1">'06:07:08:09:0a:0b'</span><span class="p">)</span> <span class="o">/</span> <span class="n">ProfinetIO</span><span class="p">(</span><span class="n">frameID</span><span class="o">=</span><span class="s2">"RT_CLASS_1"</span><span class="p">)</span> <span class="o">/</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">show2</span><span class="p">()</span>
+<span class="go">###[ Ethernet ]###</span>
+<span class="go">  dst       = 06:07:08:09:0a:0b</span>
+<span class="go">  src       = 00:01:02:03:04:05</span>
+<span class="go">  type      = 0x8892</span>
+<span class="go">###[ ProfinetIO ]###</span>
+<span class="go">     frameID   = RT_CLASS_1 (8000)</span>
+<span class="go">###[ PROFINET Real-Time ]###</span>
+<span class="go">        \data      \</span>
+<span class="go">         |###[ PROFINET IO Real Time Cyclic Default Raw Data ]###</span>
+<span class="go">         |  data      = '\\x80AAA\x00\\x80AAA\x00 BBB\\x80'</span>
+<span class="go">        padding   = ''</span>
+<span class="go">        cycleCounter= 1024</span>
+<span class="go">        dataStatus= primary+validData+run+no_problem</span>
+<span class="go">        transferStatus= 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">contribs</span><span class="p">[</span><span class="s2">"PNIO_RTC"</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="s1">'00:01:02:03:04:05'</span><span class="p">,</span> <span class="s1">'06:07:08:09:0a:0b'</span><span class="p">,</span> <span class="mh">0x8000</span><span class="p">):</span> <span class="p">[</span>
+<span class="gp">... </span><span class="n">PNIORealTime_IOxS</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">PNIORealTimeCyclicPDU</span><span class="o">.</span><span class="n">build_fixed_len_raw_type</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">PNIORealTime_IOxS</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">PROFIsafe</span><span class="o">.</span><span class="n">build_PROFIsafe_class</span><span class="p">(</span><span class="n">PROFIsafeControl</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">PNIORealTime_IOxS</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">show2</span><span class="p">()</span>
+<span class="go">###[ Ethernet ]###</span>
+<span class="go">  dst       = 06:07:08:09:0a:0b</span>
+<span class="go">  src       = 00:01:02:03:04:05</span>
+<span class="go">  type      = 0x8892</span>
+<span class="go">###[ ProfinetIO ]###</span>
+<span class="go">     frameID   = RT_CLASS_1 (8000)</span>
+<span class="go">###[ PROFINET Real-Time ]###</span>
+<span class="go">        \data      \</span>
+<span class="go">         |###[ PNIO RTC IOxS ]###</span>
+<span class="go">         |  dataState = good</span>
+<span class="go">         |  instance  = subslot</span>
+<span class="go">         |  reserved  = 0x0</span>
+<span class="go">         |  extension = 0</span>
+<span class="go">         |###[ FixedLenRawPacketLen4 ]###</span>
+<span class="go">         |  data      = 'AAA'</span>
+<span class="go">         |###[ PNIO RTC IOxS ]###</span>
+<span class="go">         |  dataState = good</span>
+<span class="go">         |  instance  = subslot</span>
+<span class="go">         |  reserved  = 0x0</span>
+<span class="go">         |  extension = 0</span>
+<span class="go">         |###[ PROFISafe Control Message with F_CRC_Seed=0 ]###</span>
+<span class="go">         |  data      = 'AAA'</span>
+<span class="go">         |  control   = Toggle_h</span>
+<span class="go">         |  crc       = 0x424242</span>
+<span class="go">         |###[ PNIO RTC IOxS ]###</span>
+<span class="go">         |  dataState = good</span>
+<span class="go">         |  instance  = subslot</span>
+<span class="go">         |  reserved  = 0x0</span>
+<span class="go">         |  extension = 0</span>
+<span class="go">        padding   = ''</span>
+<span class="go">        cycleCounter= 1024</span>
+<span class="go">        dataStatus= primary+validData+run+no_problem</span>
+<span class="go">        transferStatus= 0</span>
+</pre></div>
+</div>
+<p>If no data packets are configured for a given offset, it defaults to a <code class="docutils literal notranslate"><span class="pre">PNIORealTimeCyclicDefaultRawData</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="netflow.html" class="btn btn-neutral float-left" title="Netflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sctp.html" class="btn btn-neutral float-right" title="SCTP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

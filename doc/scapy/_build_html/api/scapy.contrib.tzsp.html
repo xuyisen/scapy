@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.contrib.tzsp &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.contrib.vqp" href="scapy.contrib.vqp.html" />
+    <link rel="prev" title="scapy.contrib.tcpros" href="scapy.contrib.tcpros.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isotp.html">scapy.contrib.isotp package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtps.html">scapy.contrib.rtps package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.altbeacon.html">scapy.contrib.altbeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.aoe.html">scapy.contrib.aoe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.avs.html">scapy.contrib.avs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bfd.html">scapy.contrib.bfd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bgp.html">scapy.contrib.bgp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bier.html">scapy.contrib.bier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bp.html">scapy.contrib.bp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket.html">scapy.contrib.cansocket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_native.html">scapy.contrib.cansocket_native</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_python_can.html">scapy.contrib.cansocket_python_can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.carp.html">scapy.contrib.carp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cdp.html">scapy.contrib.cdp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.chdlc.html">scapy.contrib.chdlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.coap.html">scapy.contrib.coap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.concox.html">scapy.contrib.concox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.diameter.html">scapy.contrib.diameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.dtp.html">scapy.contrib.dtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eddystone.html">scapy.contrib.eddystone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eigrp.html">scapy.contrib.eigrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.enipTCP.html">scapy.contrib.enipTCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.erspan.html">scapy.contrib.erspan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.esmc.html">scapy.contrib.esmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ethercat.html">scapy.contrib.ethercat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.etherip.html">scapy.contrib.etherip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.exposure_notification.html">scapy.contrib.exposure_notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.geneve.html">scapy.contrib.geneve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp.html">scapy.contrib.gtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp_v2.html">scapy.contrib.gtp_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gxrp.html">scapy.contrib.gxrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.hicp.html">scapy.contrib.hicp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugav.html">scapy.contrib.homeplugav</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homepluggp.html">scapy.contrib.homepluggp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugsg.html">scapy.contrib.homeplugsg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.http2.html">scapy.contrib.http2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ibeacon.html">scapy.contrib.ibeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.icmp_extensions.html">scapy.contrib.icmp_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ife.html">scapy.contrib.ife</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmp.html">scapy.contrib.igmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmpv3.html">scapy.contrib.igmpv3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ikev2.html">scapy.contrib.ikev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isis.html">scapy.contrib.isis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.knx.html">scapy.contrib.knx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lacp.html">scapy.contrib.lacp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ldp.html">scapy.contrib.ldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lldp.html">scapy.contrib.lldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.loraphy2wan.html">scapy.contrib.loraphy2wan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ltp.html">scapy.contrib.ltp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mac_control.html">scapy.contrib.mac_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.macsec.html">scapy.contrib.macsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.metawatch.html">scapy.contrib.metawatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.modbus.html">scapy.contrib.modbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mount.html">scapy.contrib.mount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mpls.html">scapy.contrib.mpls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqtt.html">scapy.contrib.mqtt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqttsn.html">scapy.contrib.mqttsn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nfs.html">scapy.contrib.nfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nlm.html">scapy.contrib.nlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nrf_sniffer.html">scapy.contrib.nrf_sniffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nsh.html">scapy.contrib.nsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oam.html">scapy.contrib.oam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oncrpc.html">scapy.contrib.oncrpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.opc_da.html">scapy.contrib.opc_da</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow.html">scapy.contrib.openflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow3.html">scapy.contrib.openflow3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ospf.html">scapy.contrib.ospf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pfcp.html">scapy.contrib.pfcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pim.html">scapy.contrib.pim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio.html">scapy.contrib.pnio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_dcp.html">scapy.contrib.pnio_dcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_rpc.html">scapy.contrib.pnio_rpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.portmap.html">scapy.contrib.portmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.postgres.html">scapy.contrib.postgres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_cace.html">scapy.contrib.ppi_cace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_geotag.html">scapy.contrib.ppi_geotag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.psp.html">scapy.contrib.psp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ripng.html">scapy.contrib.ripng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.roce.html">scapy.contrib.roce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl.html">scapy.contrib.rpl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl_metrics.html">scapy.contrib.rpl_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rsvp.html">scapy.contrib.rsvp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtcp.html">scapy.contrib.rtcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtr.html">scapy.contrib.rtr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtsp.html">scapy.contrib.rtsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sdnv.html">scapy.contrib.sdnv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sebek.html">scapy.contrib.sebek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.send.html">scapy.contrib.send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.skinny.html">scapy.contrib.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.slowprot.html">scapy.contrib.slowprot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.socks.html">scapy.contrib.socks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stamp.html">scapy.contrib.stamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stun.html">scapy.contrib.stun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tacacs.html">scapy.contrib.tacacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpao.html">scapy.contrib.tcpao</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpros.html">scapy.contrib.tcpros</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.contrib.tzsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vqp.html">scapy.contrib.vqp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vtp.html">scapy.contrib.vtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.wireguard.html">scapy.contrib.wireguard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.html">scapy.contrib package</a></li>
+      <li class="breadcrumb-item active">scapy.contrib.tzsp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.contrib.tzsp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.contrib.tzsp">
+<span id="scapy-contrib-tzsp"></span><h1>scapy.contrib.tzsp<a class="headerlink" href="#module-scapy.contrib.tzsp" title="Link to this heading"></a></h1>
+<section id="tzsp-tazmen-sniffer-protocol">
+<h2>TZSP - TaZmen Sniffer Protocol<a class="headerlink" href="#tzsp-tazmen-sniffer-protocol" title="Link to this heading"></a></h2>
+<dl class="field-list">
+<dt class="field-odd">author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Thomas Tannhaeuser, <a class="reference external" href="mailto:hecke&#37;&#52;&#48;naberius&#46;de">hecke<span>&#64;</span>naberius<span>&#46;</span>de</a></p>
+</dd>
+<dt class="field-even">description<span class="colon">:</span></dt>
+<dd class="field-even"><p>This module provides Scapy layers for the TZSP protocol.</p>
+<dl class="simple">
+<dt>references:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/TZSP">https://en.wikipedia.org/wiki/TZSP</a></p></li>
+<li><p><a class="reference external" href="https://web.archive.org/web/20050404125022/http://www.networkchemistry.com/support/appnotes/an001_tzsp.html">https://web.archive.org/web/20050404125022/http://www.networkchemistry.com/support/appnotes/an001_tzsp.html</a>  # noqa: E501</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">NOTES<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p>to allow Scapy to dissect this layer automatically, you need to bind the TZSP layer to UDP using  # noqa: E501
+the default TZSP port (0x9090), e.g.</p>
+<blockquote>
+<div><p>bind_layers(UDP, TZSP, sport=TZSP_PORT_DEFAULT)
+bind_layers(UDP, TZSP, dport=TZSP_PORT_DEFAULT)</p>
+</div></blockquote>
+</li>
+<li><p>packet format definition from www.networkchemistry.com is different from the one given by wikipedia  # noqa: E501</p></li>
+<li><p>seems Wireshark implements the wikipedia protocol version (didn’t dive into their code)  # noqa: E501</p></li>
+<li><p>observed (miss)behavior of Wireshark (2.2.6)
+- fails to decode RSSI &amp; SNR using short values - only one byte taken
+- SNR is labeled as silence
+- WlanRadioHdrSerial is labeled as Sensor MAC
+- doesn’t know the packet count tag (40 / 0x28)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encapsulated_protocol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L51-L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.ENCAPSULATED_ETHERNET">
+<span class="sig-name descname"><span class="pre">ENCAPSULATED_ETHERNET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.ENCAPSULATED_ETHERNET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.ENCAPSULATED_IEEE_802_11">
+<span class="sig-name descname"><span class="pre">ENCAPSULATED_IEEE_802_11</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.ENCAPSULATED_IEEE_802_11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.ENCAPSULATED_PRISM_HEADER">
+<span class="sig-name descname"><span class="pre">ENCAPSULATED_PRISM_HEADER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">119</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.ENCAPSULATED_PRISM_HEADER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.ENCAPSULATED_PROTOCOLS">
+<span class="sig-name descname"><span class="pre">ENCAPSULATED_PROTOCOLS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'ETHERNET',</span> <span class="pre">18:</span> <span class="pre">'IEEE</span> <span class="pre">802.11',</span> <span class="pre">119:</span> <span class="pre">'PRISM</span> <span class="pre">HEADER',</span> <span class="pre">127:</span> <span class="pre">'WLAN</span> <span class="pre">AVS'}</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.ENCAPSULATED_PROTOCOLS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.ENCAPSULATED_PROTOCOL_CLASSES">
+<span class="sig-name descname"><span class="pre">ENCAPSULATED_PROTOCOL_CLASSES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.l2.Ether'&gt;,</span> <span class="pre">18:</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dot11.Dot11'&gt;,</span> <span class="pre">119:</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.dot11.PrismHeader'&gt;,</span> <span class="pre">127:</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.avs.AVSWLANHeader'&gt;}</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.ENCAPSULATED_PROTOCOL_CLASSES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.ENCAPSULATED_WLAN_AVS">
+<span class="sig-name descname"><span class="pre">ENCAPSULATED_WLAN_AVS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">127</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.ENCAPSULATED_WLAN_AVS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPES">
+<span class="sig-name descname"><span class="pre">TYPES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'RX_PACKET',</span> <span class="pre">1:</span> <span class="pre">'TX_PACKET',</span> <span class="pre">3:</span> <span class="pre">'CONFIG',</span> <span class="pre">4:</span> <span class="pre">'KEEPALIVE/NULL',</span> <span class="pre">5:</span> <span class="pre">'PORT'}</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPE_CONFIG">
+<span class="sig-name descname"><span class="pre">TYPE_CONFIG</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPE_CONFIG" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPE_KEEPALIVE">
+<span class="sig-name descname"><span class="pre">TYPE_KEEPALIVE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPE_KEEPALIVE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPE_NULL">
+<span class="sig-name descname"><span class="pre">TYPE_NULL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPE_NULL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPE_PORT">
+<span class="sig-name descname"><span class="pre">TYPE_PORT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPE_PORT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPE_RX_PACKET">
+<span class="sig-name descname"><span class="pre">TYPE_RX_PACKET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPE_RX_PACKET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.TYPE_TX_PACKET">
+<span class="sig-name descname"><span class="pre">TYPE_TX_PACKET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.TYPE_TX_PACKET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSP'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteField</span> <span class="pre">(TZSP).version&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(TZSP).type&gt;,</span> <span class="pre">&lt;ShortEnumField</span> <span class="pre">(TZSP).encapsulated_protocol&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.get_encapsulated_payload">
+<span class="sig-name descname"><span class="pre">get_encapsulated_payload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L113-L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.get_encapsulated_payload" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.get_encapsulated_payload_class">
+<span class="sig-name descname"><span class="pre">get_encapsulated_payload_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L91-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.get_encapsulated_payload_class" title="Link to this definition"></a></dt>
+<dd><p>get the class that holds the encapsulated payload of the TZSP packet
+:return: class representing the payload, Raw() on error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSP.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L104-L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSP.guess_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPStructureException">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPStructureException</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L219-L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPStructureException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagContentionFree">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagContentionFree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contention_free</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L369-L380"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagContentionFree" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>packet received in contention free period</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagContentionFree.NO">
+<span class="sig-name descname"><span class="pre">NO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagContentionFree.NO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagContentionFree.YES">
+<span class="sig-name descname"><span class="pre">YES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagContentionFree.YES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagContentionFree.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagContentionFree'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagContentionFree.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagContentionFree.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagContentionFree).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagContentionFree).len&gt;,</span> <span class="pre">&lt;YesNoByteField</span> <span class="pre">(TZSPTagContentionFree).contention_free&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagContentionFree.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagDataRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L305-L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>wireless link data rate</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATES">
+<span class="sig-name descname"><span class="pre">DATA_RATES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'unknown',</span> <span class="pre">2:</span> <span class="pre">'1</span> <span class="pre">MB/s',</span> <span class="pre">4:</span> <span class="pre">'2</span> <span class="pre">MB/s',</span> <span class="pre">10:</span> <span class="pre">'1</span> <span class="pre">MB/s</span> <span class="pre">(legacy)',</span> <span class="pre">11:</span> <span class="pre">'5.5</span> <span class="pre">MB/s',</span> <span class="pre">12:</span> <span class="pre">'6</span> <span class="pre">MB/s',</span> <span class="pre">18:</span> <span class="pre">'9</span> <span class="pre">MB/s',</span> <span class="pre">20:</span> <span class="pre">'2</span> <span class="pre">MB/s</span> <span class="pre">(legacy)',</span> <span class="pre">22:</span> <span class="pre">'11</span> <span class="pre">MB/s',</span> <span class="pre">24:</span> <span class="pre">'12</span> <span class="pre">MB/s',</span> <span class="pre">36:</span> <span class="pre">'18</span> <span class="pre">MB/s',</span> <span class="pre">44:</span> <span class="pre">'22</span> <span class="pre">MB/s',</span> <span class="pre">48:</span> <span class="pre">'24</span> <span class="pre">MB/s',</span> <span class="pre">55:</span> <span class="pre">'5.5</span> <span class="pre">MB/s</span> <span class="pre">(legacy)',</span> <span class="pre">66:</span> <span class="pre">'33</span> <span class="pre">MB/s',</span> <span class="pre">72:</span> <span class="pre">'36</span> <span class="pre">MB/s',</span> <span class="pre">96:</span> <span class="pre">'48</span> <span class="pre">MB/s',</span> <span class="pre">108:</span> <span class="pre">'54</span> <span class="pre">MB/s',</span> <span class="pre">110:</span> <span class="pre">'11</span> <span class="pre">MB/s</span> <span class="pre">(legacy)'}</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_1">
+<span class="sig-name descname"><span class="pre">DATA_RATE_1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_11">
+<span class="sig-name descname"><span class="pre">DATA_RATE_11</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">22</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_12">
+<span class="sig-name descname"><span class="pre">DATA_RATE_12</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_12" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_18">
+<span class="sig-name descname"><span class="pre">DATA_RATE_18</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">36</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_18" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_2">
+<span class="sig-name descname"><span class="pre">DATA_RATE_2</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_22">
+<span class="sig-name descname"><span class="pre">DATA_RATE_22</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">44</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_22" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_24">
+<span class="sig-name descname"><span class="pre">DATA_RATE_24</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">48</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_24" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_33">
+<span class="sig-name descname"><span class="pre">DATA_RATE_33</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">66</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_33" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_36">
+<span class="sig-name descname"><span class="pre">DATA_RATE_36</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">72</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_36" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_48">
+<span class="sig-name descname"><span class="pre">DATA_RATE_48</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">96</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_48" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_54">
+<span class="sig-name descname"><span class="pre">DATA_RATE_54</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">108</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_54" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_5_5">
+<span class="sig-name descname"><span class="pre">DATA_RATE_5_5</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_5_5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_6">
+<span class="sig-name descname"><span class="pre">DATA_RATE_6</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_9">
+<span class="sig-name descname"><span class="pre">DATA_RATE_9</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_1">
+<span class="sig-name descname"><span class="pre">DATA_RATE_LEGACY_1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_11">
+<span class="sig-name descname"><span class="pre">DATA_RATE_LEGACY_11</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">110</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_2">
+<span class="sig-name descname"><span class="pre">DATA_RATE_LEGACY_2</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_5_5">
+<span class="sig-name descname"><span class="pre">DATA_RATE_LEGACY_5_5</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">55</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_LEGACY_5_5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_UNKNOWN">
+<span class="sig-name descname"><span class="pre">DATA_RATE_UNKNOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.DATA_RATE_UNKNOWN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagDataRate'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDataRate.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagDataRate).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagDataRate).len&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(TZSPTagDataRate).data_rate&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDataRate.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDecrypted">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagDecrypted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decrypted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L383-L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDecrypted" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>packet was decrypted</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDecrypted.NO">
+<span class="sig-name descname"><span class="pre">NO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDecrypted.NO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDecrypted.YES">
+<span class="sig-name descname"><span class="pre">YES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDecrypted.YES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDecrypted.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagDecrypted'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDecrypted.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagDecrypted.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagDecrypted).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagDecrypted).len&gt;,</span> <span class="pre">&lt;YesNoByteField</span> <span class="pre">(TZSPTagDecrypted).decrypted&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagDecrypted.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagEnd">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagEnd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L232-L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagEnd" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>last tag</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagEnd.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagEnd'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagEnd.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagEnd.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagEnd).type&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagEnd.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagEnd.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L240-L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagEnd.guess_payload_class" title="Link to this definition"></a></dt>
+<dd><p>the type of the payload encapsulation is given be the outer TZSP layers attribute encapsulation_protocol  # noqa: E501</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagError">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fcs_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L397-L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>frame checksum error</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagError.NO">
+<span class="sig-name descname"><span class="pre">NO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagError.NO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagError.YES">
+<span class="sig-name descname"><span class="pre">YES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagError.YES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagError.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagError'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagError.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagError.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagError).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagError).len&gt;,</span> <span class="pre">&lt;YesNoByteField</span> <span class="pre">(TZSPTagError).fcs_error&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagError.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagPacketCount">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagPacketCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packet_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L422-L430"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagPacketCount" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>packet counter</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagPacketCount.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagPacketCount'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagPacketCount.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagPacketCount.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagPacketCount).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagPacketCount).len&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(TZSPTagPacketCount).packet_count&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagPacketCount.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagPadding">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagPadding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L223-L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagPadding" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>padding tag (should be ignored)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagPadding.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagPadding'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagPadding.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagPadding.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagPadding).type&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagPadding.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRXChannel">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagRXChannel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L411-L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRXChannel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>channel the sensor was on while receiving the frame</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRXChannel.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagRXChannel'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRXChannel.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRXChannel.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagRXChannel).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagRXChannel).len&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagRXChannel).rx_channel&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRXChannel.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRXFrameLength">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagRXFrameLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">41</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_frame_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L433-L441"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRXFrameLength" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>received packet length</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRXFrameLength.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagRXFrameLength'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRXFrameLength.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRXFrameLength.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagRXFrameLength).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagRXFrameLength).len&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(TZSPTagRXFrameLength).rx_frame_length&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRXFrameLength.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRawRSSIByte">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagRawRSSIByte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_rssi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L261-L269"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRawRSSIByte" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>relative received signal strength - signed byte value</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRawRSSIByte.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagRawRSSIByte'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRawRSSIByte.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRawRSSIByte.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagRawRSSIByte).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagRawRSSIByte).len&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagRawRSSIByte).raw_rssi&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRawRSSIByte.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRawRSSIShort">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagRawRSSIShort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_rssi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L272-L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRawRSSIShort" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>relative received signal strength - signed short value</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRawRSSIShort.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagRawRSSIShort'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRawRSSIShort.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagRawRSSIShort.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagRawRSSIShort).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagRawRSSIShort).len&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(TZSPTagRawRSSIShort).raw_rssi&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagRawRSSIShort.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagSNRByte">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagSNRByte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L283-L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagSNRByte" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>signal noise ratio - signed byte value</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagSNRByte.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagSNRByte'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagSNRByte.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagSNRByte.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagSNRByte).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagSNRByte).len&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagSNRByte).snr&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagSNRByte.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagSNRShort">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagSNRShort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L294-L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagSNRShort" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>signal noise ratio - signed short value</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagSNRShort.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagSNRShort'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagSNRShort.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagSNRShort.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagSNRShort).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagSNRShort).len&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(TZSPTagSNRShort).snr&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagSNRShort.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagTimestamp">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagTimestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L358-L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagTimestamp" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>MAC receive timestamp</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagTimestamp.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagTimestamp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagTimestamp.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagTimestamp.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagTimestamp).type&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(TZSPTagTimestamp).len&gt;,</span> <span class="pre">&lt;IntField</span> <span class="pre">(TZSPTagTimestamp).timestamp&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagTimestamp.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagUnknown">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagUnknown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L455-L463"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagUnknown" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>unknown tag type dummy</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagUnknown.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagUnknown'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagUnknown.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagUnknown.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteField</span> <span class="pre">(TZSPTagUnknown).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(TZSPTagUnknown).len&gt;,</span> <span class="pre">&lt;XStrLenField</span> <span class="pre">(TZSPTagUnknown).data&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagUnknown.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.tzsp.</span></span><span class="sig-name descname"><span class="pre">TZSPTagWlanRadioHdrSerial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/tzsp.py#L444-L452"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TZSPTag</span></code></p>
+<p>(vendor specific) unique capture device (sensor/AP) identifier</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.tzsp._TZSPTag'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteEnumField</span> <span class="pre">(TZSPTagWlanRadioHdrSerial).type&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(TZSPTagWlanRadioHdrSerial).len&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(TZSPTagWlanRadioHdrSerial).sensor_id&gt;]</span></span><a class="headerlink" href="#scapy.contrib.tzsp.TZSPTagWlanRadioHdrSerial.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.contrib.tcpros.html" class="btn btn-neutral float-left" title="scapy.contrib.tcpros" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.contrib.vqp.html" class="btn btn-neutral float-right" title="scapy.contrib.vqp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

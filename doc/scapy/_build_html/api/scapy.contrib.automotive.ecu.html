@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.contrib.automotive.ecu &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.contrib.automotive.kwp" href="scapy.contrib.automotive.kwp.html" />
+    <link rel="prev" title="scapy.contrib.automotive.doip" href="scapy.contrib.automotive.doip.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.autosar.html">scapy.contrib.automotive.autosar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.bmw.html">scapy.contrib.automotive.bmw package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.gm.html">scapy.contrib.automotive.gm package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.obd.html">scapy.contrib.automotive.obd package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.scanner.html">scapy.contrib.automotive.scanner package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.volkswagen.html">scapy.contrib.automotive.volkswagen package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.xcp.html">scapy.contrib.automotive.xcp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.ccp.html">scapy.contrib.automotive.ccp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.doip.html">scapy.contrib.automotive.doip</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">scapy.contrib.automotive.ecu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.kwp.html">scapy.contrib.automotive.kwp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.someip.html">scapy.contrib.automotive.someip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds.html">scapy.contrib.automotive.uds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds_ecu_states.html">scapy.contrib.automotive.uds_ecu_states</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds_logging.html">scapy.contrib.automotive.uds_logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds_scan.html">scapy.contrib.automotive.uds_scan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isotp.html">scapy.contrib.isotp package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtps.html">scapy.contrib.rtps package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.altbeacon.html">scapy.contrib.altbeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.aoe.html">scapy.contrib.aoe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.avs.html">scapy.contrib.avs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bfd.html">scapy.contrib.bfd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bgp.html">scapy.contrib.bgp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bier.html">scapy.contrib.bier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bp.html">scapy.contrib.bp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket.html">scapy.contrib.cansocket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_native.html">scapy.contrib.cansocket_native</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_python_can.html">scapy.contrib.cansocket_python_can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.carp.html">scapy.contrib.carp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cdp.html">scapy.contrib.cdp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.chdlc.html">scapy.contrib.chdlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.coap.html">scapy.contrib.coap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.concox.html">scapy.contrib.concox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.diameter.html">scapy.contrib.diameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.dtp.html">scapy.contrib.dtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eddystone.html">scapy.contrib.eddystone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eigrp.html">scapy.contrib.eigrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.enipTCP.html">scapy.contrib.enipTCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.erspan.html">scapy.contrib.erspan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.esmc.html">scapy.contrib.esmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ethercat.html">scapy.contrib.ethercat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.etherip.html">scapy.contrib.etherip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.exposure_notification.html">scapy.contrib.exposure_notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.geneve.html">scapy.contrib.geneve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp.html">scapy.contrib.gtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp_v2.html">scapy.contrib.gtp_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gxrp.html">scapy.contrib.gxrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.hicp.html">scapy.contrib.hicp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugav.html">scapy.contrib.homeplugav</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homepluggp.html">scapy.contrib.homepluggp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugsg.html">scapy.contrib.homeplugsg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.http2.html">scapy.contrib.http2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ibeacon.html">scapy.contrib.ibeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.icmp_extensions.html">scapy.contrib.icmp_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ife.html">scapy.contrib.ife</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmp.html">scapy.contrib.igmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmpv3.html">scapy.contrib.igmpv3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ikev2.html">scapy.contrib.ikev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isis.html">scapy.contrib.isis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.knx.html">scapy.contrib.knx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lacp.html">scapy.contrib.lacp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ldp.html">scapy.contrib.ldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lldp.html">scapy.contrib.lldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.loraphy2wan.html">scapy.contrib.loraphy2wan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ltp.html">scapy.contrib.ltp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mac_control.html">scapy.contrib.mac_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.macsec.html">scapy.contrib.macsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.metawatch.html">scapy.contrib.metawatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.modbus.html">scapy.contrib.modbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mount.html">scapy.contrib.mount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mpls.html">scapy.contrib.mpls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqtt.html">scapy.contrib.mqtt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqttsn.html">scapy.contrib.mqttsn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nfs.html">scapy.contrib.nfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nlm.html">scapy.contrib.nlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nrf_sniffer.html">scapy.contrib.nrf_sniffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nsh.html">scapy.contrib.nsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oam.html">scapy.contrib.oam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oncrpc.html">scapy.contrib.oncrpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.opc_da.html">scapy.contrib.opc_da</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow.html">scapy.contrib.openflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow3.html">scapy.contrib.openflow3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ospf.html">scapy.contrib.ospf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pfcp.html">scapy.contrib.pfcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pim.html">scapy.contrib.pim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio.html">scapy.contrib.pnio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_dcp.html">scapy.contrib.pnio_dcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_rpc.html">scapy.contrib.pnio_rpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.portmap.html">scapy.contrib.portmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.postgres.html">scapy.contrib.postgres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_cace.html">scapy.contrib.ppi_cace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_geotag.html">scapy.contrib.ppi_geotag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.psp.html">scapy.contrib.psp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ripng.html">scapy.contrib.ripng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.roce.html">scapy.contrib.roce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl.html">scapy.contrib.rpl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl_metrics.html">scapy.contrib.rpl_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rsvp.html">scapy.contrib.rsvp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtcp.html">scapy.contrib.rtcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtr.html">scapy.contrib.rtr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtsp.html">scapy.contrib.rtsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sdnv.html">scapy.contrib.sdnv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sebek.html">scapy.contrib.sebek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.send.html">scapy.contrib.send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.skinny.html">scapy.contrib.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.slowprot.html">scapy.contrib.slowprot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.socks.html">scapy.contrib.socks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stamp.html">scapy.contrib.stamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stun.html">scapy.contrib.stun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tacacs.html">scapy.contrib.tacacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpao.html">scapy.contrib.tcpao</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpros.html">scapy.contrib.tcpros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tzsp.html">scapy.contrib.tzsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vqp.html">scapy.contrib.vqp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vtp.html">scapy.contrib.vtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.wireguard.html">scapy.contrib.wireguard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.html">scapy.contrib package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a></li>
+      <li class="breadcrumb-item active">scapy.contrib.automotive.ecu</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.contrib.automotive.ecu.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.contrib.automotive.ecu">
+<span id="scapy-contrib-automotive-ecu"></span><h1>scapy.contrib.automotive.ecu<a class="headerlink" href="#module-scapy.contrib.automotive.ecu" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.ecu.</span></span><span class="sig-name descname"><span class="pre">Ecu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logging</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_supported_responses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookahead</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L258-L452"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt>An Ecu object can be used to</dt><dd><ul class="simple">
+<li><p>track the states of an Ecu.</p></li>
+<li><p>to log all modification to an Ecu.</p></li>
+<li><p>to extract supported responses of a real Ecu.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"This ecu logs, tracks and creates supported responses"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_virtual_ecu</span> <span class="o">=</span> <span class="n">Ecu</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_virtual_ecu</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PacketList</span><span class="p">([</span><span class="o">...</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_virtual_ecu</span><span class="o">.</span><span class="n">supported_responses</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"Another ecu just tracks"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_tracking_ecu</span> <span class="o">=</span> <span class="n">Ecu</span><span class="p">(</span><span class="n">logging</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">store_supported_responses</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_tracking_ecu</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PacketList</span><span class="p">([</span><span class="o">...</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"Another ecu just logs all modifications to it"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_logging_ecu</span> <span class="o">=</span> <span class="n">Ecu</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">store_supported_responses</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_logging_ecu</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PacketList</span><span class="p">([</span><span class="o">...</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_logging_ecu</span><span class="o">.</span><span class="n">log</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"Another ecu just creates supported responses"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_response_ecu</span> <span class="o">=</span> <span class="n">Ecu</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">logging</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_response_ecu</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PacketList</span><span class="p">([</span><span class="o">...</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_response_ecu</span><span class="o">.</span><span class="n">supported_responses</span>
+</pre></div>
+</div>
+<p>Parameters to initialize an Ecu object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>logging</strong> – Turn logging on or off. Default is on.</p></li>
+<li><p><strong>verbose</strong> – Turn tracking on or off. Default is on.</p></li>
+<li><p><strong>store_supported_responses</strong> – Create a list of supported responses if True.</p></li>
+<li><p><strong>lookahead</strong> – Configuration for lookahead when computing supported responses</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu.extend_pkt_with_logging">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">extend_pkt_with_logging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L438-L452"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu.extend_pkt_with_logging" title="Link to this definition"></a></dt>
+<dd><p>Decorator to add a function as ‘get_log’ method to a given
+class. This allows dynamic modifications and additions to a protocol.
+:param cls: A packet class to be modified
+:return: Decorator function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L300-L305"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu.reset" title="Link to this definition"></a></dt>
+<dd><p>Resets the internal state to a default EcuState.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu.sort_key_func">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">sort_key_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuResponse" title="scapy.contrib.automotive.ecu.EcuResponse"><span class="pre">EcuResponse</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L392-L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu.sort_key_func" title="Link to this definition"></a></dt>
+<dd><p>This sorts responses in the following order:
+1. Positive responses first
+2. Lower ServiceIDs first
+3. Less supported states first
+4. Longer (more specific) responses first
+:param resp: EcuResponse to be sorted
+:return: Tuple as sort key</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu.supported_responses">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">supported_responses</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuResponse" title="scapy.contrib.automotive.ecu.EcuResponse"><span class="pre">EcuResponse</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu.supported_responses" title="Link to this definition"></a></dt>
+<dd><p>Returns a sorted list of supported responses. The sort is done in a way
+to provide the best possible results, if this list of supported
+responses is used to simulate an real world Ecu with the
+EcuAnsweringMachine object.
+:return: A sorted list of EcuResponse objects</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu.unanswered_packets">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">unanswered_packets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu.unanswered_packets" title="Link to this definition"></a></dt>
+<dd><p>A list of all unanswered packets, which were processed by this Ecu
+object.
+:return: PacketList of unanswered packets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.Ecu.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L307-L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.Ecu.update" title="Link to this definition"></a></dt>
+<dd><p>Processes a Packet or a list of Packets, according to the chosen
+configuration.
+:param p: Packet or list of Packets</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.ecu.</span></span><span class="sig-name descname"><span class="pre">EcuAnsweringMachine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supported_responses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_socket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast_socket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basecls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Raw'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_ecu_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L602-L719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.ansmachine.html#scapy.ansmachine.AnsweringMachine" title="scapy.ansmachine.AnsweringMachine"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnsweringMachine</span></code></a>[<a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><code class="xref py py-class docutils literal notranslate"><span class="pre">PacketList</span></code></a>]</p>
+<p>AnsweringMachine which emulates the basic behaviour of a real world ECU.
+Provide a list of <code class="docutils literal notranslate"><span class="pre">EcuResponse</span></code> objects to configure the behaviour of a
+AnsweringMachine.</p>
+<dl>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span> <span class="o">=</span> <span class="n">EcuResponse</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">security_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">responses</span><span class="o">=</span><span class="n">UDS</span><span class="p">()</span> <span class="o">/</span> <span class="n">UDS_NR</span><span class="p">(</span><span class="n">negativeResponseCode</span><span class="o">=</span><span class="mh">0x7f</span><span class="p">,</span> <span class="n">requestServiceId</span><span class="o">=</span><span class="mh">0x10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sock</span> <span class="o">=</span> <span class="n">ISOTPSocket</span><span class="p">(</span><span class="n">can_iface</span><span class="p">,</span> <span class="n">tx_id</span><span class="o">=</span><span class="mh">0x700</span><span class="p">,</span> <span class="n">rx_id</span><span class="o">=</span><span class="mh">0x600</span><span class="p">,</span> <span class="n">basecls</span><span class="o">=</span><span class="n">UDS</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">answering_machine</span> <span class="o">=</span> <span class="n">EcuAnsweringMachine</span><span class="p">(</span><span class="n">supported_responses</span><span class="o">=</span><span class="p">[</span><span class="n">resp</span><span class="p">],</span> <span class="n">main_socket</span><span class="o">=</span><span class="n">sock</span><span class="p">,</span> <span class="n">basecls</span><span class="o">=</span><span class="n">UDS</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">answering_machine</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">'count'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'timeout'</span><span class="p">:</span><span class="mi">5</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.function_name">
+<span class="sig-name descname"><span class="pre">function_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EcuAnsweringMachine'</span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.function_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.is_request">
+<span class="sig-name descname"><span class="pre">is_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L666-L668"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.is_request" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.make_reply">
+<span class="sig-name descname"><span class="pre">make_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L670-L704"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.make_reply" title="Link to this definition"></a></dt>
+<dd><p>Checks if a given request can be answered by the internal list of
+EcuResponses. First, it’s evaluated if the internal EcuState of this
+AnsweringMachine is supported by an EcuResponse, next it’s evaluated if
+a request answers the key_response of this EcuResponse object. The
+first fitting EcuResponse is used. If this EcuResponse modified the
+EcuState, the internal EcuState of this AnsweringMachine is updated,
+and the list of response Packets of the selected EcuResponse is
+returned. If no EcuResponse if found, a PacketList with a generic
+NegativeResponse is returned.
+:param req: A request packet
+:return: A list of response packets</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.optam0">
+<span class="sig-name descname"><span class="pre">optam0</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.optam0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.optam1">
+<span class="sig-name descname"><span class="pre">optam1</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.optam1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.optam2">
+<span class="sig-name descname"><span class="pre">optam2</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.optam2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.optsend">
+<span class="sig-name descname"><span class="pre">optsend</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.optsend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.optsniff">
+<span class="sig-name descname"><span class="pre">optsniff</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.optsniff" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.parse_options">
+<span class="sig-name descname"><span class="pre">parse_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">supported_responses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuResponse" title="scapy.contrib.automotive.ecu.EcuResponse"><span class="pre">EcuResponse</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">main_socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast_socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basecls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Raw'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_ecu_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L618-L654"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.parse_options" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>supported_responses</strong> – List of <code class="docutils literal notranslate"><span class="pre">EcuResponse</span></code> objects to define
+the behaviour. The default response is
+<code class="docutils literal notranslate"><span class="pre">generalReject</span></code>.</p></li>
+<li><p><strong>main_socket</strong> – Defines the object of the socket to send
+and receive packets.</p></li>
+<li><p><strong>broadcast_socket</strong> – Defines the object of the broadcast socket.
+Listen-only, responds with the main_socket.
+<cite>None</cite> to disable broadcast capabilities.</p></li>
+<li><p><strong>basecls</strong> – Provide a basecls of the used protocol</p></li>
+<li><p><strong>timeout</strong> – Specifies the timeout for sniffing in seconds.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.reset_state">
+<span class="sig-name descname"><span class="pre">reset_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L661-L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.reset_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.send_reply">
+<span class="sig-name descname"><span class="pre">send_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reply</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L706-L719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.send_reply" title="Link to this definition"></a></dt>
+<dd><p>Sends all Packets of a EcuResponse object. This allows to send multiple
+packets up on a request. If the list contains more than one packet,
+a random time between each packet is waited until the next packet will
+be sent.
+:param reply: List of packets to be sent.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.sniff_options_list">
+<span class="sig-name descname"><span class="pre">sniff_options_list</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['store',</span> <span class="pre">'opened_socket',</span> <span class="pre">'count',</span> <span class="pre">'filter',</span> <span class="pre">'prn',</span> <span class="pre">'stop_filter',</span> <span class="pre">'timeout']</span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.sniff_options_list" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuAnsweringMachine.state">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">state</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuAnsweringMachine.state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.ecu.</span></span><span class="sig-name descname"><span class="pre">EcuResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">state:</span> <span class="pre">~scapy.contrib.automotive.ecu.EcuState</span> <span class="pre">|</span> <span class="pre">~typing.Iterable[~scapy.contrib.automotive.ecu.EcuState]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">responses:</span> <span class="pre">~typing.Iterable[~scapy.packet.Packet]</span> <span class="pre">|</span> <span class="pre">~scapy.plist.PacketList</span> <span class="pre">|</span> <span class="pre">~scapy.packet.Packet</span> <span class="pre">=</span> <span class="pre">&lt;Raw</span>&#160; <span class="pre">load=b'\x7f\x10'</span> <span class="pre">|&gt;,</span> <span class="pre">answers:</span> <span class="pre">~typing.Callable[[~scapy.packet.Packet,</span> <span class="pre">~scapy.packet.Packet],</span> <span class="pre">bool]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L484-L599"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Encapsulates responses and the according EcuStates.
+A list of this objects can be used to configure an EcuAnsweringMachine.
+This is useful, if you want to clone the behaviour of a real Ecu.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EcuResponse</span><span class="p">(</span><span class="n">EcuState</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">security_level</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">responses</span><span class="o">=</span><span class="n">UDS</span><span class="p">()</span><span class="o">/</span><span class="n">UDS_RDBIPR</span><span class="p">(</span><span class="n">dataIdentifier</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">Raw</span><span class="p">(</span><span class="sa">b</span><span class="s2">"deadbeef1"</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">EcuResponse</span><span class="p">([</span><span class="n">EcuState</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">security_level</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">EcuState</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">security_level</span><span class="o">=</span><span class="mi">5</span><span class="p">)],</span> <span class="n">responses</span><span class="o">=</span><span class="n">UDS</span><span class="p">()</span><span class="o">/</span><span class="n">UDS_RDBIPR</span><span class="p">(</span><span class="n">dataIdentifier</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span><span class="o">/</span><span class="n">Raw</span><span class="p">(</span><span class="sa">b</span><span class="s2">"deadbeef4"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Initialize an EcuResponse capsule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> – EcuState or list of EcuStates in which this response
+is allowed to be sent. If no state provided, the response
+packet will always be send.</p></li>
+<li><p><strong>responses</strong> – A Packet or a list of Packet objects. By default the
+last packet is asked if it answers an incoming
+packet. This allows to send for example
+<cite>requestCorrectlyReceived-ResponsePending</cite> packets.</p></li>
+<li><p><strong>answers</strong> – Optional argument to provide a custom answer here:
+<cite>lambda resp, req: return resp.answers(req)</cite>
+This allows the modification of a response depending
+on a request. Custom SecurityAccess mechanisms can
+be implemented in this way or generic NegativeResponse
+messages which answers to everything can be realized
+in this way.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse.answers">
+<span class="sig-name descname"><span class="pre">answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L557-L562"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse.answers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse.command">
+<span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L589-L597"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse.command" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse.key_response">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">key_response</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse.key_response" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse.responses">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">responses</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse.responses" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse.states">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse.states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuResponse.supports_state">
+<span class="sig-name descname"><span class="pre">supports_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L550-L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuResponse.supports_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuSession">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.ecu.</span></span><span class="sig-name descname"><span class="pre">EcuSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L455-L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuSession" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.sessions.html#scapy.sessions.DefaultSession" title="scapy.sessions.DefaultSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultSession</span></code></a></p>
+<p>Tracks modification to an Ecu object ‘on-the-flow’.</p>
+<p>The parameters for the internal Ecu object are obtained from the kwargs
+dict.</p>
+<p><cite>logging</cite>: Turn logging on or off. Default is on.
+<cite>verbose</cite>: Turn tracking on or off. Default is on.
+<cite>store_supported_responses</cite>: Create a list of supported responses, if True.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">EcuSession</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuSession.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L477-L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuSession.process" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.ecu.</span></span><span class="sig-name descname"><span class="pre">EcuState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L45-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Stores the state of an Ecu. The state is defined by a protocol, for
+example UDS or GMLAN.
+A EcuState supports comparison and serialization (command()).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuState.command">
+<span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L188-L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuState.command" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuState.extend_pkt_with_modifier">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">extend_pkt_with_modifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L194-L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuState.extend_pkt_with_modifier" title="Link to this definition"></a></dt>
+<dd><p>Decorator to add a function as ‘modify_ecu_state’ method to a given
+class. This allows dynamic modifications and additions to a protocol.
+:param cls: A packet class to be modified
+:return: Decorator function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuState.get_modified_ecu_state">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_modified_ecu_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">modify_in_place</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L228-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuState.get_modified_ecu_state" title="Link to this definition"></a></dt>
+<dd><p>Helper function to get a modified EcuState from a Packet and a
+previous EcuState. An EcuState is always modified after a response
+Packet is received. In some protocols, the belonging request packet
+is necessary to determine the precise state of the Ecu</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response</strong> – Response packet that supports <cite>modify_ecu_state</cite></p></li>
+<li><p><strong>request</strong> – Belonging request of the response that modifies Ecu</p></li>
+<li><p><strong>state</strong> – The previous/current EcuState</p></li>
+<li><p><strong>modify_in_place</strong> – If True, the given EcuState will be modified</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified EcuState or a modified copy</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuState.is_modifier_pkt">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_modifier_pkt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L216-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuState.is_modifier_pkt" title="Link to this definition"></a></dt>
+<dd><p>Helper function to determine if a Packet contains a layer that
+modifies the EcuState.
+:param pkt: Packet to be analyzed
+:return: True if pkt contains layer that implements modify_ecu_state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.ecu.EcuState.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/ecu.py#L181-L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.ecu.EcuState.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.contrib.automotive.doip.html" class="btn btn-neutral float-left" title="scapy.contrib.automotive.doip" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.contrib.automotive.kwp.html" class="btn btn-neutral float-right" title="scapy.contrib.automotive.kwp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

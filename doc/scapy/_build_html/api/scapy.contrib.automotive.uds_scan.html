@@ -1,0 +1,991 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.contrib.automotive.uds_scan &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.contrib.isotp package" href="scapy.contrib.isotp.html" />
+    <link rel="prev" title="scapy.contrib.automotive.uds_logging" href="scapy.contrib.automotive.uds_logging.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.autosar.html">scapy.contrib.automotive.autosar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.bmw.html">scapy.contrib.automotive.bmw package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.gm.html">scapy.contrib.automotive.gm package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.obd.html">scapy.contrib.automotive.obd package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.scanner.html">scapy.contrib.automotive.scanner package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.volkswagen.html">scapy.contrib.automotive.volkswagen package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.xcp.html">scapy.contrib.automotive.xcp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.ccp.html">scapy.contrib.automotive.ccp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.doip.html">scapy.contrib.automotive.doip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.ecu.html">scapy.contrib.automotive.ecu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.kwp.html">scapy.contrib.automotive.kwp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.someip.html">scapy.contrib.automotive.someip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds.html">scapy.contrib.automotive.uds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds_ecu_states.html">scapy.contrib.automotive.uds_ecu_states</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.contrib.automotive.uds_logging.html">scapy.contrib.automotive.uds_logging</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">scapy.contrib.automotive.uds_scan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isotp.html">scapy.contrib.isotp package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtps.html">scapy.contrib.rtps package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.altbeacon.html">scapy.contrib.altbeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.aoe.html">scapy.contrib.aoe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.avs.html">scapy.contrib.avs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bfd.html">scapy.contrib.bfd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bgp.html">scapy.contrib.bgp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bier.html">scapy.contrib.bier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bp.html">scapy.contrib.bp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket.html">scapy.contrib.cansocket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_native.html">scapy.contrib.cansocket_native</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_python_can.html">scapy.contrib.cansocket_python_can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.carp.html">scapy.contrib.carp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cdp.html">scapy.contrib.cdp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.chdlc.html">scapy.contrib.chdlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.coap.html">scapy.contrib.coap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.concox.html">scapy.contrib.concox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.diameter.html">scapy.contrib.diameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.dtp.html">scapy.contrib.dtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eddystone.html">scapy.contrib.eddystone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eigrp.html">scapy.contrib.eigrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.enipTCP.html">scapy.contrib.enipTCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.erspan.html">scapy.contrib.erspan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.esmc.html">scapy.contrib.esmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ethercat.html">scapy.contrib.ethercat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.etherip.html">scapy.contrib.etherip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.exposure_notification.html">scapy.contrib.exposure_notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.geneve.html">scapy.contrib.geneve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp.html">scapy.contrib.gtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp_v2.html">scapy.contrib.gtp_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gxrp.html">scapy.contrib.gxrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.hicp.html">scapy.contrib.hicp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugav.html">scapy.contrib.homeplugav</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homepluggp.html">scapy.contrib.homepluggp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugsg.html">scapy.contrib.homeplugsg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.http2.html">scapy.contrib.http2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ibeacon.html">scapy.contrib.ibeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.icmp_extensions.html">scapy.contrib.icmp_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ife.html">scapy.contrib.ife</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmp.html">scapy.contrib.igmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmpv3.html">scapy.contrib.igmpv3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ikev2.html">scapy.contrib.ikev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isis.html">scapy.contrib.isis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.knx.html">scapy.contrib.knx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lacp.html">scapy.contrib.lacp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ldp.html">scapy.contrib.ldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lldp.html">scapy.contrib.lldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.loraphy2wan.html">scapy.contrib.loraphy2wan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ltp.html">scapy.contrib.ltp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mac_control.html">scapy.contrib.mac_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.macsec.html">scapy.contrib.macsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.metawatch.html">scapy.contrib.metawatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.modbus.html">scapy.contrib.modbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mount.html">scapy.contrib.mount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mpls.html">scapy.contrib.mpls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqtt.html">scapy.contrib.mqtt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqttsn.html">scapy.contrib.mqttsn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nfs.html">scapy.contrib.nfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nlm.html">scapy.contrib.nlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nrf_sniffer.html">scapy.contrib.nrf_sniffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nsh.html">scapy.contrib.nsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oam.html">scapy.contrib.oam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oncrpc.html">scapy.contrib.oncrpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.opc_da.html">scapy.contrib.opc_da</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow.html">scapy.contrib.openflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow3.html">scapy.contrib.openflow3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ospf.html">scapy.contrib.ospf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pfcp.html">scapy.contrib.pfcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pim.html">scapy.contrib.pim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio.html">scapy.contrib.pnio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_dcp.html">scapy.contrib.pnio_dcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_rpc.html">scapy.contrib.pnio_rpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.portmap.html">scapy.contrib.portmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.postgres.html">scapy.contrib.postgres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_cace.html">scapy.contrib.ppi_cace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_geotag.html">scapy.contrib.ppi_geotag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.psp.html">scapy.contrib.psp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ripng.html">scapy.contrib.ripng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.roce.html">scapy.contrib.roce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl.html">scapy.contrib.rpl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl_metrics.html">scapy.contrib.rpl_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rsvp.html">scapy.contrib.rsvp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtcp.html">scapy.contrib.rtcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtr.html">scapy.contrib.rtr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtsp.html">scapy.contrib.rtsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sdnv.html">scapy.contrib.sdnv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sebek.html">scapy.contrib.sebek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.send.html">scapy.contrib.send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.skinny.html">scapy.contrib.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.slowprot.html">scapy.contrib.slowprot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.socks.html">scapy.contrib.socks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stamp.html">scapy.contrib.stamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stun.html">scapy.contrib.stun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tacacs.html">scapy.contrib.tacacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpao.html">scapy.contrib.tcpao</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpros.html">scapy.contrib.tcpros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tzsp.html">scapy.contrib.tzsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vqp.html">scapy.contrib.vqp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vtp.html">scapy.contrib.vtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.wireguard.html">scapy.contrib.wireguard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.html">scapy.contrib package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a></li>
+      <li class="breadcrumb-item active">scapy.contrib.automotive.uds_scan</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.contrib.automotive.uds_scan.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.contrib.automotive.uds_scan">
+<span id="scapy-contrib-automotive-uds-scan"></span><h1>scapy.contrib.automotive.uds_scan<a class="headerlink" href="#module-scapy.contrib.automotive.uds_scan" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_CCEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_CCEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L324-L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_CCEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_DSCEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L86-L262"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a>, <a class="reference internal" href="scapy.contrib.automotive.scanner.enumerator.html#scapy.contrib.automotive.scanner.enumerator.StateGeneratingServiceEnumerator" title="scapy.contrib.automotive.scanner.enumerator.StateGeneratingServiceEnumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateGeneratingServiceEnumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.enter_state">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enter_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L152-L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.enter_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.enter_state_with_tp">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enter_state_with_tp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L217-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.enter_state_with_tp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L130-L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>delay_state_change</strong> (<em>int</em>) – Specifies an additional delay after
+after a session is modified from
+the transition function. In unit-test
+scenarios, this delay should be set to
+zero.</p></li>
+<li><p><strong>overwrite_timeout</strong> (<em>bool</em>) – True by default. This enumerator
+overwrites the timeout argument, since
+most ECUs take some time until a session
+is changed. This ensures that more
+results are gathered by default. In
+unit-test scenarios, this value should
+be set to False, in order to use the
+timeout specified by the ‘timeout’
+argument.</p></li>
+<li><p><strong>close_socket_when_entering_session_2</strong> (<em>bool</em>) – False by default.
+This enumerator will close the socket
+if session 2 (ProgrammingSession)
+was entered, if True. This will
+force a reconnect by the executor.</p></li>
+<li><p><strong>support_suppress_positive_response</strong> (<em>bool</em>) – False by default.
+If True, this enumerator will treat
+no response for a DSC request with a
+session type &gt; 0x80 as a positive
+response and will therefore create a
+new state with a session value - 0x80.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.get_new_edge">
+<span class="sig-name descname"><span class="pre">get_new_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L171-L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.get_new_edge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.get_transition_function">
+<span class="sig-name descname"><span class="pre">get_transition_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L257-L262"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_DSCEnumerator.get_transition_function" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_EREnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_EREnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L307-L321"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_EREnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_Enumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_Enumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L64-L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.contrib.automotive.scanner.enumerator.html#scapy.contrib.automotive.scanner.enumerator.ServiceEnumerator" title="scapy.contrib.automotive.scanner.enumerator.ServiceEnumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServiceEnumerator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_IOCBIEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_IOCBIEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L921-L941"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_IOCBIEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RCEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RCEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L841-L870"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RCEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RCSelectiveEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RCSelectiveEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L885-L918"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RCSelectiveEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.contrib.automotive.scanner.staged_test_case.html#scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase" title="scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">StagedAutomotiveTestCase</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RCSelectiveEnumerator.expansion_width">
+<span class="sig-name descname"><span class="pre">expansion_width</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">253</span></span><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RCSelectiveEnumerator.expansion_width" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RCSelectiveEnumerator.points_to_ranges">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">points_to_ranges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pois</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L890-L900"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RCSelectiveEnumerator.points_to_ranges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RCStartEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RCStartEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L873-L882"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RCStartEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_RCEnumerator" title="scapy.contrib.automotive.uds_scan.UDS_RCEnumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_RCEnumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RDBIEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L425-L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator.print_information">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">print_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L436-L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator.print_information" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBIRandomEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RDBIRandomEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L492-L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIRandomEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator" title="scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_RDBIEnumerator</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBIRandomEnumerator.block_size">
+<span class="sig-name descname"><span class="pre">block_size</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></span><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIRandomEnumerator.block_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBIRandomEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L504-L506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIRandomEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>probe_start</strong> (<em>int</em>) – Specifies the start identifier for probing.</p></li>
+<li><p><strong>probe_end</strong> (<em>int</em>) – Specifies the end identifier for probing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBISelectiveEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RDBISelectiveEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L452-L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBISelectiveEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.contrib.automotive.scanner.staged_test_case.html#scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase" title="scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">StagedAutomotiveTestCase</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBISelectiveEnumerator.points_to_blocks">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">points_to_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pois</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L466-L483"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBISelectiveEnumerator.points_to_blocks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDBPIEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RDBPIEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L343-L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDBPIEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RDEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1218-L1262"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RDEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1229-L1231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RDEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>unittest</strong> (<em>bool</em>) – Enables smaller search space for unit-test
+scenarios. This safes execution time.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RMBAEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1194-L1215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.contrib.automotive.scanner.staged_test_case.html#scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase" title="scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">StagedAutomotiveTestCase</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RMBAEnumeratorABC</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L944-L994"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.get_addr">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_addr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.uds.html#scapy.contrib.automotive.uds.UDS_RMBA" title="scapy.contrib.automotive.uds.UDS_RMBA"><span class="pre">UDS_RMBA</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L948-L956"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.get_addr" title="Link to this definition"></a></dt>
+<dd><p>Helper function to get the memoryAddress from a UDS_RMBA packet
+:param pkt: UDS_RMBA request
+:return: memory address of the request</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.get_size">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.uds.html#scapy.contrib.automotive.uds.UDS_RMBA" title="scapy.contrib.automotive.uds.UDS_RMBA"><span class="pre">UDS_RMBA</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L968-L975"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.get_size" title="Link to this definition"></a></dt>
+<dd><p>Helper function to gets the memorySize of a UDS_RMBA packet
+:param pkt: UDS_RMBA request</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.set_addr">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">set_addr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.uds.html#scapy.contrib.automotive.uds.UDS_RMBA" title="scapy.contrib.automotive.uds.UDS_RMBA"><span class="pre">UDS_RMBA</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L958-L966"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.set_addr" title="Link to this definition"></a></dt>
+<dd><p>Helper function to set the memoryAddress of a UDS_RMBA packet
+:param pkt: UDS_RMBA request
+:param addr: memory address to be set</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.set_size">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">set_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.uds.html#scapy.contrib.automotive.uds.UDS_RMBA" title="scapy.contrib.automotive.uds.UDS_RMBA"><span class="pre">UDS_RMBA</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L977-L986"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC.set_size" title="Link to this definition"></a></dt>
+<dd><p>Helper function to set the memorySize of a UDS_RMBA packet
+:param pkt: UDS_RMBA request
+:param size: memory size to be set</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBARandomEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RMBARandomEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L997-L1038"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBARandomEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC" title="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_RMBAEnumeratorABC</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBARandomEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1008-L1010"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBARandomEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>unittest</strong> (<em>bool</em>) – Enables smaller search space for unit-test
+scenarios. This saves execution time.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_RMBASequentialEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1041-L1191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC" title="scapy.contrib.automotive.uds_scan.UDS_RMBAEnumeratorABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_RMBAEnumeratorABC</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1052-L1055"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>points_of_interest</strong> (<em>list</em>) – A list of _PointOfInterest objects as
+starting points for sequential search.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator.pre_execute">
+<span class="sig-name descname"><span class="pre">pre_execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1132-L1153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator.pre_execute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1166-L1191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_RMBASequentialEnumerator.show" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SAEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_SAEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L617-L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SAEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SAEnumerator.evaluate_security_access_response">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">evaluate_security_access_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L706-L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SAEnumerator.evaluate_security_access_response" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SAEnumerator.get_seed_pkt">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_seed_pkt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L683-L704"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SAEnumerator.get_seed_pkt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SAEnumerator.pre_execute">
+<span class="sig-name descname"><span class="pre">pre_execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L636-L643"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SAEnumerator.pre_execute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_SA_XOR_Enumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L720-L838"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_SAEnumerator" title="scapy.contrib.automotive.uds_scan.UDS_SAEnumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_SAEnumerator</span></code></a>, <a class="reference internal" href="scapy.contrib.automotive.scanner.test_case.html#scapy.contrib.automotive.scanner.test_case.StateGenerator" title="scapy.contrib.automotive.scanner.test_case.StateGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateGenerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_key_pkt">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_key_pkt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L724-L757"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_key_pkt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_new_edge">
+<span class="sig-name descname"><span class="pre">get_new_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L803-L833"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_new_edge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_security_access">
+<span class="sig-name descname"><span class="pre">get_security_access</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L759-L794"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_security_access" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_transition_function">
+<span class="sig-name descname"><span class="pre">get_transition_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L835-L838"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.get_transition_function" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.transition_function">
+<span class="sig-name descname"><span class="pre">transition_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L796-L801"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_SA_XOR_Enumerator.transition_function" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_Scanner">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_Scanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_handler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reconnect_handler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_cases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.scanner.test_case.html#scapy.contrib.automotive.scanner.test_case.AutomotiveTestCaseABC" title="scapy.contrib.automotive.scanner.test_case.AutomotiveTestCaseABC"><span class="pre">AutomotiveTestCaseABC</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.scanner.test_case.html#scapy.contrib.automotive.scanner.test_case.AutomotiveTestCaseABC" title="scapy.contrib.automotive.scanner.test_case.AutomotiveTestCaseABC"><span class="pre">AutomotiveTestCaseABC</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">software_reset_handler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1283-L1316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_Scanner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.contrib.automotive.scanner.executor.html#scapy.contrib.automotive.scanner.executor.AutomotiveTestCaseExecutor" title="scapy.contrib.automotive.scanner.executor.AutomotiveTestCaseExecutor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutomotiveTestCaseExecutor</span></code></a></p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">reconnect</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">UDS_DoIPSocket</span><span class="p">(</span><span class="s2">"169.254.186.237"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">es</span> <span class="o">=</span> <span class="p">[</span><span class="n">UDS_ServiceEnumerator</span><span class="p">,</span> <span class="n">UDS_DSCEnumerator</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">reconnect</span><span class="p">()</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">UDS</span><span class="p">()</span><span class="o">/</span><span class="n">UDS_ER</span><span class="p">(</span><span class="n">resetType</span><span class="o">=</span><span class="s2">"hardReset"</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">UDS_Scanner</span><span class="p">(</span><span class="n">reconnect</span><span class="p">(),</span> <span class="n">reconnect_handler</span><span class="o">=</span><span class="n">reconnect</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="n">reset_handler</span><span class="o">=</span><span class="n">reset</span><span class="p">,</span> <span class="n">test_cases</span><span class="o">=</span><span class="n">es</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="n">UDS_DSCEnumerator_kwargs</span><span class="o">=</span><span class="p">{</span>
+<span class="gp">&gt;&gt;&gt; </span>                    <span class="s2">"timeout"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                    <span class="s2">"overwrite_timeout"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                    <span class="s2">"scan_range"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">s</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">show_testcases_status</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">show_testcases</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_Scanner.default_test_case_clss">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">default_test_case_clss</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.scanner.test_case.html#scapy.contrib.automotive.scanner.test_case.AutomotiveTestCaseABC" title="scapy.contrib.automotive.scanner.test_case.AutomotiveTestCaseABC"><span class="pre">AutomotiveTestCaseABC</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_Scanner.default_test_case_clss" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_ServiceEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_ServiceEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L369-L422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_ServiceEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_ServiceEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L385-L387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_ServiceEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>request_length</strong> (<em>int</em>) – Specifies the maximum length of arequest
+packet. The enumerator will generate all
+packets from a length of 1 (UDS Service
+ID only) up to the specified
+<cite>request_length</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_TDEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_TDEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1265-L1280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_TDEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_TPEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_TPEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L265-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_TPEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a>, <a class="reference internal" href="scapy.contrib.automotive.scanner.enumerator.html#scapy.contrib.automotive.scanner.enumerator.StateGeneratingServiceEnumerator" title="scapy.contrib.automotive.scanner.enumerator.StateGeneratingServiceEnumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateGeneratingServiceEnumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_TPEnumerator.cleanup">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L291-L300"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_TPEnumerator.cleanup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_TPEnumerator.enter">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L276-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_TPEnumerator.enter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_TPEnumerator.get_transition_function">
+<span class="sig-name descname"><span class="pre">get_transition_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.contrib.automotive.scanner.configuration.html#scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration" title="scapy.contrib.automotive.scanner.configuration.AutomotiveTestCaseExecutorConfiguration"><span class="pre">AutomotiveTestCaseExecutorConfiguration</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L302-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_TPEnumerator.get_transition_function" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_WDBIEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_WDBIEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L554-L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_WDBIEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_Enumerator" title="scapy.contrib.automotive.uds_scan.UDS_Enumerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDS_Enumerator</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_WDBIEnumerator.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><span class="pre">EcuState</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L569-L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_WDBIEnumerator.execute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>integer</em><em> or </em><em>float</em>) – Timeout until a response will arrive after a request</p></li>
+<li><p><strong>count</strong> (<em>integer</em>) – Number of request to be sent in one execution</p></li>
+<li><p><strong>execution_time</strong> (<em>int</em>) – Time in seconds until the execution of
+this enumerator is stopped.</p></li>
+<li><p><strong>state_allow_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is allowed. If provided, other states will not
+be executed.</p></li>
+<li><p><strong>state_block_list</strong> (<a class="reference internal" href="scapy.contrib.automotive.ecu.html#scapy.contrib.automotive.ecu.EcuState" title="scapy.contrib.automotive.ecu.EcuState"><em>EcuState</em></a><em> or </em><em>list</em>) – List of EcuState objects or EcuState object
+in which the the execution of this enumerator
+is blocked.</p></li>
+<li><p><strong>retry_if_none_received</strong> (<em>bool</em>) – Specifies if a request will be send
+again, if None was received
+(usually because of a timeout).</p></li>
+<li><p><strong>exit_if_no_answer_received</strong> (<em>bool</em>) – Specifies to finish the
+execution of this enumerator
+once None is  received.</p></li>
+<li><p><strong>exit_if_service_not_supported</strong> (<em>bool</em>) – Specifies to finish the
+execution of this
+enumerator, once the
+negative return code
+‘serviceNotSupported’ is
+received.</p></li>
+<li><p><strong>exit_scan_on_first_negative_response</strong> (<em>bool</em>) – Specifies to finish
+the execution once a
+negative response is
+received.</p></li>
+<li><p><strong>retry_if_busy_returncode</strong> (<em>bool</em>) – Specifies to retry a request, if
+the ‘busyRepeatRequest’ negative
+response code is received.</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – Enables debug functions during execute.</p></li>
+<li><p><strong>stop_event</strong> (<em>Event</em>) – Signals immediate stop of the execution.</p></li>
+<li><p><strong>scan_range</strong> (<em>list</em><em> or </em><em>tuple</em><em> or </em><em>range</em><em> or </em><em>iterable</em>) – Specifies the identifiers to be scanned.</p></li>
+<li><p><strong>disable_tps_while_sending</strong> (<em>bool</em>) – Temporary disables a TesterPresentSender
+to not interact with a seed request.</p></li>
+<li><p><strong>inter</strong> (<em>int</em><em> or </em><em>float</em>) – delay between two packets during sending</p></li>
+<li><p><strong>rdbi_enumerator</strong> (<a class="reference internal" href="#scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator" title="scapy.contrib.automotive.uds_scan.UDS_RDBIEnumerator"><em>UDS_RDBIEnumerator</em></a>) – Specifies an instance of an UDS_RDBIEnumerator
+which is used to extract possible data
+identifiers.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.UDS_WDBISelectiveEnumerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">UDS_WDBISelectiveEnumerator</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L603-L614"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.UDS_WDBISelectiveEnumerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.contrib.automotive.scanner.staged_test_case.html#scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase" title="scapy.contrib.automotive.scanner.staged_test_case.StagedAutomotiveTestCase"><code class="xref py py-class docutils literal notranslate"><span class="pre">StagedAutomotiveTestCase</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.contrib.automotive.uds_scan.uds_software_reset">
+<span class="sig-prename descclassname"><span class="pre">scapy.contrib.automotive.uds_scan.</span></span><span class="sig-name descname"><span class="pre">uds_software_reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.utils.html#scapy.utils.SingleConversationSocket" title="scapy.utils.SingleConversationSocket"><span class="pre">SingleConversationSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;Logger</span> <span class="pre">scapy.contrib.automotive</span> <span class="pre">(INFO)&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/automotive/uds_scan.py#L1319-L1340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.automotive.uds_scan.uds_software_reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.contrib.automotive.uds_logging.html" class="btn btn-neutral float-left" title="scapy.contrib.automotive.uds_logging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.contrib.isotp.html" class="btn btn-neutral float-right" title="scapy.contrib.isotp package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forwarding Machine &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PipeTools" href="pipetools.html" />
+    <link rel="prev" title="Automata" href="automaton.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="asn1_snmp.html">ASN.1 and SNMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automaton.html">Automata</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Forwarding Machine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls-support">TLS support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-tproxy">Configuring TPROXY</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipetools.html">PipeTools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Advanced usage</a></li>
+      <li class="breadcrumb-item active">Forwarding Machine</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_usage/fwdmachine.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="forwarding-machine">
+<h1>Forwarding Machine<a class="headerlink" href="#forwarding-machine" title="Link to this heading"></a></h1>
+<p>Scapy’s <code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> is a utility that allows to create a server that forwards packets to another server, with the ability
+to modify them on-the-fly. This is similar to a “proxy”, but works on the layer 4 (rather than 5+). The <code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> was initially designed to be used with TPROXY,
+a linux feature that allows to bind a socket that receives <em>packets to any IP destination</em> (usually, a socket only receives packets whose destination is local), but it also work as a standalone server (that binds a normal socket).</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> is expected to be used over a normal Python socket, of any kind, and needs to extended with two
+functions: <code class="docutils literal notranslate"><span class="pre">xfrmcs</span></code> and <code class="docutils literal notranslate"><span class="pre">xfrmsc</span></code>. The first one is called whenever data is received from the client side (client-to-server, “cs”), the other when the data
+is received from the server (server-to-client, “sc”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> can be used in two modes:</p>
+<ul class="simple">
+<li><p><strong>TPROXY</strong>, acts as a transparent proxy that intercepts one or many connections towards multiple servers</p></li>
+<li><p><strong>SERVER</strong>, acts like a glorified socat that accepts connections towards the local server</p></li>
+</ul>
+<section id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
+<p>Here’s an example of a <code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> over TPROXY that does nothing. Packets for all destinations are handled, and forwarded to their
+initial destinations afterwards. More details on how to setup TPROXY are provided below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.fwdmachine</span><span class="w"> </span><span class="kn">import</span> <span class="n">ForwardMachine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTP</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NOPFwdMachine</span><span class="p">(</span><span class="n">ForwardMachine</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">xfrmcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">pkt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># we print the client-&gt;server packets</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">xfrmsc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">pkt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># we print the server-&gt;client packets</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">()</span>
+
+<span class="c1"># Run it</span>
+<span class="n">NOPFwdMachine</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="n">ForwardMachine</span><span class="o">.</span><span class="n">MODE</span><span class="o">.</span><span class="n">TPROXY</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">HTTP</span><span class="p">,</span>  <span class="c1"># we specify the class of the payload we are receiving</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The callback classes use <strong>Operations</strong> to tell the <code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> what to do with the incoming data.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/fwdmachine.svg" src="../_images/fwdmachine.svg" />
+<figcaption>
+<p><span class="caption-text">The main operations available in a Forwarding machine, in this case in <code class="docutils literal notranslate"><span class="pre">xfrmcs</span></code>.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>There are currently 5 operations available:</p>
+<ul class="simple">
+<li><p><strong>FORWARD</strong>: forward the received payload to the destination intended by the peer;</p></li>
+<li><p><strong>FORWARD_REPLACE</strong>: forward a modified payload to the intended destination;</p></li>
+<li><p><strong>DROP</strong>: drop the received payload;</p></li>
+<li><p><strong>ANSWER</strong>: answer the peer directly with a payload, without forwarding its original payload to the other peer;</p></li>
+<li><p><strong>REDIRECT_TO</strong>: (client-side only) redirects the connection of the client towards a new remote peer.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">ctx</span></code> attribute in the callbacks contains context relative to the current client. It can also be use to
+store additional data specific to the session.</p>
+<p>If we were to use this machine in SERVER mode, we would call it like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NOPFwdMachine</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="n">ForwardMachine</span><span class="o">.</span><span class="n">MODE</span><span class="o">.</span><span class="n">SERVER</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span>
+    <span class="n">bind_address</span><span class="o">=</span><span class="s2">"0.0.0.0"</span><span class="p">,</span>  <span class="c1"># the address we bind on</span>
+    <span class="n">remote_address</span><span class="o">=</span><span class="s2">"192.168.0.1"</span><span class="p">,</span>  <span class="c1"># the server to redirect this to by default</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">raw_layer</span><span class="p">,</span>  <span class="c1"># Default Raw layer: we don't know the type of data</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="tls-support">
+<h2>TLS support<a class="headerlink" href="#tls-support" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ForwardMachine</span></code> has support for TLS through the <code class="docutils literal notranslate"><span class="pre">ssl=True</span></code> argument. When TLS is enabled, the SNI (Server Name Indication) is
+properly forwarded to the remote peer, and can be accessed through the <code class="docutils literal notranslate"><span class="pre">ctx.tls_sni_name</span></code> attribute in the callbacks.</p>
+<p><strong>By default, a ForwardMachine generates self-signed certificates</strong> that copy the attributes from the certificate of the remote
+server. This behavior can be changed by specifying a certificate (which will be served by the TLS stack).</p>
+<p>We can run the same ForwardMachine as from the previous example, this time with self-signed TLS.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run it</span>
+<span class="n">NOPFwdMachine</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="n">ForwardMachine</span><span class="o">.</span><span class="n">MODE</span><span class="o">.</span><span class="n">SERVER</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">443</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">HTTP</span><span class="p">,</span>
+    <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="configuring-tproxy">
+<h2>Configuring TPROXY<a class="headerlink" href="#configuring-tproxy" title="Link to this heading"></a></h2>
+<p>TPROXY is a special socket mode that allows to bind a socket that listens for traffic that isn’t directed at a local address. This is typically used by “transparent TLS proxies” to achieve their functionality, and is expected to be setup on a linux router.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ForwardingMachine</span></code> supports TPROXY, which allows to intercept and modify all the traffic by many clients to many destinations, for instance on a specific port. This is much more versatile that a classic bind + socket, which would typically forward multiple clients to a single destination.</p>
+<p>Here are the steps:</p>
+<ul class="simple">
+<li><p>Setup an interface that one can redirect traffic to, and that has TPROXY support.</p></li>
+<li><p>Bind the <code class="docutils literal notranslate"><span class="pre">ForwardingMachine</span></code> on that interface.</p></li>
+<li><p>Redirect some traffic to that interface, using <code class="docutils literal notranslate"><span class="pre">iptables</span></code> or <code class="docutils literal notranslate"><span class="pre">nftables</span></code>, based on some arbitrary criteria.</p></li>
+</ul>
+<p>For ease of use, a script <code class="docutils literal notranslate"><span class="pre">vethrelay.sh</span></code> is provided to setup a veth (virtual ethernet) interface that can be used to bind the <code class="docutils literal notranslate"><span class="pre">ForwardingMachine</span></code> on. This script is available at <a class="reference external" href="https://github.com/secdev/scapy/blob/master/doc/scapy/_static/vethrelay.sh">https://github.com/secdev/scapy/blob/master/doc/scapy/_static/vethrelay.sh</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./vethrelay.sh<span class="w"> </span>setup
+Interface<span class="w"> </span>vethrelay<span class="w"> </span>is<span class="w"> </span>now<span class="w"> </span>setup<span class="w"> </span>with<span class="w"> </span>IPv4:<span class="w"> </span><span class="m">2</span>.2.2.2<span class="w"> </span>!
+
+Add<span class="w"> </span>listening<span class="w"> </span>rules<span class="w"> </span>as<span class="w"> </span>follow:
+
+<span class="c1"># TPROXY incoming TCP packets on port 80 to vethrelay on port 8080</span>
+iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>TPROXY<span class="w"> </span>--tproxy-mark<span class="w"> </span>0x1/0x1<span class="w"> </span>--on-port<span class="w"> </span><span class="m">8080</span><span class="w"> </span>--on-ip<span class="w"> </span><span class="m">2</span>.2.2.2
+
+<span class="c1"># Listen on wlp4s0 for incoming packets on port 80 (on the interface where it really comes from)</span>
+iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>wlp4s0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
+</pre></div>
+</div>
+<p>As the instructions say, to have traffic to anything on the port 80 go through the <code class="docutils literal notranslate"><span class="pre">ForwardingMachine</span></code>, one can run the commands listed above assuming that the machine is started as such:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NOPFwdMachine</span><span class="p">(</span>
+    <span class="n">mode</span><span class="o">=</span><span class="n">ForwardMachine</span><span class="o">.</span><span class="n">MODE</span><span class="o">.</span><span class="n">TPROXY</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span>
+    <span class="bp">cls</span><span class="o">=</span><span class="n">HTTP</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="automaton.html" class="btn btn-neutral float-left" title="Automata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pipetools.html" class="btn btn-neutral float-right" title="PipeTools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

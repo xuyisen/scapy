@@ -12,50 +12,37 @@ TODO:
 """
 
 import ctypes
+import errno
 import itertools
 import logging
 import os
 import random
+import select
 import socket
 import sys
 import threading
 import time
 import traceback
-import types
-
-import select
 from collections import deque
+
+# Typing imports
+from typing import (
+    Any,
+    Generic,
+    Optional,
+    Type,
+    TypeVar,
+    cast,
+)
 
 from scapy.config import conf
 from scapy.consts import WINDOWS
 from scapy.data import MTU
 from scapy.error import log_runtime, warning
 from scapy.interfaces import _GlobInterfaceType
-from scapy.packet import Packet
 from scapy.plist import PacketList
-from scapy.supersocket import SuperSocket, StreamSocket
+from scapy.supersocket import StreamSocket, SuperSocket
 from scapy.utils import do_graph
-
-# Typing imports
-from typing import (
-    Any,
-    Callable,
-    Deque,
-    Dict,
-    Generic,
-    Iterable,
-    Iterator,
-    List,
-    Optional,
-    Set,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    cast,
-)
-from scapy.compat import DecoratorCallable
-
 
 # winsock.h
 FD_READ = 0x00000001
@@ -278,7 +265,7 @@ class Message:
     pkt = None         # type: Packet
     result = None      # type: str
     state = None       # type: Message
-    exc_info = None    # type: Union[Tuple[None, None, None], Tuple[BaseException, Exception, types.TracebackType]] # noqa: E501
+    exc_info = None    # type: Union[Tuple[None, None, None], Tuple[BaseException, Exception, types.TracebackType]]
 
     def __init__(self, **args):
         # type: (Any) -> None
@@ -293,7 +280,7 @@ class Message:
         )
 
 
-class Timer():
+class Timer:
     def __init__(self, time, prio=0, autoreload=False):
         # type: (Union[int, float], int, bool) -> None
         self._timeout = float(time)  # type: float
@@ -364,7 +351,7 @@ class Timer():
         return "<Timer %f(%f)>" % (self._time, self._timeout)
 
 
-class _TimerList():
+class _TimerList:
     def __init__(self):
         # type: () -> None
         self.timers = []  # type: list[Timer]
@@ -538,7 +525,7 @@ class ATMT:
 
     @staticmethod
     def action(cond, prio=0):
-        # type: (Any, int) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]  # noqa: E501
+        # type: (Any, int) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]
         def deco(f, cond=cond):
             # type: (_StateWrapper, _StateWrapper) -> _StateWrapper
             if not hasattr(f, "atmt_type"):
@@ -550,7 +537,7 @@ class ATMT:
 
     @staticmethod
     def condition(state, prio=0):
-        # type: (Any, int) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]  # noqa: E501
+        # type: (Any, int) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]
         def deco(f, state=state):
             # type: (_StateWrapper, _StateWrapper) -> Any
             f.atmt_type = ATMT.CONDITION
@@ -562,7 +549,7 @@ class ATMT:
 
     @staticmethod
     def receive_condition(state, prio=0):
-        # type: (_StateWrapper, int) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]  # noqa: E501
+        # type: (_StateWrapper, int) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]
         def deco(f, state=state):
             # type: (_StateWrapper, _StateWrapper) -> _StateWrapper
             f.atmt_type = ATMT.RECV
@@ -578,7 +565,7 @@ class ATMT:
                 prio=0,                 # type: int
                 as_supersocket=None     # type: Optional[str]
                 ):
-        # type: (...) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]  # noqa: E501
+        # type: (...) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]
         def deco(f, state=state):
             # type: (_StateWrapper, _StateWrapper) -> _StateWrapper
             f.atmt_type = ATMT.IOEVENT
@@ -592,7 +579,7 @@ class ATMT:
 
     @staticmethod
     def timeout(state, timeout):
-        # type: (_StateWrapper, Union[int, float]) -> Callable[[_StateWrapper, _StateWrapper, Timer], _StateWrapper]  # noqa: E501
+        # type: (_StateWrapper, Union[int, float]) -> Callable[[_StateWrapper, _StateWrapper, Timer], _StateWrapper]
         def deco(f, state=state, timeout=Timer(timeout)):
             # type: (_StateWrapper, _StateWrapper, Timer) -> _StateWrapper
             f.atmt_type = ATMT.TIMEOUT
@@ -605,7 +592,7 @@ class ATMT:
 
     @staticmethod
     def timer(state, timeout, prio=0):
-        # type: (_StateWrapper, Union[float, int], int) -> Callable[[_StateWrapper, _StateWrapper, Timer], _StateWrapper]  # noqa: E501
+        # type: (_StateWrapper, Union[float, int], int) -> Callable[[_StateWrapper, _StateWrapper, Timer], _StateWrapper]
         def deco(f, state=state, timeout=Timer(timeout, prio=prio, autoreload=True)):
             # type: (_StateWrapper, _StateWrapper, Timer) -> _StateWrapper
             f.atmt_type = ATMT.TIMEOUT
@@ -618,7 +605,7 @@ class ATMT:
 
     @staticmethod
     def eof(state):
-        # type: (_StateWrapper) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]  # noqa: E501
+        # type: (_StateWrapper) -> Callable[[_StateWrapper, _StateWrapper], _StateWrapper]
         def deco(f, state=state):
             # type: (_StateWrapper, _StateWrapper) -> _StateWrapper
             f.atmt_type = ATMT.EOF
@@ -716,7 +703,7 @@ class _ATMT_to_supersocket:
 class Automaton_metaclass(type):
     def __new__(cls, name, bases, dct):
         # type: (str, Tuple[Any], Dict[str, Any]) -> Type[Automaton]
-        cls = super(Automaton_metaclass, cls).__new__(  # type: ignore
+        cls = super().__new__(  # type: ignore
             cls, name, bases, dct
         )
         cls.states = {}
@@ -734,7 +721,7 @@ class Automaton_metaclass(type):
         members = {}
         classes = [cls]
         while classes:
-            c = classes.pop(0)  # order is important to avoid breaking method overloading  # noqa: E501
+            c = classes.pop(0)  # order is important to avoid breaking method overloading
             classes += list(c.__bases__)
             for k, v in c.__dict__.items():  # type: ignore
                 if k not in members:
@@ -757,7 +744,7 @@ class Automaton_metaclass(type):
                     if cls.stop_state is not None:
                         raise ValueError("There can only be a single stop state !")
                     cls.stop_state = m
-            elif m.atmt_type in [ATMT.CONDITION, ATMT.RECV, ATMT.TIMEOUT, ATMT.IOEVENT, ATMT.EOF]:  # noqa: E501
+            elif m.atmt_type in [ATMT.CONDITION, ATMT.RECV, ATMT.TIMEOUT, ATMT.IOEVENT, ATMT.EOF]:
                 cls.actions[m.atmt_condname] = []
 
         for m in decorated:
@@ -797,7 +784,7 @@ class Automaton_metaclass(type):
         # Inject signature
         try:
             import inspect
-            cls.__signature__ = inspect.signature(cls.parse_args)  # type: ignore  # noqa: E501
+            cls.__signature__ = inspect.signature(cls.parse_args)  # type: ignore
         except (ImportError, AttributeError):
             pass
 
@@ -810,13 +797,13 @@ class Automaton_metaclass(type):
         se = ""  # Keep initial nodes at the beginning for better rendering
         for st in self.states.values():
             if st.atmt_initial:
-                se = ('\t"%s" [ style=filled, fillcolor=blue, shape=box, root=true];\n' % st.atmt_state) + se  # noqa: E501
+                se = ('\t"%s" [ style=filled, fillcolor=blue, shape=box, root=true];\n' % st.atmt_state) + se
             elif st.atmt_final:
-                se += '\t"%s" [ style=filled, fillcolor=green, shape=octagon ];\n' % st.atmt_state  # noqa: E501
+                se += '\t"%s" [ style=filled, fillcolor=green, shape=octagon ];\n' % st.atmt_state
             elif st.atmt_error:
-                se += '\t"%s" [ style=filled, fillcolor=red, shape=octagon ];\n' % st.atmt_state  # noqa: E501
+                se += '\t"%s" [ style=filled, fillcolor=red, shape=octagon ];\n' % st.atmt_state
             elif st.atmt_stop:
-                se += '\t"%s" [ style=filled, fillcolor=orange, shape=box, root=true ];\n' % st.atmt_state  # noqa: E501
+                se += '\t"%s" [ style=filled, fillcolor=orange, shape=box, root=true ];\n' % st.atmt_state
         s += se
 
         for st in self.states.values():
@@ -857,7 +844,7 @@ class Automaton_metaclass(type):
                         )
                     elif n in self.__dict__:
                         # function indirection
-                        if callable(self.__dict__[n]) and hasattr(self.__dict__[n], "__code__"):  # noqa: E501
+                        if callable(self.__dict__[n]) and hasattr(self.__dict__[n], "__code__"):
                             names.extend(self.__dict__[n].__code__.co_names)
                             names.extend(self.__dict__[n].__code__.co_consts)
         for k, timers in self.timeout.items():
@@ -869,7 +856,7 @@ class Automaton_metaclass(type):
                                              timer.get())
                         for x in self.actions[timer._func.atmt_condname]:
                             line += "\\l>[%s]" % x.__name__
-                        s += '\t"%s" -> "%s" [label="%s",color=blue];\n' % (k, n, line)  # noqa: E501
+                        s += '\t"%s" -> "%s" [label="%s",color=blue];\n' % (k, n, line)
         s += "}\n"
         return s
 
@@ -1011,7 +998,12 @@ class Automaton(metaclass=Automaton_metaclass):
             try:
                 while True:
                     atmt_server = None
-                    clientsocket, address = ssock.accept()
+                    try:
+                        clientsocket, address = ssock.accept()
+                    except OSError as _ex:
+                        if _ex.errno == errno.EINVAL:
+                            continue
+                        raise
                     if kwargs.get("verb", True):
                         print(conf.color_theme.gold(
                             "\u2503 Connection received from %s" % repr(address)
@@ -1238,11 +1230,11 @@ class Automaton(metaclass=Automaton_metaclass):
                 return
             elif cmd.type == _ATMT_Command.REPLACE:
                 pkt = cmd.pkt
-                self.debug(3, "INTERCEPT: packet replaced by: %s" % pkt.summary())  # noqa: E501
+                self.debug(3, "INTERCEPT: packet replaced by: %s" % pkt.summary())
             elif cmd.type == _ATMT_Command.ACCEPT:
                 self.debug(3, "INTERCEPT: packet accepted")
             else:
-                raise self.AutomatonError("INTERCEPT: unknown verdict: %r" % cmd.type)  # noqa: E501
+                raise self.AutomatonError("INTERCEPT: unknown verdict: %r" % cmd.type)
         self.my_send(pkt, **kwargs)
         self.debug(3, "SENT : %s" % pkt.summary())
 
@@ -1260,10 +1252,10 @@ class Automaton(metaclass=Automaton_metaclass):
     def _run_condition(self, cond, *args, **kargs):
         # type: (_StateWrapper, Any, Any) -> None
         try:
-            self.debug(5, "Trying %s [%s]" % (cond.atmt_type, cond.atmt_condname))  # noqa: E501
+            self.debug(5, "Trying %s [%s]" % (cond.atmt_type, cond.atmt_condname))
             cond(self, *args, **kargs)
         except ATMT.NewStateRequested as state_req:
-            self.debug(2, "%s [%s] taken to state [%s]" % (cond.atmt_type, cond.atmt_condname, state_req.state))  # noqa: E501
+            self.debug(2, "%s [%s] taken to state [%s]" % (cond.atmt_type, cond.atmt_condname, state_req.state))
             if cond.atmt_type == ATMT.RECV:
                 if self.store_packets:
                     self.packets.append(args[0])
@@ -1272,10 +1264,10 @@ class Automaton(metaclass=Automaton_metaclass):
                 action(self, *state_req.action_args, **state_req.action_kargs)
             raise
         except Exception as e:
-            self.debug(2, "%s [%s] raised exception [%s]" % (cond.atmt_type, cond.atmt_condname, e))  # noqa: E501
+            self.debug(2, "%s [%s] raised exception [%s]" % (cond.atmt_type, cond.atmt_condname, e))
             raise
         else:
-            self.debug(2, "%s [%s] not taken" % (cond.atmt_type, cond.atmt_condname))  # noqa: E501
+            self.debug(2, "%s [%s] not taken" % (cond.atmt_type, cond.atmt_condname))
 
     def _do_start(self, *args, **kargs):
         # type: (Any, Any) -> None
@@ -1308,7 +1300,7 @@ class Automaton(metaclass=Automaton_metaclass):
             self.send_sock = self.sock or self.send_sock_class(**self.socket_kargs)
             if self.recv_conditions:
                 # Only start a receiving socket if we have at least one recv_conditions
-                self.listen_sock = self.sock or self.recv_sock_class(**self.socket_kargs)  # noqa: E501
+                self.listen_sock = self.sock or self.recv_sock_class(**self.socket_kargs)
             self.packets = PacketList(name="session[%s]" % self.__class__.__name__)
 
             singlestep = True
@@ -1320,7 +1312,7 @@ class Automaton(metaclass=Automaton_metaclass):
                 while True:
                     c = self.cmdin.recv()
                     if c is None:
-                        return None
+                        return
                     self.debug(5, "Received command %s" % c.type)
                     if c.type == _ATMT_Command.RUN:
                         singlestep = False
@@ -1343,11 +1335,11 @@ class Automaton(metaclass=Automaton_metaclass):
                         if isinstance(state, self.CommandMessage):
                             break
                         elif isinstance(state, self.Breakpoint):
-                            c = Message(type=_ATMT_Command.BREAKPOINT, state=state)  # noqa: E501
+                            c = Message(type=_ATMT_Command.BREAKPOINT, state=state)
                             self.cmdout.send(c)
                             break
                         if singlestep:
-                            c = Message(type=_ATMT_Command.SINGLESTEP, state=state)  # noqa: E501
+                            c = Message(type=_ATMT_Command.SINGLESTEP, state=state)
                             self.cmdout.send(c)
                             break
             except (StopIteration, RuntimeError):
@@ -1356,8 +1348,8 @@ class Automaton(metaclass=Automaton_metaclass):
                 self.cmdout.send(c)
             except Exception as e:
                 exc_info = sys.exc_info()
-                self.debug(3, "Transferring exception from tid=%i:\n%s" % (self.threadid, "".join(traceback.format_exception(*exc_info))))  # noqa: E501
-                m = Message(type=_ATMT_Command.EXCEPTION, exception=e, exc_info=exc_info)  # noqa: E501
+                self.debug(3, "Transferring exception from tid=%i:\n%s" % (self.threadid, "".join(traceback.format_exception(*exc_info))))
+                m = Message(type=_ATMT_Command.EXCEPTION, exception=e, exc_info=exc_info)
                 self.cmdout.send(m)
             self.debug(3, "Stopping control thread (tid=%i)" % self.threadid)
             self.threadid = None
@@ -1367,21 +1359,21 @@ class Automaton(metaclass=Automaton_metaclass):
                 self.send_sock.close()
 
     def _do_iter(self):
-        # type: () -> Iterator[Union[Automaton.AutomatonException, Automaton.AutomatonStopped, ATMT.NewStateRequested, None]] # noqa: E501
+        # type: () -> Iterator[Union[Automaton.AutomatonException, Automaton.AutomatonStopped, ATMT.NewStateRequested, None]]
         while True:
             try:
                 self.debug(1, "## state=[%s]" % self.state.state)
 
                 # Entering a new state. First, call new state function
-                if self.state.state in self.breakpoints and self.state.state != self.breakpointed:  # noqa: E501
+                if self.state.state in self.breakpoints and self.state.state != self.breakpointed:
                     self.breakpointed = self.state.state
-                    yield self.Breakpoint("breakpoint triggered on state %s" % self.state.state,  # noqa: E501
+                    yield self.Breakpoint("breakpoint triggered on state %s" % self.state.state,
                                           state=self.state.state)
                 self.breakpointed = None
                 state_output = self.state.run()
                 if self.state.error:
-                    raise self.ErrorState("Reached %s: [%r]" % (self.state.state, state_output),  # noqa: E501
-                                          result=state_output, state=self.state.state)  # noqa: E501
+                    raise self.ErrorState("Reached %s: [%r]" % (self.state.state, state_output),
+                                          result=state_output, state=self.state.state)
                 if self.state.final:
                     self.final_state_output = state_output
                     return
@@ -1432,7 +1424,7 @@ class Automaton(metaclass=Automaton_metaclass):
                     for fd in r:
                         self.debug(5, "Looking at %r" % fd)
                         if fd == self.cmdin:
-                            yield self.CommandMessage("Received command message")  # noqa: E501
+                            yield self.CommandMessage("Received command message")
                         elif fd == self.listen_sock:
                             try:
                                 pkt = self.listen_sock.recv()
@@ -1448,7 +1440,7 @@ class Automaton(metaclass=Automaton_metaclass):
                                 if self.state.state in self.eofs:
                                     # There is an eof state
                                     eof = self.eofs[self.state.state]
-                                    self.debug(2, "Condition EOF [%s] taken" % eof.__name__)  # noqa: E501
+                                    self.debug(2, "Condition EOF [%s] taken" % eof.__name__)
                                     raise self.eofs[self.state.state](self)
                                 else:
                                     # There isn't. Therefore, it's a closing condition.
@@ -1458,19 +1450,19 @@ class Automaton(metaclass=Automaton_metaclass):
                                 pkt = self.atmt_session.process(pkt)
                             if pkt is not None:
                                 if self.master_filter(pkt):
-                                    self.debug(3, "RECVD: %s" % pkt.summary())  # noqa: E501
-                                    for rcvcond in self.recv_conditions[self.state.state]:  # noqa: E501
-                                        self._run_condition(rcvcond, pkt, *state_output)  # noqa: E501
+                                    self.debug(3, "RECVD: %s" % pkt.summary())
+                                    for rcvcond in self.recv_conditions[self.state.state]:
+                                        self._run_condition(rcvcond, pkt, *state_output)
                                 else:
-                                    self.debug(4, "FILTR: %s" % pkt.summary())  # noqa: E501
+                                    self.debug(4, "FILTR: %s" % pkt.summary())
                         else:
                             self.debug(3, "IOEVENT on %s" % fd.ioname)
                             for ioevt in self.ioevents[self.state.state]:
                                 if ioevt.atmt_ioname == fd.ioname:
-                                    self._run_condition(ioevt, fd, *state_output)  # noqa: E501
+                                    self._run_condition(ioevt, fd, *state_output)
 
             except ATMT.NewStateRequested as state_req:
-                self.debug(2, "switching from [%s] to [%s]" % (self.state.state, state_req.state))  # noqa: E501
+                self.debug(2, "switching from [%s] to [%s]" % (self.state.state, state_req.state))
                 self.state = state_req
                 yield state_req
 
@@ -1536,15 +1528,15 @@ class Automaton(metaclass=Automaton_metaclass):
             if c.type == _ATMT_Command.END:
                 return c.result
             elif c.type == _ATMT_Command.INTERCEPT:
-                raise self.InterceptionPoint("packet intercepted", state=c.state.state, packet=c.pkt)  # noqa: E501
+                raise self.InterceptionPoint("packet intercepted", state=c.state.state, packet=c.pkt)
             elif c.type == _ATMT_Command.SINGLESTEP:
-                raise self.Singlestep("singlestep state=[%s]" % c.state.state, state=c.state.state)  # noqa: E501
+                raise self.Singlestep("singlestep state=[%s]" % c.state.state, state=c.state.state)
             elif c.type == _ATMT_Command.BREAKPOINT:
-                raise self.Breakpoint("breakpoint triggered on state [%s]" % c.state.state, state=c.state.state)  # noqa: E501
+                raise self.Breakpoint("breakpoint triggered on state [%s]" % c.state.state, state=c.state.state)
             elif c.type == _ATMT_Command.EXCEPTION:
                 # this code comes from the `six` module (`.reraise()`)
                 # to raise an exception with specified exc_info.
-                value = c.exc_info[0]() if c.exc_info[1] is None else c.exc_info[1]  # type: ignore  # noqa: E501
+                value = c.exc_info[0]() if c.exc_info[1] is None else c.exc_info[1]  # type: ignore
                 if value.__traceback__ is not c.exc_info[2]:
                     raise value.with_traceback(c.exc_info[2])
                 raise value

@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCP &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TUN / TAP Interfaces" href="tuntap.html" />
+    <link rel="prev" title="SMB" href="smb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">TCP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-kernel-s-tcp-stack">Using the kernel’s TCP stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scapy-s-tcp-client-automaton">Scapy’s TCP client automaton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-external-projects">Use external projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">TCP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/tcp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tcp">
+<h1>TCP<a class="headerlink" href="#tcp" title="Link to this heading"></a></h1>
+<p>Scapy is based on a stimulus/response model. This model does not work
+well for a TCP stack. On the other hand, quite often, the TCP stream is
+used as a tube to exchange messages that are stimulus/response-based.</p>
+<p>Also, Scapy provides a way to describe network automata that can be
+used to create a TCP stack automaton.</p>
+<p>There are many ways to use TCP with Scapy</p>
+<section id="using-the-kernel-s-tcp-stack">
+<h2>Using the kernel’s TCP stack<a class="headerlink" href="#using-the-kernel-s-tcp-stack" title="Link to this heading"></a></h2>
+<p>Scapy provides a <code class="docutils literal notranslate"><span class="pre">StreamSocket</span></code> object that can transform a simple
+socket into a Scapy supersocket suitable for use with <code class="docutils literal notranslate"><span class="pre">sr()</span></code> command
+family.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s2">"www.test.com"</span><span class="p">,</span><span class="mi">80</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="o">=</span><span class="n">StreamSocket</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">Raw</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">Raw</span><span class="p">(</span><span class="s2">"GET /</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">))</span>
+<span class="go">Begin emission:</span>
+<span class="go">Finished to send 1 packets.</span>
+<span class="go">*</span>
+<span class="go">Received 1 packets, got 1 answers, remaining 0 packets</span>
+<span class="go">&lt;Raw  load='&lt;html&gt;\r\n&lt;head&gt; ... &gt;</span>
+</pre></div>
+</div>
+<p>Using kernel’s TCP stack means you’ll depend on your local firewall’s
+rules and the kernel’s routing table.</p>
+</section>
+<section id="scapy-s-tcp-client-automaton">
+<h2>Scapy’s TCP client automaton<a class="headerlink" href="#scapy-s-tcp-client-automaton" title="Link to this heading"></a></h2>
+<p>Scapy provides a simple TCP client automaton (no retransmits, no SAck,
+no timestamps, etc.). Automata can provide input and output in the shape
+of a supersocket (see <a class="reference external" href="../advanced_usage.html#automata">Automata’s documentation</a>).</p>
+<p>Here is how to use Scapy’s TCP client automaton (needs at least Scapy v2.1.1).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">TCP_client.tcplink</span></code> is a <code class="docutils literal notranslate"><span class="pre">SuperSocket</span></code> subclass, therefore all its functions (<code class="docutils literal notranslate"><span class="pre">.sniff()</span></code>, …) are available.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">TCP_client</span><span class="o">.</span><span class="n">tcplink</span><span class="p">(</span><span class="n">Raw</span><span class="p">,</span> <span class="s2">"www.test.com"</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"GET /</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">&lt;Raw  load='&lt;html&gt;\r\n&lt;head&gt; ... &gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>specifically for HTTP, you could pass <code class="docutils literal notranslate"><span class="pre">HTTP</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Raw</span></code>. More information over <a class="reference external" href="http.html">HTTP in Scapy</a>.</p>
+</div>
+</section>
+<section id="use-external-projects">
+<h2>Use external projects<a class="headerlink" href="#use-external-projects" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://events.ccc.de/congress/2005/fahrplan/events/529.en.html">muXTCP</a> - Writing your own flexible Userland TCP/IP Stack - Ninja Style!!!</p></li>
+<li><p>Integrating <a class="reference external" href="http://jon.oberheide.org/pynids/">pynids</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smb.html" class="btn btn-neutral float-left" title="SMB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tuntap.html" class="btn btn-neutral float-right" title="TUN / TAP Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

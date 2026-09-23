@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.pipetool &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.plist" href="scapy.plist.html" />
+    <link rel="prev" title="scapy.packet" href="scapy.packet.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+      <li class="breadcrumb-item active">scapy.pipetool</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.pipetool.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.pipetool">
+<span id="scapy-pipetool"></span><h1>scapy.pipetool<a class="headerlink" href="#module-scapy.pipetool" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.AutoSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">AutoSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L463-L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.AutoSource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Source" title="scapy.pipetool.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.AutoSource.deliver">
+<span class="sig-name descname"><span class="pre">deliver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L480-L488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.AutoSource.deliver" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.CLIFeeder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">CLIFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L568-L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.CLIFeeder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.AutoSource" title="scapy.pipetool.AutoSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoSource</span></code></a></p>
+<p>Send messages from python command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   +--------+
+&gt;&gt;-|        |-&gt;&gt;
+   | send() |
+ &gt;-|   `----|-&gt;
+   +--------+
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.CLIFeeder.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L585-L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.CLIFeeder.close" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.CLIFeeder.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L580-L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.CLIFeeder.send" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.CLIHighFeeder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">CLIHighFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L590-L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.CLIHighFeeder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.CLIFeeder" title="scapy.pipetool.CLIFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLIFeeder</span></code></a></p>
+<p>Send messages from python command line to high output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+--------+</span>
+<span class="o">&gt;&gt;-|</span>   <span class="o">.----|-&gt;&gt;</span>
+   <span class="o">|</span> <span class="n">send</span><span class="p">()</span> <span class="o">|</span>
+ <span class="o">&gt;-|</span>        <span class="o">|-&gt;</span>
+   <span class="o">+--------+</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.CLIHighFeeder.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L602-L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.CLIHighFeeder.send" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.ConsoleSink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">ConsoleSink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L512-L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ConsoleSink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a></p>
+<p>Print messages on low and high entries to <code class="docutils literal notranslate"><span class="pre">stdout</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|--.</span>    <span class="o">|-&gt;&gt;</span>
+   <span class="o">|</span> <span class="nb">print</span> <span class="o">|</span>
+ <span class="o">&gt;-|--</span><span class="s1">'    |-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.ConsoleSink.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L528-L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ConsoleSink.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.ConsoleSink.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L524-L526"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ConsoleSink.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.DownDrain">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">DownDrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L867-L885"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.DownDrain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a></p>
+<p>Repeat messages from high entry to low exit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   +-------+
+&gt;&gt;-|--.    |-&gt;&gt;
+   |   \   |
+ &gt;-|    `--|-&gt;
+   +-------+
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.DownDrain.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L883-L885"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.DownDrain.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.DownDrain.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L879-L881"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.DownDrain.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.Drain">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">Drain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L378-L396"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Drain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipe</span></code></a></p>
+<p>Repeat messages from low/high entries to (resp.) low/high exits</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|-------|-&gt;&gt;</span>
+   <span class="o">|</span>       <span class="o">|</span>
+ <span class="o">&gt;-|-------|-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Drain.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L394-L396"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Drain.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Drain.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L390-L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Drain.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.PeriodicSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">PeriodicSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L608-L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PeriodicSource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.ThreadGenSource" title="scapy.pipetool.ThreadGenSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadGenSource</span></code></a></p>
+<p>Generate messages periodically on low exit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   +-------+
+&gt;&gt;-|       |-&gt;&gt;
+   | msg,T |
+ &gt;-|  `----|-&gt;
+   +-------+
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PeriodicSource.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L630-L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PeriodicSource.generate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.Pipe">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">Pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L254-L354"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Pipe" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Pipe.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L348-L350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Pipe.start" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Pipe.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L352-L354"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Pipe.stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">PipeEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pipes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><span class="pre">Pipe</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L37-L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.automaton.html#scapy.automaton.ObjectPipe" title="scapy.automaton.ObjectPipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectPipe</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pipes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><span class="pre">Pipe</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L203-L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.add" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.add_one_pipe">
+<span class="sig-name descname"><span class="pre">add_one_pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><span class="pre">Pipe</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L92-L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.add_one_pipe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.get_pipe_list">
+<span class="sig-name descname"><span class="pre">get_pipe_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><span class="pre">Pipe</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L102-L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.get_pipe_list" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L212-L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.graph" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.list_pipes">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">list_pipes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L40-L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.list_pipes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.list_pipes_detailed">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">list_pipes_detailed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L49-L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.list_pipes_detailed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.pipes">
+<span class="sig-name descname"><span class="pre">pipes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><span class="pre">Pipe</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AutoSource':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.AutoSource'&gt;,</span> <span class="pre">'CLIFeeder':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.CLIFeeder'&gt;,</span> <span class="pre">'CLIHighFeeder':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.CLIHighFeeder'&gt;,</span> <span class="pre">'ConsoleSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.ConsoleSink'&gt;,</span> <span class="pre">'DownDrain':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.DownDrain'&gt;,</span> <span class="pre">'Drain':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.Drain'&gt;,</span> <span class="pre">'FDSourceSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.FDSourceSink'&gt;,</span> <span class="pre">'Inject3Sink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.Inject3Sink'&gt;,</span> <span class="pre">'InjectSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.InjectSink'&gt;,</span> <span class="pre">'PeriodicSource':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.PeriodicSource'&gt;,</span> <span class="pre">'Pipe':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.Pipe'&gt;,</span> <span class="pre">'QueueSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.QueueSink'&gt;,</span> <span class="pre">'RawConsoleSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.RawConsoleSink'&gt;,</span> <span class="pre">'RdpcapSource':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.RdpcapSource'&gt;,</span> <span class="pre">'Sink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.Sink'&gt;,</span> <span class="pre">'SniffSource':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.SniffSource'&gt;,</span> <span class="pre">'Source':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.Source'&gt;,</span> <span class="pre">'TCPConnectPipe':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TCPConnectPipe'&gt;,</span> <span class="pre">'TCPListenPipe':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TCPListenPipe'&gt;,</span> <span class="pre">'TermSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.TermSink'&gt;,</span> <span class="pre">'ThreadGenSource':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.ThreadGenSource'&gt;,</span> <span class="pre">'TransformDrain':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.TransformDrain'&gt;,</span> <span class="pre">'TriggerDrain':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TriggerDrain'&gt;,</span> <span class="pre">'TriggerSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.TriggerSink'&gt;,</span> <span class="pre">'TriggeredMessage':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TriggeredMessage'&gt;,</span> <span class="pre">'TriggeredQueueingValve':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TriggeredQueueingValve'&gt;,</span> <span class="pre">'TriggeredSwitch':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TriggeredSwitch'&gt;,</span> <span class="pre">'TriggeredValve':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.TriggeredValve'&gt;,</span> <span class="pre">'UDPClientPipe':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.UDPClientPipe'&gt;,</span> <span class="pre">'UDPDrain':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.UDPDrain'&gt;,</span> <span class="pre">'UDPServerPipe':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.UDPServerPipe'&gt;,</span> <span class="pre">'UpDrain':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.pipetool.UpDrain'&gt;,</span> <span class="pre">'WiresharkSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.WiresharkSink'&gt;,</span> <span class="pre">'WrpcapSink':</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.scapypipes.WrpcapSink'&gt;}</span></span><a class="headerlink" href="#scapy.pipetool.PipeEngine.pipes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L126-L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.run" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L173-L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.start" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'X'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L187-L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.PipeEngine.wait_and_stop">
+<span class="sig-name descname"><span class="pre">wait_and_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L183-L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.PipeEngine.wait_and_stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.QueueSink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">QueueSink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L770-L817"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.QueueSink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a></p>
+<p>Collects messages on the low and high entries into a <code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code>.
+Messages are dequeued with <a class="reference internal" href="#scapy.pipetool.QueueSink.recv" title="scapy.pipetool.QueueSink.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a>.
+Both high and low entries share the same <code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|--.</span>    <span class="o">|-&gt;&gt;</span>
+   <span class="o">|</span> <span class="n">queue</span> <span class="o">|</span>
+ <span class="o">&gt;-|--</span><span class="s1">'    |-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.QueueSink.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L794-L796"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.QueueSink.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.QueueSink.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L790-L792"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.QueueSink.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.pipetool.QueueSink.q">
+<span class="sig-name descname"><span class="pre">q</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Queue</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.pipetool.QueueSink.q" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.QueueSink.recv">
+<span class="sig-name descname"><span class="pre">recv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L798-L817"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.QueueSink.recv" title="Link to this definition"></a></dt>
+<dd><p>Reads the next message from the queue.</p>
+<p>If no message is available in the queue, returns None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>block</strong> (<em>bool</em>) – Blocks execution until a packet is available in the
+queue. Defaults to True.</p></li>
+<li><p><strong>timeout</strong> (<em>None</em><em>, </em><em>int</em><em> or </em><em>float</em>) – Controls how long to wait if <code class="docutils literal notranslate"><span class="pre">block=True</span></code>. If None
+(the default), this method will wait forever. If a
+non-negative number, this is a number of seconds to
+wait before giving up (and returning None).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.RawConsoleSink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">RawConsoleSink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newlines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L533-L565"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.RawConsoleSink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a></p>
+<p>Print messages on low and high entries, using os.write</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|--.</span>    <span class="o">|-&gt;&gt;</span>
+   <span class="o">|</span> <span class="n">write</span> <span class="o">|</span>
+ <span class="o">&gt;-|--</span><span class="s1">'    |-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newlines</strong> (<em>bool</em>) – Include a new-line character after printing each packet.
+Defaults to True.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.RawConsoleSink.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L561-L565"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.RawConsoleSink.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.RawConsoleSink.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L555-L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.RawConsoleSink.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.Sink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">Sink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L399-L454"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Sink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipe</span></code></a></p>
+<p>Does nothing; interface to extend for custom sinks.</p>
+<p>All sinks have the following constructor parameters:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – a human-readable name for the element</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Sink.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L420-L430"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Sink.high_push" title="Link to this definition"></a></dt>
+<dd><p>Called by <a class="reference internal" href="#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a> when there is a new message for the
+high entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> – The message data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Sink.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L408-L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Sink.push" title="Link to this definition"></a></dt>
+<dd><p>Called by <a class="reference internal" href="#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a> when there is a new message for the
+low entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> – The message data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.Source">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L357-L375"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Source" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Pipe" title="scapy.pipetool.Pipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipe</span></code></a>, <a class="reference internal" href="scapy.automaton.html#scapy.automaton.ObjectPipe" title="scapy.automaton.ObjectPipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectPipe</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Source.deliver">
+<span class="sig-name descname"><span class="pre">deliver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L368-L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Source.deliver" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.Source.exhausted">
+<span class="sig-name descname"><span class="pre">exhausted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L373-L375"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.Source.exhausted" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.TermSink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">TermSink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepterm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newlines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">openearly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L644-L767"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TermSink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a></p>
+<p>Prints messages on the low and high entries, on a separate terminal (xterm
+or cmd).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|--.</span>    <span class="o">|-&gt;&gt;</span>
+   <span class="o">|</span> <span class="nb">print</span> <span class="o">|</span>
+ <span class="o">&gt;-|--</span><span class="s1">'    |-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keepterm</strong> (<em>bool</em>) – Leave the terminal window open after <a class="reference internal" href="#scapy.pipetool.Pipe.stop" title="scapy.pipetool.Pipe.stop"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stop()</span></code></a>
+is called. Defaults to True.</p></li>
+<li><p><strong>newlines</strong> (<em>bool</em>) – Include a new-line character after printing each packet.
+Defaults to True.</p></li>
+<li><p><strong>openearly</strong> (<em>bool</em>) – Automatically starts the terminal when the constructor is
+called, rather than waiting for <a class="reference internal" href="#scapy.pipetool.Pipe.start" title="scapy.pipetool.Pipe.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start()</span></code></a>.
+Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TermSink.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L765-L767"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TermSink.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TermSink.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L761-L763"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TermSink.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TermSink.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L736-L741"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TermSink.start" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TermSink.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L743-L748"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TermSink.stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.ThreadGenSource">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">ThreadGenSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L491-L509"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ThreadGenSource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.AutoSource" title="scapy.pipetool.AutoSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.ThreadGenSource.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L497-L499"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ThreadGenSource.generate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.ThreadGenSource.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L501-L505"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ThreadGenSource.start" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.ThreadGenSource.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L507-L509"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.ThreadGenSource.stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.TransformDrain">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">TransformDrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L820-L843"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TransformDrain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a></p>
+<p>Apply a function to messages on low and high entry:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|--</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">--|-&gt;&gt;</span>
+   <span class="o">|</span>       <span class="o">|</span>
+ <span class="o">&gt;-|--</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">--|-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TransformDrain.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L841-L843"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TransformDrain.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TransformDrain.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L837-L839"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TransformDrain.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.TriggerSink">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">TriggerSink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L457-L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TriggerSink" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.TriggerSink.on_trigger">
+<span class="sig-name descname"><span class="pre">on_trigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L458-L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.TriggerSink.on_trigger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.pipetool.UpDrain">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.pipetool.</span></span><span class="sig-name descname"><span class="pre">UpDrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L846-L864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.UpDrain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a></p>
+<p>Repeat messages from low entry to high exit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span>
+<span class="o">&gt;&gt;-|</span>    <span class="p">,</span><span class="o">--|-&gt;&gt;</span>
+   <span class="o">|</span>   <span class="o">/</span>   <span class="o">|</span>
+ <span class="o">&gt;-|--</span><span class="s1">'    |-&gt;</span>
+   <span class="o">+-------+</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.UpDrain.high_push">
+<span class="sig-name descname"><span class="pre">high_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L862-L864"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.UpDrain.high_push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.pipetool.UpDrain.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/pipetool.py#L858-L860"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.pipetool.UpDrain.push" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.packet.html" class="btn btn-neutral float-left" title="scapy.packet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.plist.html" class="btn btn-neutral float-right" title="scapy.plist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

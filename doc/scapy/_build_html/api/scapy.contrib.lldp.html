@@ -1,0 +1,1152 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.contrib.lldp &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.contrib.loraphy2wan" href="scapy.contrib.loraphy2wan.html" />
+    <link rel="prev" title="scapy.contrib.ldp" href="scapy.contrib.ldp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.automotive.html">scapy.contrib.automotive package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isotp.html">scapy.contrib.isotp package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtps.html">scapy.contrib.rtps package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.altbeacon.html">scapy.contrib.altbeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.aoe.html">scapy.contrib.aoe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.avs.html">scapy.contrib.avs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bfd.html">scapy.contrib.bfd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bgp.html">scapy.contrib.bgp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bier.html">scapy.contrib.bier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.bp.html">scapy.contrib.bp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket.html">scapy.contrib.cansocket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_native.html">scapy.contrib.cansocket_native</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cansocket_python_can.html">scapy.contrib.cansocket_python_can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.carp.html">scapy.contrib.carp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.cdp.html">scapy.contrib.cdp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.chdlc.html">scapy.contrib.chdlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.coap.html">scapy.contrib.coap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.concox.html">scapy.contrib.concox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.diameter.html">scapy.contrib.diameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.dtp.html">scapy.contrib.dtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eddystone.html">scapy.contrib.eddystone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.eigrp.html">scapy.contrib.eigrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.enipTCP.html">scapy.contrib.enipTCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.erspan.html">scapy.contrib.erspan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.esmc.html">scapy.contrib.esmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ethercat.html">scapy.contrib.ethercat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.etherip.html">scapy.contrib.etherip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.exposure_notification.html">scapy.contrib.exposure_notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.geneve.html">scapy.contrib.geneve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp.html">scapy.contrib.gtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gtp_v2.html">scapy.contrib.gtp_v2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.gxrp.html">scapy.contrib.gxrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.hicp.html">scapy.contrib.hicp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugav.html">scapy.contrib.homeplugav</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homepluggp.html">scapy.contrib.homepluggp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.homeplugsg.html">scapy.contrib.homeplugsg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.http2.html">scapy.contrib.http2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ibeacon.html">scapy.contrib.ibeacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.icmp_extensions.html">scapy.contrib.icmp_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ife.html">scapy.contrib.ife</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmp.html">scapy.contrib.igmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.igmpv3.html">scapy.contrib.igmpv3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ikev2.html">scapy.contrib.ikev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.isis.html">scapy.contrib.isis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.knx.html">scapy.contrib.knx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.lacp.html">scapy.contrib.lacp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ldp.html">scapy.contrib.ldp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.contrib.lldp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.loraphy2wan.html">scapy.contrib.loraphy2wan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ltp.html">scapy.contrib.ltp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mac_control.html">scapy.contrib.mac_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.macsec.html">scapy.contrib.macsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.metawatch.html">scapy.contrib.metawatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.modbus.html">scapy.contrib.modbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mount.html">scapy.contrib.mount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mpls.html">scapy.contrib.mpls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqtt.html">scapy.contrib.mqtt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.mqttsn.html">scapy.contrib.mqttsn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nfs.html">scapy.contrib.nfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nlm.html">scapy.contrib.nlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nrf_sniffer.html">scapy.contrib.nrf_sniffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.nsh.html">scapy.contrib.nsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oam.html">scapy.contrib.oam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.oncrpc.html">scapy.contrib.oncrpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.opc_da.html">scapy.contrib.opc_da</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow.html">scapy.contrib.openflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.openflow3.html">scapy.contrib.openflow3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ospf.html">scapy.contrib.ospf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pfcp.html">scapy.contrib.pfcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pim.html">scapy.contrib.pim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio.html">scapy.contrib.pnio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_dcp.html">scapy.contrib.pnio_dcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.pnio_rpc.html">scapy.contrib.pnio_rpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.portmap.html">scapy.contrib.portmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.postgres.html">scapy.contrib.postgres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_cace.html">scapy.contrib.ppi_cace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ppi_geotag.html">scapy.contrib.ppi_geotag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.psp.html">scapy.contrib.psp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.ripng.html">scapy.contrib.ripng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.roce.html">scapy.contrib.roce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl.html">scapy.contrib.rpl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rpl_metrics.html">scapy.contrib.rpl_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rsvp.html">scapy.contrib.rsvp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtcp.html">scapy.contrib.rtcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtr.html">scapy.contrib.rtr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.rtsp.html">scapy.contrib.rtsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sdnv.html">scapy.contrib.sdnv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.sebek.html">scapy.contrib.sebek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.send.html">scapy.contrib.send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.skinny.html">scapy.contrib.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.slowprot.html">scapy.contrib.slowprot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.socks.html">scapy.contrib.socks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stamp.html">scapy.contrib.stamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.stun.html">scapy.contrib.stun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tacacs.html">scapy.contrib.tacacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpao.html">scapy.contrib.tcpao</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tcpros.html">scapy.contrib.tcpros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.tzsp.html">scapy.contrib.tzsp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vqp.html">scapy.contrib.vqp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.vtp.html">scapy.contrib.vtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.contrib.wireguard.html">scapy.contrib.wireguard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.contrib.html">scapy.contrib package</a></li>
+      <li class="breadcrumb-item active">scapy.contrib.lldp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.contrib.lldp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.contrib.lldp">
+<span id="scapy-contrib-lldp"></span><h1>scapy.contrib.lldp<a class="headerlink" href="#module-scapy.contrib.lldp" title="Link to this heading"></a></h1>
+<section id="lldp-link-layer-discovery-protocol">
+<h2>LLDP - Link Layer Discovery Protocol<a class="headerlink" href="#lldp-link-layer-discovery-protocol" title="Link to this heading"></a></h2>
+<dl class="field-list">
+<dt class="field-odd">author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Thomas Tannhaeuser, <a class="reference external" href="mailto:hecke&#37;&#52;&#48;naberius&#46;de">hecke<span>&#64;</span>naberius<span>&#46;</span>de</a></p>
+</dd>
+<dt class="field-even">description<span class="colon">:</span></dt>
+<dd class="field-even"><p>This module provides Scapy layers for the LLDP protocol.</p>
+<dl class="simple">
+<dt>normative references:</dt><dd><ul class="simple">
+<li><p>IEEE 802.1AB 2016 - LLDP protocol, topology and MIB description</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">TODO<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><div class="line-block">
+<div class="line">organization specific TLV e.g. ProfiNet</div>
+<div class="line">(see LLDPDUGenericOrganisationSpecific for a starting point)</div>
+</div>
+</li>
+<li><p>Ignore everything after EndofLLDPDUTLV</p></li>
+</ul>
+</dd>
+<dt class="field-even">NOTES<span class="colon">:</span></dt>
+<dd class="field-even"><ul>
+<li><p>you can find the layer configuration options at the end of this file</p></li>
+<li><p>default configuration enforces standard conform:</p>
+<ul>
+<li><div class="line-block">
+<div class="line">frame structure</div>
+<div class="line">(ChassisIDTLV/PortIDTLV/TimeToLiveTLV/…)</div>
+</div>
+</li>
+<li><p>multiplicity of TLVs (if given by the standard)</p></li>
+<li><p>min sizes of strings used by the TLVs</p></li>
+</ul>
+</li>
+<li><p>conf.contribs[‘LLDP’].strict_mode_disable() -&gt; disable strict mode</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPConfiguration">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPConfiguration</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1246-L1271"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPConfiguration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>basic configuration for LLDP layer</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPConfiguration.strict_mode">
+<span class="sig-name descname"><span class="pre">strict_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1267-L1271"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPConfiguration.strict_mode" title="Link to this definition"></a></dt>
+<dd><p>get current strict mode state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPConfiguration.strict_mode_disable">
+<span class="sig-name descname"><span class="pre">strict_mode_disable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1261-L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPConfiguration.strict_mode_disable" title="Link to this definition"></a></dt>
+<dd><p>disable strict mode and dissector debugging</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPConfiguration.strict_mode_enable">
+<span class="sig-name descname"><span class="pre">strict_mode_enable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1255-L1259"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPConfiguration.strict_mode_enable" title="Link to this definition"></a></dt>
+<dd><p>enable strict mode and dissector debugging</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L95-L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<p>base class for all LLDP data units</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.DOT1Q_HEADER_LEN">
+<span class="sig-name descname"><span class="pre">DOT1Q_HEADER_LEN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.DOT1Q_HEADER_LEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.ETHER_FRAME_MIN_LEN">
+<span class="sig-name descname"><span class="pre">ETHER_FRAME_MIN_LEN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.ETHER_FRAME_MIN_LEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.ETHER_FSC_LEN">
+<span class="sig-name descname"><span class="pre">ETHER_FSC_LEN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.ETHER_FSC_LEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.ETHER_HEADER_LEN">
+<span class="sig-name descname"><span class="pre">ETHER_HEADER_LEN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.ETHER_HEADER_LEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.IANA_ADDRESS_FAMILY_NUMBERS">
+<span class="sig-name descname"><span class="pre">IANA_ADDRESS_FAMILY_NUMBERS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'other',</span> <span class="pre">1:</span> <span class="pre">'IPv4',</span> <span class="pre">2:</span> <span class="pre">'IPv6',</span> <span class="pre">3:</span> <span class="pre">'NSAP',</span> <span class="pre">4:</span> <span class="pre">'HDLC',</span> <span class="pre">5:</span> <span class="pre">'BBN',</span> <span class="pre">6:</span> <span class="pre">'802',</span> <span class="pre">7:</span> <span class="pre">'E.163',</span> <span class="pre">8:</span> <span class="pre">'E.164',</span> <span class="pre">9:</span> <span class="pre">'F.69',</span> <span class="pre">10:</span> <span class="pre">'X.121',</span> <span class="pre">11:</span> <span class="pre">'IPX',</span> <span class="pre">12:</span> <span class="pre">'Appletalk',</span> <span class="pre">13:</span> <span class="pre">'Decnet</span> <span class="pre">IV',</span> <span class="pre">14:</span> <span class="pre">'Banyan</span> <span class="pre">Vines',</span> <span class="pre">15:</span> <span class="pre">'E.164</span> <span class="pre">with</span> <span class="pre">NSAP',</span> <span class="pre">16:</span> <span class="pre">'DNS',</span> <span class="pre">17:</span> <span class="pre">'Distinguished</span> <span class="pre">Name',</span> <span class="pre">18:</span> <span class="pre">'AS</span> <span class="pre">Number',</span> <span class="pre">19:</span> <span class="pre">'XTP</span> <span class="pre">over</span> <span class="pre">IPv4',</span> <span class="pre">20:</span> <span class="pre">'XTP</span> <span class="pre">over</span> <span class="pre">IPv6',</span> <span class="pre">21:</span> <span class="pre">'XTP</span> <span class="pre">native</span> <span class="pre">mode</span> <span class="pre">XTP',</span> <span class="pre">22:</span> <span class="pre">'Fiber</span> <span class="pre">Channel</span> <span class="pre">World-Wide</span> <span class="pre">Port</span> <span class="pre">Name',</span> <span class="pre">23:</span> <span class="pre">'Fiber</span> <span class="pre">Channel</span> <span class="pre">World-Wide</span> <span class="pre">Node</span> <span class="pre">Name',</span> <span class="pre">24:</span> <span class="pre">'GWID',</span> <span class="pre">25:</span> <span class="pre">'AFI</span> <span class="pre">for</span> <span class="pre">L2VPN',</span> <span class="pre">26:</span> <span class="pre">'MPLS-TP</span> <span class="pre">Section</span> <span class="pre">Endpoint</span> <span class="pre">ID',</span> <span class="pre">27:</span> <span class="pre">'MPLS-TP</span> <span class="pre">LSP</span> <span class="pre">Endpoint</span> <span class="pre">ID',</span> <span class="pre">28:</span> <span class="pre">'MPLS-TP</span> <span class="pre">Pseudowire</span> <span class="pre">Endpoint</span> <span class="pre">ID',</span> <span class="pre">29:</span> <span class="pre">'MT</span> <span class="pre">IP</span> <span class="pre">Multi-Topology</span> <span class="pre">IPv4',</span> <span class="pre">30:</span> <span class="pre">'MT</span> <span class="pre">IP</span> <span class="pre">Multi-Topology</span> <span class="pre">IPv6'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.IANA_ADDRESS_FAMILY_NUMBERS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.LAYER_MULTIPLICITIES">
+<span class="sig-name descname"><span class="pre">LAYER_MULTIPLICITIES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.LAYER_MULTIPLICITIES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.LAYER_STACK">
+<span class="sig-name descname"><span class="pre">LAYER_STACK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.LAYER_STACK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.TYPES">
+<span class="sig-name descname"><span class="pre">TYPES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'end</span> <span class="pre">of</span> <span class="pre">LLDPDU',</span> <span class="pre">1:</span> <span class="pre">'chassis</span> <span class="pre">id',</span> <span class="pre">2:</span> <span class="pre">'port</span> <span class="pre">id',</span> <span class="pre">3:</span> <span class="pre">'time</span> <span class="pre">to</span> <span class="pre">live',</span> <span class="pre">4:</span> <span class="pre">'port</span> <span class="pre">description',</span> <span class="pre">5:</span> <span class="pre">'system</span> <span class="pre">name',</span> <span class="pre">6:</span> <span class="pre">'system</span> <span class="pre">description',</span> <span class="pre">7:</span> <span class="pre">'system</span> <span class="pre">capabilities',</span> <span class="pre">8:</span> <span class="pre">'management</span> <span class="pre">address',</span> <span class="pre">127:</span> <span class="pre">'organisation</span> <span class="pre">specific</span> <span class="pre">TLV'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.TYPES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.dissection_done">
+<span class="sig-name descname"><span class="pre">dissection_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L297-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.dissection_done" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.do_build">
+<span class="sig-name descname"><span class="pre">do_build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L314-L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.do_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L154-L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.guess_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L185-L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.post_dissect">
+<span class="sig-name descname"><span class="pre">post_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L310-L312"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.post_dissect" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDU.pre_dissect">
+<span class="sig-name descname"><span class="pre">pre_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L282-L295"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDU.pre_dissect" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUChassisID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L344-L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.2 / p. 26</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.LLDP_CHASSIS_ID_TLV_SUBTYPES">
+<span class="sig-name descname"><span class="pre">LLDP_CHASSIS_ID_TLV_SUBTYPES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'reserved',</span> <span class="pre">1:</span> <span class="pre">'chassis</span> <span class="pre">component',</span> <span class="pre">2:</span> <span class="pre">'interface</span> <span class="pre">alias',</span> <span class="pre">3:</span> <span class="pre">'port</span> <span class="pre">component',</span> <span class="pre">4:</span> <span class="pre">'MAC</span> <span class="pre">address',</span> <span class="pre">5:</span> <span class="pre">'network</span> <span class="pre">address',</span> <span class="pre">6:</span> <span class="pre">'interface</span> <span class="pre">name',</span> <span class="pre">7:</span> <span class="pre">'locally</span> <span class="pre">assigned'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.LLDP_CHASSIS_ID_TLV_SUBTYPES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_CHASSIS_COMPONENT">
+<span class="sig-name descname"><span class="pre">SUBTYPE_CHASSIS_COMPONENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_CHASSIS_COMPONENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_INTERFACE_ALIAS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_ALIAS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_INTERFACE_ALIAS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_INTERFACE_NAME">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_INTERFACE_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_LOCALLY_ASSIGNED">
+<span class="sig-name descname"><span class="pre">SUBTYPE_LOCALLY_ASSIGNED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_LOCALLY_ASSIGNED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_MAC_ADDRESS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MAC_ADDRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_MAC_ADDRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_NETWORK_ADDRESS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_NETWORK_ADDRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_NETWORK_ADDRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_PORT_COMPONENT">
+<span class="sig-name descname"><span class="pre">SUBTYPE_PORT_COMPONENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_PORT_COMPONENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_RESERVED">
+<span class="sig-name descname"><span class="pre">SUBTYPE_RESERVED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.SUBTYPE_RESERVED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUChassisID'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUChassisID.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUChassisID)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUChassisID)._length&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUChassisID).subtype&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUChassisID.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUEndOfLLDPDU">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUEndOfLLDPDU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L479-L497"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUEndOfLLDPDU" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.1 / p. 26</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUEndOfLLDPDU.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUEndOfLLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUEndOfLLDPDU.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUEndOfLLDPDU.extract_padding">
+<span class="sig-name descname"><span class="pre">extract_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L488-L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUEndOfLLDPDU.extract_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUEndOfLLDPDU.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUEndOfLLDPDU)._type&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUEndOfLLDPDU)._length&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUEndOfLLDPDU.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUGenericOrganisationSpecific</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">127</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">org_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L689-L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODES">
+<span class="sig-name descname"><span class="pre">ORG_UNIQUE_CODES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{3791:</span> <span class="pre">'PROFIBUS</span> <span class="pre">International</span> <span class="pre">(PNO)',</span> <span class="pre">4623:</span> <span class="pre">'IEEE</span> <span class="pre">802.3',</span> <span class="pre">4795:</span> <span class="pre">'TIA</span> <span class="pre">TR-41</span> <span class="pre">Committee</span> <span class="pre">.</span> <span class="pre">Media</span> <span class="pre">Endpoint</span> <span class="pre">Discovery',</span> <span class="pre">32962:</span> <span class="pre">'IEEE</span> <span class="pre">802.1',</span> <span class="pre">3191318:</span> <span class="pre">'Hytec</span> <span class="pre">Geraetebau</span> <span class="pre">GmbH'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_HYTEC">
+<span class="sig-name descname"><span class="pre">ORG_UNIQUE_CODE_HYTEC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3191318</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_HYTEC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_IEEE_802_1">
+<span class="sig-name descname"><span class="pre">ORG_UNIQUE_CODE_IEEE_802_1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32962</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_IEEE_802_1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_IEEE_802_3">
+<span class="sig-name descname"><span class="pre">ORG_UNIQUE_CODE_IEEE_802_3</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4623</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_IEEE_802_3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_PNO">
+<span class="sig-name descname"><span class="pre">ORG_UNIQUE_CODE_PNO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3791</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_PNO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_TIA_TR_41_MED">
+<span class="sig-name descname"><span class="pre">ORG_UNIQUE_CODE_TIA_TR_41_MED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4795</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.ORG_UNIQUE_CODE_TIA_TR_41_MED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUGenericOrganisationSpecific)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUGenericOrganisationSpecific)._length&gt;,</span> <span class="pre">&lt;ThreeBytesEnumField</span> <span class="pre">(LLDPDUGenericOrganisationSpecific).org_code&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(LLDPDUGenericOrganisationSpecific).subtype&gt;,</span> <span class="pre">&lt;XStrLenField</span> <span class="pre">(LLDPDUGenericOrganisationSpecific).data&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUManagementAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_management_address_string_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">management_address_subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">management_address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface_numbering_subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_oid_string_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L583-L680"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.9 / p. 32</p>
+<p>currently only 0x00..0x1e are used by standards, no way to
+use anything &gt; 0xff as management address subtype is only
+one octet wide</p>
+<p>see <a class="reference external" href="https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml">https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml</a>  # noqa: E501</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.INTERFACE_NUMBERING_SUBTYPES">
+<span class="sig-name descname"><span class="pre">INTERFACE_NUMBERING_SUBTYPES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'unknown',</span> <span class="pre">2:</span> <span class="pre">'ifIndex',</span> <span class="pre">3:</span> <span class="pre">'system</span> <span class="pre">port</span> <span class="pre">number'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.INTERFACE_NUMBERING_SUBTYPES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_INTERFACE_NUMBER_IF_INDEX">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_NUMBER_IF_INDEX</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_INTERFACE_NUMBER_IF_INDEX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_INTERFACE_NUMBER_SYSTEM_PORT_NUMBER">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_NUMBER_SYSTEM_PORT_NUMBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_INTERFACE_NUMBER_SYSTEM_PORT_NUMBER" title="Link to this definition"></a></dt>
+<dd><p>Note - calculation of _length field:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_length</span> <span class="o">=</span> <span class="mi">1</span><span class="nd">@_management_address_string_length</span> <span class="o">+</span>
+          <span class="mi">1</span><span class="nd">@management_address_subtype</span> <span class="o">+</span>
+          <span class="n">management_address</span><span class="o">.</span><span class="n">len</span> <span class="o">+</span>
+          <span class="mi">1</span><span class="nd">@interface_numbering_subtype</span> <span class="o">+</span>
+          <span class="mi">4</span><span class="nd">@interface_number</span> <span class="o">+</span>
+          <span class="mi">1</span><span class="nd">@_oid_string_length</span> <span class="o">+</span>
+          <span class="n">object_id</span><span class="o">.</span><span class="n">len</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_INTERFACE_NUMBER_UNKNOWN">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_NUMBER_UNKNOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_INTERFACE_NUMBER_UNKNOWN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_802">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_802</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_802" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_AFI_FOR_L2VPN">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_AFI_FOR_L2VPN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">25</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_AFI_FOR_L2VPN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_APPLETALK">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_APPLETALK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_APPLETALK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_AS_NUMBER">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_AS_NUMBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_AS_NUMBER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_BANYAN_VINES">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_BANYAN_VINES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_BANYAN_VINES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_BBN">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_BBN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_BBN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_DECNET_IV">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_DECNET_IV</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_DECNET_IV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_DISTINGUISHED_NAME">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_DISTINGUISHED_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">17</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_DISTINGUISHED_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_DNS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_DNS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_DNS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_E_163">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_E_163</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_E_163" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_E_164">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_E_164</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_E_164" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_E_164_WITH_NSAP">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_E_164_WITH_NSAP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_E_164_WITH_NSAP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_FIBER_CHANNEL_WORLD_WIDE_NODE_NAME">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_FIBER_CHANNEL_WORLD_WIDE_NODE_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">23</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_FIBER_CHANNEL_WORLD_WIDE_NODE_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_FIBER_CHANNEL_WORLD_WIDE_PORT_NAME">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_FIBER_CHANNEL_WORLD_WIDE_PORT_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">22</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_FIBER_CHANNEL_WORLD_WIDE_PORT_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_F_69">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_F_69</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_F_69" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_GWID">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_GWID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_GWID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_HDLC">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_HDLC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_HDLC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_IPV4">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_IPV4</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_IPV4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_IPV6">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_IPV6</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_IPV6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_IPX">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_IPX</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_IPX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_LSP_ENDPOINT_ID">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_LSP_ENDPOINT_ID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">27</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_LSP_ENDPOINT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_PSEUDOWIRE_ENDPOINT_ID">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_PSEUDOWIRE_ENDPOINT_ID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">28</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_PSEUDOWIRE_ENDPOINT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_SECTION_ENDPOINT_ID">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_SECTION_ENDPOINT_ID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">26</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MPLS_TP_SECTION_ENDPOINT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MT_IP_MULTI_TOPOLOGY_IPV4">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_MT_IP_MULTI_TOPOLOGY_IPV4</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">29</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MT_IP_MULTI_TOPOLOGY_IPV4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MT_IP_MULTI_TOPOLOGY_IPV6">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_MT_IP_MULTI_TOPOLOGY_IPV6</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_MT_IP_MULTI_TOPOLOGY_IPV6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_NSAP">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_NSAP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_NSAP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_OTHER">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_OTHER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_OTHER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_XTP_NATIVE_MODE_XTP">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_XTP_NATIVE_MODE_XTP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">21</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_XTP_NATIVE_MODE_XTP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_XTP_OVER_IPV4">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_XTP_OVER_IPV4</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_XTP_OVER_IPV4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_XTP_OVER_IPV6">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_XTP_OVER_IPV6</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_XTP_OVER_IPV6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_X_121">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MANAGEMENT_ADDRESS_X_121</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.SUBTYPE_MANAGEMENT_ADDRESS_X_121" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUManagementAddress'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUManagementAddress.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUManagementAddress)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUManagementAddress)._length&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUManagementAddress)._management_address_string_length&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUManagementAddress).management_address_subtype&gt;,</span> <span class="pre">&lt;XStrLenField</span> <span class="pre">(LLDPDUManagementAddress).management_address&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUManagementAddress).interface_numbering_subtype&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUManagementAddress).interface_number&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUManagementAddress)._oid_string_length&gt;,</span> <span class="pre">&lt;XStrLenField</span> <span class="pre">(LLDPDUManagementAddress).object_id&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUManagementAddress.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortDescription">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUPortDescription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L500-L508"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortDescription" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.5 / p. 29</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortDescription.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPortDescription'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortDescription.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortDescription.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUPortDescription)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUPortDescription)._length&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(LLDPDUPortDescription).description&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortDescription.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUPortID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L402-L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.3 / p. 26</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.LLDP_PORT_ID_TLV_SUBTYPES">
+<span class="sig-name descname"><span class="pre">LLDP_PORT_ID_TLV_SUBTYPES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'reserved',</span> <span class="pre">1:</span> <span class="pre">'interface</span> <span class="pre">alias',</span> <span class="pre">2:</span> <span class="pre">'port</span> <span class="pre">component',</span> <span class="pre">3:</span> <span class="pre">'MAC</span> <span class="pre">address',</span> <span class="pre">4:</span> <span class="pre">'network</span> <span class="pre">address',</span> <span class="pre">5:</span> <span class="pre">'interface</span> <span class="pre">name',</span> <span class="pre">6:</span> <span class="pre">'agent</span> <span class="pre">circuit</span> <span class="pre">ID',</span> <span class="pre">7:</span> <span class="pre">'locally</span> <span class="pre">assigned'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.LLDP_PORT_ID_TLV_SUBTYPES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_AGENT_CIRCUIT_ID">
+<span class="sig-name descname"><span class="pre">SUBTYPE_AGENT_CIRCUIT_ID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_AGENT_CIRCUIT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_INTERFACE_ALIAS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_ALIAS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_INTERFACE_ALIAS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_INTERFACE_NAME">
+<span class="sig-name descname"><span class="pre">SUBTYPE_INTERFACE_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_INTERFACE_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_LOCALLY_ASSIGNED">
+<span class="sig-name descname"><span class="pre">SUBTYPE_LOCALLY_ASSIGNED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_LOCALLY_ASSIGNED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_MAC_ADDRESS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_MAC_ADDRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_MAC_ADDRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_NETWORK_ADDRESS">
+<span class="sig-name descname"><span class="pre">SUBTYPE_NETWORK_ADDRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_NETWORK_ADDRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_PORT_COMPONENT">
+<span class="sig-name descname"><span class="pre">SUBTYPE_PORT_COMPONENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_PORT_COMPONENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_RESERVED">
+<span class="sig-name descname"><span class="pre">SUBTYPE_RESERVED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.SUBTYPE_RESERVED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPortID'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPortID.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUPortID)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUPortID)._length&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPortID).subtype&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPortID.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDI">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUPowerViaMDI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">127</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">org_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4623</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MDI_power_support</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_power_pair</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L720-L775"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific" title="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDUGenericOrganisationSpecific</span></code></a></p>
+<p>Legacy PoE TLV originally defined in IEEE Std 802.1AB-2005 Annex G.3.</p>
+<p>IEEE802.3bt-2018 - sec. 79.3.2.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDI.MDI_POWER_SUPPORT">
+<span class="sig-name descname"><span class="pre">MDI_POWER_SUPPORT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'port</span> <span class="pre">class</span> <span class="pre">PSE',</span> <span class="pre">2:</span> <span class="pre">'PSE</span> <span class="pre">MDI</span> <span class="pre">power</span> <span class="pre">supported',</span> <span class="pre">4:</span> <span class="pre">'PSE</span> <span class="pre">MDI</span> <span class="pre">power</span> <span class="pre">enabled',</span> <span class="pre">8:</span> <span class="pre">'PSE</span> <span class="pre">pairs</span> <span class="pre">controlled'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI.MDI_POWER_SUPPORT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDI.POWER_CLASS">
+<span class="sig-name descname"><span class="pre">POWER_CLASS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'class</span> <span class="pre">0',</span> <span class="pre">2:</span> <span class="pre">'class</span> <span class="pre">1',</span> <span class="pre">3:</span> <span class="pre">'class</span> <span class="pre">2',</span> <span class="pre">4:</span> <span class="pre">'class</span> <span class="pre">3',</span> <span class="pre">5:</span> <span class="pre">'class</span> <span class="pre">4</span> <span class="pre">and</span> <span class="pre">above'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI.POWER_CLASS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDI.PSE_POWER_PAIR">
+<span class="sig-name descname"><span class="pre">PSE_POWER_PAIR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'alt</span> <span class="pre">A',</span> <span class="pre">2:</span> <span class="pre">'alt</span> <span class="pre">B'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI.PSE_POWER_PAIR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDI.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDI'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDI.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDI)._type&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUPowerViaMDI)._length&gt;,</span> <span class="pre">&lt;ThreeBytesField</span> <span class="pre">(LLDPDUPowerViaMDI).org_code&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(LLDPDUPowerViaMDI).subtype&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDI).MDI_power_support&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPowerViaMDI).PSE_power_pair&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPowerViaMDI).power_class&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUPowerViaMDIDDL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">127</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">org_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4623</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MDI_power_support</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_power_pair</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_type_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_type_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_4PID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_prio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_requested_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_allocated_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L778-L886"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDUPowerViaMDI" title="scapy.contrib.lldp.LLDPDUPowerViaMDI"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDUPowerViaMDI</span></code></a></p>
+<p>PoE TLV with DLL classification extension specified in IEEE802.3at-2009</p>
+<p>Note: power values are expressed in units of Watts,
+converted to tenth of Watts internally</p>
+<p>IEEE802.3bt-2018 - sec. 79.3.2</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.PD_4PID_SUP">
+<span class="sig-name descname"><span class="pre">PD_4PID_SUP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'not</span> <span class="pre">supported',</span> <span class="pre">1:</span> <span class="pre">'supported'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.PD_4PID_SUP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_PRIO">
+<span class="sig-name descname"><span class="pre">POWER_PRIO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'unknown',</span> <span class="pre">1:</span> <span class="pre">'critical',</span> <span class="pre">2:</span> <span class="pre">'high',</span> <span class="pre">3:</span> <span class="pre">'low'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_PRIO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_SOURCE_PD">
+<span class="sig-name descname"><span class="pre">POWER_SOURCE_PD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'unknown',</span> <span class="pre">1:</span> <span class="pre">'PSE',</span> <span class="pre">2:</span> <span class="pre">'reserved',</span> <span class="pre">3:</span> <span class="pre">'PSE</span> <span class="pre">and</span> <span class="pre">local'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_SOURCE_PD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_SOURCE_PSE">
+<span class="sig-name descname"><span class="pre">POWER_SOURCE_PSE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'unknown',</span> <span class="pre">1:</span> <span class="pre">'primary</span> <span class="pre">source',</span> <span class="pre">2:</span> <span class="pre">'backup</span> <span class="pre">source',</span> <span class="pre">3:</span> <span class="pre">'reserved'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_SOURCE_PSE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_TYPE_DIR">
+<span class="sig-name descname"><span class="pre">POWER_TYPE_DIR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'PSE',</span> <span class="pre">1:</span> <span class="pre">'PD'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_TYPE_DIR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_TYPE_NO">
+<span class="sig-name descname"><span class="pre">POWER_TYPE_NO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'type</span> <span class="pre">2',</span> <span class="pre">1:</span> <span class="pre">'type</span> <span class="pre">1'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.POWER_TYPE_NO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDIDDL'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDI'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIDDL)._type&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUPowerViaMDIDDL)._length&gt;,</span> <span class="pre">&lt;ThreeBytesField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).org_code&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).subtype&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).MDI_power_support&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).PSE_power_pair&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).power_class&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).power_type_no&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).power_type_dir&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).power_prio&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).PD_requested_power&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIDDL).PSE_allocated_power&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUPowerViaMDIMeasure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">127</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">26</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">org_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4623</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_price_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">65535</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1087-L1222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific" title="scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDUGenericOrganisationSpecific</span></code></a></p>
+<p>PoE TLV measurements in IEEE802.3bt-2018</p>
+<p>Note: power values are expressed in units of Watts,
+converted to hundredths of Watts internally;
+energy values are expressed in units of Joules,
+converted to tenths of kilo-Joules internally;
+voltage values are expressed in units of Volts,
+converted to milli-Volts internally;
+current values are expressed in units of Amperes,
+converted to tenths of milli-Amperes internally.
+PSE price index is converted internally.</p>
+<p>IEEE802.3bt-2018 - sec. 79.3.8</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.MEASURE_SOURCE">
+<span class="sig-name descname"><span class="pre">MEASURE_SOURCE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'no</span> <span class="pre">request',</span> <span class="pre">1:</span> <span class="pre">'mode</span> <span class="pre">A',</span> <span class="pre">2:</span> <span class="pre">'mode</span> <span class="pre">B',</span> <span class="pre">3:</span> <span class="pre">'port</span> <span class="pre">total'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.MEASURE_SOURCE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.MEASURE_TYPE">
+<span class="sig-name descname"><span class="pre">MEASURE_TYPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'energy',</span> <span class="pre">2:</span> <span class="pre">'power',</span> <span class="pre">4:</span> <span class="pre">'current',</span> <span class="pre">8:</span> <span class="pre">'voltage'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.MEASURE_TYPE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.POWER_PRICE_INDEX">
+<span class="sig-name descname"><span class="pre">POWER_PRICE_INDEX</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{65535:</span> <span class="pre">'not</span> <span class="pre">available'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.POWER_PRICE_INDEX" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.do_build">
+<span class="sig-name descname"><span class="pre">do_build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1160-L1166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.do_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure)._type&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure)._length&gt;,</span> <span class="pre">&lt;ThreeBytesField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).org_code&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).subtype&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).support&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).source&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).request&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).valid&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).voltage_uncertainty&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).current_uncertainty&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).power_uncertainty&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).energy_uncertainty&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).voltage_measurement&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).current_measurement&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).power_measurement&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).energy_measurement&gt;,</span> <span class="pre">&lt;ShortEnumField</span> <span class="pre">(LLDPDUPowerViaMDIMeasure).power_price_index&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.post_dissect">
+<span class="sig-name descname"><span class="pre">post_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L1168-L1172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIMeasure.post_dissect" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUPowerViaMDIType34</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">127</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">29</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">org_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4623</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MDI_power_support</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_power_pair</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_type_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_type_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_4PID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_prio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_requested_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_allocated_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_requested_power_mode_A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_requested_power_mode_B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_allocated_power_alt_A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_allocated_power_alt_B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_powering_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_powered_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_power_pair_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dual_signature_class_mode_A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dual_signature_class_mode_B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_class_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_type_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PD_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSE_max_available_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoclass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_down_req</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_down_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L889-L1084"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIDDL" title="scapy.contrib.lldp.LLDPDUPowerViaMDIDDL"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDUPowerViaMDIDDL</span></code></a></p>
+<p>PoE TLV with DLL classification and type 3 and 4 extensions
+specified in IEEE802.3bt-2018</p>
+<p>Note: power values are expressed in units of Watts,
+converted to tenth of Watts internally</p>
+<p>IEEE802.3bt-2018 - sec. 79.3.2</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.AUTOCLASS">
+<span class="sig-name descname"><span class="pre">AUTOCLASS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'autoclass</span> <span class="pre">request',</span> <span class="pre">2:</span> <span class="pre">'autoclass</span> <span class="pre">completed',</span> <span class="pre">4:</span> <span class="pre">'PSE</span> <span class="pre">autoclass</span> <span class="pre">support'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.AUTOCLASS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.DUAL_SIGNATURE_POWER_CLASS">
+<span class="sig-name descname"><span class="pre">DUAL_SIGNATURE_POWER_CLASS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ignore',</span> <span class="pre">1:</span> <span class="pre">'class</span> <span class="pre">1',</span> <span class="pre">2:</span> <span class="pre">'class</span> <span class="pre">2',</span> <span class="pre">3:</span> <span class="pre">'class</span> <span class="pre">3',</span> <span class="pre">4:</span> <span class="pre">'class</span> <span class="pre">4',</span> <span class="pre">5:</span> <span class="pre">'class</span> <span class="pre">5',</span> <span class="pre">6:</span> <span class="pre">'ignore',</span> <span class="pre">7:</span> <span class="pre">'single-signature</span> <span class="pre">PD</span> <span class="pre">or</span> <span class="pre">2-pair</span> <span class="pre">only</span> <span class="pre">PSE'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.DUAL_SIGNATURE_POWER_CLASS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PD_LOAD">
+<span class="sig-name descname"><span class="pre">PD_LOAD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'single-signature</span> <span class="pre">or</span> <span class="pre">not</span> <span class="pre">electrically</span> <span class="pre">isolated',</span> <span class="pre">1:</span> <span class="pre">'dual-signature</span> <span class="pre">and</span> <span class="pre">electrically</span> <span class="pre">isolated'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PD_LOAD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PD_POWERED_STATUS">
+<span class="sig-name descname"><span class="pre">PD_POWERED_STATUS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ignore',</span> <span class="pre">1:</span> <span class="pre">'powered</span> <span class="pre">single-signature</span> <span class="pre">PD',</span> <span class="pre">2:</span> <span class="pre">'2-pair</span> <span class="pre">powered</span> <span class="pre">dual-signature</span> <span class="pre">PD',</span> <span class="pre">3:</span> <span class="pre">'4-pair</span> <span class="pre">powered</span> <span class="pre">dual-signature</span> <span class="pre">PD'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PD_POWERED_STATUS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.POWER_CLASS_EXT">
+<span class="sig-name descname"><span class="pre">POWER_CLASS_EXT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ignore',</span> <span class="pre">1:</span> <span class="pre">'class</span> <span class="pre">1',</span> <span class="pre">2:</span> <span class="pre">'class</span> <span class="pre">2',</span> <span class="pre">3:</span> <span class="pre">'class</span> <span class="pre">3',</span> <span class="pre">4:</span> <span class="pre">'class</span> <span class="pre">4',</span> <span class="pre">5:</span> <span class="pre">'class</span> <span class="pre">5',</span> <span class="pre">6:</span> <span class="pre">'class</span> <span class="pre">6',</span> <span class="pre">7:</span> <span class="pre">'class</span> <span class="pre">7',</span> <span class="pre">8:</span> <span class="pre">'class</span> <span class="pre">8',</span> <span class="pre">9:</span> <span class="pre">'ignore',</span> <span class="pre">10:</span> <span class="pre">'ignore',</span> <span class="pre">11:</span> <span class="pre">'ignore',</span> <span class="pre">12:</span> <span class="pre">'ignore',</span> <span class="pre">13:</span> <span class="pre">'ignore',</span> <span class="pre">14:</span> <span class="pre">'ignore',</span> <span class="pre">15:</span> <span class="pre">'dual-signature</span> <span class="pre">pd'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.POWER_CLASS_EXT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.POWER_DOWN_REQ">
+<span class="sig-name descname"><span class="pre">POWER_DOWN_REQ</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ignore',</span> <span class="pre">29:</span> <span class="pre">'power</span> <span class="pre">down'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.POWER_DOWN_REQ" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.POWER_TYPE_EXT">
+<span class="sig-name descname"><span class="pre">POWER_TYPE_EXT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'type</span> <span class="pre">3</span> <span class="pre">PSE',</span> <span class="pre">1:</span> <span class="pre">'type</span> <span class="pre">4</span> <span class="pre">PSE',</span> <span class="pre">2:</span> <span class="pre">'type</span> <span class="pre">3</span> <span class="pre">single-signature</span> <span class="pre">PD',</span> <span class="pre">3:</span> <span class="pre">'type</span> <span class="pre">3</span> <span class="pre">dual-signature</span> <span class="pre">PD',</span> <span class="pre">4:</span> <span class="pre">'type</span> <span class="pre">4</span> <span class="pre">single-signature</span> <span class="pre">PD',</span> <span class="pre">5:</span> <span class="pre">'type</span> <span class="pre">4</span> <span class="pre">dual-signature</span> <span class="pre">PD',</span> <span class="pre">6:</span> <span class="pre">'ignore',</span> <span class="pre">7:</span> <span class="pre">'ignore'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.POWER_TYPE_EXT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PSE_POWERING_STATUS">
+<span class="sig-name descname"><span class="pre">PSE_POWERING_STATUS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ignore',</span> <span class="pre">1:</span> <span class="pre">'2-pair</span> <span class="pre">powering',</span> <span class="pre">2:</span> <span class="pre">'4-pair</span> <span class="pre">powering</span> <span class="pre">single-signature</span> <span class="pre">PD',</span> <span class="pre">3:</span> <span class="pre">'4-pair</span> <span class="pre">powering</span> <span class="pre">dual-signature</span> <span class="pre">PD'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PSE_POWERING_STATUS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PSE_POWER_PAIRS_EXT">
+<span class="sig-name descname"><span class="pre">PSE_POWER_PAIRS_EXT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ignore',</span> <span class="pre">1:</span> <span class="pre">'alt</span> <span class="pre">B',</span> <span class="pre">2:</span> <span class="pre">'alt</span> <span class="pre">A',</span> <span class="pre">3:</span> <span class="pre">'both</span> <span class="pre">alts'}</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.PSE_POWER_PAIRS_EXT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDIType34'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDIDDL'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUPowerViaMDI'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUGenericOrganisationSpecific'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUPowerViaMDIType34.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34)._type&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUPowerViaMDIType34)._length&gt;,</span> <span class="pre">&lt;ThreeBytesField</span> <span class="pre">(LLDPDUPowerViaMDIType34).org_code&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(LLDPDUPowerViaMDIType34).subtype&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDIType34).MDI_power_support&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PSE_power_pair&gt;,</span> <span class="pre">&lt;ByteEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_class&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_type_no&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_type_dir&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_prio&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_requested_power&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PSE_allocated_power&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_requested_power_mode_A&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_requested_power_mode_B&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_allocated_power_alt_A&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_allocated_power_alt_B&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PSE_powering_status&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_powered_status&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_power_pair_ext&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).dual_signature_class_mode_A&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).dual_signature_class_mode_B&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_class_ext&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_type_ext&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PD_load&gt;,</span> <span class="pre">&lt;ScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).PSE_max_available_power&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(LLDPDUPowerViaMDIType34).autoclass&gt;,</span> <span class="pre">&lt;BitEnumField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_down_req&gt;,</span> <span class="pre">&lt;BitScalingField</span> <span class="pre">(LLDPDUPowerViaMDIType34).power_down_time&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUPowerViaMDIType34.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemCapabilities">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUSystemCapabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_5_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_4_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_3_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_2_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_1_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">two_port_mac_relay_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_vlan_component_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_vlan_component_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_only_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docsis_cable_device_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telephone_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">router_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wlan_access_point_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mac_bridge_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeater_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_5_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_4_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_3_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_2_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserved_1_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">two_port_mac_relay_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_vlan_component_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_vlan_component_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_only_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docsis_cable_device_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telephone_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">router_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wlan_access_point_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mac_bridge_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeater_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L533-L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemCapabilities" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.8 / p. 31</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemCapabilities.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUSystemCapabilities'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemCapabilities.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemCapabilities.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUSystemCapabilities)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUSystemCapabilities)._length&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_5_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_4_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_3_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_2_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_1_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).two_port_mac_relay_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).s_vlan_component_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).c_vlan_component_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).station_only_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).docsis_cable_device_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).telephone_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).router_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).wlan_access_point_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).mac_bridge_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).repeater_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).other_available&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_5_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_4_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_3_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_2_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).reserved_1_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).two_port_mac_relay_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).s_vlan_component_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).c_vlan_component_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).station_only_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).docsis_cable_device_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).telephone_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).router_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).wlan_access_point_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).mac_bridge_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).repeater_enabled&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUSystemCapabilities).other_enabled&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemCapabilities.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemDescription">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUSystemDescription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L522-L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemDescription" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.7 / p. 31</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemDescription.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUSystemDescription'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemDescription.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemDescription.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUSystemDescription)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUSystemDescription)._length&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(LLDPDUSystemDescription).description&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemDescription.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemName">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUSystemName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L511-L519"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemName" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.6 / p. 30</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemName.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUSystemName'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemName.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUSystemName.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUSystemName)._type&gt;,</span> <span class="pre">&lt;BitFieldLenField</span> <span class="pre">(LLDPDUSystemName)._length&gt;,</span> <span class="pre">&lt;StrLenField</span> <span class="pre">(LLDPDUSystemName).system_name&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUSystemName.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUTimeToLive">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPDUTimeToLive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L460-L476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUTimeToLive" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.contrib.lldp.LLDPDU" title="scapy.contrib.lldp.LLDPDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">LLDPDU</span></code></a></p>
+<p>ieee 802.1ab-2016 - sec. 8.5.4 / p. 29</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUTimeToLive.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDUTimeToLive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.contrib.lldp.LLDPDU'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUTimeToLive.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPDUTimeToLive.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;BitEnumField</span> <span class="pre">(LLDPDUTimeToLive)._type&gt;,</span> <span class="pre">&lt;BitField</span> <span class="pre">(LLDPDUTimeToLive)._length&gt;,</span> <span class="pre">&lt;ShortField</span> <span class="pre">(LLDPDUTimeToLive).ttl&gt;]</span></span><a class="headerlink" href="#scapy.contrib.lldp.LLDPDUTimeToLive.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPInvalidFieldValue">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPInvalidFieldValue</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L59-L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPInvalidFieldValue" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+<p>field value is out of allowed range</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPInvalidFrameStructure">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPInvalidFrameStructure</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L66-L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPInvalidFrameStructure" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+<p>basic frame structure not standard conform
+(missing TLV, invalid order or multiplicity)</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPInvalidLengthField">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPInvalidLengthField</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L88-L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPInvalidLengthField" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+<p>invalid value of length field</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPInvalidTLVCount">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPInvalidTLVCount</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L81-L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPInvalidTLVCount" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+<p>invalid number of entries for a specific TLV type</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.LLDPMissingLowerLayer">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">LLDPMissingLowerLayer</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L74-L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.LLDPMissingLowerLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+<p>first layer below first LLDPDU must be Ethernet or Dot1q</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.contrib.lldp.ThreeBytesEnumField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.contrib.lldp.</span></span><span class="sig-name descname"><span class="pre">ThreeBytesEnumField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/contrib/lldp.py#L683-L686"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.contrib.lldp.ThreeBytesEnumField" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.fields.html#scapy.fields.EnumField" title="scapy.fields.EnumField"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnumField</span></code></a>, <a class="reference internal" href="scapy.fields.html#scapy.fields.ThreeBytesField" title="scapy.fields.ThreeBytesField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreeBytesField</span></code></a></p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.contrib.ldp.html" class="btn btn-neutral float-left" title="scapy.contrib.ldp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.contrib.loraphy2wan.html" class="btn btn-neutral float-right" title="scapy.contrib.loraphy2wan" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scapy network stack &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build your own tools" href="extending.html" />
+    <link rel="prev" title="PipeTools" href="advanced_usage/pipetools.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scapy network stack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interfaces-list">Interfaces list</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extcap-interfaces">Extcap interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ipv4-routes">IPv4 routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ipv6-routes">IPv6 routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-default-gateway-ip-address">Get default gateway IP address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-the-ip-of-an-interface">Get the IP of an interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-the-mac-of-an-interface">Get the MAC of an interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-mac-address-of-the-next-hop-to-reach-an-ip">Get MAC address of the next hop to reach an IP</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Scapy network stack</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/routing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scapy-network-stack">
+<h1>Scapy network stack<a class="headerlink" href="#scapy-network-stack" title="Link to this heading"></a></h1>
+<p>Scapy maintains its own network stack, which is independent from the one of your operating system.
+It possesses its own <em>interfaces list</em>, <em>routing table</em>, <em>ARP cache</em>, <em>IPv6 neighbour</em> cache, <em>nameservers</em> config… and so on, all of which is configurable.</p>
+<p>Here are a few examples of where this is used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- When you use ``sr()/send()``, Scapy will use internally its own routing table (``conf.route``) in order to find which interface to use, and eventually send an ARP request.
+- When using ``dns_resolve()``, Scapy uses its own nameservers list (``conf.nameservers``) to perform the request
+- etc.
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>What’s important to note is that Scapy initializes its own tables by querying the OS-specific ones.
+It has therefore implemented bindings for Linux/Windows/BSD.. in order to retrieve such data, which may also be used as a high-level API, documented below.</p>
+</div>
+<section id="interfaces-list">
+<h2>Interfaces list<a class="headerlink" href="#interfaces-list" title="Link to this heading"></a></h2>
+<p>Scapy stores its interfaces list in the <a class="reference internal" href="api/scapy.interfaces.html#scapy.interfaces.NetworkInterfaceDict" title="scapy.interfaces.NetworkInterfaceDict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">conf.ifaces</span></code></a> object.
+It provides a few utility functions such as <a class="reference internal" href="api/scapy.interfaces.html#scapy.interfaces.NetworkInterfaceDict.dev_from_networkname" title="scapy.interfaces.NetworkInterfaceDict.dev_from_networkname"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dev_from_networkname()</span></code></a>, <a class="reference internal" href="api/scapy.interfaces.html#scapy.interfaces.NetworkInterfaceDict.dev_from_name" title="scapy.interfaces.NetworkInterfaceDict.dev_from_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dev_from_name()</span></code></a> or <a class="reference internal" href="api/scapy.interfaces.html#scapy.interfaces.NetworkInterfaceDict.dev_from_index" title="scapy.interfaces.NetworkInterfaceDict.dev_from_index"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dev_from_index()</span></code></a> in order to access those.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">ifaces</span>
+<span class="go">Source  Index  Name  MAC                IPv4          IPv6</span>
+<span class="go">sys     1      lo    00:00:00:00:00:00  127.0.0.1     ::1</span>
+<span class="go">sys     2      eth0  Microsof:12:cb:ef  10.0.0.5  fe80::10a:2bef:dc12:afae</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">ifaces</span><span class="o">.</span><span class="n">dev_from_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&lt;NetworkInterface eth0 [UP+BROADCAST+RUNNING+SLAVE]&gt;</span>
+</pre></div>
+</div>
+<p>You can also use the older <code class="docutils literal notranslate"><span class="pre">get_if_list()</span></code> function in order to only get the interface names.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_if_list</span><span class="p">()</span>
+<span class="go">['lo', 'eth0']</span>
+</pre></div>
+</div>
+<section id="extcap-interfaces">
+<h3>Extcap interfaces<a class="headerlink" href="#extcap-interfaces" title="Link to this heading"></a></h3>
+<p>Scapy supports sniffing on <a class="reference external" href="https://www.wireshark.org/docs/man-pages/extcap.html">Wireshark’s extcap</a> interfaces. You can simply enable it using <code class="docutils literal notranslate"><span class="pre">load_extcap()</span></code> (from <code class="docutils literal notranslate"><span class="pre">scapy.libs.extcap</span></code>).</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_extcap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">ifaces</span>
+<span class="go">Source       Index  Name                                     Address</span>
+<span class="go">ciscodump    100    Cisco remote capture                     ciscodump</span>
+<span class="go">dpauxmon     100    DisplayPort AUX channel monitor capture  dpauxmon</span>
+<span class="go">randpktdump  100    Random packet generator                  randpkt</span>
+<span class="go">sdjournal    100    systemd Journal Export                   sdjournal</span>
+<span class="go">sshdump      100    SSH remote capture                       sshdump</span>
+<span class="go">udpdump      100    UDP Listener remote capture              udpdump</span>
+<span class="go">wifidump     100    Wi-Fi remote capture                     wifidump</span>
+<span class="go">Source  Index  Name  MAC                IPv4          IPv6</span>
+<span class="go">sys     1      lo    00:00:00:00:00:00  127.0.0.1     ::1</span>
+<span class="go">sys     2      eth0  Microsof:12:cb:ef  10.0.0.5  fe80::10a:2bef:dc12:afae</span>
+</pre></div>
+</div>
+<p>Here’s an example of how to use <a class="reference external" href="https://www.wireshark.org/docs/man-pages/sshdump.html">sshdump</a>. As you can see you can pass arguments that are properly converted:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_extcap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">iface</span><span class="o">=</span><span class="s2">"sshdump"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">summary</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">remote_host</span><span class="o">=</span><span class="s2">"192.168.0.1"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">remote_username</span><span class="o">=</span><span class="s2">"root"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">remote_password</span><span class="o">=</span><span class="s2">"SCAPY"</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can check the available options by using the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">ifaces</span><span class="o">.</span><span class="n">dev_from_networkname</span><span class="p">(</span><span class="s2">"sshdump"</span><span class="p">)</span><span class="o">.</span><span class="n">get_extcap_config</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ipv4-routes">
+<h2>IPv4 routes<a class="headerlink" href="#ipv4-routes" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to change or edit the routes, have a look at <a class="reference external" href="usage.html#routing">the “Routing” section in Usage</a></p>
+</div>
+<p>The routes are stores in <a class="reference internal" href="api/scapy.route.html#scapy.route.Route" title="scapy.route.Route"><code class="xref py py-attr docutils literal notranslate"><span class="pre">conf.route</span></code></a>. You can use it to display the routes, or get specific routing</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">route</span>
+
+<span class="go">Network          Netmask          Gateway   Iface  Output IP  Metric</span>
+<span class="go">0.0.0.0          0.0.0.0          10.0.0.1  eth0   10.0.0.5   100</span>
+<span class="go">10.0.0.0         255.255.255.0    0.0.0.0   eth0   10.0.0.5   0</span>
+<span class="go">127.0.0.0        255.0.0.0        0.0.0.0   lo     127.0.0.1  1</span>
+<span class="go">168.63.129.16    255.255.255.255  10.0.0.1  eth0   10.0.0.5   100</span>
+<span class="go">169.254.169.254  255.255.255.255  10.0.0.1  eth0   10.0.0.5   100</span>
+</pre></div>
+</div>
+<p>Get the route for a specific IP:  <a class="reference internal" href="api/scapy.route.html#scapy.route.Route.route" title="scapy.route.Route.route"><code class="xref py py-func docutils literal notranslate"><span class="pre">conf.route.route()</span></code></a> will return <code class="docutils literal notranslate"><span class="pre">(interface,</span> <span class="pre">outgoing_ip,</span> <span class="pre">gateway)</span></code></p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">route</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"127.0.0.1"</span><span class="p">)</span>
+<span class="go">('lo', '127.0.0.1', '0.0.0.0')</span>
+</pre></div>
+</div>
+</section>
+<section id="ipv6-routes">
+<h2>IPv6 routes<a class="headerlink" href="#ipv6-routes" title="Link to this heading"></a></h2>
+<p>Same as IPv4 but with <a class="reference internal" href="api/scapy.route6.html#scapy.route6.Route6" title="scapy.route6.Route6"><code class="xref py py-attr docutils literal notranslate"><span class="pre">conf.route6</span></code></a></p>
+</section>
+<section id="get-default-gateway-ip-address">
+<h2>Get default gateway IP address<a class="headerlink" href="#get-default-gateway-ip-address" title="Link to this heading"></a></h2>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gw</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">route</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"0.0.0.0"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gw</span>
+<span class="go">'10.0.0.1'</span>
+</pre></div>
+</div>
+</section>
+<section id="get-the-ip-of-an-interface">
+<h2>Get the IP of an interface<a class="headerlink" href="#get-the-ip-of-an-interface" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">conf.iface</span></code></p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ip</span> <span class="o">=</span> <span class="n">get_if_addr</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">iface</span><span class="p">)</span>  <span class="c1"># default interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ip</span> <span class="o">=</span> <span class="n">get_if_addr</span><span class="p">(</span><span class="s2">"eth0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ip</span>
+<span class="go">'10.0.0.5'</span>
+</pre></div>
+</div>
+</section>
+<section id="get-the-mac-of-an-interface">
+<h2>Get the MAC of an interface<a class="headerlink" href="#get-the-mac-of-an-interface" title="Link to this heading"></a></h2>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mac</span> <span class="o">=</span> <span class="n">get_if_hwaddr</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">iface</span><span class="p">)</span>  <span class="c1"># default interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mac</span> <span class="o">=</span> <span class="n">get_if_hwaddr</span><span class="p">(</span><span class="s2">"eth0"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mac</span>
+<span class="go">'54:3f:19:c9:38:6d'</span>
+</pre></div>
+</div>
+</section>
+<section id="get-mac-address-of-the-next-hop-to-reach-an-ip">
+<h2>Get MAC address of the next hop to reach an IP<a class="headerlink" href="#get-mac-address-of-the-next-hop-to-reach-an-ip" title="Link to this heading"></a></h2>
+<p>This basically performs a cached ARP who-has when the IP is on the same local link,
+returns the MAC of the gateway when it’s not, and handle special cases like multicast.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mac</span> <span class="o">=</span> <span class="n">getmacbyip</span><span class="p">(</span><span class="s2">"10.0.0.1"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mac</span>
+<span class="go">'f3:ae:5e:76:31:9b'</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="advanced_usage/pipetools.html" class="btn btn-neutral float-left" title="PipeTools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="extending.html" class="btn btn-neutral float-right" title="Build your own tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

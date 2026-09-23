@@ -1,0 +1,892 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.sendrecv &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.sessions" href="scapy.sessions.html" />
+    <link rel="prev" title="scapy.scapypipes" href="scapy.scapypipes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+      <li class="breadcrumb-item active">scapy.sendrecv</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.sendrecv.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.sendrecv">
+<span id="scapy-sendrecv"></span><h1>scapy.sendrecv<a class="headerlink" href="#module-scapy.sendrecv" title="Link to this heading"></a></h1>
+<p>Functions to send and receive packets.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.sendrecv.AsyncSniffer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">AsyncSniffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1081-L1425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.AsyncSniffer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Sniff packets and return a list of packets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> – number of packets to capture. 0 means infinity.</p></li>
+<li><p><strong>store</strong> – whether to store sniffed packets or discard them</p></li>
+<li><p><strong>prn</strong> – function to apply to each packet. If something is returned, it
+is displayed.
+–Ex: prn = lambda x: x.summary()</p></li>
+<li><p><strong>session</strong> – a session = a flow decoder used to handle stream of packets.
+–Ex: session=TCPSession
+See below for more details.</p></li>
+<li><p><strong>filter</strong> – BPF filter to apply.</p></li>
+<li><p><strong>lfilter</strong> – Python function applied to each packet to determine if
+further action may be done.
+–Ex: lfilter = lambda x: x.haslayer(Padding)</p></li>
+<li><p><strong>offline</strong> – PCAP file (or list of PCAP files) to read packets from,
+instead of sniffing them</p></li>
+<li><p><strong>quiet</strong> – when set to True, the process stderr is discarded
+(default: False).</p></li>
+<li><p><strong>timeout</strong> – stop sniffing after a given time (default: None).</p></li>
+<li><p><strong>L2socket</strong> – use the provided L2socket (default: use conf.L2listen).</p></li>
+<li><p><strong>opened_socket</strong> – provide an object (or a list of objects) ready to use
+.recv() on.</p></li>
+<li><p><strong>stop_filter</strong> – Python function applied to each packet to determine if
+we have to stop the capture after this packet.
+–Ex: stop_filter = lambda x: x.haslayer(TCP)</p></li>
+<li><p><strong>iface</strong> – interface or list of interfaces (default: None for sniffing
+on the default interface).</p></li>
+<li><p><strong>monitor</strong> – use monitor mode. May not be available on all OS</p></li>
+<li><p><strong>started_callback</strong> – called as soon as the sniffer starts sniffing
+(default: None).</p></li>
+</ul>
+</dd>
+</dl>
+<p>The iface, offline and opened_socket parameters can be either an
+element, a list of elements, or a dict object mapping an element to a
+label (see examples below).</p>
+<p>For more information about the session argument, see
+<a class="reference external" href="https://scapy.rtfd.io/en/latest/usage.html#advanced-sniffing-sniffing-sessions">https://scapy.rtfd.io/en/latest/usage.html#advanced-sniffing-sniffing-sessions</a></p>
+<dl>
+<dt>Examples: synchronous</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="s2">"arp"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="s2">"tcp"</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">session</span><span class="o">=</span><span class="n">IPSession</span><span class="p">,</span>  <span class="c1"># defragment on-the-flow</span>
+<span class="gp">... </span>      <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">lfilter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pkt</span><span class="p">:</span> <span class="n">ARP</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span> <span class="n">prn</span><span class="o">=</span><span class="n">Packet</span><span class="o">.</span><span class="n">summary</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="p">[</span><span class="s2">"eth0"</span><span class="p">,</span> <span class="s2">"mon0"</span><span class="p">],</span>
+<span class="gp">... </span>      <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pkt</span><span class="p">:</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">pkt</span><span class="o">.</span><span class="n">sniffed_on</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">pkt</span><span class="o">.</span><span class="n">summary</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="p">{</span><span class="s2">"eth0"</span><span class="p">:</span> <span class="s2">"Ethernet"</span><span class="p">,</span> <span class="s2">"mon0"</span><span class="p">:</span> <span class="s2">"Wifi"</span><span class="p">},</span>
+<span class="gp">... </span>      <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pkt</span><span class="p">:</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">pkt</span><span class="o">.</span><span class="n">sniffed_on</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">pkt</span><span class="o">.</span><span class="n">summary</span><span class="p">()))</span>
+</pre></div>
+</div>
+</dd>
+<dt>Examples: asynchronous</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">AsyncSniffer</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="s2">"enp0s3"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"nice weather today"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.sendrecv.AsyncSniffer.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1420-L1425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.AsyncSniffer.join" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.sendrecv.AsyncSniffer.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1392-L1397"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.AsyncSniffer.start" title="Link to this definition"></a></dt>
+<dd><p>Starts AsyncSniffer in async mode</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.sendrecv.AsyncSniffer.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1399-L1418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.AsyncSniffer.stop" title="Link to this definition"></a></dt>
+<dd><p>Stops AsyncSniffer if not in async mode</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.sendrecv.SndRcvHandler">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">SndRcvHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainCC</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcv_pks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prebuild</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_flood</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_FloodGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.sessions.html#scapy.sessions.DefaultSession" title="scapy.sessions.DefaultSession"><span class="pre">DefaultSession</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.sessions.html#scapy.sessions.DefaultSession" title="scapy.sessions.DefaultSession"><span class="pre">DefaultSession</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainEX</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L106-L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.SndRcvHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Util to send/receive packets, used by sr*().
+Do not use directly.</p>
+<p>This matches the requests and answers.</p>
+<dl class="simple">
+<dt>Notes::</dt><dd><ul class="simple">
+<li><p>threaded: if you’re planning to send/receive many packets, it’s likely
+a good idea to use threaded mode.</p></li>
+<li><p>DEVS: store the outgoing timestamp right BEFORE sending the packet
+to avoid races that could result in negative latency. We aren’t Stadia</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.sendrecv.SndRcvHandler.results">
+<span class="sig-name descname"><span class="pre">results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L251-L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.SndRcvHandler.results" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.bridge_and_sniff">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">bridge_and_sniff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">if1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xfrm12</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xfrm21</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1439-L1534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.bridge_and_sniff" title="Link to this definition"></a></dt>
+<dd><p>Forward traffic between interfaces if1 and if2, sniff and return
+the exchanged packets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>if1</strong> – the interfaces to use (interface names or opened sockets).</p></li>
+<li><p><strong>if2</strong></p></li>
+<li><p><strong>xfrm12</strong> – a function to call when forwarding a packet from if1 to
+if2. If it returns True, the packet is forwarded as it. If it
+returns False or None, the packet is discarded. If it returns a
+packet, this packet is forwarded instead of the original packet
+one.</p></li>
+<li><p><strong>xfrm21</strong> – same as xfrm12 for packets forwarded from if2 to if1.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The other arguments are the same than for the function sniff(),
+except for offline, opened_socket and iface that are ignored.
+See help(sniff) for more.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.sendrecv.debug">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">debug</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L67-L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.debug" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.sendrecv.debug.crashed_on">
+<span class="sig-name descname"><span class="pre">crashed_on</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.sendrecv.debug.crashed_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.sendrecv.debug.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Matched:</span> <span class="pre">TCP:0</span> <span class="pre">UDP:0</span> <span class="pre">ICMP:0</span> <span class="pre">Other:0&gt;</span></span><a class="headerlink" href="#scapy.sendrecv.debug.match" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.sendrecv.debug.recv">
+<span class="sig-name descname"><span class="pre">recv</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Received:</span> <span class="pre">TCP:0</span> <span class="pre">UDP:0</span> <span class="pre">ICMP:0</span> <span class="pre">Other:0&gt;</span></span><a class="headerlink" href="#scapy.sendrecv.debug.recv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.sendrecv.debug.sent">
+<span class="sig-name descname"><span class="pre">sent</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Sent:</span> <span class="pre">TCP:0</span> <span class="pre">UDP:0</span> <span class="pre">ICMP:0</span> <span class="pre">Other:0&gt;</span></span><a class="headerlink" href="#scapy.sendrecv.debug.sent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.send">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L455-L491"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.send" title="Link to this definition"></a></dt>
+<dd><p>Send packets at layer 3</p>
+<p>This determines the interface (or L2 source to use) based on the routing
+table: conf.route / conf.route6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – the packets</p></li>
+<li><p><strong>inter</strong> – time (in s) between two packets (default 0)</p></li>
+<li><p><strong>loop</strong> – send packet indefinitely (default 0)</p></li>
+<li><p><strong>count</strong> – number of packets to send (default None=1)</p></li>
+<li><p><strong>verbose</strong> – verbose mode (default None=conf.verb)</p></li>
+<li><p><strong>realtime</strong> – check that a packet was sent before sending the next one</p></li>
+<li><p><strong>return_packets</strong> – return the sent packets</p></li>
+<li><p><strong>socket</strong> – the socket to use (default is conf.L3socket(kargs))</p></li>
+<li><p><strong>monitor</strong> – (not on linux) send in monitor mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sendp">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sendp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface_hint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L494-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sendp" title="Link to this definition"></a></dt>
+<dd><p>Send packets at layer 2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – the packets</p></li>
+<li><p><strong>inter</strong> – time (in s) between two packets (default 0)</p></li>
+<li><p><strong>loop</strong> – send packet indefinitely (default 0)</p></li>
+<li><p><strong>count</strong> – number of packets to send (default None=1)</p></li>
+<li><p><strong>verbose</strong> – verbose mode (default None=conf.verb)</p></li>
+<li><p><strong>realtime</strong> – check that a packet was sent before sending the next one</p></li>
+<li><p><strong>return_packets</strong> – return the sent packets</p></li>
+<li><p><strong>socket</strong> – the socket to use (default is conf.L3socket(kargs))</p></li>
+<li><p><strong>iface</strong> – the interface to send the packets on</p></li>
+<li><p><strong>monitor</strong> – (not on linux) send in monitor mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sendpfast">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sendpfast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mbps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">realtime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L528-L606"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sendpfast" title="Link to this definition"></a></dt>
+<dd><p>Send packets at layer 2 using tcpreplay for performance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pps</strong> – packets per second</p></li>
+<li><p><strong>mbps</strong> – MBits per second</p></li>
+<li><p><strong>realtime</strong> – use packet’s timestamp, bending time with real-time value</p></li>
+<li><p><strong>loop</strong> – send the packet indefinitely (default 0)</p></li>
+<li><p><strong>count</strong> – number of packets to send (default None=1)</p></li>
+<li><p><strong>file_cache</strong> – cache packets in RAM instead of reading from
+disk at each iteration</p></li>
+<li><p><strong>iface</strong> – output interface</p></li>
+<li><p><strong>replay_args</strong> – List of additional tcpreplay args (List[str])</p></li>
+<li><p><strong>parse_results</strong> – Return a dictionary of information
+outputted by tcpreplay (default=False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>stdout, stderr, command used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sndrcv">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sndrcv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L356-L363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sndrcv" title="Link to this definition"></a></dt>
+<dd><p>Scapy raw function to send a packet and receive its answer.
+WARNING: This is an internal function. Using sr/srp/sr1/srp is
+more appropriate in many cases.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sndrcvflood">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sndrcvflood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxretries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainCC</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L926-L943"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sndrcvflood" title="Link to this definition"></a></dt>
+<dd><p>sndrcv equivalent for flooding.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sniff">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sniff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1428-L1433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sniff" title="Link to this definition"></a></dt>
+<dd><p>Sniff packets and return a list of packets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> – number of packets to capture. 0 means infinity.</p></li>
+<li><p><strong>store</strong> – whether to store sniffed packets or discard them</p></li>
+<li><p><strong>prn</strong> – function to apply to each packet. If something is returned, it
+is displayed.
+–Ex: prn = lambda x: x.summary()</p></li>
+<li><p><strong>session</strong> – a session = a flow decoder used to handle stream of packets.
+–Ex: session=TCPSession
+See below for more details.</p></li>
+<li><p><strong>filter</strong> – BPF filter to apply.</p></li>
+<li><p><strong>lfilter</strong> – Python function applied to each packet to determine if
+further action may be done.
+–Ex: lfilter = lambda x: x.haslayer(Padding)</p></li>
+<li><p><strong>offline</strong> – PCAP file (or list of PCAP files) to read packets from,
+instead of sniffing them</p></li>
+<li><p><strong>quiet</strong> – when set to True, the process stderr is discarded
+(default: False).</p></li>
+<li><p><strong>timeout</strong> – stop sniffing after a given time (default: None).</p></li>
+<li><p><strong>L2socket</strong> – use the provided L2socket (default: use conf.L2listen).</p></li>
+<li><p><strong>opened_socket</strong> – provide an object (or a list of objects) ready to use
+.recv() on.</p></li>
+<li><p><strong>stop_filter</strong> – Python function applied to each packet to determine if
+we have to stop the capture after this packet.
+–Ex: stop_filter = lambda x: x.haslayer(TCP)</p></li>
+<li><p><strong>iface</strong> – interface or list of interfaces (default: None for sniffing
+on the default interface).</p></li>
+<li><p><strong>monitor</strong> – use monitor mode. May not be available on all OS</p></li>
+<li><p><strong>started_callback</strong> – called as soon as the sniffer starts sniffing
+(default: None).</p></li>
+</ul>
+</dd>
+</dl>
+<p>The iface, offline and opened_socket parameters can be either an
+element, a list of elements, or a dict object mapping an element to a
+label (see examples below).</p>
+<p>For more information about the session argument, see
+<a class="reference external" href="https://scapy.rtfd.io/en/latest/usage.html#advanced-sniffing-sniffing-sessions">https://scapy.rtfd.io/en/latest/usage.html#advanced-sniffing-sniffing-sessions</a></p>
+<dl>
+<dt>Examples: synchronous</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="s2">"arp"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="s2">"tcp"</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">session</span><span class="o">=</span><span class="n">IPSession</span><span class="p">,</span>  <span class="c1"># defragment on-the-flow</span>
+<span class="gp">... </span>      <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">lfilter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pkt</span><span class="p">:</span> <span class="n">ARP</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span> <span class="n">prn</span><span class="o">=</span><span class="n">Packet</span><span class="o">.</span><span class="n">summary</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="p">[</span><span class="s2">"eth0"</span><span class="p">,</span> <span class="s2">"mon0"</span><span class="p">],</span>
+<span class="gp">... </span>      <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pkt</span><span class="p">:</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">pkt</span><span class="o">.</span><span class="n">sniffed_on</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">pkt</span><span class="o">.</span><span class="n">summary</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="p">{</span><span class="s2">"eth0"</span><span class="p">:</span> <span class="s2">"Ethernet"</span><span class="p">,</span> <span class="s2">"mon0"</span><span class="p">:</span> <span class="s2">"Wifi"</span><span class="p">},</span>
+<span class="gp">... </span>      <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pkt</span><span class="p">:</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">pkt</span><span class="o">.</span><span class="n">sniffed_on</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">pkt</span><span class="o">.</span><span class="n">summary</span><span class="p">()))</span>
+</pre></div>
+</div>
+</dd>
+<dt>Examples: asynchronous</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">AsyncSniffer</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="s2">"enp0s3"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">"nice weather today"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sr">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promisc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nofilter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L685-L715"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sr" title="Link to this definition"></a></dt>
+<dd><p>Send and receive packets at layer 3</p>
+<p>This determines the interface (or L2 source to use) based on the routing
+table: conf.route / conf.route6</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SuperSocket instance to send/receive packets</p>
+</dd>
+<dt class="field-even">param pkt<span class="colon">:</span></dt>
+<dd class="field-even"><p>the packet to send</p>
+</dd>
+<dt class="field-odd">param timeout<span class="colon">:</span></dt>
+<dd class="field-odd"><p>how much time to wait after the last packet has been sent</p>
+</dd>
+<dt class="field-even">param inter<span class="colon">:</span></dt>
+<dd class="field-even"><p>delay between two packets during sending</p>
+</dd>
+<dt class="field-odd">param verbose<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set verbosity level</p>
+</dd>
+<dt class="field-even">param chainCC<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, KeyboardInterrupts will be forwarded</p>
+</dd>
+<dt class="field-odd">param retry<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if positive, how many times to resend unanswered packets
+if negative, how many times to retry when no more packets
+are answered</p>
+</dd>
+<dt class="field-even">param multi<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to accept multiple answers for the same stimulus</p>
+</dd>
+<dt class="field-odd">param rcv_pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if set, will be used instead of pks to receive packets.
+packets will still be sent through pks</p>
+</dd>
+<dt class="field-even">param prebuild<span class="colon">:</span></dt>
+<dd class="field-even"><p>pre-build the packets before starting to send them.
+Automatically enabled when a generator is passed as the packet</p>
+</dd>
+<dt class="field-odd">param _flood<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">param threaded<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, packets are sent in a thread and received in another.
+Defaults to True.</p>
+</dd>
+<dt class="field-odd">param session<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a flow decoder used to handle stream of packets</p>
+</dd>
+<dt class="field-even">param chainEX<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, exceptions during send will be forwarded</p>
+</dd>
+<dt class="field-odd">param stop_filter<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python function applied to each packet to determine if
+we have to stop the capture after this packet.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sr1">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sr1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L718-L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sr1" title="Link to this definition"></a></dt>
+<dd><p>Send packets at layer 3 and return only the first answer</p>
+<p>This determines the interface (or L2 source to use) based on the routing
+table: conf.route / conf.route6</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SuperSocket instance to send/receive packets</p>
+</dd>
+<dt class="field-even">param pkt<span class="colon">:</span></dt>
+<dd class="field-even"><p>the packet to send</p>
+</dd>
+<dt class="field-odd">param timeout<span class="colon">:</span></dt>
+<dd class="field-odd"><p>how much time to wait after the last packet has been sent</p>
+</dd>
+<dt class="field-even">param inter<span class="colon">:</span></dt>
+<dd class="field-even"><p>delay between two packets during sending</p>
+</dd>
+<dt class="field-odd">param verbose<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set verbosity level</p>
+</dd>
+<dt class="field-even">param chainCC<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, KeyboardInterrupts will be forwarded</p>
+</dd>
+<dt class="field-odd">param retry<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if positive, how many times to resend unanswered packets
+if negative, how many times to retry when no more packets
+are answered</p>
+</dd>
+<dt class="field-even">param multi<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to accept multiple answers for the same stimulus</p>
+</dd>
+<dt class="field-odd">param rcv_pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if set, will be used instead of pks to receive packets.
+packets will still be sent through pks</p>
+</dd>
+<dt class="field-even">param prebuild<span class="colon">:</span></dt>
+<dd class="field-even"><p>pre-build the packets before starting to send them.
+Automatically enabled when a generator is passed as the packet</p>
+</dd>
+<dt class="field-odd">param _flood<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">param threaded<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, packets are sent in a thread and received in another.
+Defaults to True.</p>
+</dd>
+<dt class="field-odd">param session<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a flow decoder used to handle stream of packets</p>
+</dd>
+<dt class="field-even">param chainEX<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, exceptions during send will be forwarded</p>
+</dd>
+<dt class="field-odd">param stop_filter<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python function applied to each packet to determine if
+we have to stop the capture after this packet.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sr1flood">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sr1flood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promisc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nofilter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L984-L1021"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sr1flood" title="Link to this definition"></a></dt>
+<dd><p>Flood and receive packets at layer 3 and return only the first answer</p>
+<p>This determines the interface (or L2 source to use) based on the routing
+table: conf.route / conf.route6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prn</strong> – function applied to packets received</p></li>
+<li><p><strong>verbose</strong> – set verbosity level</p></li>
+<li><p><strong>nofilter</strong> – put 1 to avoid use of BPF filters</p></li>
+<li><p><strong>filter</strong> – provide a BPF filter</p></li>
+<li><p><strong>iface</strong> – listen answers only on the given interface</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.sr_func">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">sr_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L718-L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.sr_func" title="Link to this definition"></a></dt>
+<dd><p>Send packets at layer 3 and return only the first answer</p>
+<p>This determines the interface (or L2 source to use) based on the routing
+table: conf.route / conf.route6</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SuperSocket instance to send/receive packets</p>
+</dd>
+<dt class="field-even">param pkt<span class="colon">:</span></dt>
+<dd class="field-even"><p>the packet to send</p>
+</dd>
+<dt class="field-odd">param timeout<span class="colon">:</span></dt>
+<dd class="field-odd"><p>how much time to wait after the last packet has been sent</p>
+</dd>
+<dt class="field-even">param inter<span class="colon">:</span></dt>
+<dd class="field-even"><p>delay between two packets during sending</p>
+</dd>
+<dt class="field-odd">param verbose<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set verbosity level</p>
+</dd>
+<dt class="field-even">param chainCC<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, KeyboardInterrupts will be forwarded</p>
+</dd>
+<dt class="field-odd">param retry<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if positive, how many times to resend unanswered packets
+if negative, how many times to retry when no more packets
+are answered</p>
+</dd>
+<dt class="field-even">param multi<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to accept multiple answers for the same stimulus</p>
+</dd>
+<dt class="field-odd">param rcv_pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if set, will be used instead of pks to receive packets.
+packets will still be sent through pks</p>
+</dd>
+<dt class="field-even">param prebuild<span class="colon">:</span></dt>
+<dd class="field-even"><p>pre-build the packets before starting to send them.
+Automatically enabled when a generator is passed as the packet</p>
+</dd>
+<dt class="field-odd">param _flood<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">param threaded<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, packets are sent in a thread and received in another.
+Defaults to True.</p>
+</dd>
+<dt class="field-odd">param session<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a flow decoder used to handle stream of packets</p>
+</dd>
+<dt class="field-even">param chainEX<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, exceptions during send will be forwarded</p>
+</dd>
+<dt class="field-odd">param stop_filter<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python function applied to each packet to determine if
+we have to stop the capture after this packet.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srflood">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srflood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promisc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nofilter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L946-L981"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srflood" title="Link to this definition"></a></dt>
+<dd><p>Flood and receive packets at layer 3</p>
+<p>This determines the interface (or L2 source to use) based on the routing
+table: conf.route / conf.route6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prn</strong> – function applied to packets received</p></li>
+<li><p><strong>unique</strong> – only consider packets whose print</p></li>
+<li><p><strong>nofilter</strong> – put 1 to avoid use of BPF filters</p></li>
+<li><p><strong>filter</strong> – provide a BPF filter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srloop">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srloop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L859-L869"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srloop" title="Link to this definition"></a></dt>
+<dd><p>Send a packet at layer 3 in loop and print the answer each time
+srloop(pkts, [prn], [inter], [count], …) –&gt; None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srp">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promisc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface_hint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nofilter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L741-L763"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srp" title="Link to this definition"></a></dt>
+<dd><p>Send and receive packets at layer 2</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SuperSocket instance to send/receive packets</p>
+</dd>
+<dt class="field-even">param pkt<span class="colon">:</span></dt>
+<dd class="field-even"><p>the packet to send</p>
+</dd>
+<dt class="field-odd">param timeout<span class="colon">:</span></dt>
+<dd class="field-odd"><p>how much time to wait after the last packet has been sent</p>
+</dd>
+<dt class="field-even">param inter<span class="colon">:</span></dt>
+<dd class="field-even"><p>delay between two packets during sending</p>
+</dd>
+<dt class="field-odd">param verbose<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set verbosity level</p>
+</dd>
+<dt class="field-even">param chainCC<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, KeyboardInterrupts will be forwarded</p>
+</dd>
+<dt class="field-odd">param retry<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if positive, how many times to resend unanswered packets
+if negative, how many times to retry when no more packets
+are answered</p>
+</dd>
+<dt class="field-even">param multi<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to accept multiple answers for the same stimulus</p>
+</dd>
+<dt class="field-odd">param rcv_pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if set, will be used instead of pks to receive packets.
+packets will still be sent through pks</p>
+</dd>
+<dt class="field-even">param prebuild<span class="colon">:</span></dt>
+<dd class="field-even"><p>pre-build the packets before starting to send them.
+Automatically enabled when a generator is passed as the packet</p>
+</dd>
+<dt class="field-odd">param _flood<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">param threaded<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, packets are sent in a thread and received in another.
+Defaults to True.</p>
+</dd>
+<dt class="field-odd">param session<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a flow decoder used to handle stream of packets</p>
+</dd>
+<dt class="field-even">param chainEX<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, exceptions during send will be forwarded</p>
+</dd>
+<dt class="field-odd">param stop_filter<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python function applied to each packet to determine if
+we have to stop the capture after this packet.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srp1">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srp1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L766-L775"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srp1" title="Link to this definition"></a></dt>
+<dd><p>Send and receive packets at layer 2 and return only the first answer</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SuperSocket instance to send/receive packets</p>
+</dd>
+<dt class="field-even">param pkt<span class="colon">:</span></dt>
+<dd class="field-even"><p>the packet to send</p>
+</dd>
+<dt class="field-odd">param timeout<span class="colon">:</span></dt>
+<dd class="field-odd"><p>how much time to wait after the last packet has been sent</p>
+</dd>
+<dt class="field-even">param inter<span class="colon">:</span></dt>
+<dd class="field-even"><p>delay between two packets during sending</p>
+</dd>
+<dt class="field-odd">param verbose<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set verbosity level</p>
+</dd>
+<dt class="field-even">param chainCC<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, KeyboardInterrupts will be forwarded</p>
+</dd>
+<dt class="field-odd">param retry<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if positive, how many times to resend unanswered packets
+if negative, how many times to retry when no more packets
+are answered</p>
+</dd>
+<dt class="field-even">param multi<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to accept multiple answers for the same stimulus</p>
+</dd>
+<dt class="field-odd">param rcv_pks<span class="colon">:</span></dt>
+<dd class="field-odd"><p>if set, will be used instead of pks to receive packets.
+packets will still be sent through pks</p>
+</dd>
+<dt class="field-even">param prebuild<span class="colon">:</span></dt>
+<dd class="field-even"><p>pre-build the packets before starting to send them.
+Automatically enabled when a generator is passed as the packet</p>
+</dd>
+<dt class="field-odd">param _flood<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">param threaded<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, packets are sent in a thread and received in another.
+Defaults to True.</p>
+</dd>
+<dt class="field-odd">param session<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a flow decoder used to handle stream of packets</p>
+</dd>
+<dt class="field-even">param chainEX<span class="colon">:</span></dt>
+<dd class="field-even"><p>if True, exceptions during send will be forwarded</p>
+</dd>
+<dt class="field-odd">param stop_filter<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python function applied to each packet to determine if
+we have to stop the capture after this packet.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srp1flood">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srp1flood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promisc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nofilter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1052-L1076"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srp1flood" title="Link to this definition"></a></dt>
+<dd><p>Flood and receive packets at layer 2 and return only the first answer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prn</strong> – function applied to packets received</p></li>
+<li><p><strong>verbose</strong> – set verbosity level</p></li>
+<li><p><strong>nofilter</strong> – put 1 to avoid use of BPF filters</p></li>
+<li><p><strong>filter</strong> – provide a BPF filter</p></li>
+<li><p><strong>iface</strong> – listen answers only on the given interface</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srpflood">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srpflood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promisc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.interfaces.html#scapy.interfaces.NetworkInterface" title="scapy.interfaces.NetworkInterface"><span class="pre">NetworkInterface</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iface_hint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nofilter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1024-L1049"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srpflood" title="Link to this definition"></a></dt>
+<dd><p>Flood and receive packets at layer 2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prn</strong> – function applied to packets received</p></li>
+<li><p><strong>unique</strong> – only consider packets whose print</p></li>
+<li><p><strong>nofilter</strong> – put 1 to avoid use of BPF filters</p></li>
+<li><p><strong>filter</strong> – provide a BPF filter</p></li>
+<li><p><strong>iface</strong> – listen answers only on the given interface</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.srploop">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">srploop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.SetGen" title="scapy.base_classes.SetGen"><span class="pre">SetGen</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_PacketList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.plist.html#scapy.plist.SndRcvList" title="scapy.plist.SndRcvList"><span class="pre">SndRcvList</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L872-L882"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.srploop" title="Link to this definition"></a></dt>
+<dd><p>Send a packet at layer 2 in loop and print the answer each time
+srloop(pkts, [prn], [inter], [count], …) –&gt; None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.sendrecv.tshark">
+<span class="sig-prename descclassname"><span class="pre">scapy.sendrecv.</span></span><span class="sig-name descname"><span class="pre">tshark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/sendrecv.py#L1537-L1561"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.sendrecv.tshark" title="Link to this definition"></a></dt>
+<dd><p>Sniff packets and print them calling pkt.summary().
+This tries to replicate what text-wireshark (tshark) would look like</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.scapypipes.html" class="btn btn-neutral float-left" title="scapy.scapypipes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.sessions.html" class="btn btn-neutral float-right" title="scapy.sessions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

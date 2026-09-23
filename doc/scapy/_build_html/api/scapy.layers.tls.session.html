@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.tls.session &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.tls.tools" href="scapy.layers.tls.tools.html" />
+    <link rel="prev" title="scapy.layers.tls.record_tls13" href="scapy.layers.tls.record_tls13.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.crypto.html">scapy.layers.tls.crypto package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.all.html">scapy.layers.tls.all</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton.html">scapy.layers.tls.automaton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton_cli.html">scapy.layers.tls.automaton_cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton_srv.html">scapy.layers.tls.automaton_srv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.basefields.html">scapy.layers.tls.basefields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.cert.html">scapy.layers.tls.cert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.extensions.html">scapy.layers.tls.extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.handshake.html">scapy.layers.tls.handshake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.handshake_sslv2.html">scapy.layers.tls.handshake_sslv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.keyexchange.html">scapy.layers.tls.keyexchange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.keyexchange_tls13.html">scapy.layers.tls.keyexchange_tls13</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.quic.html">scapy.layers.tls.quic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record.html">scapy.layers.tls.record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record_sslv2.html">scapy.layers.tls.record_sslv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record_tls13.html">scapy.layers.tls.record_tls13</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">scapy.layers.tls.session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.tools.html">scapy.layers.tls.tools</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.tls.session</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.tls.session.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.tls.session">
+<span id="scapy-layers-tls-session"></span><h1>scapy.layers.tls.session<a class="headerlink" href="#module-scapy.layers.tls.session" title="Link to this heading"></a></h1>
+<p>TLS session handler.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.TLSSession">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.session.</span></span><span class="sig-name descname"><span class="pre">TLSSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L1287-L1303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.TLSSession" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.sessions.html#scapy.sessions.TCPSession" title="scapy.sessions.TCPSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">TCPSession</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.TLSSession.toPacketList">
+<span class="sig-name descname"><span class="pre">toPacketList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L1301-L1303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.TLSSession.toPacketList" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.connState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.session.</span></span><span class="sig-name descname"><span class="pre">connState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'server'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_or_write</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'read'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression_alg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'scapy.layers.tls.crypto.compression.Comp_NULL'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciphersuite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tls_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">771</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L89-L330"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.connState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>From RFC 5246, section 6.1:
+A TLS connection state is the operating environment of the TLS Record
+Protocol.  It specifies a compression algorithm, an encryption
+algorithm, and a MAC algorithm.  In addition, the parameters for
+these algorithms are known: the MAC key and the bulk encryption keys
+for the connection in both the read and the write directions.
+Logically, there are always four connection states outstanding: the
+current read and write states, and the pending read and write states.
+All records are processed under the current read and write states.
+The security parameters for the pending states can be set by the TLS
+Handshake Protocol, and the ChangeCipherSpec can selectively make
+either of the pending states current, in which case the appropriate
+current state is disposed of and replaced with the pending state; the
+pending state is then reinitialized to an empty state.  It is illegal
+to make a state that has not been initialized with security
+parameters a current state.  The initial current state always
+specifies that no encryption, compression, or MAC will be used.</p>
+<p>(For practical reasons, Scapy scraps these two last lines, through the
+implementation of dummy ciphers and MAC with TLS_NULL_WITH_NULL_NULL.)</p>
+<p>These attributes and behaviours are mostly mapped in this class.
+Also, note that Scapy may make a current state out of a pending state
+which has been initialized with dummy security parameters. We need
+this in order to know when the content of a TLS message is encrypted,
+whether we possess the right keys to decipher/verify it or not.
+For instance, when Scapy parses a CKE without knowledge of any secret,
+and then a CCS, it needs to know that the following Finished
+is encrypted and signed according to a new cipher suite, even though
+it cannot decipher the message nor verify its integrity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.connState.debug_repr">
+<span class="sig-name descname"><span class="pre">debug_repr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L172-L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.connState.debug_repr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.connState.derive_keys">
+<span class="sig-name descname"><span class="pre">derive_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_random</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_random</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L180-L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.connState.derive_keys" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.connState.snapshot">
+<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L308-L321"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.connState.snapshot" title="Link to this definition"></a></dt>
+<dd><p>This is used mostly as a way to keep the cipher state and the seq_num.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.connState.sslv2_derive_keys">
+<span class="sig-name descname"><span class="pre">sslv2_derive_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_material</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L277-L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.connState.sslv2_derive_keys" title="Link to this definition"></a></dt>
+<dd><p>There is actually only one key, the CLIENT-READ-KEY or -WRITE-KEY.</p>
+<p>Note that skip_first is opposite from the one with SSLv3 derivation.</p>
+<p>Also, if needed, the IV should be set elsewhere.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.connState.tls13_derive_keys">
+<span class="sig-name descname"><span class="pre">tls13_derive_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_material</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L300-L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.connState.tls13_derive_keys" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.load_nss_keys">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.session.</span></span><span class="sig-name descname"><span class="pre">load_nss_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L33-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.load_nss_keys" title="Link to this definition"></a></dt>
+<dd><p>Parses a NSS Keys log and returns unpacked keys in a dictionary.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.readConnState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.session.</span></span><span class="sig-name descname"><span class="pre">readConnState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L333-L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.readConnState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.tls.session.connState" title="scapy.layers.tls.session.connState"><code class="xref py py-class docutils literal notranslate"><span class="pre">connState</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.session.</span></span><span class="sig-name descname"><span class="pre">tlsSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ipsrc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipdst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'server'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L347-L1008"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is our TLS context, which gathers information from both sides of the
+TLS connection. These sides are represented by a readConnState instance and
+a writeConnState instance. Along with overarching network attributes, a
+tlsSession object also holds negotiated, shared information, such as the
+key exchange parameters and the master secret (when available).</p>
+<p>The default connection_end is “server”. This corresponds to the expected
+behaviour for static exchange analysis (with a ClientHello parsed first).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_master_secret">
+<span class="sig-name descname"><span class="pre">compute_master_secret</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L615-L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_master_secret" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_ms_and_derive_keys">
+<span class="sig-name descname"><span class="pre">compute_ms_and_derive_keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L643-L652"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_ms_and_derive_keys" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_sslv2_key_material">
+<span class="sig-name descname"><span class="pre">compute_sslv2_key_material</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L656-L671"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_sslv2_key_material" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_sslv2_km_and_derive_keys">
+<span class="sig-name descname"><span class="pre">compute_sslv2_km_and_derive_keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L673-L676"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_sslv2_km_and_derive_keys" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_early_secrets">
+<span class="sig-name descname"><span class="pre">compute_tls13_early_secrets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">external</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L680-L748"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_early_secrets" title="Link to this definition"></a></dt>
+<dd><p>This function computes the Early Secret, the binder_key,
+the client_early_traffic_secret and the
+early_exporter_master_secret (See RFC8446, section 7.1).</p>
+<p>The parameter external is used for the computation of the
+binder_key:</p>
+<ul class="simple">
+<li><p>For external PSK provisioned outside out of TLS, the parameter
+external must be True.</p></li>
+<li><p>For resumption PSK, the parameter external must be False.</p></li>
+</ul>
+<p>If no argument is specified, the label “res binder” will be
+used by default.</p>
+<p>Ciphers key and IV are updated accordingly for 0-RTT data.
+self.handshake_messages should be ClientHello only.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_handshake_secrets">
+<span class="sig-name descname"><span class="pre">compute_tls13_handshake_secrets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L750-L787"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_handshake_secrets" title="Link to this definition"></a></dt>
+<dd><p>Ciphers key and IV are updated accordingly for Handshake data.
+self.handshake_messages should be ClientHello…ServerHello.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_next_traffic_secrets">
+<span class="sig-name descname"><span class="pre">compute_tls13_next_traffic_secrets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_or_write</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L908-L947"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_next_traffic_secrets" title="Link to this definition"></a></dt>
+<dd><p>Ciphers key and IV are updated accordingly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_resumption_secret">
+<span class="sig-name descname"><span class="pre">compute_tls13_resumption_secret</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L895-L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_resumption_secret" title="Link to this definition"></a></dt>
+<dd><p>self.handshake_messages should be ClientHello…ClientFinished.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_traffic_secrets">
+<span class="sig-name descname"><span class="pre">compute_tls13_traffic_secrets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L789-L840"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_traffic_secrets" title="Link to this definition"></a></dt>
+<dd><p>Ciphers key and IV are updated accordingly for Application data.
+self.handshake_messages should be ClientHello…ServerFinished.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_traffic_secrets_end">
+<span class="sig-name descname"><span class="pre">compute_tls13_traffic_secrets_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L842-L847"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_traffic_secrets_end" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.compute_tls13_verify_data">
+<span class="sig-name descname"><span class="pre">compute_tls13_verify_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_or_write</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handshake_context</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L849-L893"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.compute_tls13_verify_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.consider_read_padding">
+<span class="sig-name descname"><span class="pre">consider_read_padding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L951-L954"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.consider_read_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.consider_write_padding">
+<span class="sig-name descname"><span class="pre">consider_write_padding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L956-L958"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.consider_write_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.eq">
+<span class="sig-name descname"><span class="pre">eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L979-L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.eq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.hash">
+<span class="sig-name descname"><span class="pre">hash</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L969-L977"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.hash" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.mirror">
+<span class="sig-name descname"><span class="pre">mirror</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L567-L611"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.mirror" title="Link to this definition"></a></dt>
+<dd><p>This function takes a tlsSession object and swaps the IP addresses,
+ports, connection ends and connection states. The triggered_commit are
+also swapped (though it is probably overkill, it is cleaner this way).</p>
+<p>It is useful for static analysis of a series of messages from both the
+client and the server. In such a situation, it should be used every
+time the message being read comes from a different side than the one
+read right before, as the reading state becomes the writing state, and
+vice versa. For instance you could do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_hello</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'client_hello.raw'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">read</span> <span class="n">other</span> <span class="n">messages</span><span class="o">&gt;</span>
+
+<span class="n">m1</span> <span class="o">=</span> <span class="n">TLS</span><span class="p">(</span><span class="n">client_hello</span><span class="p">)</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">TLS</span><span class="p">(</span><span class="n">server_hello</span><span class="p">,</span> <span class="n">tls_session</span><span class="o">=</span><span class="n">m1</span><span class="o">.</span><span class="n">tls_session</span><span class="o">.</span><span class="n">mirror</span><span class="p">())</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="n">TLS</span><span class="p">(</span><span class="n">server_cert</span><span class="p">,</span> <span class="n">tls_session</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">tls_session</span><span class="p">)</span>
+<span class="n">m4</span> <span class="o">=</span> <span class="n">TLS</span><span class="p">(</span><span class="n">client_keyexchange</span><span class="p">,</span> <span class="n">tls_session</span><span class="o">=</span><span class="n">m3</span><span class="o">.</span><span class="n">tls_session</span><span class="o">.</span><span class="n">mirror</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.repr">
+<span class="sig-name descname"><span class="pre">repr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_underlayer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L997-L1005"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.repr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.set_underlayer">
+<span class="sig-name descname"><span class="pre">set_underlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_underlayer</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L552-L563"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.set_underlayer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.use_explicit_iv">
+<span class="sig-name descname"><span class="pre">use_explicit_iv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cipher_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L960-L965"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.use_explicit_iv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.tlsSession.use_nss_master_secret_if_present">
+<span class="sig-name descname"><span class="pre">use_nss_master_secret_if_present</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L634-L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.tlsSession.use_nss_master_secret_if_present" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.tls.session.writeConnState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.tls.session.</span></span><span class="sig-name descname"><span class="pre">writeConnState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/tls/session.py#L338-L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.tls.session.writeConnState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.tls.session.connState" title="scapy.layers.tls.session.connState"><code class="xref py py-class docutils literal notranslate"><span class="pre">connState</span></code></a></p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.tls.record_tls13.html" class="btn btn-neutral float-left" title="scapy.layers.tls.record_tls13" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.tls.tools.html" class="btn btn-neutral float-right" title="scapy.layers.tls.tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

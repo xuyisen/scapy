@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TUN / TAP Interfaces &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Troubleshooting" href="../troubleshooting.html" />
+    <link rel="prev" title="TCP" href="tcp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">TUN / TAP Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-tun-tap-in-scapy">Using TUN/TAP in Scapy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tuntapinterface-reference">TunTapInterface reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#TunTapInterface"><code class="docutils literal notranslate"><span class="pre">TunTapInterface</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TunPacketInfo"><code class="docutils literal notranslate"><span class="pre">TunPacketInfo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linux-specific-structures">Linux-specific structures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">TUN / TAP Interfaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/tuntap.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tun-tap-interfaces">
+<h1>TUN / TAP Interfaces<a class="headerlink" href="#tun-tap-interfaces" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This module only works on BSD, Linux and macOS.</p>
+</div>
+<p>TUN/TAP lets you create virtual network interfaces from userspace. There are two
+types of devices:</p>
+<dl class="simple">
+<dt>TUN devices</dt><dd><p>Operates at Layer 3 (<code class="xref py py-class docutils literal notranslate"><span class="pre">IP</span></code>), and is generally limited to one
+protocol.</p>
+</dd>
+<dt>TAP devices</dt><dd><p>Operates at Layer 2 (<code class="xref py py-class docutils literal notranslate"><span class="pre">Ether</span></code>), and allows you to use any Layer 3
+protocol (<code class="xref py py-class docutils literal notranslate"><span class="pre">IP</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IPv6</span></code>, IPX, etc.)</p>
+</dd>
+</dl>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<dl>
+<dt>FreeBSD</dt><dd><p>Requires the <code class="docutils literal notranslate"><span class="pre">if_tap</span></code> and <code class="docutils literal notranslate"><span class="pre">if_tun</span></code> kernel modules.</p>
+<p>See <a class="reference external" href="https://www.freebsd.org/cgi/man.cgi?query=tap&amp;sektion=4">tap(4)</a> and <a class="reference external" href="https://www.freebsd.org/cgi/man.cgi?query=tun&amp;sektion=4">tun(4)</a> manual pages for more information.</p>
+</dd>
+<dt>Linux</dt><dd><p>Load the <code class="docutils literal notranslate"><span class="pre">tun</span></code> kernel module:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>modprobe<span class="w"> </span>tun
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">udev</span></code> normally handles the creation of device nodes.</p>
+<p>See <a class="reference external" href="https://www.kernel.org/doc/Documentation/networking/tuntap.txt">networking/tuntap.txt</a> in the Linux kernel documentation for more
+information.</p>
+</dd>
+<dt>macOS</dt><dd><p>On macOS 10.14 and earlier, you need to install <a class="reference external" href="http://tuntaposx.sourceforge.net/">tuntaposx</a>. macOS
+10.14.5 and later will warn about the <code class="docutils literal notranslate"><span class="pre">tuntaposx</span></code> kexts not being
+<a class="reference external" href="https://developer.apple.com/documentation/security/notarizing_your_app_before_distribution?language=objc">notarised</a>, but this works because it was built before 2019-04-07.</p>
+<p>On macOS 10.15 and later, you need to use a <a class="reference external" href="https://developer.apple.com/documentation/security/notarizing_your_app_before_distribution?language=objc">notarized build</a> of
+<code class="docutils literal notranslate"><span class="pre">tuntaposx</span></code>. <a class="reference external" href="https://tunnelblick.net/downloads.html">Tunnelblick</a> (OpenVPN client) contains a notarized build
+of <code class="docutils literal notranslate"><span class="pre">tuntaposx</span></code> <a class="reference external" href="https://sourceforge.net/p/tuntaposx/bugs/28/#ac64">which can be extracted</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On macOS 10.13 and later, you need to <a class="reference external" href="https://developer.apple.com/library/archive/technotes/tn2459/_index.html">explicitly approve loading
+each third-party kext for the first time</a>.</p>
+</div>
+</dd>
+</dl>
+</section>
+<section id="using-tun-tap-in-scapy">
+<h2>Using TUN/TAP in Scapy<a class="headerlink" href="#using-tun-tap-in-scapy" title="Link to this heading"></a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Using TUN/TAP generally requires running Scapy (and these utilities) as
+<code class="docutils literal notranslate"><span class="pre">root</span></code>.</p>
+</div>
+<p><a class="reference internal" href="#TunTapInterface" title="TunTapInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunTapInterface</span></code></a> lets you easily create a new device:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">TunTapInterface</span><span class="p">(</span><span class="s1">'tun0'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You’ll then need to bring the interface up, and assign an IP address in another
+terminal.</p>
+<p>Because TUN is a layer 3 connection, it acts as a point-to-point link.  We’ll
+assign these parameters:</p>
+<ul class="simple">
+<li><p>local address (for your machine): 192.0.2.1</p></li>
+<li><p>remote address (for Scapy): 192.0.2.2</p></li>
+</ul>
+<p>On Linux, you would use:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>tun0<span class="w"> </span>up
+sudo<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span>peer<span class="w"> </span><span class="m">192</span>.0.2.2<span class="w"> </span>dev<span class="w"> </span>tun0
+</pre></div>
+</div>
+<p>On BSD and macOS, use:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ifconfig<span class="w"> </span>tun0<span class="w"> </span>up
+sudo<span class="w"> </span>ifconfig<span class="w"> </span>tun0<span class="w"> </span><span class="m">192</span>.0.2.1<span class="w"> </span><span class="m">192</span>.0.2.2
+</pre></div>
+</div>
+<p>Now, nothing will happen when you ping those addresses – you’ll need to make
+Scapy respond to that traffic.</p>
+<p><a class="reference internal" href="#TunTapInterface" title="TunTapInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunTapInterface</span></code></a> works the same as a <code class="xref py py-class docutils literal notranslate"><span class="pre">SuperSocket</span></code>, so lets
+setup an <code class="xref py py-class docutils literal notranslate"><span class="pre">AnsweringMachine</span></code> to respond to <code class="xref py py-class docutils literal notranslate"><span class="pre">ICMP</span></code>
+<code class="docutils literal notranslate"><span class="pre">echo-request</span></code>:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">am</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">am</span><span class="p">(</span><span class="n">ICMPEcho_am</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">am</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, you can ping Scapy in another terminal:</p>
+<p>You should see those packets show up in Scapy:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">am</span><span class="p">()</span>
+<span class="go">Replying 192.0.2.1 to 192.0.2.2</span>
+<span class="go">Replying 192.0.2.1 to 192.0.2.2</span>
+<span class="go">Replying 192.0.2.1 to 192.0.2.2</span>
+</pre></div>
+</div>
+<p>You might have noticed that didn’t configure Scapy with any IP address… and
+there’s a trick to this: <code class="xref py py-class docutils literal notranslate"><span class="pre">ICMPEcho_am</span></code> swaps the <code class="docutils literal notranslate"><span class="pre">source</span></code> and
+<code class="docutils literal notranslate"><span class="pre">destination</span></code> fields of any <code class="xref py py-class docutils literal notranslate"><span class="pre">Ether</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">IP</span></code> headers on
+the <code class="xref py py-class docutils literal notranslate"><span class="pre">ICMP</span></code> packet that it receives. As a result, it actually responds
+to <em>any</em> IP address.</p>
+<p>You can stop the <code class="xref py py-class docutils literal notranslate"><span class="pre">ICMPEcho_am</span></code> AnsweringMachine with <kbd class="kbd docutils literal notranslate">^C</kbd>.</p>
+<p>When you close Scapy, the <code class="docutils literal notranslate"><span class="pre">tun0</span></code> interface will automatically disappear.</p>
+</section>
+<section id="tuntapinterface-reference">
+<h2>TunTapInterface reference<a class="headerlink" href="#tuntapinterface-reference" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="TunTapInterface">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">TunTapInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SimpleSocket</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TunTapInterface" title="Link to this definition"></a></dt>
+<dd><p>A socket to act as the remote side of a TUN/TAP interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="TunTapInterface.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Text</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">mode_tun</span></span></em><span class="optional">]</span><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">strip_packet_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="optional">]</span><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">default_read_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MTU</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#TunTapInterface.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iface</strong> (<em>Text</em>) – <p>The name of the interface to use, eg: <code class="docutils literal notranslate"><span class="pre">tun0</span></code>.</p>
+<p>On BSD and macOS, this must start with either <code class="docutils literal notranslate"><span class="pre">tun</span></code> or <code class="docutils literal notranslate"><span class="pre">tap</span></code>,
+and have a corresponding <code class="file docutils literal notranslate"><span class="pre">/dev/</span></code> node (eg: <code class="file docutils literal notranslate"><span class="pre">/dev/tun0</span></code>).</p>
+<p>On Linux, this will be truncated to 16 bytes.</p>
+</p></li>
+<li><p><strong>mode_tun</strong> (<em>bool</em>) – <p>If True, create as TUN interface (layer 3). If False, creates a TAP
+interface (layer 2).</p>
+<p>If not supplied, attempts to detect from the <code class="docutils literal notranslate"><span class="pre">iface</span></code> parameter.</p>
+</p></li>
+<li><p><strong>strip_packet_info</strong> (<em>bool</em>) – <p>If True (default), any <a class="reference internal" href="#TunPacketInfo" title="TunPacketInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunPacketInfo</span></code></a> will be stripped
+from the packet (so you get <code class="xref py py-class docutils literal notranslate"><span class="pre">Ether</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">IP</span></code>).</p>
+<p>Only Linux TUN interfaces have <a class="reference internal" href="#TunPacketInfo" title="TunPacketInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunPacketInfo</span></code></a> available.</p>
+<p>This has no effect for interfaces that do not have
+<a class="reference internal" href="#TunPacketInfo" title="TunPacketInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunPacketInfo</span></code></a> available.</p>
+</p></li>
+<li><p><strong>default_read_size</strong> (<em>int</em>) – <p>Sets the default size that is read by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">SuperSocket.raw_recv()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">SuperSocket.recv()</span></code>.
+This defaults to <code class="xref py py-data docutils literal notranslate"><span class="pre">scapy.data.MTU</span></code>.</p>
+<p><a class="reference internal" href="#TunTapInterface" title="TunTapInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunTapInterface</span></code></a> always adds overhead for
+<a class="reference internal" href="#TunPacketInfo" title="TunPacketInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunPacketInfo</span></code></a> headers, if required.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="TunPacketInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">TunPacketInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Packet</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TunPacketInfo" title="Link to this definition"></a></dt>
+<dd><p>Abstract class used to stack layer 3 protocols on a platform-specific
+header.</p>
+<p>See <a class="reference internal" href="#LinuxTunPacketInfo" title="LinuxTunPacketInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinuxTunPacketInfo</span></code></a> for an example.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="TunPacketInfo.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TunPacketInfo.guess_payload_class" title="Link to this definition"></a></dt>
+<dd><p>The default implementation expects the field <code class="docutils literal notranslate"><span class="pre">proto</span></code> to be declared,
+with a value from <code class="xref py py-data docutils literal notranslate"><span class="pre">scapy.data.ETHER_TYPES</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="linux-specific-structures">
+<h3>Linux-specific structures<a class="headerlink" href="#linux-specific-structures" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="LinuxTunPacketInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LinuxTunPacketInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TunPacketInfo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LinuxTunPacketInfo" title="Link to this definition"></a></dt>
+<dd><p>Packet header used for Linux TUN packets.</p>
+<p>This is <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">tun_pi</span></code>, declared in <code class="file docutils literal notranslate"><span class="pre">linux/if_tun.h</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LinuxTunPacketInfo.flags">
+<span class="sig-name descname"><span class="pre">flags</span></span><a class="headerlink" href="#LinuxTunPacketInfo.flags" title="Link to this definition"></a></dt>
+<dd><p>Flags to set on the packet. Only <code class="docutils literal notranslate"><span class="pre">TUN_VNET_HDR</span></code> is supported.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LinuxTunPacketInfo.proto">
+<span class="sig-name descname"><span class="pre">proto</span></span><a class="headerlink" href="#LinuxTunPacketInfo.proto" title="Link to this definition"></a></dt>
+<dd><p>Layer 3 protocol number, per <code class="xref py py-data docutils literal notranslate"><span class="pre">scapy.data.ETHER_TYPES</span></code>.</p>
+<p>Used by <code class="xref py py-meth docutils literal notranslate"><span class="pre">TunTapPacketInfo.guess_payload_class()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LinuxTunIfReq">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LinuxTunIfReq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Packet</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LinuxTunIfReq" title="Link to this definition"></a></dt>
+<dd><p>Internal “packet” used for <code class="docutils literal notranslate"><span class="pre">TUNSETIFF</span></code> requests on Linux.</p>
+<p>This is <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ifreq</span></code>, declared in <code class="file docutils literal notranslate"><span class="pre">linux/if.h</span></code>.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tcp.html" class="btn btn-neutral float-left" title="TCP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

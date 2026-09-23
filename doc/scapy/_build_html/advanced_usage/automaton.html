@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automata &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Forwarding Machine" href="fwdmachine.html" />
+    <link rel="prev" title="ASN.1 and SNMP" href="asn1_snmp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="asn1_snmp.html">ASN.1 and SNMP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Automata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#first-example">First example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-states">Changing states</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#real-example">Real example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detailed-documentation">Detailed documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#decorators">Decorators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods-to-overload">Methods to overload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timer-configuration">Timer configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fwdmachine.html">Forwarding Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipetools.html">PipeTools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Advanced usage</a></li>
+      <li class="breadcrumb-item active">Automata</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_usage/automaton.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="automata">
+<h1>Automata<a class="headerlink" href="#automata" title="Link to this heading"></a></h1>
+<p>Scapy enables to create easily network automata. Scapy does not stick to a specific model like Moore or Mealy automata. It provides a flexible way for you to choose your way to go.</p>
+<p>An automaton in Scapy is deterministic. It has different states. A start state and some end and error states. There are transitions from one state to another. Transitions can be transitions on a specific condition, transitions on the reception of a specific packet or transitions on a timeout. When a transition is taken, one or more actions can be run. An action can be bound to many transitions. Parameters can be passed from states to transitions, and from transitions to states and actions.</p>
+<p>From a programmer’s point of view, states, transitions and actions are methods from an Automaton subclass. They are decorated to provide meta-information needed in order for the automaton to work.</p>
+<section id="first-example">
+<h2>First example<a class="headerlink" href="#first-example" title="Link to this heading"></a></h2>
+<p>Let’s begin with a simple example. I take the convention to write states with capitals, but anything valid with Python syntax would work as well.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">HelloWorld</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">BEGIN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"State=BEGIN"</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">BEGIN</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wait_for_nothing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Wait for nothing..."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">END</span><span class="p">()</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">wait_for_nothing</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_nothing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Action on 'nothing' condition"</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">final</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">END</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"State=END"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, we can see 3 decorators:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ATMT.state</span></code> that is used to indicate that a method is a state, and that can
+have initial, final, stop and error optional arguments set to non-zero for special states.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATMT.condition</span></code> that indicate a method to be run when the automaton state
+reaches the indicated state. The argument is the name of the method representing that state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATMT.action</span></code> binds a method to a transition and is run when the transition is taken.</p></li>
+</ul>
+<p>Running this example gives the following result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">=</span><span class="n">HelloWorld</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">State=BEGIN</span>
+<span class="go">Wait for nothing...</span>
+<span class="go">Action on 'nothing' condition</span>
+<span class="go">State=END</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This simple automaton can be described with the following graph:</p>
+<img alt="../_images/ATMT_HelloWorld.png" src="../_images/ATMT_HelloWorld.png" />
+<p>The graph can be automatically drawn from the code with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">HelloWorld</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">Automaton</span></code> can be reset using <code class="docutils literal notranslate"><span class="pre">restart()</span></code>. It is then possible to run it again.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember to call <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> once you’re done using an Automaton. (especially on PyPy)</p>
+</div>
+</section>
+<section id="changing-states">
+<h2>Changing states<a class="headerlink" href="#changing-states" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ATMT.state</span></code> decorator transforms a method into a function that returns an exception. If you raise that exception, the automaton state will be changed. If the change occurs in a transition, actions bound to this transition will be called. The parameters given to the function replacing the method will be kept and finally delivered to the method. The exception has a method action_parameters that can be called before it is raised so that it will store parameters to be delivered to all actions bound to the current transition.</p>
+<p>As an example, let’s consider the following state:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">MY_STATE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"state=MY_STATE. param1=</span><span class="si">%r</span><span class="s2"> param2=</span><span class="si">%r</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This state will be reached with the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">ANOTHER_STATE</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">received_ICMP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ICMP</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">MY_STATE</span><span class="p">(</span><span class="s2">"got icmp"</span><span class="p">,</span> <span class="n">pkt</span><span class="p">[</span><span class="n">ICMP</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s suppose we want to bind an action to this transition, that will also need some parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">received_ICMP</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_ICMP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icmp_type</span><span class="p">,</span> <span class="n">icmp_code</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">retaliate</span><span class="p">(</span><span class="n">icmp_type</span><span class="p">,</span> <span class="n">icmp_code</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The condition should become:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">ANOTHER_STATE</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">received_ICMP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ICMP</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">MY_STATE</span><span class="p">(</span><span class="s2">"got icmp"</span><span class="p">,</span> <span class="n">pkt</span><span class="p">[</span><span class="n">ICMP</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">)</span><span class="o">.</span><span class="n">action_parameters</span><span class="p">(</span><span class="n">pkt</span><span class="p">[</span><span class="n">ICMP</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">pkt</span><span class="p">[</span><span class="n">ICMP</span><span class="p">]</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="real-example">
+<h2>Real example<a class="headerlink" href="#real-example" title="Link to this heading"></a></h2>
+<p>Here is a real example take from Scapy. It implements a TFTP client that can issue read requests.</p>
+<img alt="../_images/ATMT_TFTP_read.png" src="../_images/ATMT_TFTP_read.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">TFTP_read</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">sport</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">69</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+        <span class="n">Automaton</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sport</span> <span class="o">=</span> <span class="n">sport</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">master_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span> <span class="n">IP</span> <span class="ow">in</span> <span class="n">pkt</span> <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="n">IP</span><span class="p">]</span><span class="o">.</span><span class="n">src</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="ow">and</span> <span class="n">UDP</span> <span class="ow">in</span> <span class="n">pkt</span>
+                 <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="n">UDP</span><span class="p">]</span><span class="o">.</span><span class="n">dport</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tid</span>
+                 <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_tid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pkt</span><span class="p">[</span><span class="n">UDP</span><span class="p">]</span><span class="o">.</span><span class="n">sport</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_tid</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="c1"># BEGIN</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">BEGIN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocksize</span><span class="o">=</span><span class="mi">512</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_tid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sport</span> <span class="ow">or</span> <span class="n">RandShort</span><span class="p">()</span><span class="o">.</span><span class="n">_fix</span><span class="p">()</span>
+        <span class="n">bind_bottom_up</span><span class="p">(</span><span class="n">UDP</span><span class="p">,</span> <span class="n">TFTP</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_tid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">l3</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">)</span><span class="o">/</span><span class="n">UDP</span><span class="p">(</span><span class="n">sport</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tid</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span><span class="o">/</span><span class="n">TFTP</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l3</span><span class="o">/</span><span class="n">TFTP_RRQ</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"octet"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_packet</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">awaiting</span><span class="o">=</span><span class="mi">1</span>
+
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">WAITING</span><span class="p">()</span>
+
+    <span class="c1"># WAITING</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">WAITING</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">WAITING</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">receive_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">TFTP_DATA</span> <span class="ow">in</span> <span class="n">pkt</span> <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="n">TFTP_DATA</span><span class="p">]</span><span class="o">.</span><span class="n">block</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">awaiting</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_tid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">server_tid</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">[</span><span class="n">UDP</span><span class="p">]</span><span class="o">.</span><span class="n">sport</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">l3</span><span class="p">[</span><span class="n">UDP</span><span class="p">]</span><span class="o">.</span><span class="n">dport</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_tid</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECEIVING</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">receive_data</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_ack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">l3</span> <span class="o">/</span> <span class="n">TFTP_ACK</span><span class="p">(</span><span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">awaiting</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_packet</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">WAITING</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">receive_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">TFTP_ERROR</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">WAITING</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">timeout_waiting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">WAITING</span><span class="p">()</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">timeout_waiting</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">retransmit_last_packet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_packet</span><span class="p">)</span>
+
+    <span class="c1"># RECEIVED</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">RECEIVING</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="n">recvd</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">[</span><span class="n">Raw</span><span class="p">]</span><span class="o">.</span><span class="n">load</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">+=</span> <span class="n">recvd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">awaiting</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">recvd</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocksize</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">WAITING</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">END</span><span class="p">()</span>
+
+    <span class="c1"># ERROR</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ERROR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pkt</span><span class="p">):</span>
+        <span class="n">split_bottom_up</span><span class="p">(</span><span class="n">UDP</span><span class="p">,</span> <span class="n">TFTP</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pkt</span><span class="p">[</span><span class="n">TFTP_ERROR</span><span class="p">]</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+
+    <span class="c1">#END</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">final</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">END</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">split_bottom_up</span><span class="p">(</span><span class="n">UDP</span><span class="p">,</span> <span class="n">TFTP</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">res</span>
+</pre></div>
+</div>
+<p>It can be run like this, for instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">atmt</span> <span class="o">=</span> <span class="n">TFTP_read</span><span class="p">(</span><span class="s2">"my_file"</span><span class="p">,</span> <span class="s2">"192.168.1.128"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atmt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atmt</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="detailed-documentation">
+<h2>Detailed documentation<a class="headerlink" href="#detailed-documentation" title="Link to this heading"></a></h2>
+<section id="decorators">
+<h3>Decorators<a class="headerlink" href="#decorators" title="Link to this heading"></a></h3>
+<section id="decorator-for-states">
+<h4>Decorator for states<a class="headerlink" href="#decorator-for-states" title="Link to this heading"></a></h4>
+<p>States are methods decorated by the result of the <code class="docutils literal notranslate"><span class="pre">ATMT.state</span></code> function. It can take 4 optional parameters, <code class="docutils literal notranslate"><span class="pre">initial</span></code>, <code class="docutils literal notranslate"><span class="pre">final</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code> and <code class="docutils literal notranslate"><span class="pre">error</span></code>, that, when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, indicating that the state is an initial, final, stop or error state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">initial</span></code> state is called while starting the automata. The <code class="docutils literal notranslate"><span class="pre">final</span></code> step will tell the automata has reached its end. If you call <code class="docutils literal notranslate"><span class="pre">atmt.stop()</span></code>, the automata will move to the <code class="docutils literal notranslate"><span class="pre">stop</span></code> step whatever its current state is. The <code class="docutils literal notranslate"><span class="pre">error</span></code> state will mark the automata as errored. If no <code class="docutils literal notranslate"><span class="pre">stop</span></code> state is specified, calling <code class="docutils literal notranslate"><span class="pre">stop</span></code> and <code class="docutils literal notranslate"><span class="pre">forcestop</span></code> will be equivalent.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Example</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">BEGIN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">SOME_STATE</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">final</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">END</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"Result of the automaton: 42"</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">STOP</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"SHUTTING DOWN..."</span><span class="p">)</span>
+        <span class="c1"># e.g. close sockets...</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">STOP</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_stopping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">END</span><span class="p">()</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ERROR</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"Partial result, or explanation"</span>
+<span class="c1"># [...]</span>
+</pre></div>
+</div>
+<p>Take for instance the TCP client:</p>
+<img alt="../_images/ATMT_TCP_client.svg" src="../_images/ATMT_TCP_client.svg" />
+<p>The <code class="docutils literal notranslate"><span class="pre">START</span></code> event is <code class="docutils literal notranslate"><span class="pre">initial=1</span></code>, the <code class="docutils literal notranslate"><span class="pre">STOP</span></code> event is <code class="docutils literal notranslate"><span class="pre">stop=1</span></code> and the <code class="docutils literal notranslate"><span class="pre">CLOSED</span></code> event is <code class="docutils literal notranslate"><span class="pre">final=1</span></code>.</p>
+</section>
+<section id="decorators-for-transitions">
+<h4>Decorators for transitions<a class="headerlink" href="#decorators-for-transitions" title="Link to this heading"></a></h4>
+<p>Transitions are methods decorated by the result of one of <code class="docutils literal notranslate"><span class="pre">ATMT.condition</span></code>, <code class="docutils literal notranslate"><span class="pre">ATMT.receive_condition</span></code>, <code class="docutils literal notranslate"><span class="pre">ATMT.eof</span></code>, <code class="docutils literal notranslate"><span class="pre">ATMT.timeout</span></code>, <code class="docutils literal notranslate"><span class="pre">ATMT.timer</span></code>. They all take as argument the state method they are related to. <code class="docutils literal notranslate"><span class="pre">ATMT.timeout</span></code> and <code class="docutils literal notranslate"><span class="pre">ATMT.timer</span></code> also have a mandatory <code class="docutils literal notranslate"><span class="pre">timeout</span></code> parameter to provide the timeout value in seconds. The difference between <code class="docutils literal notranslate"><span class="pre">ATMT.timeout</span></code> and <code class="docutils literal notranslate"><span class="pre">ATMT.timer</span></code> is that <code class="docutils literal notranslate"><span class="pre">ATMT.timeout</span></code> gets triggered only once. <code class="docutils literal notranslate"><span class="pre">ATMT.timer</span></code> get reloaded automatically, which is useful for sending keep-alive packets. <code class="docutils literal notranslate"><span class="pre">ATMT.condition</span></code> and <code class="docutils literal notranslate"><span class="pre">ATMT.receive_condition</span></code> have an optional <code class="docutils literal notranslate"><span class="pre">prio</span></code> parameter so that the order in which conditions are evaluated can be forced. The default priority is 0. Transitions with the same priority level are called in an undetermined order.</p>
+<p>When the automaton switches to a given state, the state’s method is executed. Then transitions methods are called at specific moments until one triggers a new state (something like <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">self.MY_NEW_STATE()</span></code>). First, right after the state’s method returns, the <code class="docutils literal notranslate"><span class="pre">ATMT.condition</span></code> decorated methods are run by growing prio. Then each time a packet is received and accepted by the master filter all <code class="docutils literal notranslate"><span class="pre">ATMT.receive_condition</span></code> decorated hods are called by growing prio. When a timeout is reached since the time we entered into the current space, the corresponding <code class="docutils literal notranslate"><span class="pre">ATMT.timeout</span></code> decorated method is called. If the socket raises an <code class="docutils literal notranslate"><span class="pre">EOFError</span></code> (closed) during a state, the <code class="docutils literal notranslate"><span class="pre">ATMT.EOF</span></code> transition is called. Otherwise it raises an exception and the automaton exits.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Example</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">WAITING</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">WAITING</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">it_is_raining</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">have_umbrella</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_WET</span><span class="p">()</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">WAITING</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">it_is_ICMP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ICMP</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECEIVED_ICMP</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">WAITING</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">it_is_IP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">IP</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECEIVED_IP</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">WAITING</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">waiting_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR_TIMEOUT</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="decorator-for-actions">
+<h4>Decorator for actions<a class="headerlink" href="#decorator-for-actions" title="Link to this heading"></a></h4>
+<p>Actions are methods that are decorated by the return of <code class="docutils literal notranslate"><span class="pre">ATMT.action</span></code> function. This function takes the transition method it is bound to as first parameter and an optional priority <code class="docutils literal notranslate"><span class="pre">prio</span></code> as a second parameter. The default priority is 0. An action method can be decorated many times to be bound to many transitions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Example</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">BEGIN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">final</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">END</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">BEGIN</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maybe_go_to_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">END</span><span class="p">()</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">BEGIN</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">certainly_go_to_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">END</span><span class="p">()</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">maybe_go_to_end</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maybe_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"We are lucky..."</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">certainly_go_to_end</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">certainly_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"We are not lucky..."</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">maybe_go_to_end</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">certainly_go_to_end</span><span class="p">,</span> <span class="n">prio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">always_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"This wasn't luck!..."</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The two possible outputs are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">=</span><span class="n">Example</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">We are not lucky...</span>
+<span class="go">This wasn't luck!...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">We are lucky...</span>
+<span class="go">This wasn't luck!...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to pass a parameter to an action, you can use the <code class="docutils literal notranslate"><span class="pre">action_parameters</span></code> function while raising the next state.</p>
+</div>
+<p>In the following example, the <code class="docutils literal notranslate"><span class="pre">send_copy</span></code> action takes a parameter passed by <code class="docutils literal notranslate"><span class="pre">is_fin</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Example</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">WAITING</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">FIN_RECEIVED</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">receive_condition</span><span class="p">(</span><span class="n">WAITING</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_fin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pkt</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">F</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">FIN_RECEIVED</span><span class="p">()</span><span class="o">.</span><span class="n">action_parameters</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">is_fin</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="methods-to-overload">
+<h3>Methods to overload<a class="headerlink" href="#methods-to-overload" title="Link to this heading"></a></h3>
+<p>Two methods are hooks to be overloaded:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">parse_args()</span></code> method is called with arguments given at <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> and <code class="docutils literal notranslate"><span class="pre">run()</span></code>. Use that to parametrize the behavior of your automaton.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">master_filter()</span></code> method is called each time a packet is sniffed and decides if it is interesting for the automaton. When working on a specific protocol, this is where you will ensure the packet belongs to the connection you are being part of, so that you do not need to make all the sanity checks in each transition.</p></li>
+</ul>
+</section>
+<section id="timer-configuration">
+<h3>Timer configuration<a class="headerlink" href="#timer-configuration" title="Link to this heading"></a></h3>
+<p>Some protocols allow timer configuration. In order to configure timeout values during class initialization one may use <code class="docutils literal notranslate"><span class="pre">timer_by_name()</span></code> method, which returns <code class="docutils literal notranslate"><span class="pre">Timer</span></code> object associated with the given function name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Example</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Example</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer_by_name</span><span class="p">(</span><span class="s2">"waiting_timeout"</span><span class="p">)</span>
+        <span class="n">timer</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">WAITING</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">final</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">END</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">WAITING</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">waiting_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">END</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="asn1_snmp.html" class="btn btn-neutral float-left" title="ASN.1 and SNMP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fwdmachine.html" class="btn btn-neutral float-right" title="Forwarding Machine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

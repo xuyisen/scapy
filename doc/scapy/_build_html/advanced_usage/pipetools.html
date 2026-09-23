@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PipeTools &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scapy network stack" href="../routing.html" />
+    <link rel="prev" title="Forwarding Machine" href="fwdmachine.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="asn1_snmp.html">ASN.1 and SNMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automaton.html">Automata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fwdmachine.html">Forwarding Machine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PipeTools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#demo-sniff-anonymize-send-to-wireshark">Demo: sniff, anonymize, send to Wireshark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-types">Class Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sources">Sources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#drains">Drains</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sinks">Sinks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#link-objects">Link objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-pipeengine-class">The PipeEngine class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scapy-advanced-pipetool-objects">Scapy advanced PipeTool objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triggering">Triggering</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Advanced usage</a></li>
+      <li class="breadcrumb-item active">PipeTools</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_usage/pipetools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pipetools">
+<span id="id1"></span><h1>PipeTools<a class="headerlink" href="#pipetools" title="Link to this heading"></a></h1>
+<p>Scapy’s <code class="docutils literal notranslate"><span class="pre">pipetool</span></code> is a smart piping system allowing to perform complex stream data management.</p>
+<p>The goal is to create a sequence of steps with one or several inputs and one or several outputs, with a bunch of blocks in between.
+PipeTools can handle varied sources of data (and outputs) such as user input, pcap input, sniffing, wireshark…
+A pipe system is implemented by manually linking all its parts. It is possible to dynamically add an element while running or set multiple drains for the same source.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pipetool default objects are located inside <code class="docutils literal notranslate"><span class="pre">scapy.pipetool</span></code></p>
+</div>
+<section id="demo-sniff-anonymize-send-to-wireshark">
+<h2>Demo: sniff, anonymize, send to Wireshark<a class="headerlink" href="#demo-sniff-anonymize-send-to-wireshark" title="Link to this heading"></a></h2>
+<p>The following code will sniff packets on the default interface, anonymize the source and destination IP addresses and pipe it all into Wireshark. Useful when posting online examples, for instance.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">SniffSource</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">iface</span><span class="p">)</span>
+<span class="n">wire</span> <span class="o">=</span> <span class="n">WiresharkSink</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">transf</span><span class="p">(</span><span class="n">pkt</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pkt</span> <span class="ow">or</span> <span class="n">IP</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pkt</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pkt</span>
+    <span class="n">pkt</span><span class="p">[</span><span class="n">IP</span><span class="p">]</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="s2">"1.1.1.1"</span>
+    <span class="n">pkt</span><span class="p">[</span><span class="n">IP</span><span class="p">]</span><span class="o">.</span><span class="n">dst</span> <span class="o">=</span> <span class="s2">"2.2.2.2"</span>
+    <span class="k">return</span> <span class="n">pkt</span>
+
+<span class="n">source</span> <span class="o">&gt;</span> <span class="n">TransformDrain</span><span class="p">(</span><span class="n">transf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">wire</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">PipeEngine</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">wait_and_stop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The engine is pretty straightforward:</p>
+<img alt="../_images/pipetool_demo.svg" src="../_images/pipetool_demo.svg" />
+<p>Let’s run it:</p>
+<img alt="../_images/pipetool_demo.gif" src="../_images/pipetool_demo.gif" />
+</section>
+<section id="class-types">
+<h2>Class Types<a class="headerlink" href="#class-types" title="Link to this heading"></a></h2>
+<p>There are 3 different class of objects used for data management:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Sources</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Drains</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sinks</span></code></p></li>
+</ul>
+<p>They are executed and handled by a <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a> object.</p>
+<p>When running, a pipetool engine waits for any available data from the Source, and send it in the Drains linked to it.
+The data then goes from Drains to Drains until it arrives in a Sink, the final state of this data.</p>
+<p>Let’s see with a basic demo how to build a pipetool system.</p>
+<img alt="../_images/pipetool_engine.png" src="../_images/pipetool_engine.png" />
+<p>For instance, this engine was generated with this code:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">CLIFeeder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">CLIHighFeeder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span> <span class="o">=</span> <span class="n">Drain</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">=</span> <span class="n">TransformDrain</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">si1</span> <span class="o">=</span> <span class="n">ConsoleSink</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">si2</span> <span class="o">=</span> <span class="n">QueueSink</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">&gt;</span> <span class="n">d1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span> <span class="o">&gt;</span> <span class="n">si1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span> <span class="o">&gt;</span> <span class="n">si2</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">&gt;&gt;</span> <span class="n">d1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span> <span class="o">&gt;&gt;</span> <span class="n">d2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">&gt;&gt;</span> <span class="n">si1</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">PipeEngine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">"&gt; the_above_image.png"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">start()</span></code> is used to start the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, let’s play with it by sending some input data</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"foo"</span><span class="p">)</span>
+<span class="go">&gt;'foo'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"bar"</span><span class="p">)</span>
+<span class="go">&gt;&gt;'rab'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"i like potato"</span><span class="p">)</span>
+<span class="go">&gt;'i like potato'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">si2</span><span class="o">.</span><span class="n">recv</span><span class="p">(),</span> <span class="s2">":"</span><span class="p">,</span> <span class="n">si2</span><span class="o">.</span><span class="n">recv</span><span class="p">())</span>
+<span class="go">foo : i like potato</span>
+</pre></div>
+</div>
+<p>Let’s study what happens here:</p>
+<ul class="simple">
+<li><p>there are <strong>two canals</strong> in a <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a>, a lower one and a higher one. Some Sources write on the lower one, some on the higher one and some on both.</p></li>
+<li><p>most sources can be linked to any drain, on both lower and higher canals. The use of <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> indicates a link on the low canal, and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> on the higher one.</p></li>
+<li><p>when we send some data in <code class="docutils literal notranslate"><span class="pre">s</span></code>, which is on the lower canal, as shown above, it goes through the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a> then is sent to the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.QueueSink" title="scapy.pipetool.QueueSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueueSink</span></code></a> and to the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.ConsoleSink" title="scapy.pipetool.ConsoleSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsoleSink</span></code></a></p></li>
+<li><p>when we send some data in <code class="docutils literal notranslate"><span class="pre">s2</span></code>, it goes through the Drain, then the TransformDrain where the data is reversed (see the lambda), before being sent to <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.ConsoleSink" title="scapy.pipetool.ConsoleSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsoleSink</span></code></a> only. This explains why we only have the data of the lower sources inside the QueueSink: the higher one has not been linked.</p></li>
+</ul>
+<p>Most of the sinks receive from both lower and upper canals. This is verifiable using the <cite>help(ConsoleSink)</cite></p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">ConsoleSink</span><span class="p">)</span>
+<span class="go">Help on class ConsoleSink in module scapy.pipetool:</span>
+<span class="go">class ConsoleSink(Sink)</span>
+<span class="go"> |  Print messages on low and high entries</span>
+<span class="go"> |     +-------+</span>
+<span class="go"> |  &gt;&gt;-|--.    |-&gt;&gt;</span>
+<span class="go"> |     | print |</span>
+<span class="go"> |   &gt;-|--'    |-&gt;</span>
+<span class="go"> |     +-------+</span>
+<span class="go"> |</span>
+<span class="go"> [...]</span>
+</pre></div>
+</div>
+<section id="sources">
+<h3>Sources<a class="headerlink" href="#sources" title="Link to this heading"></a></h3>
+<p>A Source is a class that generates some data.</p>
+<p>There are several source types integrated with Scapy, usable as-is, but you may
+also create yours.</p>
+<section id="default-source-classes">
+<h4>Default Source classes<a class="headerlink" href="#default-source-classes" title="Link to this heading"></a></h4>
+<p>For any of those class, have a look at <code class="docutils literal notranslate"><span class="pre">help([theclass])</span></code> to get more information or the required parameters.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.CLIFeeder" title="scapy.pipetool.CLIFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLIFeeder</span></code></a> : a source especially used in interactive software. its <code class="docutils literal notranslate"><span class="pre">send(data)</span></code> generates the event data on the lower canal</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.CLIHighFeeder" title="scapy.pipetool.CLIHighFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLIHighFeeder</span></code></a> : same than CLIFeeder, but writes on the higher canal</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PeriodicSource" title="scapy.pipetool.PeriodicSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodicSource</span></code></a> : Generate messages periodically on the low canal.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.AutoSource" title="scapy.pipetool.AutoSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoSource</span></code></a>: the default source, that must be extended to create custom sources.</p></li>
+</ul>
+</section>
+<section id="create-a-custom-source">
+<h4>Create a custom Source<a class="headerlink" href="#create-a-custom-source" title="Link to this heading"></a></h4>
+<p>To create a custom source, one must extend the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.AutoSource" title="scapy.pipetool.AutoSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoSource</span></code></a> class.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do NOT use the default <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Source" title="scapy.pipetool.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a> class except if you are really sure of what you are doing: it is only used internally, and is missing some implementation. The <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.AutoSource" title="scapy.pipetool.AutoSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoSource</span></code></a> is made to be used.</p>
+</div>
+<p>To send data through it, the object must call its <code class="docutils literal notranslate"><span class="pre">self._gen_data(msg)</span></code> or <code class="docutils literal notranslate"><span class="pre">self._gen_high_data(msg)</span></code> functions, which send the data into the PipeEngine.</p>
+<p>The Source should also (if possible), set <code class="docutils literal notranslate"><span class="pre">self.is_exhausted</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> when empty, to allow the clean stop of the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a>. If the source is infinite, it will need a force-stop (see PipeEngine below)</p>
+<p>For instance, here is how <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.CLIHighFeeder" title="scapy.pipetool.CLIHighFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLIHighFeeder</span></code></a> is implemented:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CLIFeeder</span><span class="p">(</span><span class="n">CLIFeeder</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gen_high_data</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_exhausted</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="drains">
+<h3>Drains<a class="headerlink" href="#drains" title="Link to this heading"></a></h3>
+<section id="default-drain-classes">
+<h4>Default Drain classes<a class="headerlink" href="#default-drain-classes" title="Link to this heading"></a></h4>
+<p>Drains need to be linked on the entry that you are using. It can be either on the lower one (using <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>) or the upper one (using <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>).
+See the basic example above.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a> : the most basic Drain possible. Will pass on both low and high entry if linked properly.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.TransformDrain" title="scapy.pipetool.TransformDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformDrain</span></code></a> : Apply a function to messages on low and high entry</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.UpDrain" title="scapy.pipetool.UpDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">UpDrain</span></code></a> : Repeat messages from low entry to high exit</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.DownDrain" title="scapy.pipetool.DownDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">DownDrain</span></code></a> : Repeat messages from high entry to low exit</p></li>
+</ul>
+</section>
+<section id="create-a-custom-drain">
+<h4>Create a custom Drain<a class="headerlink" href="#create-a-custom-drain" title="Link to this heading"></a></h4>
+<p>To create a custom drain, one must extend the <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a> class.</p>
+<p>A <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a> object will receive data from the lower canal in its <code class="docutils literal notranslate"><span class="pre">push</span></code> method, and from the higher canal from its <code class="docutils literal notranslate"><span class="pre">high_push</span></code> method.</p>
+<p>To send the data back into the next linked Drain / Sink, it must call the <code class="docutils literal notranslate"><span class="pre">self._send(msg)</span></code> or <code class="docutils literal notranslate"><span class="pre">self._high_send(msg)</span></code> methods.</p>
+<p>For instance, here is how <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.TransformDrain" title="scapy.pipetool.TransformDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformDrain</span></code></a> is implemented:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">TransformDrain</span><span class="p">(</span><span class="n">Drain</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Drain</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">high_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_high_send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sinks">
+<h3>Sinks<a class="headerlink" href="#sinks" title="Link to this heading"></a></h3>
+<p>Sinks are destinations for messages.</p>
+<p>A <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a> receives data like a <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a>, but doesn’t send any
+messages after it.</p>
+<p>Messages on the low entry come from <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Sink.push" title="scapy.pipetool.Sink.push"><code class="xref py py-meth docutils literal notranslate"><span class="pre">push()</span></code></a>, and messages on the
+high entry come from <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Sink.high_push" title="scapy.pipetool.Sink.high_push"><code class="xref py py-meth docutils literal notranslate"><span class="pre">high_push()</span></code></a>.</p>
+<section id="default-sinks-classes">
+<h4>Default Sinks classes<a class="headerlink" href="#default-sinks-classes" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.ConsoleSink" title="scapy.pipetool.ConsoleSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsoleSink</span></code></a> : Print messages on low and high entries to <code class="docutils literal notranslate"><span class="pre">stdout</span></code></p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.RawConsoleSink" title="scapy.pipetool.RawConsoleSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawConsoleSink</span></code></a> : Print messages on low and high entries, using os.write</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.TermSink" title="scapy.pipetool.TermSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">TermSink</span></code></a> : Prints messages on the low and high entries, on a separate terminal</p></li>
+<li><p><a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.QueueSink" title="scapy.pipetool.QueueSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueueSink</span></code></a> : Collects messages on the low and high entries into a <code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code></p></li>
+</ul>
+</section>
+<section id="create-a-custom-sink">
+<h4>Create a custom Sink<a class="headerlink" href="#create-a-custom-sink" title="Link to this heading"></a></h4>
+<p>To create a custom sink, one must extend <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Sink" title="scapy.pipetool.Sink"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sink</span></code></a> and implement
+<a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Sink.push" title="scapy.pipetool.Sink.push"><code class="xref py py-meth docutils literal notranslate"><span class="pre">push()</span></code></a> and/or <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Sink.high_push" title="scapy.pipetool.Sink.high_push"><code class="xref py py-meth docutils literal notranslate"><span class="pre">high_push()</span></code></a>.</p>
+<p>This is a simplified version of <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.ConsoleSink" title="scapy.pipetool.ConsoleSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConsoleSink</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ConsoleSink</span><span class="p">(</span><span class="n">Sink</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;</span><span class="si">%r</span><span class="s2">"</span> <span class="o">%</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">high_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt;</span><span class="si">%r</span><span class="s2">"</span> <span class="o">%</span> <span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="link-objects">
+<h2>Link objects<a class="headerlink" href="#link-objects" title="Link to this heading"></a></h2>
+<p>As shown in the example, most sources can be linked to any drain, on both low
+and high entry.</p>
+<p>The use of <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> indicates a link on the low entry, and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> on the high
+entry.</p>
+<p>For example, to link <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> on the low entries:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">CLIFeeder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Drain</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ConsoleSink</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">c</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">PipeEngine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This wouldn’t link the high entries, so something like this would do nothing:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span> <span class="o">=</span> <span class="n">CLIHighFeeder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span> <span class="o">&gt;&gt;</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Because <code class="docutils literal notranslate"><span class="pre">b</span></code> (<a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.Drain" title="scapy.pipetool.Drain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drain</span></code></a>) and <code class="docutils literal notranslate"><span class="pre">c</span></code> (<a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.ConsoleSink" title="scapy.pipetool.ConsoleSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">scapy.pipetool.ConsoleSink</span></code></a>) are not
+linked on the high entry.</p>
+<p>However, using a <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.DownDrain" title="scapy.pipetool.DownDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">DownDrain</span></code></a> would bring the high messages from
+<a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.CLIHighFeeder" title="scapy.pipetool.CLIHighFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLIHighFeeder</span></code></a> to the lower channel:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span> <span class="o">=</span> <span class="n">CLIHighFeeder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b2</span> <span class="o">=</span> <span class="n">DownDrain</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span> <span class="o">&gt;&gt;</span> <span class="n">b2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b2</span> <span class="o">&gt;</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="the-pipeengine-class">
+<h2>The PipeEngine class<a class="headerlink" href="#the-pipeengine-class" title="Link to this heading"></a></h2>
+<p>The <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a> class is the core class of the Pipetool system. It must be initialized and passed the list of all Sources.</p>
+<p>There are two ways of passing sources:</p>
+<ul class="simple">
+<li><p>during initialization: <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">PipeEngine(source1,</span> <span class="pre">source2,</span> <span class="pre">...)</span></code></p></li>
+<li><p>using the <code class="docutils literal notranslate"><span class="pre">add(source)</span></code> method</p></li>
+</ul>
+<p>A <a class="reference internal" href="../api/scapy.pipetool.html#scapy.pipetool.PipeEngine" title="scapy.pipetool.PipeEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipeEngine</span></code></a> class must be started with <code class="docutils literal notranslate"><span class="pre">.start()</span></code> function. It may be force-stopped with the <code class="docutils literal notranslate"><span class="pre">.stop()</span></code>, or cleanly stopped with <code class="docutils literal notranslate"><span class="pre">.wait_and_stop()</span></code></p>
+<p>A clean stop only works if the Sources is exhausted (has no data to send left).</p>
+<p>It can be printed into a graph using <code class="docutils literal notranslate"><span class="pre">.graph()</span></code> methods. see <code class="docutils literal notranslate"><span class="pre">help(do_graph)</span></code> for the list of available keyword arguments.</p>
+</section>
+<section id="scapy-advanced-pipetool-objects">
+<h2>Scapy advanced PipeTool objects<a class="headerlink" href="#scapy-advanced-pipetool-objects" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Unlike the previous objects, those are not located in <code class="docutils literal notranslate"><span class="pre">scapy.pipetool</span></code> but in <code class="docutils literal notranslate"><span class="pre">scapy.scapypipes</span></code></p>
+</div>
+<p>Now that you know the default PipeTool objects, here are some more advanced ones, based on packet functionalities.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.SniffSource" title="scapy.scapypipes.SniffSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">SniffSource</span></code></a> : Read packets from an interface and send them to low exit.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.RdpcapSource" title="scapy.scapypipes.RdpcapSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">RdpcapSource</span></code></a> : Read packets from a PCAP file send them to low exit.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.InjectSink" title="scapy.scapypipes.InjectSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">InjectSink</span></code></a> : Packets received on low input are injected (sent) to an interface</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.WrpcapSink" title="scapy.scapypipes.WrpcapSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">WrpcapSink</span></code></a> : Packets received on low input are written to PCAP file</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.UDPDrain" title="scapy.scapypipes.UDPDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">UDPDrain</span></code></a> : UDP payloads received on high entry are sent over UDP (complicated, have a look at <code class="docutils literal notranslate"><span class="pre">help(UDPDrain)</span></code>)</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.FDSourceSink" title="scapy.scapypipes.FDSourceSink"><code class="xref py py-class docutils literal notranslate"><span class="pre">FDSourceSink</span></code></a> : Use a file descriptor as source and sink</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TCPConnectPipe" title="scapy.scapypipes.TCPConnectPipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">TCPConnectPipe</span></code></a>: TCP connect to addr:port and use it as source and sink</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TCPListenPipe" title="scapy.scapypipes.TCPListenPipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">TCPListenPipe</span></code></a> : TCP listen on [addr:]port and use the first connection as source and sink (complicated, have a look at <code class="docutils literal notranslate"><span class="pre">help(TCPListenPipe)</span></code>)</p></li>
+</ul>
+</section>
+<section id="triggering">
+<h2>Triggering<a class="headerlink" href="#triggering" title="Link to this heading"></a></h2>
+<p>Some special sort of Drains exists: the Trigger Drains.</p>
+<p>Trigger Drains are special drains, that on receiving data not only pass it by but also send a “Trigger” input, that is received and handled by the next triggered drain (if it exists).</p>
+<p>For example, here is a basic <a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TriggerDrain" title="scapy.scapypipes.TriggerDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">TriggerDrain</span></code></a> usage:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">CLIFeeder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">TriggerDrain</span><span class="p">(</span><span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span> <span class="c1"># Pass messages and trigger when a condition is met</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">=</span> <span class="n">TriggeredValve</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ConsoleSink</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="n">d2</span> <span class="o">&gt;</span> <span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">^</span> <span class="n">d2</span> <span class="c1"># Link the triggers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">PipeEngine</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="go">INFO: Pipe engine thread started.</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"this will be printed"</span><span class="p">)</span>
+<span class="go">&gt;'this will be printed'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"this won't, because the valve was switched"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"this will, because the valve was switched again"</span><span class="p">)</span>
+<span class="go">&gt;'this will, because the valve was switched again'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Several triggering Drains exist, they are pretty explicit. It is highly recommended to check the doc using <code class="docutils literal notranslate"><span class="pre">help([the</span> <span class="pre">class])</span></code></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TriggeredMessage" title="scapy.scapypipes.TriggeredMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">TriggeredMessage</span></code></a> : Send a preloaded message when triggered and trigger in chain</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TriggerDrain" title="scapy.scapypipes.TriggerDrain"><code class="xref py py-class docutils literal notranslate"><span class="pre">TriggerDrain</span></code></a> : Pass messages and trigger when a condition is met</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TriggeredValve" title="scapy.scapypipes.TriggeredValve"><code class="xref py py-class docutils literal notranslate"><span class="pre">TriggeredValve</span></code></a> : Let messages alternatively pass or not, changing on trigger</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TriggeredQueueingValve" title="scapy.scapypipes.TriggeredQueueingValve"><code class="xref py py-class docutils literal notranslate"><span class="pre">TriggeredQueueingValve</span></code></a> : Let messages alternatively pass or queued, changing on trigger</p></li>
+<li><p><a class="reference internal" href="../api/scapy.scapypipes.html#scapy.scapypipes.TriggeredSwitch" title="scapy.scapypipes.TriggeredSwitch"><code class="xref py py-class docutils literal notranslate"><span class="pre">TriggeredSwitch</span></code></a> : Let messages alternatively high or low, changing on trigger</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fwdmachine.html" class="btn btn-neutral float-left" title="Forwarding Machine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../routing.html" class="btn btn-neutral float-right" title="Scapy network stack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

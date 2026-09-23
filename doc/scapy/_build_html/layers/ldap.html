@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LDAP &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Netflow" href="netflow.html" />
+    <link rel="prev" title="Kerberos" href="kerberos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LDAP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ldap-client-usage">LDAP client usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#connecting">Connecting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#binding">Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#signing-encryption">Signing / Encryption</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#querying">Querying</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modifying-attributes">Modifying attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ldaphero">LDAPHero</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">LDAP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/ldap.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ldap">
+<h1>LDAP<a class="headerlink" href="#ldap" title="Link to this heading"></a></h1>
+<p>Scapy fully implements the LDAPv2 / LDAPv3 messages, in addition to a very basic <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client" title="scapy.layers.ldap.LDAP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDAP_Client</span></code></a> class.</p>
+<section id="ldap-client-usage">
+<h2>LDAP client usage<a class="headerlink" href="#ldap-client-usage" title="Link to this heading"></a></h2>
+<p>The general idea when using the <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client" title="scapy.layers.ldap.LDAP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDAP_Client</span></code></a> class comes down to:</p>
+<ul class="simple">
+<li><p>instantiating the class</p></li>
+<li><p>calling <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client.connect" title="scapy.layers.ldap.LDAP_Client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> with the IP (this is where to specify whether to use SSL or not)</p></li>
+<li><p>calling <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client.bind" title="scapy.layers.ldap.LDAP_Client.bind"><code class="xref py py-func docutils literal notranslate"><span class="pre">bind()</span></code></a> (this is where to specify a SSP if authentication is desired)</p></li>
+<li><p>calling <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client.search" title="scapy.layers.ldap.LDAP_Client.search"><code class="xref py py-func docutils literal notranslate"><span class="pre">search()</span></code></a> to search data.</p></li>
+<li><p>calling <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client.modify" title="scapy.layers.ldap.LDAP_Client.modify"><code class="xref py py-func docutils literal notranslate"><span class="pre">modify()</span></code></a> to edit data attributes.</p></li>
+</ul>
+<p>The simplest, unauthenticated demo of the client would be something like:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">LDAP_Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">NONE</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">LDAP_SearchRequest</span><span class="p">())</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">┃ Connecting to 192.168.0.100 on port 389...</span>
+<span class="go">└ Connected from ('192.168.0.102', 40228)</span>
+<span class="go">NONE bind succeeded !</span>
+<span class="go">&gt;&gt; LDAP_SearchRequest</span>
+<span class="go">&lt;&lt; LDAP_SearchResponseEntry</span>
+<span class="go">###[ LDAP ]###</span>
+<span class="go">messageID = 0x1 &lt;ASN1_INTEGER[1]&gt;</span>
+<span class="go">\protocolOp\</span>
+<span class="go">|###[ LDAP_SearchResponseEntry ]###</span>
+<span class="go">|  objectName= &lt;ASN1_STRING[b'']&gt;</span>
+<span class="go">|  \attributes\</span>
+<span class="go">|   |###[ LDAP_PartialAttribute ]###</span>
+<span class="go">|   |  type      = &lt;ASN1_STRING[b'domainFunctionality']&gt;</span>
+<span class="go">|   |  \values    \</span>
+<span class="go">|   |   |###[ LDAP_AttributeValue ]###</span>
+<span class="go">|   |   |  value     = &lt;ASN1_STRING[b'7']&gt;</span>
+<span class="go">|   |###[ LDAP_PartialAttribute ]###</span>
+<span class="go">|   |  type      = &lt;ASN1_STRING[b'forestFunctionality']&gt;</span>
+<span class="go">|   |  \values    \</span>
+<span class="go">|   |   |###[ LDAP_AttributeValue ]###</span>
+<span class="go">|   |   |  value     = &lt;ASN1_STRING[b'7']&gt;</span>
+<span class="go">|   |###[ LDAP_PartialAttribute ]###</span>
+<span class="go">|   |  type      = &lt;ASN1_STRING[b'domainControllerFunctionality']&gt;</span>
+<span class="go">|   |  \values    \</span>
+<span class="go">|   |   |###[ LDAP_AttributeValue ]###</span>
+<span class="go">|   |   |  value     = &lt;ASN1_STRING[b'7']&gt;</span>
+<span class="go">[...]</span>
+</pre></div>
+</div>
+<section id="connecting">
+<h3>Connecting<a class="headerlink" href="#connecting" title="Link to this heading"></a></h3>
+<p>Let’s first instantiate the <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client" title="scapy.layers.ldap.LDAP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDAP_Client</span></code></a>, and connect to a server over the default port (389):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">LDAP_Client</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is also possible to use TLS when connecting to the server.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">LDAP_Client</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">,</span> <span class="n">use_ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In that case, the default port is 636. This can be changed using the <code class="docutils literal notranslate"><span class="pre">port</span></code> attribute.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the server certificate is NOT checked when using this mode, because the server certificate will likely be self-signed.
+To actually use TLS securely, you should pass a <code class="docutils literal notranslate"><span class="pre">sslcontext</span></code> as shown below:</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">LDAP_Client</span><span class="p">()</span>
+<span class="n">sslcontext</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">(</span><span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_TLS_CLIENT</span><span class="p">)</span>
+<span class="n">sslcontext</span><span class="o">.</span><span class="n">load_verify_locations</span><span class="p">(</span><span class="s1">'path/to/ca.crt'</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">,</span> <span class="n">use_ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sspcontext</span><span class="o">=</span><span class="n">sslcontext</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the client is too verbose, you can pass <code class="docutils literal notranslate"><span class="pre">verb=False</span></code> when instantiating <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client" title="scapy.layers.ldap.LDAP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDAP_Client</span></code></a>.</p>
+</div>
+</section>
+<section id="binding">
+<h3>Binding<a class="headerlink" href="#binding" title="Link to this heading"></a></h3>
+<p>When binding, you must specify a <em>mechanism type</em>. This type comes from the <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS" title="scapy.layers.ldap.LDAP_BIND_MECHS"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDAP_BIND_MECHS</span></code></a> enumeration, which contains:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.NONE" title="scapy.layers.ldap.LDAP_BIND_MECHS.NONE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NONE</span></code></a>: an unauthenticated bind.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SIMPLE" title="scapy.layers.ldap.LDAP_BIND_MECHS.SIMPLE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SIMPLE</span></code></a>: the simple bind mechanism. Credentials are sent <strong>in plaintext</strong>.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SICILY" title="scapy.layers.ldap.LDAP_BIND_MECHS.SICILY"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SICILY</span></code></a>: a <a class="reference external" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/8b9dbfb2-5b6a-497a-a533-7e709cb9a982">Windows specific authentication mechanism specified in [MS-ADTS]</a> that only supports NTLM.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSSAPI" title="scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSSAPI"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SASL_GSSAPI</span></code></a>: the SASL authentication mechanism, as specified by <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc4422">RFC 4422</a>.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSS_SPNEGO" title="scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSS_SPNEGO"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SASL_GSS_SPNEGO</span></code></a>: the SPNEGO authentication mechanism, another <a class="reference external" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-spng/f377a379-c24f-4a0f-a3eb-0d835389e28a">Windows specific authentication mechanism specified in [MS-SPNG]</a>.</p></li>
+</ul>
+<p>Depending on the server that you are talking to, some of those mechanisms might not be available. This is most notably the case of <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SICILY" title="scapy.layers.ldap.LDAP_BIND_MECHS.SICILY"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SICILY</span></code></a> and <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSS_SPNEGO" title="scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSS_SPNEGO"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SASL_GSS_SPNEGO</span></code></a> which are mostly Windows-specific.</p>
+<p>We’ll now go over “how to bind” using each one of those mechanisms:</p>
+<p><strong>NONE (Unauthenticated):</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">NONE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>SIMPLE:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+    <span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">SIMPLE</span><span class="p">,</span>
+    <span class="n">simple_username</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span>
+    <span class="n">simple_password</span><span class="o">=</span><span class="s2">"Password1!"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>SICILY - NTLM:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssp</span> <span class="o">=</span> <span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Password1!"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+    <span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">SICILY</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>SASL_GSSAPI - Kerberos:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssp</span> <span class="o">=</span> <span class="n">KerberosSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Password1!"</span><span class="p">,</span>
+                  <span class="n">SPN</span><span class="o">=</span><span class="s2">"ldap/dc1.domain.local"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+    <span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">SASL_GSSAPI</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>SASL_GSS_SPNEGO - NTLM / Kerberos:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssp</span> <span class="o">=</span> <span class="n">SPNEGOSSP</span><span class="p">([</span>
+    <span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Password1!"</span><span class="p">),</span>
+    <span class="n">KerberosSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Password1!"</span><span class="p">,</span>
+                <span class="n">SPN</span><span class="o">=</span><span class="s2">"ldap/dc1.domain.local"</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+    <span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">SASL_GSS_SPNEGO</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="signing-encryption">
+<h3>Signing / Encryption<a class="headerlink" href="#signing-encryption" title="Link to this heading"></a></h3>
+<p>Additionally, it is possible to enable signing or encryption of the LDAP data, when LDAPS is NOT in use.
+This is done by setting <code class="docutils literal notranslate"><span class="pre">sign</span></code> and <code class="docutils literal notranslate"><span class="pre">encrypt</span></code> parameters of the <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client.bind" title="scapy.layers.ldap.LDAP_Client.bind"><code class="xref py py-func docutils literal notranslate"><span class="pre">bind()</span></code></a> function.</p>
+<p>There are however a few caveats to note:</p>
+<ul class="simple">
+<li><p>It’s not possible to use those flags in <code class="docutils literal notranslate"><span class="pre">NONE</span></code> (duh) or <code class="docutils literal notranslate"><span class="pre">SIMPLE</span></code> mode.</p></li>
+<li><p>When using the <a class="reference internal" href="../api/scapy.layers.ntlm.html#scapy.layers.ntlm.NTLMSSP" title="scapy.layers.ntlm.NTLMSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLMSSP</span></code></a> (in <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SICILY" title="scapy.layers.ldap.LDAP_BIND_MECHS.SICILY"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SICILY</span></code></a> or <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSS_SPNEGO" title="scapy.layers.ldap.LDAP_BIND_MECHS.SASL_GSS_SPNEGO"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SASL_GSS_SPNEGO</span></code></a> mode), it isn’t possible to use <code class="docutils literal notranslate"><span class="pre">sign</span></code> without <code class="docutils literal notranslate"><span class="pre">encrypt</span></code>, because Windows doesn’t implement it.</p></li>
+</ul>
+</section>
+<section id="querying">
+<h3>Querying<a class="headerlink" href="#querying" title="Link to this heading"></a></h3>
+<p>Once the LDAP connection is bound, it becomes possible to perform requests. For instance, to query all the values of the root DSE:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">LDAP_SearchRequest</span><span class="p">())</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We can also use the <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client.search" title="scapy.layers.ldap.LDAP_Client.search"><code class="xref py py-func docutils literal notranslate"><span class="pre">search()</span></code></a> passing a base DN, a filter (as specified by RFC2254) and a scope.\</p>
+<p>The scope can be one of the following:</p>
+<ul class="simple">
+<li><p>0=baseObject: only the base DN’s attributes are queried</p></li>
+<li><p>1=singleLevel: the base DN’s children are queried</p></li>
+<li><p>2=wholeSubtree: the entire subtree under the base DN is included</p></li>
+</ul>
+<p>For instance, this corresponds to querying the DN <code class="docutils literal notranslate"><span class="pre">CN=Users,DC=domain,DC=local</span></code> with the filter <code class="docutils literal notranslate"><span class="pre">(objectCategory=person)</span></code> and asking for the attributes <code class="docutils literal notranslate"><span class="pre">objectClass,name,description,canonicalName</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+    <span class="s2">"CN=Users,DC=domain,DC=local"</span><span class="p">,</span>
+    <span class="s2">"(objectCategory=person)"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"objectClass"</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">,</span> <span class="s2">"canonicalName"</span><span class="p">],</span>
+    <span class="n">scope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># children</span>
+<span class="p">)</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To understand exactly what’s going on, note that the previous call is exactly identical to the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span>
+    <span class="n">LDAP_SearchRequest</span><span class="p">(</span>
+        <span class="nb">filter</span><span class="o">=</span><span class="n">LDAP_Filter</span><span class="p">(</span>
+            <span class="nb">filter</span><span class="o">=</span><span class="n">LDAP_FilterEqual</span><span class="p">(</span>
+                <span class="n">attributeType</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'objectCategory'</span><span class="p">),</span>
+                <span class="n">attributeValue</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'person'</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">attributes</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">LDAP_SearchRequestAttribute</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'objectClass'</span><span class="p">)),</span>
+            <span class="n">LDAP_SearchRequestAttribute</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'name'</span><span class="p">)),</span>
+            <span class="n">LDAP_SearchRequestAttribute</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'description'</span><span class="p">)),</span>
+            <span class="n">LDAP_SearchRequestAttribute</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'canonicalName'</span><span class="p">))</span>
+        <span class="p">],</span>
+        <span class="n">baseObject</span><span class="o">=</span><span class="n">ASN1_STRING</span><span class="p">(</span><span class="sa">b</span><span class="s1">'CN=Users,DC=domain,DC=local'</span><span class="p">),</span>
+        <span class="n">scope</span><span class="o">=</span><span class="n">ASN1_ENUMERATED</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">derefAliases</span><span class="o">=</span><span class="n">ASN1_ENUMERATED</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">sizeLimit</span><span class="o">=</span><span class="n">ASN1_INTEGER</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+        <span class="n">timeLimit</span><span class="o">=</span><span class="n">ASN1_INTEGER</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span>
+        <span class="n">attrsOnly</span><span class="o">=</span><span class="n">ASN1_BOOLEAN</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Our RFC2254 parser currently does not support ‘Extensible Match’.</p>
+</div>
+</section>
+<section id="modifying-attributes">
+<h3>Modifying attributes<a class="headerlink" href="#modifying-attributes" title="Link to this heading"></a></h3>
+<p>It’s also possible to change some attributes on an object.
+The following issues a <code class="docutils literal notranslate"><span class="pre">Modify</span> <span class="pre">Request</span></code> that replaces the <code class="docutils literal notranslate"><span class="pre">displayName</span></code> attribute and adds a <code class="docutils literal notranslate"><span class="pre">servicePrincipalName</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span>
+    <span class="s2">"CN=User1,CN=Users,DC=domain,DC=local"</span><span class="p">,</span>
+    <span class="n">changes</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">LDAP_ModifyRequestChange</span><span class="p">(</span>
+            <span class="n">operation</span><span class="o">=</span><span class="s2">"replace"</span><span class="p">,</span>
+            <span class="n">modification</span><span class="o">=</span><span class="n">LDAP_PartialAttribute</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="s2">"displayName"</span><span class="p">,</span>
+                <span class="n">values</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">LDAP_AttributeValue</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">"Lord User the 1st"</span><span class="p">)</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">LDAP_ModifyRequestChange</span><span class="p">(</span>
+            <span class="n">operation</span><span class="o">=</span><span class="s2">"add"</span><span class="p">,</span>
+            <span class="n">modification</span><span class="o">=</span><span class="n">LDAP_PartialAttribute</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="s2">"servicePrincipalName"</span><span class="p">,</span>
+                <span class="n">values</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">LDAP_AttributeValue</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">"http/lorduser"</span><span class="p">)</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ldaphero">
+<h2>LDAPHero<a class="headerlink" href="#ldaphero" title="Link to this heading"></a></h2>
+<p>LDAPHero (LDAPéro in French) is a graphical wrapper around Scapy’s <a class="reference internal" href="../api/scapy.layers.ldap.html#scapy.layers.ldap.LDAP_Client" title="scapy.layers.ldap.LDAP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDAP_Client</span></code></a>, that works on all plateforms.
+It can be used with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_module</span><span class="p">(</span><span class="s2">"ticketer"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LDAPHero</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It’s possible to pass it a SSP, which will be used when clicking the “Bind” button:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LDAPHero</span><span class="p">(</span><span class="n">mech</span><span class="o">=</span><span class="n">LDAP_BIND_MECHS</span><span class="o">.</span><span class="n">SICILY</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"test"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You can use the same examples as in <a class="reference external" href="#binding">Binding</a>.</p>
+<p>It’s also possible to pass some connection parameters, for instance to connect to a specific host, you could use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LDAPHero</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="kerberos.html" class="btn btn-neutral float-left" title="Kerberos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="netflow.html" class="btn btn-neutral float-right" title="Netflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

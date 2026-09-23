@@ -1,0 +1,801 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.http &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.inet" href="scapy.layers.inet.html" />
+    <link rel="prev" title="scapy.layers.hsrp" href="scapy.layers.hsrp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.http</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.http.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.http">
+<span id="scapy-layers-http"></span><h1>scapy.layers.http<a class="headerlink" href="#module-scapy.layers.http" title="Link to this heading"></a></h1>
+<p>HTTP 1.0 layer.</p>
+<p>Load using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.http</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Or (console only):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_layer</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this layer ISN’T loaded by default, as quite experimental for now.</p>
+<p>To follow HTTP packets streams = group packets together to get the
+whole request/answer, use <code class="docutils literal notranslate"><span class="pre">TCPSession</span></code> as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">TCPSession</span><span class="p">)</span>  <span class="c1"># Live on-the-flow session</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">offline</span><span class="o">=</span><span class="s2">"./http_chunk.pcap"</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">TCPSession</span><span class="p">)</span>  <span class="c1"># pcap</span>
+</pre></div>
+</div>
+<p>This will decode HTTP packets using <code class="docutils literal notranslate"><span class="pre">Content_Length</span></code> or chunks,
+and will also decompress the packets when needed.
+Note: on failure, decompression will be ignored.</p>
+<p>You can turn auto-decompression/auto-compression off with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">contribs</span><span class="p">[</span><span class="s2">"http"</span><span class="p">][</span><span class="s2">"auto_compression"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>(Defaults to True)</p>
+<p>You can also turn auto-chunking/dechunking off with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">contribs</span><span class="p">[</span><span class="s2">"http"</span><span class="p">][</span><span class="s2">"auto_chunk"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>(Defaults to True)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L604-L748"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.http.HTTP'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTP.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.clsreq">
+<span class="sig-name descname"><span class="pre">clsreq</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L512-L552"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP.clsreq" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#scapy.layers.http.HTTPRequest" title="scapy.layers.http.HTTPRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPRequest</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.clsresp">
+<span class="sig-name descname"><span class="pre">clsresp</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L555-L598"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP.clsresp" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#scapy.layers.http.HTTPResponse" title="scapy.layers.http.HTTPResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPResponse</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.dispatch_hook">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dispatch_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L624-L648"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP.dispatch_hook" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#scapy.layers.http.HTTP.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.guess_payload_class">
+<span class="sig-name descname"><span class="pre">guess_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L722-L748"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP.guess_payload_class" title="Link to this definition"></a></dt>
+<dd><p>Decides if the payload is an HTTP Request or Response, or
+something else.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.hdr">
+<span class="sig-name descname"><span class="pre">hdr</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">b'HTTP'</span></span><a class="headerlink" href="#scapy.layers.http.HTTP.hdr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.reqmethods">
+<span class="sig-name descname"><span class="pre">reqmethods</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">b'OPTIONS|GET|HEAD|POST|PUT|DELETE|TRACE|CONNECT'</span></span><a class="headerlink" href="#scapy.layers.http.HTTP.reqmethods" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.show_indent">
+<span class="sig-name descname"><span class="pre">show_indent</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#scapy.layers.http.HTTP.show_indent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP.tcp_reassemble">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tcp_reassemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L651-L720"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP.tcp_reassemble" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPRequest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTPRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'GET'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Http_Version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'HTTP/1.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_IM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept_Charset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept_Datetime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept_Encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept_Language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Request_Headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Request_Method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Authorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cache_Control</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_MD5</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cookie</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DNT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Expect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Forwarded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">From</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Front_End_Https</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HTTP2_Settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">If_Match</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">If_Modified_Since</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">If_None_Match</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">If_Range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">If_Unmodified_Since</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Keep_Alive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Max_Forwards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Permanent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pragma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Proxy_Authorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Proxy_Connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Referer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Save_Data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Upgrade</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Upgrade_Insecure_Requests</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">User_Agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Via</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_ATT_DeviceId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Correlation_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Csrf_Token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Forwarded_For</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Forwarded_Host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Forwarded_Proto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Http_Method_Override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Request_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Requested_With</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_UIDH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Wap_Profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Unknown_Headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L512-L552"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPRequest" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_HTTPContent</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPRequest.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.http.HTTPRequest'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.http._HTTPContent'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPRequest.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPRequest.do_dissect">
+<span class="sig-name descname"><span class="pre">do_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L535-L549"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPRequest.do_dissect" title="Link to this definition"></a></dt>
+<dd><p>From the HTTP packet string, populate the scapy object</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPRequest.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Method&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Path&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Http_Version&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).A_IM&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Accept&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Accept_Charset&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Accept_Datetime&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Accept_Encoding&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Accept_Language&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Access_Control_Request_Headers&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Access_Control_Request_Method&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Authorization&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Cache_Control&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Connection&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Content_Length&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Content_MD5&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Content_Type&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Cookie&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).DNT&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Date&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Expect&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Forwarded&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).From&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Front_End_Https&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).HTTP2_Settings&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Host&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).If_Match&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).If_Modified_Since&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).If_None_Match&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).If_Range&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).If_Unmodified_Since&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Keep_Alive&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Max_Forwards&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Origin&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Permanent&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Pragma&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Proxy_Authorization&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Proxy_Connection&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Range&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Referer&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Save_Data&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).TE&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Upgrade&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Upgrade_Insecure_Requests&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).User_Agent&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Via&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Warning&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_ATT_DeviceId&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Correlation_ID&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Csrf_Token&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Forwarded_For&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Forwarded_Host&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Forwarded_Proto&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Http_Method_Override&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Request_ID&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Requested_With&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_UIDH&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).X_Wap_Profile&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPRequest).Unknown_Headers&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPRequest.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPRequest.mysummary">
+<span class="sig-name descname"><span class="pre">mysummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L551-L552"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPRequest.mysummary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTPResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Http_Version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'HTTP/1.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Status_Code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'200'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Reason_Phrase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'OK'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept_Patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Accept_Ranges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Allow_Credentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Allow_Headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Allow_Methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Allow_Origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Expose_Headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Access_Control_Max_Age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Allow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Alt_Svc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cache_Control</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Disposition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_MD5</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Security_Policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Content_Type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta_Base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ETag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Expires</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Keep_Alive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Last_Modified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P3P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Permanent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pragma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Proxy_Authenticate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Public_Key_Pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Refresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Retry_After</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Server</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Set_Cookie</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Strict_Transport_Security</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Timing_Allow_Origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Trailer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Transfer_Encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Upgrade</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Via</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WWW_Authenticate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Warning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Content_Duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Content_Security_Policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Content_Type_Options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Correlation_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Frame_Options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Powered_By</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_Request_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_UA_Compatible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_WebKit_CSP</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_XSS_Protection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Unknown_Headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L555-L598"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPResponse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_HTTPContent</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPResponse.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.http.HTTPResponse'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.http._HTTPContent'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPResponse.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPResponse.answers">
+<span class="sig-name descname"><span class="pre">answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L578-L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPResponse.answers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPResponse.do_dissect">
+<span class="sig-name descname"><span class="pre">do_dissect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L581-L595"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPResponse.do_dissect" title="Link to this definition"></a></dt>
+<dd><p>From the HTTP packet string, populate the scapy object</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPResponse.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Http_Version&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Status_Code&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Reason_Phrase&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Accept_Patch&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Accept_Ranges&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Access_Control_Allow_Credentials&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Access_Control_Allow_Headers&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Access_Control_Allow_Methods&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Access_Control_Allow_Origin&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Access_Control_Expose_Headers&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Access_Control_Max_Age&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Age&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Allow&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Alt_Svc&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Cache_Control&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Connection&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Disposition&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Encoding&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Language&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Length&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Location&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_MD5&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Range&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Security_Policy&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Content_Type&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Date&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Delta_Base&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).ETag&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Expires&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).IM&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Keep_Alive&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Last_Modified&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Link&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Location&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).P3P&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Permanent&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Pragma&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Proxy_Authenticate&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Public_Key_Pins&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Refresh&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Retry_After&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Server&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Set_Cookie&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Status&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Strict_Transport_Security&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Timing_Allow_Origin&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Tk&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Trailer&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Transfer_Encoding&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Upgrade&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Vary&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Via&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).WWW_Authenticate&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Warning&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Content_Duration&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Content_Security_Policy&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Content_Type_Options&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Correlation_ID&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Frame_Options&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Powered_By&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_Request_ID&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_UA_Compatible&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_WebKit_CSP&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).X_XSS_Protection&gt;,</span> <span class="pre">&lt;_HTTPHeaderField</span> <span class="pre">(HTTPResponse).Unknown_Headers&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPResponse.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPResponse.mysummary">
+<span class="sig-name descname"><span class="pre">mysummary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L597-L598"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPResponse.mysummary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTPS_Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1290-L1342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTPS_Server" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.http.HTTP_Server" title="scapy.layers.http.HTTP_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTP_Server</span></code></a></p>
+<p>HTTPS server automaton</p>
+<p>This has the same arguments and attributes as HTTP_Server, with the addition of:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sslcontext</strong> – an optional SSLContext object.
+If used, key is ignored but cert can still be used for
+channel bindings.</p></li>
+<li><p><strong>cert</strong> – path to the certificate</p></li>
+<li><p><strong>key</strong> – path to the key</p></li>
+<li><p><strong>require_cbt</strong> – require Channel Bindings to be valid</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.actions">
+<span class="sig-name descname"><span class="pre">actions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'allow_reauth':</span> <span class="pre">[],</span> <span class="pre">'auth_eof':</span> <span class="pre">[],</span> <span class="pre">'new_request':</span> <span class="pre">[],</span> <span class="pre">'received_unauthenticated':</span> <span class="pre">[],</span> <span class="pre">'serve_eof':</span> <span class="pre">[],</span> <span class="pre">'should_authenticate':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.actions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.breakpoints">
+<span class="sig-name descname"><span class="pre">breakpoints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.breakpoints" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.conditions">
+<span class="sig-name descname"><span class="pre">conditions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.allow_reauth&gt;],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.eofs">
+<span class="sig-name descname"><span class="pre">eofs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">&lt;function</span> <span class="pre">HTTP_Server.auth_eof&gt;,</span> <span class="pre">'SERVE':</span> <span class="pre">&lt;function</span> <span class="pre">HTTP_Server.serve_eof&gt;}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.eofs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.initial_states">
+<span class="sig-name descname"><span class="pre">initial_states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.initial_states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.intercepted_packet">
+<span class="sig-name descname"><span class="pre">intercepted_packet</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.intercepted_packet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.interception_points">
+<span class="sig-name descname"><span class="pre">interception_points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.interception_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.ioevents">
+<span class="sig-name descname"><span class="pre">ioevents</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.ioevents" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.ionames">
+<span class="sig-name descname"><span class="pre">ionames</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.ionames" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.iosupersockets">
+<span class="sig-name descname"><span class="pre">iosupersockets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.iosupersockets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.listen_sock">
+<span class="sig-name descname"><span class="pre">listen_sock</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.listen_sock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.packets">
+<span class="sig-name descname"><span class="pre">packets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.packets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.recv_conditions">
+<span class="sig-name descname"><span class="pre">recv_conditions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.received_unauthenticated&gt;],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.should_authenticate&gt;],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.new_request&gt;]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.recv_conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.send_sock">
+<span class="sig-name descname"><span class="pre">send_sock</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.send_sock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.socketcls">
+<span class="sig-name descname"><span class="pre">socketcls</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.socketcls" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.states">
+<span class="sig-name descname"><span class="pre">states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'BEGIN':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'CLOSED':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'ERROR':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SERVE':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.stop_state">
+<span class="sig-name descname"><span class="pre">stop_state</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.stop_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.threadid">
+<span class="sig-name descname"><span class="pre">threadid</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.threadid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTPS_Server.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_TimerList</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTPS_Server.timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_AUTH_MECHS">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTP_AUTH_MECHS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L751-L755"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_AUTH_MECHS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_AUTH_MECHS.BASIC">
+<span class="sig-name descname"><span class="pre">BASIC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Basic'</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_AUTH_MECHS.BASIC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_AUTH_MECHS.NEGOTIATE">
+<span class="sig-name descname"><span class="pre">NEGOTIATE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Negotiate'</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_AUTH_MECHS.NEGOTIATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_AUTH_MECHS.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NONE'</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_AUTH_MECHS.NONE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_AUTH_MECHS.NTLM">
+<span class="sig-name descname"><span class="pre">NTLM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NTLM'</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_AUTH_MECHS.NTLM" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Client">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTP_Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mech</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">HTTP_AUTH_MECHS.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sslcontext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_check_certificate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L758-L972"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Client" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A basic HTTP client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mech</strong> – one of HTTP_AUTH_MECHS</p></li>
+<li><p><strong>ssl</strong> – whether to use HTTPS or not</p></li>
+<li><p><strong>ssp</strong> – the SSP object to use for binding</p></li>
+<li><p><strong>no_check_certificate</strong> – with SSL, do not check the certificate</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Client.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L969-L972"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Client.close" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Client.request">
+<span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow_redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L850-L967"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Client.request" title="Link to this definition"></a></dt>
+<dd><p>Perform a HTTP(s) request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – the full URL to connect to.
+e.g. <a class="reference external" href="https://google.com/test">https://google.com/test</a></p></li>
+<li><p><strong>data</strong> – the data to send as payload</p></li>
+<li><p><strong>follow_redirects</strong> – if True, request() will follow 302 return codes</p></li>
+<li><p><strong>http_headers</strong> – if specified, overwrites the HTTP headers
+(except Host and Path).</p></li>
+<li><p><strong>headers</strong> – any additional HTTPRequest parameter to add.
+e.g. Method=”POST”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Client.sr1">
+<span class="sig-name descname"><span class="pre">sr1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L838-L848"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Client.sr1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">HTTP_Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1031-L1287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.automaton.html#scapy.automaton.Automaton" title="scapy.automaton.Automaton"><code class="xref py py-class docutils literal notranslate"><span class="pre">Automaton</span></code></a></p>
+<p>HTTP server automaton</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ssp</strong> – the SSP to serve. If None, unauthenticated (or basic).</p></li>
+<li><p><strong>mech</strong> – the HTTP_AUTH_MECHS to use (default: NONE)</p></li>
+<li><p><strong>require_cbt</strong> – require Channel Bindings to be valid (default: False)</p></li>
+<li><p><strong>cbt_cert</strong> – the path to the certificate used for channel bindings.
+Useful if behind a reverse proxy. (default: None)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Other parameters:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BASIC_IDENTITIES</strong> – a dict that contains {“user”: “password”} for Basic
+authentication.</p></li>
+<li><p><strong>BASIC_REALM</strong> – the basic realm.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.AUTH">
+<span class="sig-name descname"><span class="pre">AUTH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.AUTH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.AUTH_ERROR">
+<span class="sig-name descname"><span class="pre">AUTH_ERROR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.AUTH_ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.BEGIN">
+<span class="sig-name descname"><span class="pre">BEGIN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.BEGIN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.CLOSED">
+<span class="sig-name descname"><span class="pre">CLOSED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.CLOSED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.SERVE">
+<span class="sig-name descname"><span class="pre">SERVE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.SERVE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.actions">
+<span class="sig-name descname"><span class="pre">actions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'allow_reauth':</span> <span class="pre">[],</span> <span class="pre">'auth_eof':</span> <span class="pre">[],</span> <span class="pre">'new_request':</span> <span class="pre">[],</span> <span class="pre">'received_unauthenticated':</span> <span class="pre">[],</span> <span class="pre">'serve_eof':</span> <span class="pre">[],</span> <span class="pre">'should_authenticate':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.actions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.allow_reauth">
+<span class="sig-name descname"><span class="pre">allow_reauth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1206-L1208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.allow_reauth" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.answer">
+<span class="sig-name descname"><span class="pre">answer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1272-L1287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.answer" title="Link to this definition"></a></dt>
+<dd><p>HTTP_server answer function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pkt</strong> – a HTTPRequest packet</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a HTTPResponse packet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.auth_eof">
+<span class="sig-name descname"><span class="pre">auth_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1232-L1234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.auth_eof" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.breakpoints">
+<span class="sig-name descname"><span class="pre">breakpoints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.breakpoints" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.conditions">
+<span class="sig-name descname"><span class="pre">conditions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.allow_reauth&gt;],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.eofs">
+<span class="sig-name descname"><span class="pre">eofs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">&lt;function</span> <span class="pre">HTTP_Server.auth_eof&gt;,</span> <span class="pre">'SERVE':</span> <span class="pre">&lt;function</span> <span class="pre">HTTP_Server.serve_eof&gt;}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.eofs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.initial_states">
+<span class="sig-name descname"><span class="pre">initial_states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;]</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.initial_states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.intercepted_packet">
+<span class="sig-name descname"><span class="pre">intercepted_packet</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.intercepted_packet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.interception_points">
+<span class="sig-name descname"><span class="pre">interception_points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.interception_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.ioevents">
+<span class="sig-name descname"><span class="pre">ioevents</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.ioevents" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.ionames">
+<span class="sig-name descname"><span class="pre">ionames</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.ionames" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.iosupersockets">
+<span class="sig-name descname"><span class="pre">iosupersockets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.iosupersockets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.listen_sock">
+<span class="sig-name descname"><span class="pre">listen_sock</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.listen_sock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.new_request">
+<span class="sig-name descname"><span class="pre">new_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1266-L1268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.new_request" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.packets">
+<span class="sig-name descname"><span class="pre">packets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.packets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.pkt_cls">
+<span class="sig-name descname"><span class="pre">pkt_cls</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L604-L748"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.pkt_cls" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#scapy.layers.http.HTTP" title="scapy.layers.http.HTTP"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTP</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.received_unauthenticated">
+<span class="sig-name descname"><span class="pre">received_unauthenticated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1228-L1230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.received_unauthenticated" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.recv_conditions">
+<span class="sig-name descname"><span class="pre">recv_conditions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.received_unauthenticated&gt;],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.should_authenticate&gt;],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[&lt;function</span> <span class="pre">HTTP_Server.new_request&gt;]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.recv_conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1097-L1098"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.send" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.send_sock">
+<span class="sig-name descname"><span class="pre">send_sock</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.send_sock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.serve_eof">
+<span class="sig-name descname"><span class="pre">serve_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1262-L1264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.serve_eof" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.should_authenticate">
+<span class="sig-name descname"><span class="pre">should_authenticate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1115-L1120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.should_authenticate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.states">
+<span class="sig-name descname"><span class="pre">states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'BEGIN':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'CLOSED':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'ERROR':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SERVE':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.stop_state">
+<span class="sig-name descname"><span class="pre">stop_state</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.stop_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.threadid">
+<span class="sig-name descname"><span class="pre">threadid</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.threadid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_TimerList</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTH':</span> <span class="pre">[],</span> <span class="pre">'AUTH_ERROR':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'CLOSED':</span> <span class="pre">[],</span> <span class="pre">'ERROR':</span> <span class="pre">[],</span> <span class="pre">'SERVE':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.http.HTTP_Server.timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.http.HTTP_Server.vprint">
+<span class="sig-name descname"><span class="pre">vprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L1100-L1108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.HTTP_Server.vprint" title="Link to this definition"></a></dt>
+<dd><p>Verbose print (if enabled)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.http.http_request">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.http.</span></span><span class="sig-name descname"><span class="pre">http_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/http.py#L975-L1014"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.http.http_request" title="Link to this definition"></a></dt>
+<dd><p>Util to perform an HTTP request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – the host to connect to</p></li>
+<li><p><strong>path</strong> – the path of the request (default /)</p></li>
+<li><p><strong>port</strong> – the port (default 80/443)</p></li>
+<li><p><strong>timeout</strong> – timeout before None is returned</p></li>
+<li><p><strong>display</strong> – display the result in the default browser (default False)</p></li>
+<li><p><strong>iface</strong> – interface to use. Changing this turns on “raw”</p></li>
+<li><p><strong>headers</strong> – any additional headers passed to the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the HTTPResponse packet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.hsrp.html" class="btn btn-neutral float-left" title="scapy.layers.hsrp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.inet.html" class="btn btn-neutral float-right" title="scapy.layers.inet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

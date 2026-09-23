@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.utils6 &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.volatile" href="scapy.volatile.html" />
+    <link rel="prev" title="scapy.utils" href="scapy.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+      <li class="breadcrumb-item active">scapy.utils6</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.utils6.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.utils6">
+<span id="scapy-utils6"></span><h1>scapy.utils6<a class="headerlink" href="#module-scapy.utils6" title="Link to this heading"></a></h1>
+<p>Utility functions for IPv6.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.utils6.Net6">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">Net6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L916-L936"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.Net6" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.base_classes.html#scapy.base_classes.Net" title="scapy.base_classes.Net"><code class="xref py py-class docutils literal notranslate"><span class="pre">Net</span></code></a></p>
+<p>Network object from an IP address or hostname and mask</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.utils6.Net6.family">
+<span class="sig-name descname"><span class="pre">family</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#scapy.utils6.Net6.family" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.utils6.Net6.int2ip">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">int2ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L930-L936"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.Net6.int2ip" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.utils6.Net6.ip2int">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ip2int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L922-L928"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.Net6.ip2int" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.utils6.Net6.max_mask">
+<span class="sig-name descname"><span class="pre">max_mask</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">128</span></span><a class="headerlink" href="#scapy.utils6.Net6.max_mask" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.utils6.Net6.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Net6'</span></span><a class="headerlink" href="#scapy.utils6.Net6.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.construct_source_candidate_set">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">construct_source_candidate_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laddr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L41-L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.construct_source_candidate_set" title="Link to this definition"></a></dt>
+<dd><p>Given all addresses assigned to a specific interface (‘laddr’ parameter),
+this function returns the “candidate set” associated with ‘addr/plen’.</p>
+<p>Basically, the function filters all interface addresses to keep only those
+that have the same scope as provided prefix.</p>
+<p>This is on this list of addresses that the source selection mechanism
+will then be performed to select the best source address associated
+with some specific destination that uses this prefix.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.get_source_addr_from_candidate_set">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">get_source_addr_from_candidate_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L100-L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.get_source_addr_from_candidate_set" title="Link to this definition"></a></dt>
+<dd><p>This function implement a limited version of source address selection
+algorithm defined in section 5 of RFC 3484. The format is very different
+from that described in the document because it operates on a set
+of candidate source address for some specific route.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_6to4ExtractAddr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_6to4ExtractAddr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L390-L402"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_6to4ExtractAddr" title="Link to this definition"></a></dt>
+<dd><p>Extract IPv4 address embedded in 6to4 address. Passed address must be
+a 6to4 address. None is returned on error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_addrtomac">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_addrtomac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L272-L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_addrtomac" title="Link to this definition"></a></dt>
+<dd><p>Extract the mac address from provided address. None is returned
+on error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_addrtovendor">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_addrtovendor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L284-L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_addrtovendor" title="Link to this definition"></a></dt>
+<dd><p>Extract the MAC address from a modified EUI-64 constructed IPv6
+address provided and use the IANA oui.txt file to get the vendor.
+The database used for the conversion is the one loaded by Scapy
+from a Wireshark installation if discovered in a well-known
+location. None is returned on error, “UNKNOWN” if the vendor is
+unknown.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_and">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_and</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L608-L615"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_and" title="Link to this definition"></a></dt>
+<dd><p>Provides a bit to bit AND of provided addresses. They must be
+passed in network format. Return value is also an IPv6 address
+in network format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_cidr2mask">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_cidr2mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L628-L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_cidr2mask" title="Link to this definition"></a></dt>
+<dd><p>Return the mask (bitstring) associated with provided length
+value. For instance if function is called on 48, return value is
+b’ÿÿÿÿÿÿ'.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ctop">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ctop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L478-L497"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ctop" title="Link to this definition"></a></dt>
+<dd><p>Convert an IPv6 address in Compact Representation Notation
+(RFC 1924) to printable representation ;-)
+Returns None on error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_get6to4Prefix">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_get6to4Prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L376-L387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_get6to4Prefix" title="Link to this definition"></a></dt>
+<dd><p>Returns the /48 6to4 prefix associated with provided IPv4 address
+On error, None is returned. No check is performed on public/private
+status of the address</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getAddrType">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getAddrType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L188-L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getAddrType" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getLinkScopedMcastAddr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getLinkScopedMcastAddr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grpid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L305-L373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getLinkScopedMcastAddr" title="Link to this definition"></a></dt>
+<dd><p>Generate a Link-Scoped Multicast Address as described in RFC 4489.
+Returned value is in printable notation.</p>
+<p>‘addr’ parameter specifies the link-local address to use for generating
+Link-scoped multicast address IID.</p>
+<p>By default, the function returns a ::/96 prefix (aka last 32 bits of
+returned address are null). If a group id is provided through ‘grpid’
+parameter, last 32 bits of the address are set to that value (accepted
+formats : b’4Vx’ or ‘12345678’ or 0x12345678 or 305419896).</p>
+<p>By default, generated address scope is Link-Local (2). That value can
+be modified by passing a specific ‘scope’ value as an argument of the
+function. RFC 4489 only authorizes scope values &lt;= 2. Enforcement
+is performed by the function (None will be returned).</p>
+<p>If no link-local address can be used to generate the Link-Scoped IPv6
+Multicast address, or if another error occurs, None is returned.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getLocalUniquePrefix">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getLocalUniquePrefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L405-L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getLocalUniquePrefix" title="Link to this definition"></a></dt>
+<dd><p>Returns a pseudo-randomly generated Local Unique prefix. Function
+follows recommendation of Section 3.2.2 of RFC 4193 for prefix
+generation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getRandomizedIfaceId">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getRandomizedIfaceId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifaceid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L435-L467"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getRandomizedIfaceId" title="Link to this definition"></a></dt>
+<dd><p>Implements the interface ID generation algorithm described in RFC 3041.
+The function takes the Modified EUI-64 interface identifier generated
+as described in RFC 4291 and an optional previous history value (the
+first element of the output of this function). If no previous interface
+identifier is provided, a random one is generated. The function returns
+a tuple containing the randomized interface identifier and the history
+value (for possible future use). Input and output values are provided in
+a “printable” format as depicted below.</p>
+<dl>
+<dt>ex::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">in6_getRandomizedIfaceId</span><span class="p">(</span><span class="s1">'20b:93ff:feeb:2d3'</span><span class="p">)</span>
+<span class="go">('4c61:76ff:f46a:a5f3', 'd006:d540:db11:b092')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">in6_getRandomizedIfaceId</span><span class="p">(</span><span class="s1">'20b:93ff:feeb:2d3'</span><span class="p">,</span>
+<span class="go">                             previous='d006:d540:db11:b092')</span>
+<span class="go">('fe97:46fe:9871:bd38', 'eeed:d79c:2e3f:62e')</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_get_common_plen">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_get_common_plen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L882-L901"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_get_common_plen" title="Link to this definition"></a></dt>
+<dd><p>Return common prefix length of IPv6 addresses a and b.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getha">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L689-L697"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getha" title="Link to this definition"></a></dt>
+<dd><p>Return the anycast address associated with all home agents on a given
+subnet.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getnsma">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getnsma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L663-L673"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getnsma" title="Link to this definition"></a></dt>
+<dd><p>Return link-local solicited-node multicast address for given
+address. Passed address must be provided in network format.
+Returned value is also in network format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getnsmac">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getnsmac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L676-L686"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getnsmac" title="Link to this definition"></a></dt>
+<dd><p>Return the multicast mac address associated with provided
+IPv6 address. Passed address must be in network format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_getscope">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_getscope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L853-L879"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_getscope" title="Link to this definition"></a></dt>
+<dd><p>Returns the scope of the address.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ifaceidtomac">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ifaceidtomac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifaceid_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L244-L269"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ifaceidtomac" title="Link to this definition"></a></dt>
+<dd><p>Extract the mac address from provided iface ID. Iface ID is provided
+in printable format (“XXXX:XXFF:FEXX:XXXX”, eventually compressed). None
+is returned on error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isaddr6to4">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isaddr6to4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L523-L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isaddr6to4" title="Link to this definition"></a></dt>
+<dd><p>Return True if provided address (in printable format) is a 6to4
+address (being in 2002::/16).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isaddrTeredo">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isaddrTeredo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L537-L547"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isaddrTeredo" title="Link to this definition"></a></dt>
+<dd><p>Return True if provided address is a Teredo, meaning it is under
+the /32 conf.teredoPrefix prefix value (by default, 2001::).
+Otherwise, False is returned. Address must be passed in printable
+format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isaddrllallnodes">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isaddrllallnodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L833-L840"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isaddrllallnodes" title="Link to this definition"></a></dt>
+<dd><p>Returns True if address is the link-local all-nodes multicast
+address (ff02::1).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isaddrllallservers">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isaddrllallservers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L843-L850"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isaddrllallservers" title="Link to this definition"></a></dt>
+<dd><p>Returns True if address is the link-local all-servers multicast
+address (ff02::2).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isanycast">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isanycast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L579-L595"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isanycast" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isdocaddr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isdocaddr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L732-L739"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isdocaddr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if provided address in printable format belongs to
+2001:db8::/32 address space reserved for documentation (as defined
+in RFC 3849).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_iseui64">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_iseui64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L566-L576"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_iseui64" title="Link to this definition"></a></dt>
+<dd><p>Return True if provided address has an interface identifier part
+created in modified EUI-64 format (meaning it matches <code class="docutils literal notranslate"><span class="pre">*::*:*ff:fe*:*</span></code>).
+Otherwise, False is returned. Address must be passed in printable
+format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isgladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isgladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L776-L784"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isgladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if provided address in printable format belongs to
+_allocated_ global address space (2000::/3). Please note that,
+Unique Local addresses (FC00::/7) are not part of global address
+space, and won’t match.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isincluded">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isincluded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L709-L717"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isincluded" title="Link to this definition"></a></dt>
+<dd><p>Returns True when ‘addr’ belongs to prefix/plen. False otherwise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_islladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_islladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L742-L748"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_islladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if provided address in printable format belongs to
+_allocated_ link-local unicast address space (fe80::/10)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isllsnmaddr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isllsnmaddr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L720-L729"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isllsnmaddr" title="Link to this definition"></a></dt>
+<dd><p>Return True if provided address is a link-local solicited node
+multicast address, i.e. belongs to ff02::1:ff00:0/104. False is
+returned otherwise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ismaddr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ismaddr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L787-L793"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ismaddr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if provided address in printable format belongs to
+allocated Multicast address space (ff00::/8).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ismgladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ismgladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L805-L811"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ismgladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if address belongs to global multicast address
+space (ff0e::/16).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ismlladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ismlladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L814-L820"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ismlladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if address belongs to link-local multicast address
+space (ff02::/16)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ismnladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ismnladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L796-L802"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ismnladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if address belongs to node-local multicast address
+space (ff01::/16) as defined in RFC</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ismsladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ismsladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L823-L830"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ismsladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if address belongs to site-local multicast address
+space (ff05::/16). Site local address space has been deprecated.
+Function remains for historic reasons.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_issladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_issladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L751-L759"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_issladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if provided address in printable format belongs to
+_allocated_ site-local address space (fec0::/10). This prefix has
+been deprecated, address being now reserved by IANA. Function
+will remain for historic reasons.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isuladdr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isuladdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L762-L768"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isuladdr" title="Link to this definition"></a></dt>
+<dd><p>Returns True if provided address in printable format belongs to
+Unique local address space (fc00::/7).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_isvalid">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_isvalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L904-L913"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_isvalid" title="Link to this definition"></a></dt>
+<dd><p>Return True if ‘address’ is a valid IPv6 address string, False
+otherwise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_mactoifaceid">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_mactoifaceid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mac</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ulbit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L221-L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_mactoifaceid" title="Link to this definition"></a></dt>
+<dd><p>Compute the interface ID in modified EUI-64 format associated
+to the Ethernet address provided as input.
+value taken by U/L bit in the interface identifier is basically
+the reversed value of that in given MAC address it can be forced
+to a specific value by using optional ‘ulbit’ parameter.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_mask2cidr">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_mask2cidr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L647-L660"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_mask2cidr" title="Link to this definition"></a></dt>
+<dd><p>Opposite of in6_cidr2mask</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_or">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_or</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L598-L605"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_or" title="Link to this definition"></a></dt>
+<dd><p>Provides a bit to bit OR of provided addresses. They must be
+passed in network format. Return value is also an IPv6 address
+in network format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ptoc">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ptoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L500-L520"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ptoc" title="Link to this definition"></a></dt>
+<dd><p>Converts an IPv6 address in printable representation to RFC
+1924 Compact Representation ;-)
+Returns None on error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_ptop">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_ptop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L700-L706"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_ptop" title="Link to this definition"></a></dt>
+<dd><p>Normalizes IPv6 addresses provided in printable format, returning the
+same address in printable format. (2001:0db8:0:0::1 -&gt; 2001:db8::1)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.in6_xor">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">in6_xor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L618-L625"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.in6_xor" title="Link to this definition"></a></dt>
+<dd><p>Provides a bit to bit XOR of provided addresses. They must be
+passed in network format. Return value is also an IPv6 address
+in network format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.utils6.teredoAddrExtractInfo">
+<span class="sig-prename descclassname"><span class="pre">scapy.utils6.</span></span><span class="sig-name descname"><span class="pre">teredoAddrExtractInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/utils6.py#L550-L563"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.utils6.teredoAddrExtractInfo" title="Link to this definition"></a></dt>
+<dd><p>Extract information from a Teredo address. Return value is
+a 4-tuple made of IPv4 address of Teredo server, flag value (int),
+mapped address (non obfuscated) and mapped port (non obfuscated).
+No specific checks are performed on passed address.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.utils.html" class="btn btn-neutral float-left" title="scapy.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.volatile.html" class="btn btn-neutral float-right" title="scapy.volatile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

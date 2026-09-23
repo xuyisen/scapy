@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[MS-DCOM] &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title=".NET Protocols" href="dotnet.html" />
+    <link rel="prev" title="DCE/RPC &amp; [MS-RPCE]" href="dcerpc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">[MS-DCOM]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#terminology">Terminology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-behavior-of-a-dcom-client">General behavior of a DCOM client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-dcom-client">Using the DCOM client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-usage">General usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unmarshalling-object-references">Unmarshalling object references</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">[MS-DCOM]</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/dcom.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ms-dcom">
+<h1>[MS-DCOM]<a class="headerlink" href="#ms-dcom" title="Link to this heading"></a></h1>
+<p>DCOM is a mechanism to manipulate COM objects remotely. It is in many ways just an extension over normal DCE/RPC, so understanding DCE/RPC concepts beforehand can be very useful.
+Before reading this, have a look at Scapy’s <a class="reference external" href="dcerpc.html">DCE/RPC</a> documentation page.</p>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>In DCOM one instantiates ‘classes’ to get ‘object references’. A class implements one or several ‘interfaces’, each of which has methods.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLSID</span></code>: the UIID of a <strong>class</strong>, used to instantiate it. This is typically chosen by whoever implements the COM object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IID</span></code>: the UIID of an <strong>interface</strong>, used to request an IPID. This is chosen by whoever defines the COM interface (mostly Microsoft).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IPID</span></code>: a UIID that uniquely references an <strong>interface on an object</strong>. This allows to tell DCOM on which object to run the request we send.</p></li>
+</ul>
+<p>There are other IDs such as the OID (a 64bit number that uniquely references each object), and the OXID (a 64bit number that uniquely references each object exporter), but we won’t get into the details.</p>
+<p>Per the spec, a DCOM client is supposed to keep track of the IPID, OID and OXID ids. In this regard, Scapy abstracts their usage.
+On the other hand, the calling application is supposed to know the <code class="docutils literal notranslate"><span class="pre">CLSID</span></code> of the class it wishes to instantiate, and the various <code class="docutils literal notranslate"><span class="pre">IID</span></code> of the interfaces it wishes to use.</p>
+</section>
+<section id="general-behavior-of-a-dcom-client">
+<h2>General behavior of a DCOM client<a class="headerlink" href="#general-behavior-of-a-dcom-client" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Setup the DCOM client (endpoint, SSP, etc.)</p></li>
+<li><p>Get an object reference: Instantiate a class to get an object reference of the instance (<code class="docutils literal notranslate"><span class="pre">RemoteCreateInstance</span></code>), <strong>OR</strong>, get an object reference towards the class itself (<code class="docutils literal notranslate"><span class="pre">RemoteGetClassObject</span></code>).</p></li>
+<li><p>Acquire the IPID of an interface of the object.</p></li>
+<li><p>Call a method of that interface.</p></li>
+<li><p>Release the reference counts on the interface (delete the IPID).</p></li>
+</ol>
+<p>Step 3 can be done manually through the <code class="docutils literal notranslate"><span class="pre">AcquireInterface()</span></code> method, but Scapy will also automatically call it if you try to use an interface that you haven’t acquired on an object.</p>
+</section>
+<section id="using-the-dcom-client">
+<h2>Using the DCOM client<a class="headerlink" href="#using-the-dcom-client" title="Link to this heading"></a></h2>
+<section id="general-usage">
+<h3>General usage<a class="headerlink" href="#general-usage" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Setup the DCOM client and connect to the object resolver (which is by default on port 135).</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.msdcom</span><span class="w"> </span><span class="kn">import</span> <span class="n">DCOM_Client</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="n">NTLMSSP</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">DCOM_Client</span><span class="p">(</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Scapy1111@"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the examples in <a class="reference external" href="dcerpc.html">DCE/RPC</a> to connect with SPNEGO/Kerberos.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Instantiate a class to get an object reference</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_com_interface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.raw.ms_pla</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetDataCollectorSets_Request</span>
+
+<span class="n">CLSID_TraceSessionCollection</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="s2">"03837530-098b-11d8-9414-505054503030"</span><span class="p">)</span>
+<span class="c1"># The COM interface must have been compiled by scapy-rpc (midl-to-scapy)</span>
+<span class="n">IDataCollectorSetCollection</span> <span class="o">=</span> <span class="n">find_com_interface</span><span class="p">(</span><span class="s2">"IDataCollectorSetCollection"</span><span class="p">)</span>
+
+<span class="c1"># Get new object reference</span>
+<span class="n">objref</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">RemoteCreateInstance</span><span class="p">(</span>
+    <span class="c1"># The CLSID we're instantiating</span>
+    <span class="n">clsid</span><span class="o">=</span><span class="n">CLSID_TraceSessionCollection</span><span class="p">,</span>
+    <span class="n">iids</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># An initial list of interfaces to ask for. There must be at least 1.</span>
+        <span class="n">IDataCollectorSetCollection</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Call a method on that object reference</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">objref</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span>
+    <span class="c1"># The request message (here from [MS-PLA])</span>
+    <span class="n">pkt</span><span class="o">=</span><span class="n">GetDataCollectorSets_Request</span><span class="p">(</span>
+        <span class="n">server</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="nb">filter</span><span class="o">=</span><span class="n">NDRPointer</span><span class="p">(</span>
+            <span class="n">referent_id</span><span class="o">=</span><span class="mh">0x72657355</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">FLAGGED_WORD_BLOB</span><span class="p">(</span>
+                <span class="n">cBytes</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+                <span class="n">asData</span><span class="o">=</span><span class="sa">r</span><span class="s2">"session\*"</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-16le"</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="c1"># The interface to send it on</span>
+    <span class="n">iface</span><span class="o">=</span><span class="n">IDataCollectorSetCollection</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Release all the requested interfaces on the object reference</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">objref</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Close the client</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="unmarshalling-object-references">
+<h3>Unmarshalling object references<a class="headerlink" href="#unmarshalling-object-references" title="Link to this heading"></a></h3>
+<p>Some methods return a reference to an object that is created by the remote server. On the network,
+those are typically marshalled as a <code class="docutils literal notranslate"><span class="pre">MInterfacePointer</span></code> structure. Such a structure can be “unmarshalled” into a local object reference that can be used in Scapy to call methods on that object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For instance, let's assume we're calling Next() of the IEnumVARIANT</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">enum</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span>
+    <span class="n">pkt</span><span class="o">=</span><span class="n">Next_Request</span><span class="p">(</span><span class="n">celt</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">iface</span><span class="o">=</span><span class="n">IEnumVARIANT</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Get the MInterfacePointer value</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"rgVar"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"_varUnion"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">MInterfacePointer</span><span class="p">)</span>
+
+<span class="c1"># Unmarshall it and acquire an initial interface on it.</span>
+<span class="n">objref</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">UnmarshallObjectReference</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">,</span>
+    <span class="n">iid</span><span class="o">=</span><span class="n">IDataCollectorSet</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dcerpc.html" class="btn btn-neutral float-left" title="DCE/RPC &amp; [MS-RPCE]" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dotnet.html" class="btn btn-neutral float-right" title=".NET Protocols" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

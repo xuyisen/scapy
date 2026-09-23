@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bluetooth &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DCE/RPC &amp; [MS-RPCE]" href="dcerpc.html" />
+    <link rel="prev" title="Automotive-specific Documentation" href="automotive.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Bluetooth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-bluetooth">What is Bluetooth?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bluetooth-sockets-af-bluetooth">Bluetooth sockets (<code class="docutils literal notranslate"><span class="pre">AF_BLUETOOTH</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bluetooth-on-linux">Bluetooth on Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#first-steps">First steps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#verify-bluetooth-device">Verify Bluetooth device</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opening-a-hci-socket">Opening a HCI socket</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#send-a-control-packet">Send a control packet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#receiving-all-events">Receiving all events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importing-and-exporting-packets">Importing and exporting packets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-bluetooth-low-energy">Working with Bluetooth Low Energy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#discovering-nearby-devices">Discovering nearby devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-up-advertising">Setting up advertising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#starting-advertising">Starting advertising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stopping-advertising">Stopping advertising</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resources-and-references">Resources and references</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apple-ibeacon-broadcast-frames">Apple/iBeacon broadcast frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-nordic-semiconductor-s-nrf-sniffer">Using Nordic Semiconductor’s nRF Sniffer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">Bluetooth</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/bluetooth.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bluetooth">
+<h1>Bluetooth<a class="headerlink" href="#bluetooth" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re new to using Scapy, start with the <a class="reference internal" href="../usage.html"><span class="doc">usage documentation</span></a>, which describes how to use Scapy with Ethernet and IP.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Scapy does not support Bluetooth interfaces on Windows.</p>
+</div>
+<section id="what-is-bluetooth">
+<h2>What is Bluetooth?<a class="headerlink" href="#what-is-bluetooth" title="Link to this heading"></a></h2>
+<p>Bluetooth is a short range, mostly point-to-point wireless communication
+protocol that operates on the 2.4GHz <a class="reference external" href="https://en.wikipedia.org/wiki/ISM_band">ISM band</a>.</p>
+<p><a class="reference external" href="https://www.bluetooth.com/specifications/bluetooth-core-specification">Bluetooth standards are publicly available</a> from the <a class="reference external" href="https://www.bluetooth.com/">Bluetooth Special
+Interest Group.</a></p>
+<p>Broadly speaking, Bluetooth has <em>three</em> distinct physical-layer protocols:</p>
+<dl>
+<dt>Bluetooth Basic Rate (BR) and Enhanced Data Rate (EDR)</dt><dd><p>These are the “classic” Bluetooth physical layers.</p>
+<p><abbr title="Basic Rate">BR</abbr> reaches effective speeds of up to 721kbit/s. This was
+ratified as <code class="docutils literal notranslate"><span class="pre">IEEE</span> <span class="pre">802.15.1-2002</span></code> (v1.1) and <code class="docutils literal notranslate"><span class="pre">-2005</span></code> (v1.2).</p>
+<p><abbr title="Enhanced Data Rate">EDR</abbr> was introduced as an optional feature of
+Bluetooth 2.0 (2004). It can reach effective speeds of 2.1Mbit/s, and has
+lower power consumption than BR.</p>
+<p>In Bluetooth 4.0 and later, this is not supported by <em>Low Energy</em> interfaces,
+unless they are marked as <em>dual-mode</em>.</p>
+</dd>
+<dt>Bluetooth High Speed (HS)</dt><dd><p>Introduced as an optional feature of Bluetooth 3.0 (2009), this extends
+Bluetooth by providing <code class="docutils literal notranslate"><span class="pre">IEEE</span> <span class="pre">802.11</span></code> (WiFi) as an alternative, higher-speed
+data transport. Nodes negotiate switching with
+<abbr title="Alternative MAC/PHY">AMP</abbr>.</p>
+<p>This is only supported by Bluetooth interfaces marked as <em>+HS</em>. Not all
+Bluetooth 3.0 and later interfaces support it.</p>
+</dd>
+<dt>Bluetooth Low Energy (BLE)</dt><dd><p>Introduced in Bluetooth 4.0   (2010), this is an alternate physical layer
+designed for low power, embedded systems. It has shorter setup times, lower
+data rates and smaller <abbr title="maximum transmission unit">MTU</abbr> sizes.  It adds
+broadcast and mesh network topologies, in addition to point-to-point links.</p>
+<p>This is only supported by Bluetooth interface marked as <em>+LE</em> or
+<em>Low Energy</em> – not all Bluetooth 4.0 and later interfaces support it.</p>
+</dd>
+</dl>
+<p>Most Bluetooth interfaces on PCs use USB connectivity (even on laptops), and
+this is controlled with the Host-Controller Interface (HCI).  This typically
+doesn’t support promiscuous mode (sniffing), however there are many other
+dedicated, non-HCI devices that support it.</p>
+<section id="bluetooth-sockets-af-bluetooth">
+<h3>Bluetooth sockets (<code class="docutils literal notranslate"><span class="pre">AF_BLUETOOTH</span></code>)<a class="headerlink" href="#bluetooth-sockets-af-bluetooth" title="Link to this heading"></a></h3>
+<p>There are multiple protocols available for Bluetooth through <code class="docutils literal notranslate"><span class="pre">AF_BLUETOOTH</span></code>
+sockets:</p>
+<dl>
+<dt>Host-controller interface (HCI) <code class="docutils literal notranslate"><span class="pre">BTPROTO_HCI</span></code></dt><dd><p>This is the “base” level interface for communicating with a Bluetooth
+controller.  Everything is built on top of this, and this represents about as
+close to the physical layer as one can get with regular Bluetooth hardware.</p>
+<p>Scapy class: <code class="docutils literal notranslate"><span class="pre">BluetoothMonitorSocket</span></code></p>
+<p>Allows to capture all HCI transactions that are taking place over all HCI
+interfaces (including in BlueZ core). It is intended to perform monitoring of
+transactions, device attachment and removal, BlueZ logging…</p>
+<p>Scapy class: <code class="docutils literal notranslate"><span class="pre">BluetoothUserSocket</span></code></p>
+<p>This socket interacts with a Bluetooth controller with complete and exclusive
+control of de device. This means that BlueZ will not try to take control of
+the interface and will not help you manage connections via this interface.</p>
+<p>Scapy class: <code class="docutils literal notranslate"><span class="pre">BluetoothHCISocket</span></code></p>
+<p>Using HCI protocol, this socket interacts with a Bluetooth controller but
+does not have exclusive control over it, allowing BlueZ and other
+applications to still use the adapter to communicate with devices.</p>
+</dd>
+<dt>Logical Link Control and Adaptation Layer Protocol (L2CAP) <code class="docutils literal notranslate"><span class="pre">BTPROTO_L2CAP</span></code></dt><dd><p>Scapy class: <code class="docutils literal notranslate"><span class="pre">BluetoothL2CAPSocket</span></code></p>
+<p>Sitting above the HCI, it provides connection and connection-less data
+transport to higher level protocols. It provides protocol multiplexing, packet
+segmentation and reassembly operations.</p>
+<p>When communicating with a single device, one may use a L2CAP channel.</p>
+</dd>
+<dt>RFCOMM <code class="docutils literal notranslate"><span class="pre">BluetoothRFCommSocket</span></code></dt><dd><p>Scapy class: <code class="docutils literal notranslate"><span class="pre">BluetoothRFCommSocket</span></code></p>
+<p>RFCOMM is a serial port emulation protocol which operates over L2CAP.</p>
+<p>In addition to regular data transfer, it also supports manipulation of all of
+RS-232’s non-data control circuitry (<abbr title="Request To Send">RTS</abbr>,
+<abbr title="Data Terminal Ready">DTR</abbr>, etc.)</p>
+</dd>
+</dl>
+</section>
+<section id="bluetooth-on-linux">
+<h3>Bluetooth on Linux<a class="headerlink" href="#bluetooth-on-linux" title="Link to this heading"></a></h3>
+<p>Linux’s Bluetooth stack is developed by <a class="reference external" href="http://www.bluez.org/">the BlueZ project</a>. <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth.git">The Linux kernel
+contains drivers to provide access to Bluetooth</a> interfaces using HCI, which
+are exposed through sockets with <code class="docutils literal notranslate"><span class="pre">AF_BLUETOOTH</span></code>.</p>
+<p>BlueZ also provides a user-space companion to these kernel interfaces. The key
+components are:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">bluetoothd</span></code></dt><dd><p>A daemon that provides access to Bluetooth devices over D-Bus.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">bluetoothctl</span></code></dt><dd><p>An interactive command-line program which interfaces with the <code class="docutils literal notranslate"><span class="pre">bluetoothd</span></code>
+over D-Bus.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">hcitool</span></code></dt><dd><p>A command-line program which interfaces directly with kernel interfaces.</p>
+</dd>
+</dl>
+<p><a class="reference external" href="http://www.bluez.org/profiles/">Support for Classic Bluetooth in bluez is quite mature</a>, however <a class="reference external" href="https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/TODO">BLE is
+under active development</a>.</p>
+</section>
+</section>
+<section id="first-steps">
+<h2>First steps<a class="headerlink" href="#first-steps" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must run these examples as <code class="docutils literal notranslate"><span class="pre">root</span></code>.  These have only been tested on
+Linux, and require Scapy v2.4.3 or later.</p>
+</div>
+<section id="verify-bluetooth-device">
+<h3>Verify Bluetooth device<a class="headerlink" href="#verify-bluetooth-device" title="Link to this heading"></a></h3>
+<p>Before doing anything else, you’ll want to check that your Bluetooth device has
+actually been detected by the operating system:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>hcitool<span class="w"> </span>dev
+<span class="go">Devices:</span>
+<span class="go">        hci0 xx:xx:xx:xx:xx:xx</span>
+</pre></div>
+</div>
+</section>
+<section id="opening-a-hci-socket">
+<span id="hci-open"></span><h3>Opening a HCI socket<a class="headerlink" href="#opening-a-hci-socket" title="Link to this heading"></a></h3>
+<p>The first step in Scapy is to open a HCI socket to the underlying Bluetooth
+device:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Open a HCI socket to device hci0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bt</span> <span class="o">=</span> <span class="n">BluetoothHCISocket</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="send-a-control-packet">
+<h3>Send a control packet<a class="headerlink" href="#send-a-control-packet" title="Link to this heading"></a></h3>
+<p>This packet contains no operation (ie: it does nothing), but it will test that
+you can communicate through the HCI device:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ans</span><span class="p">,</span> <span class="n">unans</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span><span class="n">HCI_Hdr</span><span class="p">()</span><span class="o">/</span><span class="n">HCI_Command_Hdr</span><span class="p">())</span>
+<span class="go">Received 1 packets, got 1 answers, remaining 0 packets</span>
+</pre></div>
+</div>
+<p>You can then inspect the response:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># ans[0] = Answered packet #0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># ans[0][1] = The response packet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">###[ HCI header ]###</span>
+<span class="go">  type= Event</span>
+<span class="go">###[ HCI Event header ]###</span>
+<span class="go">     code= 0xf</span>
+<span class="go">     len= 4</span>
+<span class="go">###[ Command Status ]###</span>
+<span class="go">        status= 1</span>
+<span class="go">        number= 2</span>
+<span class="go">        opcode= 0x0</span>
+</pre></div>
+</div>
+</section>
+<section id="receiving-all-events">
+<h3>Receiving all events<a class="headerlink" href="#receiving-all-events" title="Link to this heading"></a></h3>
+<p>To start capturing all events from the HCI device, use <code class="docutils literal notranslate"><span class="pre">sniff</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">sniff</span><span class="p">()</span>
+<span class="go">(press ^C after a few seconds to stop...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span>
+<span class="go">&lt;Sniffed: TCP:0 UDP:0 ICMP:0 Other:0&gt;</span>
+</pre></div>
+</div>
+<p>Unless your computer is doing something else with Bluetooth, you’ll probably get
+0 packets at this point. This is because <code class="docutils literal notranslate"><span class="pre">sniff</span></code> doesn’t actually enable any
+promiscuous mode on the device.</p>
+<p>However, this is useful for some other commands that will be explained later on.</p>
+</section>
+<section id="importing-and-exporting-packets">
+<h3>Importing and exporting packets<a class="headerlink" href="#importing-and-exporting-packets" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../usage.html#import-export"><span class="std std-ref">Just like with other protocols</span></a>, you can save packets for
+future use in <code class="docutils literal notranslate"><span class="pre">libpcap</span></code> format with <code class="docutils literal notranslate"><span class="pre">wrpcap</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrpcap</span><span class="p">(</span><span class="s2">"/tmp/bluetooth.pcap"</span><span class="p">,</span> <span class="n">pkts</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And load them up again with <code class="docutils literal notranslate"><span class="pre">rdpcap</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span> <span class="o">=</span> <span class="n">rdpcap</span><span class="p">(</span><span class="s2">"/tmp/bluetooth.pcap"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="working-with-bluetooth-low-energy">
+<h2>Working with Bluetooth Low Energy<a class="headerlink" href="#working-with-bluetooth-low-energy" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This requires a Bluetooth 4.0 or later interface that supports
+<abbr title="Bluetooth Low Energy">BLE</abbr>, either as a dedicated
+<abbr title="Low Energy">LE</abbr> chipset or a <em>dual-mode</em> LE +
+<abbr title="Basic Rate">BR</abbr>/<abbr title="Enhanced Data Rate">EDR</abbr> chipset (such as an
+<a class="reference external" href="https://www.realtek.com/en/products/communications-network-ics/item/rtl8723bu">RTL8723BU</a>).</p>
+<p>These instructions only been tested on Linux, and require Scapy v2.4.3 or
+later. There are bugs in earlier versions which decode packets incorrectly.</p>
+</div>
+<p>These examples presume you have already <a class="reference internal" href="#hci-open"><span class="std std-ref">opened a HCI socket</span></a>
+(as <code class="docutils literal notranslate"><span class="pre">bt</span></code>).</p>
+<section id="discovering-nearby-devices">
+<h3>Discovering nearby devices<a class="headerlink" href="#discovering-nearby-devices" title="Link to this heading"></a></h3>
+<section id="enabling-discovery-mode">
+<h4>Enabling discovery mode<a class="headerlink" href="#enabling-discovery-mode" title="Link to this heading"></a></h4>
+<p>Start active discovery mode with:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># type=1: Active scanning mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span>
+<span class="gp">... </span>  <span class="n">HCI_Hdr</span><span class="p">()</span><span class="o">/</span>
+<span class="gp">... </span>  <span class="n">HCI_Command_Hdr</span><span class="p">()</span><span class="o">/</span>
+<span class="gp">... </span>  <span class="n">HCI_Cmd_LE_Set_Scan_Parameters</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="go">Received 1 packets, got 1 answers, remaining 0 packets</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># filter_dups=False: Show duplicate advertising reports, because these</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># sometimes contain different data!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span>
+<span class="gp">... </span>  <span class="n">HCI_Hdr</span><span class="p">()</span><span class="o">/</span>
+<span class="gp">... </span>  <span class="n">HCI_Command_Hdr</span><span class="p">()</span><span class="o">/</span>
+<span class="gp">... </span>  <span class="n">HCI_Cmd_LE_Set_Scan_Enable</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">filter_dups</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">Received 1 packets, got 1 answers, remaining 0 packets</span>
+</pre></div>
+</div>
+<p>In the background, there are already HCI events waiting on the socket. You can
+grab these events with <code class="docutils literal notranslate"><span class="pre">sniff</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># The lfilter will drop anything that's not an advertising report.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adverts</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">sniff</span><span class="p">(</span><span class="n">lfilter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">HCI_LE_Meta_Advertising_Reports</span> <span class="ow">in</span> <span class="n">p</span><span class="p">)</span>
+<span class="go">(press ^C after a few seconds to stop...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adverts</span>
+<span class="go">&lt;Sniffed: TCP:0 UDP:0 ICMP:0 Other:101&gt;</span>
+</pre></div>
+</div>
+<p>Once you have the packets, disable discovery mode with:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span>
+<span class="gp">... </span>  <span class="n">HCI_Hdr</span><span class="p">()</span><span class="o">/</span>
+<span class="gp">... </span>  <span class="n">HCI_Command_Hdr</span><span class="p">()</span><span class="o">/</span>
+<span class="gp">... </span>  <span class="n">HCI_Cmd_LE_Set_Scan_Enable</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">Begin emission:</span>
+<span class="go">Finished sending 1 packets.</span>
+<span class="go">...*</span>
+<span class="go">Received 4 packets, got 1 answers, remaining 0 packets</span>
+<span class="go">(&lt;Results: TCP:0 UDP:0 ICMP:0 Other:1&gt;, &lt;Unanswered: TCP:0 UDP:0 ICMP:0 Other:0&gt;)</span>
+</pre></div>
+</div>
+</section>
+<section id="collecting-advertising-reports">
+<h4>Collecting advertising reports<a class="headerlink" href="#collecting-advertising-reports" title="Link to this heading"></a></h4>
+<p>You can sometimes get multiple <code class="docutils literal notranslate"><span class="pre">HCI_LE_Meta_Advertising_Report</span></code> in a single
+<code class="docutils literal notranslate"><span class="pre">HCI_LE_Meta_Advertising_Reports</span></code>, and these can also be for different
+devices!</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rearrange into a generator that returns reports sequentially</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">chain</span>
+<span class="n">reports</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+  <span class="n">p</span><span class="p">[</span><span class="n">HCI_LE_Meta_Advertising_Reports</span><span class="p">]</span><span class="o">.</span><span class="n">reports</span>
+  <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">adverts</span><span class="p">)</span>
+
+<span class="c1"># Group reports by MAC address (consumes the reports generator)</span>
+<span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">report</span> <span class="ow">in</span> <span class="n">reports</span><span class="p">:</span>
+  <span class="n">device</span> <span class="o">=</span> <span class="n">devices</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">report</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="n">device</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+
+<span class="c1"># Packet counters</span>
+<span class="n">devices_pkts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">devices</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">devices_pkts</span><span class="p">)</span>
+<span class="c1"># {'xx:xx:xx:xx:xx:xx': 408, 'xx:xx:xx:xx:xx:xx': 2}</span>
+</pre></div>
+</div>
+</section>
+<section id="filtering-advertising-reports">
+<h4>Filtering advertising reports<a class="headerlink" href="#filtering-advertising-reports" title="Link to this heading"></a></h4>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get one packet for each device that broadcasted short UUID 0xfe50 (Google).</span>
+<span class="c1"># Android devices broadcast this pretty much constantly.</span>
+<span class="n">google</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">mac</span><span class="p">,</span> <span class="n">reports</span> <span class="ow">in</span> <span class="n">devices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+  <span class="k">for</span> <span class="n">report</span> <span class="ow">in</span> <span class="n">reports</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">EIR_CompleteList16BitServiceUUIDs</span> <span class="ow">in</span> <span class="n">report</span> <span class="ow">and</span>
+        <span class="mh">0xfe50</span> <span class="ow">in</span> <span class="n">report</span><span class="p">[</span><span class="n">EIR_CompleteList16BitServiceUUIDs</span><span class="p">]</span><span class="o">.</span><span class="n">svc_uuids</span><span class="p">):</span>
+      <span class="n">google</span><span class="p">[</span><span class="n">mac</span><span class="p">]</span> <span class="o">=</span> <span class="n">report</span>
+      <span class="k">break</span>
+
+<span class="c1"># List MAC addresses that sent such a broadcast</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">google</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="c1"># dict_keys(['xx:xx:xx:xx:xx:xx', 'xx:xx:xx:xx:xx:xx'])</span>
+</pre></div>
+</div>
+<p>Look at the first broadcast received:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">mac</span><span class="p">,</span> <span class="n">report</span> <span class="ow">in</span> <span class="n">google</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>  <span class="n">report</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">... </span>  <span class="k">break</span>
+<span class="gp">...</span>
+<span class="go">###[ Advertising Report ]###</span>
+<span class="go">  type= conn_und</span>
+<span class="go">  atype= random</span>
+<span class="go">  addr= xx:xx:xx:xx:xx:xx</span>
+<span class="go">  len= 13</span>
+<span class="go">  \data\</span>
+<span class="go">   |###[ EIR Header ]###</span>
+<span class="go">   |  len= 2</span>
+<span class="go">   |  type= flags</span>
+<span class="go">   |###[ Flags ]###</span>
+<span class="go">   |     flags= general_disc_mode</span>
+<span class="go">   |###[ EIR Header ]###</span>
+<span class="go">   |  len= 3</span>
+<span class="go">   |  type= complete_list_16_bit_svc_uuids</span>
+<span class="go">   |###[ Complete list of 16-bit service UUIDs ]###</span>
+<span class="go">   |     svc_uuids= [0xfe50]</span>
+<span class="go">   |###[ EIR Header ]###</span>
+<span class="go">   |  len= 5</span>
+<span class="go">   |  type= svc_data_16_bit_uuid</span>
+<span class="go">   |###[ EIR Service Data - 16-bit UUID ]###</span>
+<span class="go">   |     svc_uuid= 0xfe50</span>
+<span class="go">   |     data= 'AB'</span>
+<span class="go">  rssi= -96</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setting-up-advertising">
+<h3>Setting up advertising<a class="headerlink" href="#setting-up-advertising" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Changing advertisements may not take effect until advertisements have first
+been <a class="reference internal" href="#le-adv-stop"><span class="std std-ref">stopped</span></a>.</p>
+</div>
+<section id="altbeacon">
+<h4>AltBeacon<a class="headerlink" href="#altbeacon" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://github.com/AltBeacon/spec">AltBeacon</a> is a proximity beacon protocol developed by Radius Networks.  This
+example sets up a virtual AltBeacon:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the contrib module for AltBeacon</span>
+<span class="n">load_contrib</span><span class="p">(</span><span class="s1">'altbeacon'</span><span class="p">)</span>
+
+<span class="n">ab</span> <span class="o">=</span> <span class="n">AltBeacon</span><span class="p">(</span>
+    <span class="n">id1</span><span class="o">=</span><span class="s1">'2f234454-cf6d-4a0f-adf2-f4911ba9ffa6'</span><span class="p">,</span>
+    <span class="n">id2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">id3</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">tx_power</span><span class="o">=-</span><span class="mi">59</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span><span class="n">ab</span><span class="o">.</span><span class="n">build_set_advertising_data</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Once <a class="reference internal" href="#le-adv-start"><span class="std std-ref">advertising has been started</span></a>, the beacon may then be
+detected with <a class="reference external" href="https://github.com/vitas/beaconloc">Beacon Locator</a> (Android).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Beacon Locator v1.2.2 <a class="reference external" href="https://github.com/vitas/beaconloc/issues/32">incorrectly reports the beacon as being an
+iBeacon</a>, but the values are otherwise correct.</p>
+</div>
+</section>
+<section id="eddystone">
+<h4>Eddystone<a class="headerlink" href="#eddystone" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://github.com/google/eddystone/">Eddystone</a> is a proximity beacon protocol developed by Google. This uses an
+Eddystone-specific service data field.</p>
+<p>This example sets up a virtual <a class="reference external" href="https://github.com/google/eddystone/tree/master/eddystone-url">Eddystone URL</a> beacon:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the contrib module for Eddystone</span>
+<span class="n">load_contrib</span><span class="p">(</span><span class="s1">'eddystone'</span><span class="p">)</span>
+
+<span class="c1"># Eddystone_URL.from_url() builds an Eddystone_URL frame for a given URL.</span>
+<span class="c1">#</span>
+<span class="c1"># build_set_advertising_data() wraps an Eddystone_Frame into a</span>
+<span class="c1"># HCI_Cmd_LE_Set_Advertising_Data payload, that can be sent to the BLE</span>
+<span class="c1"># controller.</span>
+<span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span><span class="n">Eddystone_URL</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span>
+  <span class="s1">'https://scapy.net'</span><span class="p">)</span><span class="o">.</span><span class="n">build_set_advertising_data</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Once <a class="reference internal" href="#le-adv-start"><span class="std std-ref">advertising has been started</span></a>, the beacon may then be
+detected with <a class="reference external" href="https://github.com/google/eddystone/tree/master/tools/eddystone-validator">Eddystone Validator</a> or <a class="reference external" href="https://github.com/vitas/beaconloc">Beacon Locator</a> (Android):</p>
+<img alt="../_images/ble_eddystone_url.png" src="../_images/ble_eddystone_url.png" />
+</section>
+<section id="ibeacon">
+<span id="adv-ibeacon"></span><h4>iBeacon<a class="headerlink" href="#ibeacon" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/IBeacon">iBeacon</a> is a proximity beacon protocol developed by Apple, which uses their
+manufacturer-specific data field.  <a class="reference internal" href="#apple-ble"><span class="std std-ref">Apple/iBeacon framing</span></a>
+(below) describes this in more detail.</p>
+<p>This example sets up a virtual iBeacon:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the contrib module for iBeacon</span>
+<span class="n">load_contrib</span><span class="p">(</span><span class="s1">'ibeacon'</span><span class="p">)</span>
+
+<span class="c1"># Beacon data consists of a UUID, and two 16-bit integers: "major" and</span>
+<span class="c1"># "minor".</span>
+<span class="c1">#</span>
+<span class="c1"># iBeacon sits on top of Apple's BLE protocol.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Apple_BLE_Submessage</span><span class="p">()</span><span class="o">/</span><span class="n">IBeacon_Data</span><span class="p">(</span>
+   <span class="n">uuid</span><span class="o">=</span><span class="s1">'fb0b57a2-8228-44cd-913a-94a122ba1206'</span><span class="p">,</span>
+   <span class="n">major</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># build_set_advertising_data() wraps an Apple_BLE_Submessage or</span>
+<span class="c1"># Apple_BLE_Frame into a HCI_Cmd_LE_Set_Advertising_Data payload, that can</span>
+<span class="c1"># be sent to the BLE controller.</span>
+<span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">build_set_advertising_data</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Once <a class="reference internal" href="#le-adv-start"><span class="std std-ref">advertising has been started</span></a>, the beacon may then be
+detected with <a class="reference external" href="https://github.com/vitas/beaconloc">Beacon Locator</a> (Android):</p>
+<img alt="../_images/ble_ibeacon.png" src="../_images/ble_ibeacon.png" />
+</section>
+</section>
+<section id="starting-advertising">
+<span id="le-adv-start"></span><h3>Starting advertising<a class="headerlink" href="#starting-advertising" title="Link to this heading"></a></h3>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span><span class="n">HCI_Hdr</span><span class="p">()</span><span class="o">/</span>
+      <span class="n">HCI_Command_Hdr</span><span class="p">()</span><span class="o">/</span>
+      <span class="n">HCI_Cmd_LE_Set_Advertise_Enable</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="stopping-advertising">
+<span id="le-adv-stop"></span><h3>Stopping advertising<a class="headerlink" href="#stopping-advertising" title="Link to this heading"></a></h3>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">bt</span><span class="o">.</span><span class="n">sr</span><span class="p">(</span><span class="n">HCI_Hdr</span><span class="p">()</span><span class="o">/</span>
+      <span class="n">HCI_Command_Hdr</span><span class="p">()</span><span class="o">/</span>
+      <span class="n">HCI_Cmd_LE_Set_Advertise_Enable</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="resources-and-references">
+<h3>Resources and references<a class="headerlink" href="#resources-and-references" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.bluetooth.com/specifications/assigned-numbers/16-bit-uuids-for-members">16-bit UUIDs for members</a>: List of registered UUIDs which appear in
+<code class="docutils literal notranslate"><span class="pre">EIR_CompleteList16BitServiceUUIDs</span></code> and <code class="docutils literal notranslate"><span class="pre">EIR_ServiceData16BitUUID</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.bluetooth.com/specifications/assigned-numbers/16-bit-uuids-for-sdos">16-bit UUIDs for SDOs</a>: List of registered UUIDs which are used by
+Standards Development Organisations.</p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.bluetooth.com/specifications/assigned-numbers/company-identifiers">Company Identifiers</a>: List of company IDs, which appear in
+<code class="docutils literal notranslate"><span class="pre">EIR_Manufacturer_Specific_Data.company_id</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.bluetooth.com/specifications/assigned-numbers/generic-access-profile">Generic Access Profile</a>: List of assigned type IDs and links to
+specification definitions, which appear in <code class="docutils literal notranslate"><span class="pre">EIR_Header</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="apple-ibeacon-broadcast-frames">
+<span id="apple-ble"></span><h2>Apple/iBeacon broadcast frames<a class="headerlink" href="#apple-ibeacon-broadcast-frames" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This describes the wire format for Apple’s Bluetooth Low Energy
+advertisements, based on (limited) publicly available information. It is not
+specific to using Bluetooth on Apple operating systems.</p>
+</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/IBeacon">iBeacon</a> is Apple’s proximity beacon protocol. Scapy includes a contrib
+module, <code class="docutils literal notranslate"><span class="pre">ibeacon</span></code>, for working with Apple’s <abbr title="Bluetooth Low Energy">BLE</abbr>
+broadcasts:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_contrib</span><span class="p">(</span><span class="s1">'ibeacon'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#adv-ibeacon"><span class="std std-ref">Setting up advertising for iBeacon</span></a> (above) describes how to
+broadcast a simple beacon.</p>
+<p>While this module is called <code class="docutils literal notranslate"><span class="pre">ibeacon</span></code>, Apple has other “submessages” which are
+also advertised within their manufacturer-specific data field, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/AirDrop">AirDrop</a></p></li>
+<li><p>AirPlay</p></li>
+<li><p>AirPods</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/OS_X_Yosemite#Continuity">Handoff</a></p></li>
+<li><p>Nearby</p></li>
+<li><p><a class="reference external" href="https://developer.apple.com/documentation/corebluetooth/cbperipheralmanager/1393252-startadvertising">Overflow area</a></p></li>
+</ul>
+</div></blockquote>
+<p>For compatibility with these other broadcasts, Apple BLE frames in Scapy are
+layered on top of <code class="docutils literal notranslate"><span class="pre">Apple_BLE_Submessage</span></code> and <code class="docutils literal notranslate"><span class="pre">Apple_BLE_Frame</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HCI_Cmd_LE_Set_Advertising_Data</span></code>, <code class="docutils literal notranslate"><span class="pre">HCI_LE_Meta_Advertising_Report</span></code>,
+<code class="docutils literal notranslate"><span class="pre">BTLE_ADV_IND</span></code>, <code class="docutils literal notranslate"><span class="pre">BTLE_ADV_NONCONN_IND</span></code> or <code class="docutils literal notranslate"><span class="pre">BTLE_ADV_SCAN_IND</span></code> contain
+one or more…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EIR_Hdr</span></code>, which may have a payload of one…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EIR_Manufacturer_Specific_Data</span></code>, which may have a payload of one…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Apple_BLE_Frame</span></code>, which contains one or more…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Apple_BLE_Submessage</span></code>, which contains a payload of one…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Raw</span></code> (if not supported), or <code class="docutils literal notranslate"><span class="pre">IBeacon_Data</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>This module only presently supports <code class="docutils literal notranslate"><span class="pre">IBeacon_Data</span></code> submessages. Other
+submessages are decoded as <code class="docutils literal notranslate"><span class="pre">Raw</span></code>.</p>
+<p>One might sometimes see multiple submessages in a single broadcast, such as
+Handoff and Nearby.  This is not mandatory – there are also Handoff-only and
+Nearby-only broadcasts.</p>
+<p>Inspecting a raw BTLE advertisement frame from an Apple device:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">BTLE</span><span class="p">(</span><span class="n">hex_bytes</span><span class="p">(</span><span class="s1">'d6be898e4024320cfb574d5a02011a1aff4c000c0e009c6b8f40440f1583ec895148b410050318c0b525b8f7d4'</span><span class="p">))</span>
+<span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Results in the output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>###[ BT4LE ]###
+  access_addr= 0x8e89bed6
+  crc= 0xb8f7d4
+###[ BTLE advertising header ]###
+     RxAdd= public
+     TxAdd= random
+     RFU= 0
+     PDU_type= ADV_IND
+     unused= 0
+     Length= 0x24
+###[ BTLE ADV_IND ]###
+        AdvA= 5a:4d:57:fb:0c:32
+        \data\
+         |###[ EIR Header ]###
+         |  len= 2
+         |  type= flags
+         |###[ Flags ]###
+         |     flags= general_disc_mode+simul_le_br_edr_ctrl+simul_le_br_edr_host
+         |###[ EIR Header ]###
+         |  len= 26
+         |  type= mfg_specific_data
+         |###[ EIR Manufacturer Specific Data ]###
+         |     company_id= 0x4c
+         |###[ Apple BLE broadcast frame ]###
+         |        \plist\
+         |         |###[ Apple BLE submessage ]###
+         |         |  subtype= handoff
+         |         |  len= 14
+         |         |###[ Raw ]###
+         |         |     load= '\x00\x9ck\x8f@D\x0f\x15\x83\xec\x89QH\xb4'
+         |         |###[ Apple BLE submessage ]###
+         |         |  subtype= nearby
+         |         |  len= 5
+         |         |###[ Raw ]###
+         |         |     load= '\x03\x18\xc0\xb5%'
+</pre></div>
+</div>
+</section>
+<section id="using-nordic-semiconductor-s-nrf-sniffer">
+<h2>Using Nordic Semiconductor’s nRF Sniffer<a class="headerlink" href="#using-nordic-semiconductor-s-nrf-sniffer" title="Link to this heading"></a></h2>
+<p>Since <strong>Scapy &gt;2.5.0</strong>, Scapy supports <a class="reference external" href="https://www.wireshark.org/docs/man-pages/extcap.html">Wireshark’s extcap</a> interfaces.
+You can therefore use your USB nordic bluetooth dongle, provided that you <a class="reference external" href="https://infocenter.nordicsemi.com/topic/ug_sniffer_ble/UG/sniffer_ble/installing_sniffer_plugin.html">have installed</a> the Wireshark module properly.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_contrib</span><span class="p">(</span><span class="s2">"nrf_sniffer"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_extcap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">ifaces</span>
+<span class="go">Source           Index  Name                          Address</span>
+<span class="go">nrf_sniffer_ble  100    nRF Sniffer for Bluetooth LE  /dev/ttyUSB0-None</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sniff</span><span class="p">(</span><span class="n">iface</span><span class="o">=</span><span class="s2">"/dev/ttyUSB0-None"</span><span class="p">,</span> <span class="n">prn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="go">NRFS2_PCAP / NRFS2_Packet / NRF2_Packet_Event / BTLE / BTLE_ADV / BTLE_ADV_IND</span>
+<span class="go">NRFS2_PCAP / NRFS2_Packet / NRF2_Packet_Event / BTLE / BTLE_ADV / BTLE_ADV_IND</span>
+<span class="go">NRFS2_PCAP / NRFS2_Packet / NRF2_Packet_Event / BTLE / BTLE_ADV / BTLE_ADV_IND</span>
+<span class="go">NRFS2_PCAP / NRFS2_Packet / NRF2_Packet_Event / BTLE / BTLE_ADV / BTLE_ADV_NONCONN_IND</span>
+<span class="go">NRFS2_PCAP / NRFS2_Packet / NRF2_Packet_Event / BTLE / BTLE_ADV / BTLE_ADV_NONCONN_IND</span>
+<span class="go">NRFS2_PCAP / NRFS2_Packet / NRF2_Packet_Event / BTLE / BTLE_ADV / BTLE_ADV_IND</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="automotive.html" class="btn btn-neutral float-left" title="Automotive-specific Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dcerpc.html" class="btn btn-neutral float-right" title="DCE/RPC &amp; [MS-RPCE]" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

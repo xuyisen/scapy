@@ -1,0 +1,936 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.asn1.asn1 &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.asn1.ber" href="scapy.asn1.ber.html" />
+    <link rel="prev" title="scapy.asn1 package" href="scapy.asn1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.asn1.asn1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.asn1.ber.html">scapy.asn1.ber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.asn1.mib.html">scapy.asn1.mib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.asn1.html">scapy.asn1 package</a></li>
+      <li class="breadcrumb-item active">scapy.asn1.asn1</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.asn1.asn1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.asn1.asn1">
+<span id="scapy-asn1-asn1"></span><h1>scapy.asn1.asn1<a class="headerlink" href="#module-scapy.asn1.asn1" title="Link to this heading"></a></h1>
+<p>ASN.1 (Abstract Syntax Notation One)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Codec">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1Codec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L124-L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Codec" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.utils.html#scapy.utils.EnumElement" title="scapy.utils.EnumElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnumElement</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Codec.dec">
+<span class="sig-name descname"><span class="pre">dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L129-L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Codec.dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Codec.get_stem">
+<span class="sig-name descname"><span class="pre">get_stem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.Message.type" title="scapy.automaton.Message.type"><span class="pre">type</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L137-L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Codec.get_stem" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Codec.register_stem">
+<span class="sig-name descname"><span class="pre">register_stem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><span class="pre">BERcodec_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L125-L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Codec.register_stem" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Codec.safedec">
+<span class="sig-name descname"><span class="pre">safedec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L133-L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Codec.safedec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Tag">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1Tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional[Dict[ASN1Codec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Type[BERcodec_Object[Any]]]]</span>&#160; <span class="pre">#</span> <span class="pre">noqa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">E501</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L158-L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Tag" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.utils.html#scapy.utils.EnumElement" title="scapy.utils.EnumElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnumElement</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Tag.asn1_object">
+<span class="sig-name descname"><span class="pre">asn1_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L181-L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Tag.asn1_object" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Tag.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scapy.asn1.asn1.ASN1Tag" title="scapy.asn1.asn1.ASN1Tag"><span class="pre">ASN1Tag</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L173-L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Tag.clone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Tag.get_codec">
+<span class="sig-name descname"><span class="pre">get_codec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><span class="pre">BERcodec_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L191-L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Tag.get_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Tag.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codecnum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.asn1.asn1.ASN1Codec" title="scapy.asn1.asn1.ASN1Codec"><span class="pre">ASN1Codec</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><span class="pre">BERcodec_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L187-L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Tag.register" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1Tag.register_asn1_object">
+<span class="sig-name descname"><span class="pre">register_asn1_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asn1obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L177-L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1Tag.register_asn1_object" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BADTAG">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_BADTAG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L412-L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BADTAG" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_force" title="scapy.asn1.asn1.ASN1_force"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_force</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BIT_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_BIT_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L442-L520"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BIT_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<p>ASN1_BIT_STRING values are bit strings like “011101”.
+A zero-bit padded readable string is provided nonetheless,
+which is stored in val_readable</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BIT_STRING.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L495-L504"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BIT_STRING.set" title="Link to this definition"></a></dt>
+<dd><p>Sets bit ‘i’ to value ‘val’ (starting from 0)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BIT_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BIT_STRING[3]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BIT_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BMP_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_BMP_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L710-L727"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BMP_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BMP_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BMP_STRING[30]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BMP_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BOOLEAN">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_BOOLEAN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L433-L439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BOOLEAN" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_INTEGER" title="scapy.asn1.asn1.ASN1_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BOOLEAN.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BOOLEAN[1]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BOOLEAN.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_BadTag_Decoding_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_BadTag_Decoding_Error</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L120-L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_BadTag_Decoding_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Decoding_Error" title="scapy.asn1.asn1.ASN1_Decoding_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Decoding_Error</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_COUNTER32">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_COUNTER32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L749-L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_COUNTER32" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_INTEGER" title="scapy.asn1.asn1.ASN1_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_COUNTER32.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER32[65]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_COUNTER32.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_COUNTER64">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_COUNTER64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L753-L754"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_COUNTER64" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_INTEGER" title="scapy.asn1.asn1.ASN1_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_COUNTER64.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER64[70]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_COUNTER64.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Class</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Class_UNIVERSAL</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Class</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ANY">
+<span class="sig-name descname"><span class="pre">ANY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ANY[0]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ANY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.BIT_STRING">
+<span class="sig-name descname"><span class="pre">BIT_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BIT_STRING[3]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.BIT_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.BMP_STRING">
+<span class="sig-name descname"><span class="pre">BMP_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BMP_STRING[30]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.BMP_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.BOOLEAN">
+<span class="sig-name descname"><span class="pre">BOOLEAN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BOOLEAN[1]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.BOOLEAN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.CHAR_STRING">
+<span class="sig-name descname"><span class="pre">CHAR_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">CHAR_STRING[29]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.CHAR_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.COUNTER32">
+<span class="sig-name descname"><span class="pre">COUNTER32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER32[65]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.COUNTER32" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.COUNTER64">
+<span class="sig-name descname"><span class="pre">COUNTER64</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER64[70]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.COUNTER64" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.EMBEDDED_PDF">
+<span class="sig-name descname"><span class="pre">EMBEDDED_PDF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">EMBEDDED_PDF[11]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.EMBEDDED_PDF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ENUMERATED">
+<span class="sig-name descname"><span class="pre">ENUMERATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ENUMERATED[10]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ENUMERATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ERROR[-3]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.EXTERNAL">
+<span class="sig-name descname"><span class="pre">EXTERNAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">EXTERNAL[8]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.EXTERNAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GAUGE32">
+<span class="sig-name descname"><span class="pre">GAUGE32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GAUGE32[66]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GAUGE32" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GENERALIZED_TIME">
+<span class="sig-name descname"><span class="pre">GENERALIZED_TIME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERALIZED_TIME[24]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GENERALIZED_TIME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GENERAL_STRING">
+<span class="sig-name descname"><span class="pre">GENERAL_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERAL_STRING[27]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GENERAL_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GRAPHIC_STRING">
+<span class="sig-name descname"><span class="pre">GRAPHIC_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GRAPHIC_STRING[25]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.GRAPHIC_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.IA5_STRING">
+<span class="sig-name descname"><span class="pre">IA5_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IA5_STRING[22]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.IA5_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.INTEGER">
+<span class="sig-name descname"><span class="pre">INTEGER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">INTEGER[2]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.INTEGER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.IPADDRESS">
+<span class="sig-name descname"><span class="pre">IPADDRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IPADDRESS[64]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.IPADDRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ISO646_STRING">
+<span class="sig-name descname"><span class="pre">ISO646_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ISO646_STRING[26]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.ISO646_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NONE[-1]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.NONE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.NULL">
+<span class="sig-name descname"><span class="pre">NULL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NULL[5]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.NULL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.NUMERIC_STRING">
+<span class="sig-name descname"><span class="pre">NUMERIC_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NUMERIC_STRING[18]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.NUMERIC_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.OBJECT_DESCRIPTOR">
+<span class="sig-name descname"><span class="pre">OBJECT_DESCRIPTOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">OBJECT_DESCRIPTOR[7]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.OBJECT_DESCRIPTOR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.OID">
+<span class="sig-name descname"><span class="pre">OID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">OID[6]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.OID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.PRINTABLE_STRING">
+<span class="sig-name descname"><span class="pre">PRINTABLE_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PRINTABLE_STRING[19]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.PRINTABLE_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.RAW">
+<span class="sig-name descname"><span class="pre">RAW</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">RAW[-2]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.RAW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.REAL">
+<span class="sig-name descname"><span class="pre">REAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">REAL[9]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.REAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.RELATIVE_OID">
+<span class="sig-name descname"><span class="pre">RELATIVE_OID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">RELATIVE_OID[13]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.RELATIVE_OID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.SEQUENCE">
+<span class="sig-name descname"><span class="pre">SEQUENCE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SEQUENCE[48]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.SEQUENCE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.SET">
+<span class="sig-name descname"><span class="pre">SET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SET[49]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.SET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.STRING">
+<span class="sig-name descname"><span class="pre">STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">STRING[4]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.T61_STRING">
+<span class="sig-name descname"><span class="pre">T61_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">T61_STRING[20]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.T61_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.TIME_TICKS">
+<span class="sig-name descname"><span class="pre">TIME_TICKS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">TIME_TICKS[67]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.TIME_TICKS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.UNIVERSAL_STRING">
+<span class="sig-name descname"><span class="pre">UNIVERSAL_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UNIVERSAL_STRING[28]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.UNIVERSAL_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.UTC_TIME">
+<span class="sig-name descname"><span class="pre">UTC_TIME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTC_TIME[23]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.UTC_TIME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.UTF8_STRING">
+<span class="sig-name descname"><span class="pre">UTF8_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTF8_STRING[12]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.UTF8_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.VIDEOTEX_STRING">
+<span class="sig-name descname"><span class="pre">VIDEOTEX_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">VIDEOTEX_STRING[21]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.VIDEOTEX_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_UNIVERSAL.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNIVERSAL'</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_UNIVERSAL.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_metaclass">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Class_metaclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.automaton.html#scapy.automaton.Message.type" title="scapy.automaton.Message.type"><span class="pre">type</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L200-L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_metaclass" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.utils.html#scapy.utils.Enum_metaclass" title="scapy.utils.Enum_metaclass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum_metaclass</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Class_metaclass.element_class">
+<span class="sig-name descname"><span class="pre">element_class</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L158-L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Class_metaclass.element_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#scapy.asn1.asn1.ASN1Tag" title="scapy.asn1.asn1.ASN1Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1Tag</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Codecs</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.BACnet">
+<span class="sig-name descname"><span class="pre">BACnet</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BACnet[6]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.BACnet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.BER">
+<span class="sig-name descname"><span class="pre">BER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.BER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.CER">
+<span class="sig-name descname"><span class="pre">CER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">CER[4]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.CER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.DER">
+<span class="sig-name descname"><span class="pre">DER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">DER[2]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.DER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.LWER">
+<span class="sig-name descname"><span class="pre">LWER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">LWER[5]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.LWER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.OER">
+<span class="sig-name descname"><span class="pre">OER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">OER[7]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.OER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.PER">
+<span class="sig-name descname"><span class="pre">PER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">PER[3]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.PER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.SER">
+<span class="sig-name descname"><span class="pre">SER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">SER[8]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.SER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs.XER">
+<span class="sig-name descname"><span class="pre">XER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">XER[9]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs.XER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs_metaclass">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Codecs_metaclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L142-L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs_metaclass" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.utils.html#scapy.utils.Enum_metaclass" title="scapy.utils.Enum_metaclass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum_metaclass</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Codecs_metaclass.element_class">
+<span class="sig-name descname"><span class="pre">element_class</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L124-L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Codecs_metaclass.element_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#scapy.asn1.asn1.ASN1Codec" title="scapy.asn1.asn1.ASN1Codec"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1Codec</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_DECODING_ERROR">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_DECODING_ERROR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Exception</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L379-L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_DECODING_ERROR" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ASN1_ERROR</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_DECODING_ERROR.enc">
+<span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L395-L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_DECODING_ERROR.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_DECODING_ERROR.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ERROR[-3]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_DECODING_ERROR.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Decoding_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Decoding_Error</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L116-L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Decoding_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Error" title="scapy.asn1.asn1.ASN1_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Error</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_ENUMERATED">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_ENUMERATED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L550-L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_ENUMERATED" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_INTEGER" title="scapy.asn1.asn1.ASN1_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_ENUMERATED.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ENUMERATED[10]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_ENUMERATED.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Encoding_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Encoding_Error</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L112-L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Encoding_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Error" title="scapy.asn1.asn1.ASN1_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Error</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Error</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L108-L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.error.html#scapy.error.Scapy_Exception" title="scapy.error.Scapy_Exception"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scapy_Exception</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GAUGE32">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_GAUGE32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L757-L758"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GAUGE32" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_INTEGER" title="scapy.asn1.asn1.ASN1_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GAUGE32.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GAUGE32[66]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GAUGE32.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GENERALIZED_TIME">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_GENERALIZED_TIME</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L582-L695"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GENERALIZED_TIME" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<p>Improved version of ASN1_GENERALIZED_TIME, properly handling time zones and
+all string representation formats defined by ASN.1. These are:</p>
+<ol class="arabic simple">
+<li><p>Local time only:                        YYYYMMDDHH[MM[SS[.fff]]]</p></li>
+<li><p>Universal time (UTC time) only:         YYYYMMDDHH[MM[SS[.fff]]]Z</p></li>
+<li><p>Difference between local and UTC times: YYYYMMDDHH[MM[SS[.fff]]]+-HHMM</p></li>
+</ol>
+<p>It also handles ASN1_UTC_TIME, which allows:</p>
+<ol class="arabic simple">
+<li><p>Universal time (UTC time) only:         YYMMDDHHMM[SS[.fff]]Z</p></li>
+<li><p>Difference between local and UTC times: YYMMDDHHMM[SS[.fff]]+-HHMM</p></li>
+</ol>
+<p>Note the differences: Year is only two digits, minutes are not optional and
+there is no milliseconds.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GENERALIZED_TIME.pretty_time">
+<span class="sig-name descname"><span class="pre">pretty_time</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GENERALIZED_TIME.pretty_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GENERALIZED_TIME.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERALIZED_TIME[24]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GENERALIZED_TIME.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GENERAL_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_GENERAL_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L578-L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GENERAL_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_GENERAL_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERAL_STRING[27]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_GENERAL_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_IA5_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_IA5_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L574-L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_IA5_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_IA5_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IA5_STRING[22]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_IA5_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_INTEGER">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_INTEGER</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L416-L430"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_INTEGER" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_INTEGER.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">INTEGER[2]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_INTEGER.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_IPADDRESS">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_IPADDRESS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L745-L746"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_IPADDRESS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_IPADDRESS.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IPADDRESS[64]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_IPADDRESS.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_ISO646_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_ISO646_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L702-L703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_ISO646_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_ISO646_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ISO646_STRING[26]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_ISO646_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_NULL">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_NULL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L527-L532"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_NULL" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_NULL.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NULL[5]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_NULL.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_NUMERIC_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_NUMERIC_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L558-L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_NUMERIC_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_NUMERIC_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NUMERIC_STRING[18]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_NUMERIC_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_OID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_OID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L535-L547"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_OID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_OID.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">OID[6]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_OID.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L302-L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_K</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object.command">
+<span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L357-L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object.command" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object.enc">
+<span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L309-L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lvl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L329-L331"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object.show" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object.strshow">
+<span class="sig-name descname"><span class="pre">strshow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lvl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L325-L327"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object.strshow" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ANY[0]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_Object_metaclass">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_Object_metaclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.automaton.html#scapy.automaton.Message.type" title="scapy.automaton.Message.type"><span class="pre">type</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L281-L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_Object_metaclass" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_PRINTABLE_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_PRINTABLE_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L562-L563"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_PRINTABLE_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_PRINTABLE_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PRINTABLE_STRING[19]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_PRINTABLE_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_SEQUENCE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_SEQUENCE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L730-L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_SEQUENCE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_SEQUENCE.strshow">
+<span class="sig-name descname"><span class="pre">strshow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lvl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L733-L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_SEQUENCE.strshow" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_SEQUENCE.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SEQUENCE[48]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_SEQUENCE.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_SET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_SET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L741-L742"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_SET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_SET.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SET[49]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_SET.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L523-L524"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">STRING[4]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_T61_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_T61_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L566-L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_T61_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_T61_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">T61_STRING[20]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_T61_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_TIME_TICKS">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_TIME_TICKS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L761-L762"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_TIME_TICKS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_INTEGER" title="scapy.asn1.asn1.ASN1_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_TIME_TICKS.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">TIME_TICKS[67]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_TIME_TICKS.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_UNIVERSAL_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_UNIVERSAL_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L706-L707"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_UNIVERSAL_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_UNIVERSAL_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UNIVERSAL_STRING[28]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_UNIVERSAL_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_UTC_TIME">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_UTC_TIME</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L698-L699"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_UTC_TIME" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_GENERALIZED_TIME" title="scapy.asn1.asn1.ASN1_GENERALIZED_TIME"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_GENERALIZED_TIME</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_UTC_TIME.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTC_TIME[23]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_UTC_TIME.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_UTF8_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_UTF8_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L554-L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_UTF8_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_UTF8_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTF8_STRING[12]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_UTF8_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_VIDEOTEX_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_VIDEOTEX_STRING</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L570-L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_VIDEOTEX_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.asn1.ASN1_STRING" title="scapy.asn1.asn1.ASN1_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_VIDEOTEX_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">VIDEOTEX_STRING[21]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_VIDEOTEX_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_force">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">ASN1_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L402-L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_force" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ASN1_ERROR</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_force.enc">
+<span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L405-L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.ASN1_force.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.ASN1_force.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">RAW[-2]&gt;</span></span><a class="headerlink" href="#scapy.asn1.asn1.ASN1_force.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.asn1.RandASN1Object">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.asn1.</span></span><span class="sig-name descname"><span class="pre">RandASN1Object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objlist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/asn1.py#L72-L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.asn1.RandASN1Object" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.volatile.html#scapy.volatile.RandField" title="scapy.volatile.RandField"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandField</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Object[Any]</span></code>]</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.asn1.html" class="btn btn-neutral float-left" title="scapy.asn1 package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.asn1.ber.html" class="btn btn-neutral float-right" title="scapy.asn1.ber" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

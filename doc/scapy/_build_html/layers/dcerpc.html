@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DCE/RPC &amp; [MS-RPCE] &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="[MS-DCOM]" href="dcom.html" />
+    <link rel="prev" title="Bluetooth" href="bluetooth.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DCE/RPC &amp; [MS-RPCE]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage-documentation">Usage documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#terminology">Terminology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndr64-and-endianness">NDR64 and endianness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dissecting">Dissecting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building">Building</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#client">Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server">Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debugging-with-extended-error-information-eerr">Debugging with extended error information (eerr)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#passive-sniffing">Passive sniffing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-custom-packets">Define custom packets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#design-choices">Design choices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">DCE/RPC &amp; [MS-RPCE]</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/dcerpc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dce-rpc-ms-rpce">
+<h1>DCE/RPC &amp; [MS-RPCE]<a class="headerlink" href="#dce-rpc-ms-rpce" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>DCE/RPC per <a class="reference external" href="https://pubs.opengroup.org/onlinepubs/9629399/toc.pdf">DCE/RPC 1.1</a> with the <a class="reference external" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/290c38b1-92fe-4229-91e6-4fc376610c15">[MS-RPCE]</a> additions.</p>
+</div>
+<p>Scapy provides support for dissecting and building Microsoft’s Windows DCE/RPC calls.</p>
+<section id="usage-documentation">
+<h2>Usage documentation<a class="headerlink" href="#usage-documentation" title="Link to this heading"></a></h2>
+<section id="terminology">
+<h3>Terminology<a class="headerlink" href="#terminology" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NDR</span></code> (and <code class="docutils literal notranslate"><span class="pre">NDR64</span></code>) are the transfer syntax used by DCE/RPC, i.e. how objects are marshalled and sent over the network</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IDL</span></code> or Interface Definition Language is “a language for specifying operations (procedures or functions), parameters to these operations, and data types” in context of DCE/RPC</p></li>
+</ul>
+</section>
+<section id="ndr64-and-endianness">
+<h3>NDR64 and endianness<a class="headerlink" href="#ndr64-and-endianness" title="Link to this heading"></a></h3>
+<p>All packets built with NDR extend the <code class="docutils literal notranslate"><span class="pre">NDRPacket</span></code> class, which adds the arguments <code class="docutils literal notranslate"><span class="pre">ndr64</span></code> and <code class="docutils literal notranslate"><span class="pre">ndrendian</span></code>.</p>
+<p>You can therefore specify while dissecting or building packets whether it uses NDR64 or not (<strong>by default: no</strong>), or its endian (<strong>by default: little</strong>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NetrServerReqChallenge_Request</span><span class="p">(</span><span class="sa">b</span><span class="s2">"</span><span class="se">\x00</span><span class="s2">...."</span><span class="p">,</span> <span class="n">ndr64</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ndrendian</span><span class="o">=</span><span class="s2">"big"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dissecting">
+<h3>Dissecting<a class="headerlink" href="#dissecting" title="Link to this heading"></a></h3>
+<p>You can dissect a DCE/RPC packet like any other packet, by calling <code class="docutils literal notranslate"><span class="pre">ThePacketClass(&lt;bytes&gt;)</span></code>. The only difference is, as mentioned above, that there are extra <code class="docutils literal notranslate"><span class="pre">ndr64</span></code> and <code class="docutils literal notranslate"><span class="pre">ndrendian</span></code> arguments.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>DCE/RPC is stateful, and requires the dissector to remember which interface is bound, how (negotiation), etc.
+Scapy therefore provides a <code class="docutils literal notranslate"><span class="pre">DceRpcSession</span></code> session that remembers the context to properly dissect requests and responses.</p>
+</div>
+<p>Here’s an example where a pcap (included in the <code class="docutils literal notranslate"><span class="pre">test/pcaps</span></code> folder) containing a [MS-NRPC] exchange is dissected using Scapy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_layer</span><span class="p">(</span><span class="s2">"msrpce"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bind_layers</span><span class="p">(</span><span class="n">TCP</span><span class="p">,</span> <span class="n">DceRpc</span><span class="p">,</span> <span class="n">sport</span><span class="o">=</span><span class="mi">40564</span><span class="p">)</span>  <span class="c1"># the DCE/RPC port</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bind_layers</span><span class="p">(</span><span class="n">TCP</span><span class="p">,</span> <span class="n">DceRpc</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="mi">40564</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span> <span class="o">=</span> <span class="n">sniff</span><span class="p">(</span><span class="n">offline</span><span class="o">=</span><span class="s1">'dcerpc_msnrpc.pcapng.gz'</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">DceRpcSession</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="n">DceRpc5</span><span class="p">]</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">###[ DCE/RPC v5 ]###</span>
+<span class="go">  rpc_vers  = 5 (connection-oriented)</span>
+<span class="go">  rpc_vers_minor= 0</span>
+<span class="go">  ptype     = request</span>
+<span class="go">  pfc_flags = PFC_FIRST_FRAG+PFC_LAST_FRAG</span>
+<span class="go">  endian    = little</span>
+<span class="go">  encoding  = ASCII</span>
+<span class="go">  float     = IEEE</span>
+<span class="go">  reserved1 = 0</span>
+<span class="go">  reserved2 = 0</span>
+<span class="go">  frag_len  = 58</span>
+<span class="go">  auth_len  = 0</span>
+<span class="go">  call_id   = 1</span>
+<span class="go">  ###[ DCE/RPC v5 - Request ]###</span>
+<span class="go">      alloc_hint= 0</span>
+<span class="go">      cont_id   = 0</span>
+<span class="go">      opnum     = 4</span>
+<span class="go">  ###[ NetrServerReqChallenge_Request ]###</span>
+<span class="go">          PrimaryName= None</span>
+<span class="go">          \ComputerName\</span>
+<span class="go">          |###[ NDRConformantArray ]###</span>
+<span class="go">          |  max_count = 5</span>
+<span class="go">          |  \value     \</span>
+<span class="go">          |   |###[ NDRVaryingArray ]###</span>
+<span class="go">          |   |  offset    = 0</span>
+<span class="go">          |   |  actual_count= 5</span>
+<span class="go">          |   |  value     = b'WIN1'</span>
+<span class="go">          \ClientChallenge\</span>
+<span class="go">          |###[ PNETLOGON_CREDENTIAL ]###</span>
+<span class="go">          |  data      = b'12345678'</span>
+</pre></div>
+</div>
+<p>Scapy has opted to not abstract any of the NDR fields (see <a class="reference internal" href="#design-choices">Design choices</a>), allowing to keep access to all lengths, offsets, counts, etc… This allows to put wrong length values anywhere to test implementations.</p>
+<p>The catch is that accessing the value of a field is a bit tedious:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="n">DceRpc5</span><span class="p">]</span><span class="o">.</span><span class="n">ComputerName</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">b'WIN1'</span>
+</pre></div>
+</div>
+<p>Sometimes, you’ll be glad to have access to the size of a ConformantArray. Most times, you won’t.
+All <code class="docutils literal notranslate"><span class="pre">NDRPacket</span></code> therefore include a <code class="docutils literal notranslate"><span class="pre">valueof()</span></code> function that goes through any array or pointer containers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkts</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="n">NetrServerReqChallenge_Request</span><span class="p">]</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"ComputerName"</span><span class="p">)</span>
+<span class="go">b'WIN1'</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">DceRpc5</span></code> packets are NOT <code class="docutils literal notranslate"><span class="pre">NDRPacket</span></code>, so you need to call <code class="docutils literal notranslate"><span class="pre">valueof()</span></code> on the NDR payload itself.</p>
+</div>
+</section>
+<section id="building">
+<h3>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h3>
+<p>If you were to re-build the previous packet exactly as it was dissected, it would look something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkt</span> <span class="o">=</span> <span class="n">NetrServerReqChallenge_Request</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="n">ComputerName</span><span class="o">=</span><span class="n">NDRConformantArray</span><span class="p">(</span><span class="n">max_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>       <span class="n">NDRVaryingArray</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">actual_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="sa">b</span><span class="s1">'WIN1'</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="p">]),</span>
+<span class="gp">... </span>   <span class="n">ClientChallenge</span><span class="o">=</span><span class="n">PNETLOGON_CREDENTIAL</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="sa">b</span><span class="s1">'12345678'</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="n">PrimaryName</span><span class="o">=</span><span class="kc">None</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you don’t care about specifying <code class="docutils literal notranslate"><span class="pre">max_count</span></code>, <code class="docutils literal notranslate"><span class="pre">offset</span></code> or <code class="docutils literal notranslate"><span class="pre">actual_count</span></code> manually, you can however also do the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkt</span> <span class="o">=</span> <span class="n">NetrServerReqChallenge_Request</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">ComputerName</span><span class="o">=</span><span class="sa">b</span><span class="s1">'WIN1'</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">ClientChallenge</span><span class="o">=</span><span class="n">PNETLOGON_CREDENTIAL</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="sa">b</span><span class="s1">'12345678'</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">PrimaryName</span><span class="o">=</span><span class="kc">None</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pkt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">###[ NetrServerReqChallenge_Request ]###</span>
+<span class="go">  PrimaryName= None</span>
+<span class="go">  \ComputerName\</span>
+<span class="go">  |###[ NDRConformantArray ]###</span>
+<span class="go">  |  max_count = None</span>
+<span class="go">  |  \value     \</span>
+<span class="go">  |   |###[ NDRVaryingArray ]###</span>
+<span class="go">  |   |  offset    = 0</span>
+<span class="go">  |   |  actual_count= None</span>
+<span class="go">  |   |  value     = 'WIN1'</span>
+<span class="go">  \ClientChallenge\</span>
+<span class="go">  |###[ PNETLOGON_CREDENTIAL ]###</span>
+<span class="go">  |  data      = '12345678'</span>
+</pre></div>
+</div>
+<p>And Scapy will automatically add the <code class="docutils literal notranslate"><span class="pre">NDRConformantArray</span></code>, <code class="docutils literal notranslate"><span class="pre">NDRVaryingArray</span></code>… in the middle.</p>
+<p>This applies to <code class="docutils literal notranslate"><span class="pre">NDRPointers</span></code> too ! Skipping it will add a default one with a referent id of <code class="docutils literal notranslate"><span class="pre">0x20000</span></code>. Take <code class="docutils literal notranslate"><span class="pre">RPC_UNICODE_STRING</span></code> for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RPC_UNICODE_STRING</span><span class="p">(</span><span class="n">Buffer</span><span class="o">=</span><span class="sa">b</span><span class="s2">"WIN"</span><span class="p">)</span><span class="o">.</span><span class="n">show2</span><span class="p">()</span>
+<span class="go">###[ RPC_UNICODE_STRING ]###</span>
+<span class="go">  Length    = 6</span>
+<span class="go">  MaximumLength= 6</span>
+<span class="go">  \Buffer    \</span>
+<span class="go">  |###[ NDRPointer ]###</span>
+<span class="go">  |  referent_id= 0x20000</span>
+<span class="go">  |  \value     \</span>
+<span class="go">  |   |###[ NDRConformantArray ]###</span>
+<span class="go">  |   |  max_count = 3</span>
+<span class="go">  |   |  \value     \</span>
+<span class="go">  |   |   |###[ NDRVaryingArray ]###</span>
+<span class="go">  |   |   |  offset    = 0</span>
+<span class="go">  |   |   |  actual_count= 3</span>
+<span class="go">  |   |   |  value     = 'WIN'</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="client">
+<h2>Client<a class="headerlink" href="#client" title="Link to this heading"></a></h2>
+<p>Scapy also includes a DCE/RPC client: <a class="reference internal" href="../api/scapy.layers.msrpce.rpcclient.html#scapy.layers.msrpce.rpcclient.DCERPC_Client" title="scapy.layers.msrpce.rpcclient.DCERPC_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCERPC_Client</span></code></a>.</p>
+<p>It provides a bunch of basic DCE/RPC features:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.msrpce.rpcclient.html#scapy.layers.msrpce.rpcclient.DCERPC_Client.connect" title="scapy.layers.msrpce.rpcclient.DCERPC_Client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>: connect to a host</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.msrpce.rpcclient.html#scapy.layers.msrpce.rpcclient.DCERPC_Client.bind" title="scapy.layers.msrpce.rpcclient.DCERPC_Client.bind"><code class="xref py py-func docutils literal notranslate"><span class="pre">bind()</span></code></a>: bind to a DCE/RPC interface</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.msrpce.rpcclient.html#scapy.layers.msrpce.rpcclient.DCERPC_Client.connect_and_bind" title="scapy.layers.msrpce.rpcclient.DCERPC_Client.connect_and_bind"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect_and_bind()</span></code></a>: connect to a host, use the endpoint mapper to find the interface then reconnect to the host on the matching address</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.msrpce.rpcclient.html#scapy.layers.msrpce.rpcclient.DCERPC_Client.sr1_req" title="scapy.layers.msrpce.rpcclient.DCERPC_Client.sr1_req"><code class="xref py py-func docutils literal notranslate"><span class="pre">sr1_req()</span></code></a>: send/receive a DCE/RPC request</p></li>
+</ul>
+<p>To be able to use an interface, it must have been imported. This makes it so that the <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.register_dcerpc_interface" title="scapy.layers.dcerpc.register_dcerpc_interface"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_dcerpc_interface()</span></code></a> function is called, allowing the <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DceRpcSession" title="scapy.layers.dcerpc.DceRpcSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">DceRpcSession</span></code></a> session to properly understand the bind/alter requests, and match the DCE/RPCs by opcodes.</p>
+<p>In the DCE/RPC world, there are several “Transports”. A transport corresponds to the various ways of transporting DCE/RPC. You can have a look at the documentation over <a class="reference external" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/472083a9-56f1-4d81-a208-d18aef68c101">[MS-RPCE] 2.1</a>. In Scapy, this is implemented in the <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport" title="scapy.layers.dcerpc.DCERPC_Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCERPC_Transport</span></code></a> enum, that currently contains:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport.NCACN_IP_TCP" title="scapy.layers.dcerpc.DCERPC_Transport.NCACN_IP_TCP"><code class="xref py py-const docutils literal notranslate"><span class="pre">NCACN_IP_TCP</span></code></a>: the interface is reached over IP/TCP, on a port that varies. This port can typically be queried using the endpoint mapper, a DCE/RPC service that is always on port 135.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport.NCACN_NP" title="scapy.layers.dcerpc.DCERPC_Transport.NCACN_NP"><code class="xref py py-const docutils literal notranslate"><span class="pre">NCACN_NP</span></code></a>: the interface is reached over a named pipe over SMB. This named pipe is typically well-known, or can also be queried using the endpoint mapper (over SMB) on certain cases.</p></li>
+</ul>
+<p>Here’s an example sending a <code class="docutils literal notranslate"><span class="pre">ServerAlive</span></code> over the <code class="docutils literal notranslate"><span class="pre">IObjectExporter</span></code> interface from <a class="reference external" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-dcom/4a893f3d-bd29-48cd-9f43-d9777a4415b0">[MS-DCOM]</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">DCERPC_Client</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_IP_TCP</span><span class="p">,</span>
+    <span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">find_dcerpc_interface</span><span class="p">(</span><span class="s2">"IObjectExporter"</span><span class="p">))</span>
+
+<span class="n">req</span> <span class="o">=</span> <span class="n">ServerAlive_Request</span><span class="p">(</span><span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here’s the same example, but this time asking for <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.RPC_C_AUTHN_LEVEL.PKT_PRIVACY" title="scapy.layers.dcerpc.RPC_C_AUTHN_LEVEL.PKT_PRIVACY"><code class="xref py py-const docutils literal notranslate"><span class="pre">PKT_PRIVACY</span></code></a> (encryption) using <code class="docutils literal notranslate"><span class="pre">NTLMSSP</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">NTLMSSP</span><span class="p">(</span>
+    <span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span>
+    <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Password1"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">DCERPC_Client</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_IP_TCP</span><span class="p">,</span>
+    <span class="n">auth_level</span><span class="o">=</span><span class="n">DCE_C_AUTHN_LEVEL</span><span class="o">.</span><span class="n">PKT_PRIVACY</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+    <span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">find_dcerpc_interface</span><span class="p">(</span><span class="s2">"IObjectExporter"</span><span class="p">))</span>
+
+<span class="n">req</span> <span class="o">=</span> <span class="n">ServerAlive_Request</span><span class="p">(</span><span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Again, but this time using <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.RPC_C_AUTHN_LEVEL.PKT_INTEGRITY" title="scapy.layers.dcerpc.RPC_C_AUTHN_LEVEL.PKT_INTEGRITY"><code class="xref py py-const docutils literal notranslate"><span class="pre">PKT_INTEGRITY</span></code></a> (signing) using <code class="docutils literal notranslate"><span class="pre">SPNEGOSSP[KerberosSSP]</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.kerberos</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.spnego</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">SPNEGOSSP</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">KerberosSSP</span><span class="p">(</span>
+            <span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span>
+            <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"Password1"</span><span class="p">,</span>
+            <span class="n">SPN</span><span class="o">=</span><span class="s2">"host/dc1"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">DCERPC_Client</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_IP_TCP</span><span class="p">,</span>
+    <span class="n">auth_level</span><span class="o">=</span><span class="n">DCE_C_AUTHN_LEVEL</span><span class="o">.</span><span class="n">PKT_INTEGRITY</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+    <span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">find_dcerpc_interface</span><span class="p">(</span><span class="s2">"IObjectExporter"</span><span class="p">))</span>
+
+<span class="n">req</span> <span class="o">=</span> <span class="n">ServerAlive_Request</span><span class="p">(</span><span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here’s a different example, this time connecting over <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport.NCACN_NP" title="scapy.layers.dcerpc.DCERPC_Transport.NCACN_NP"><code class="xref py py-const docutils literal notranslate"><span class="pre">NCACN_NP</span></code></a> to <a class="reference external" href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/4df07fab-1bbc-452f-8e92-7853a3c7e380">[MS-SAMR]</a> to enumerate the domains a server is in:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="n">NTLMSSP</span><span class="p">,</span> <span class="n">MD4le</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">NTLMSSP</span><span class="p">(</span>
+    <span class="n">UPN</span><span class="o">=</span><span class="s2">"User"</span><span class="p">,</span>
+    <span class="n">HASHNT</span><span class="o">=</span><span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">DCERPC_Client</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_NP</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+    <span class="n">ndr64</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">open_smbpipe</span><span class="p">(</span><span class="s2">"lsass"</span><span class="p">)</span>  <span class="c1"># open the \pipe\lsass pipe</span>
+<span class="n">client</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">find_dcerpc_interface</span><span class="p">(</span><span class="s2">"samr"</span><span class="p">))</span>
+
+<span class="c1"># Get Server Handle: call [0] SamrConnect</span>
+<span class="n">serverHandle</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span><span class="n">SamrConnect_Request</span><span class="p">(</span>
+    <span class="n">DesiredAccess</span><span class="o">=</span><span class="p">(</span>
+        <span class="mh">0x00000010</span> <span class="c1"># SAM_SERVER_ENUMERATE_DOMAINS</span>
+    <span class="p">)</span>
+<span class="p">))</span><span class="o">.</span><span class="n">ServerHandle</span>
+
+<span class="c1"># Enumerate domains: call [6] SamrEnumerateDomainsInSamServer</span>
+<span class="n">EnumerationContext</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sr1_req</span><span class="p">(</span>
+        <span class="n">SamrEnumerateDomainsInSamServer_Request</span><span class="p">(</span>
+            <span class="n">ServerHandle</span><span class="o">=</span><span class="n">serverHandle</span><span class="p">,</span>
+            <span class="n">EnumerationContext</span><span class="o">=</span><span class="n">EnumerationContext</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># note: there are a lot of sub-structures</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"Buffer"</span><span class="p">)</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"Buffer"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">)</span><span class="o">.</span><span class="n">valueof</span><span class="p">(</span><span class="s2">"Buffer"</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+    <span class="n">EnumerationContext</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">EnumerationContext</span>  <span class="c1"># continue enumeration</span>
+    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># no domain left to enumerate</span>
+        <span class="k">break</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As you can see, we used the <a class="reference internal" href="../api/scapy.layers.ntlm.html#scapy.layers.ntlm.NTLMSSP" title="scapy.layers.ntlm.NTLMSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLMSSP</span></code></a> security provider in the above connection.</p>
+</div>
+<p>There are extensions to the <a class="reference internal" href="../api/scapy.layers.msrpce.rpcclient.html#scapy.layers.msrpce.rpcclient.DCERPC_Client" title="scapy.layers.msrpce.rpcclient.DCERPC_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCERPC_Client</span></code></a> class:</p>
+<ul class="simple">
+<li><p>the <a class="reference internal" href="../api/scapy.layers.msrpce.msnrpc.html#scapy.layers.msrpce.msnrpc.NetlogonClient" title="scapy.layers.msrpce.msnrpc.NetlogonClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetlogonClient</span></code></a>, worth mentioning because it implements its own <a class="reference internal" href="../api/scapy.layers.msrpce.msnrpc.html#scapy.layers.msrpce.msnrpc.NetlogonSSP" title="scapy.layers.msrpce.msnrpc.NetlogonSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetlogonSSP</span></code></a>:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.msnrpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.raw.ms_nrpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">NetlogonClient</span><span class="p">(</span>
+    <span class="n">auth_level</span><span class="o">=</span><span class="n">DCE_C_AUTHN_LEVEL</span><span class="o">.</span><span class="n">PKT_PRIVACY</span><span class="p">,</span>
+    <span class="n">computername</span><span class="o">=</span><span class="s2">"SERVER"</span><span class="p">,</span>
+    <span class="n">domainname</span><span class="o">=</span><span class="s2">"DOMAIN"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect_and_bind</span><span class="p">(</span><span class="s2">"192.168.0.100"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">negotiate_sessionkey</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">"77777777777777777777777777777777"</span><span class="p">))</span>
+<span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>the <a class="reference internal" href="../api/scapy.layers.msrpce.msdcom.html#scapy.layers.msrpce.msdcom.DCOM_Client" title="scapy.layers.msrpce.msdcom.DCOM_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCOM_Client</span></code></a> (unfinished)</p></li>
+</ul>
+</section>
+<section id="server">
+<h2>Server<a class="headerlink" href="#server" title="Link to this heading"></a></h2>
+<p>It is also possible to create your own DCE/RPC server. This takes the form of creating a <a class="reference internal" href="../api/scapy.layers.msrpce.rpcserver.html#scapy.layers.msrpce.rpcserver.DCERPC_Server" title="scapy.layers.msrpce.rpcserver.DCERPC_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCERPC_Server</span></code></a> class, then serving it over a transport.</p>
+<p>This class contains a <a class="reference internal" href="../api/scapy.layers.msrpce.rpcserver.html#scapy.layers.msrpce.rpcserver.DCERPC_Server.answer" title="scapy.layers.msrpce.rpcserver.DCERPC_Server.answer"><code class="xref py py-func docutils literal notranslate"><span class="pre">answer()</span></code></a> function that is used to register a handler for a Request, such as for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyRPCServer</span><span class="p">(</span><span class="n">DCERPC_Server</span><span class="p">):</span>
+    <span class="nd">@DCERPC_Server</span><span class="o">.</span><span class="n">answer</span><span class="p">(</span><span class="n">NetrWkstaGetInfo_Request</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_NetrWkstaGetInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        NetrWkstaGetInfo [MS-SRVS]</span>
+<span class="sd">        "returns information about the configuration of a workstation."</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">NetrWkstaGetInfo_Response</span><span class="p">(</span>
+            <span class="n">WkstaInfo</span><span class="o">=</span><span class="n">NDRUnion</span><span class="p">(</span>
+                <span class="n">tag</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">LPWKSTA_INFO_100</span><span class="p">(</span>
+                    <span class="n">wki100_platform_id</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># NT</span>
+                    <span class="n">wki100_ver_major</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
+            <span class="n">ndr64</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ndr64</span><span class="p">,</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s spawn this server, listening on the <code class="docutils literal notranslate"><span class="pre">12345</span></code> port using the <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport.NCACN_IP_TCP" title="scapy.layers.dcerpc.DCERPC_Transport.NCACN_IP_TCP"><code class="xref py py-const docutils literal notranslate"><span class="pre">NCACN_IP_TCP</span></code></a> transport.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MyRPCServer</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_IP_TCP</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course that also works over <a class="reference internal" href="../api/scapy.layers.dcerpc.html#scapy.layers.dcerpc.DCERPC_Transport.NCACN_NP" title="scapy.layers.dcerpc.DCERPC_Transport.NCACN_NP"><code class="xref py py-const docutils literal notranslate"><span class="pre">NCACN_NP</span></code></a>, with for instance a <a class="reference internal" href="../api/scapy.layers.ntlm.html#scapy.layers.ntlm.NTLMSSP" title="scapy.layers.ntlm.NTLMSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLMSSP</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="n">NTLMSSP</span><span class="p">,</span> <span class="n">MD4le</span>
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">NTLMSSP</span><span class="p">(</span>
+    <span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"User1"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">MyRPCServer</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_NP</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">,</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">445</span><span class="p">,</span>
+    <span class="n">ndr64</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>To start an endpoint mapper (this should be a separate process from your RPC server), you can use the default <a class="reference internal" href="../api/scapy.layers.msrpce.rpcserver.html#scapy.layers.msrpce.rpcserver.DCERPC_Server" title="scapy.layers.msrpce.rpcserver.DCERPC_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCERPC_Server</span></code></a> as such:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.dcerpc</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">DCERPC_Server</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+    <span class="n">DCERPC_Transport</span><span class="o">.</span><span class="n">NCACN_IP_TCP</span><span class="p">,</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span>
+    <span class="n">portmap</span><span class="o">=</span><span class="p">{</span>
+        <span class="n">find_dcerpc_interface</span><span class="p">(</span><span class="s2">"wkssvc"</span><span class="p">):</span> <span class="mi">12345</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">ndr64</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, a DCERPC_Server will let a client bind on all interfaces that Scapy has registered (imported). Supposedly though, you know which RPCs are going to be queried.</p>
+</div>
+</section>
+<section id="debugging-with-extended-error-information-eerr">
+<h2>Debugging with extended error information (eerr)<a class="headerlink" href="#debugging-with-extended-error-information-eerr" title="Link to this heading"></a></h2>
+<p>To debug a RPC call, you can enable the forwarding of Extended Error Information in <code class="docutils literal notranslate"><span class="pre">Computer</span> <span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">Administrative</span> <span class="pre">Templates</span> <span class="pre">&gt;</span> <span class="pre">System</span> <span class="pre">&gt;</span> <span class="pre">Remote</span> <span class="pre">Procedure</span> <span class="pre">Call</span></code> on the remote computer.</p>
+<img alt="../_images/debug_eerr.png" class="align-center" src="../_images/debug_eerr.png" />
+<p>Once this is done, load EERR in Scapy (in your script) as such:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.msrpce.mseerr</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>To enable parsing of the extended error information. Those information will provide a more in-depth stack trace of errors, if available.</p>
+</section>
+<section id="passive-sniffing">
+<h2>Passive sniffing<a class="headerlink" href="#passive-sniffing" title="Link to this heading"></a></h2>
+<p>If you’re doing passive sniffing of a DCE/RPC session, you can instruct Scapy to still use its DCE/RPC session in order to check the INTEGRITY and decrypt (if PRIVACY is used) the packets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Bind DCE/RPC port</span>
+<span class="n">bind_bottom_up</span><span class="p">(</span><span class="n">TCP</span><span class="p">,</span> <span class="n">DceRpc5</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">bind_bottom_up</span><span class="p">(</span><span class="n">TCP</span><span class="p">,</span> <span class="n">DceRpc5</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+
+<span class="c1"># Enable passive DCE/RPC session</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">dcerpc_session_enable</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Define SSPs that can be used for decryption / verify</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">winssps_passive</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">SPNEGOSSP</span><span class="p">([</span>
+        <span class="n">NTLMSSP</span><span class="p">(</span>
+            <span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"User1"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password1!"</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+    <span class="p">])</span>
+<span class="p">]</span>
+
+<span class="c1"># Sniff</span>
+<span class="n">pkts</span> <span class="o">=</span> <span class="n">sniff</span><span class="p">(</span><span class="n">offline</span><span class="o">=</span><span class="s2">"dcerpc_exchange.pcapng"</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">TCPSession</span><span class="p">)</span>
+<span class="n">pkts</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>NTLM, KerberosSSP and SPNEGOSSP are currently supported. NetlogonSSP is still unsupported.</p>
+</div>
+</section>
+<section id="define-custom-packets">
+<h2>Define custom packets<a class="headerlink" href="#define-custom-packets" title="Link to this heading"></a></h2>
+<p>TODO: Add documentation on how to define NDR packets.</p>
+</section>
+<section id="design-choices">
+<span id="id1"></span><h2>Design choices<a class="headerlink" href="#design-choices" title="Link to this heading"></a></h2>
+<p>NDR is a rather complex encoding. For instance, there are multiple types of arrays:</p>
+<ul class="simple">
+<li><p>fixed arrays</p></li>
+<li><p>conformant arrays</p></li>
+<li><p>varying arrays</p></li>
+<li><p>conformant varying arrays</p></li>
+</ul>
+<p>All of which have slightly different representations on the network, but generally speaking it can look like this:</p>
+<img alt="../_images/ndr_conformant_varying_array.png" class="align-center" src="../_images/ndr_conformant_varying_array.png" />
+<p>Those lengths are mostly computable, but this raises the question of: <strong>what should Scapy report to the user?</strong>.</p>
+<p>Some implementations (like impacket’s), have chosen to abstract the lengths, offsets, etc. and hide it to the user. This has the big advantage that it makes packets much easier to build, but has the inconvenience that it is in fact hiding part of the information contained in the packet, which really is against Scapy’s philosophy.</p>
+<p>The same happens when encoding pointers, which looks something like this:</p>
+<img alt="../_images/ndr_full_pointer.png" class="align-center" src="../_images/ndr_full_pointer.png" />
+<p>where it is tempting to hide the <code class="docutils literal notranslate"><span class="pre">referent_id</span></code> part, which is on Windows in most parts irrelevant.</p>
+<p><strong>In Scapy, you will find all the fields</strong>. The pros are that it is exhaustive and doesn’t hide any information, the cons is that you need to use the utils (<code class="docutils literal notranslate"><span class="pre">valueof()</span></code> on dissection, implicit <code class="docutils literal notranslate"><span class="pre">any2i</span></code> on build) in order for it not to be a massive pain.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bluetooth.html" class="btn btn-neutral float-left" title="Bluetooth" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dcom.html" class="btn btn-neutral float-right" title="[MS-DCOM]" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

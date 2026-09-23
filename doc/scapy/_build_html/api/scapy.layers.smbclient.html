@@ -1,0 +1,906 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.smbclient &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.smbserver" href="scapy.layers.smbserver.html" />
+    <link rel="prev" title="scapy.layers.smb2" href="scapy.layers.smb2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.smbclient</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.smbclient.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.smbclient">
+<span id="scapy-layers-smbclient"></span><h1>scapy.layers.smbclient<a class="headerlink" href="#module-scapy.layers.smbclient" title="Link to this heading"></a></h1>
+<p>SMB 1 / 2 Client Automaton</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will find more complete documentation for this layer over at
+<a class="reference external" href="https://scapy.readthedocs.io/en/latest/layers/smb.html#client">SMB</a></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.smbclient.</span></span><span class="sig-name descname"><span class="pre">SMB_Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L111-L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.automaton.html#scapy.automaton.Automaton" title="scapy.automaton.Automaton"><code class="xref py py-class docutils literal notranslate"><span class="pre">Automaton</span></code></a></p>
+<p>SMB client automaton</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sock</strong> – the SMBStreamSocket to use</p></li>
+<li><p><strong>ssp</strong> – the SSP to use</p></li>
+</ul>
+</dd>
+</dl>
+<p>All other options (in caps) are optional, and SMB specific:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>REQUIRE_SIGNATURE</strong> – set ‘Require Signature’</p></li>
+<li><p><strong>REQUIRE_ENCRYPTION</strong> – set ‘Requite Encryption’</p></li>
+<li><p><strong>MIN_DIALECT</strong> – minimum SMB dialect. Defaults to 0x0202 (2.0.2)</p></li>
+<li><p><strong>MAX_DIALECT</strong> – maximum SMB dialect. Defaults to 0x0311 (3.1.1)</p></li>
+<li><p><strong>DIALECTS</strong> – list of supported SMB2 dialects.
+Constructed from MIN_DIALECT, MAX_DIALECT otherwise.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.AUTHENTICATED">
+<span class="sig-name descname"><span class="pre">AUTHENTICATED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.AUTHENTICATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.AUTH_FAILED">
+<span class="sig-name descname"><span class="pre">AUTH_FAILED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.AUTH_FAILED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.BEGIN">
+<span class="sig-name descname"><span class="pre">BEGIN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.BEGIN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.NEGOTIATED">
+<span class="sig-name descname"><span class="pre">NEGOTIATED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.NEGOTIATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.NEGO_FAILED">
+<span class="sig-name descname"><span class="pre">NEGO_FAILED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.NEGO_FAILED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.SENT_NEGOTIATE">
+<span class="sig-name descname"><span class="pre">SENT_NEGOTIATE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.SENT_NEGOTIATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.SENT_SESSION_REQUEST">
+<span class="sig-name descname"><span class="pre">SENT_SESSION_REQUEST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.SENT_SESSION_REQUEST" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.SMB2_NEGOTIATE">
+<span class="sig-name descname"><span class="pre">SMB2_NEGOTIATE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.SMB2_NEGOTIATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.SOCKET_BIND">
+<span class="sig-name descname"><span class="pre">SOCKET_BIND</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.SOCKET_BIND" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.SOCKET_MODE_SMB">
+<span class="sig-name descname"><span class="pre">SOCKET_MODE_SMB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT" title="scapy.automaton.ATMT"><span class="pre">ATMT</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.automaton.html#scapy.automaton.ATMT.NewStateRequested" title="scapy.automaton.ATMT.NewStateRequested"><span class="pre">NewStateRequested</span></a></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/automaton.py#L523-L525"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.SOCKET_MODE_SMB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.actions">
+<span class="sig-name descname"><span class="pre">actions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'authenticated_post_actions':</span> <span class="pre">[],</span> <span class="pre">'continue_smb2':</span> <span class="pre">[],</span> <span class="pre">'incoming_data_received_smb':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.receive_data_smb&gt;],</span> <span class="pre">'outgoing_data_received_smb':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.send_data&gt;],</span> <span class="pre">'receive_negotiate_response':</span> <span class="pre">[],</span> <span class="pre">'receive_session_setup_response':</span> <span class="pre">[],</span> <span class="pre">'send_negotiate':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.on_negotiate&gt;],</span> <span class="pre">'send_negotiate_smb2':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.on_negotiate_smb2&gt;],</span> <span class="pre">'should_send_session_setup_request':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.send_setup_session_request&gt;],</span> <span class="pre">'start_smb_socket':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.actions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.authenticated_post_actions">
+<span class="sig-name descname"><span class="pre">authenticated_post_actions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L621-L623"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.authenticated_post_actions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.breakpoints">
+<span class="sig-name descname"><span class="pre">breakpoints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.breakpoints" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.cls">
+<span class="sig-name descname"><span class="pre">cls</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smb2.py#L1774-L1777"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.cls" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="scapy.layers.smb2.html#scapy.layers.smb2.DirectTCP" title="scapy.layers.smb2.DirectTCP"><code class="xref py py-class docutils literal notranslate"><span class="pre">DirectTCP</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.conditions">
+<span class="sig-name descname"><span class="pre">conditions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTHENTICATED':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.authenticated_post_actions&gt;],</span> <span class="pre">'AUTH_FAILED':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.continue_smb2&gt;,</span> <span class="pre">&lt;function</span> <span class="pre">SMB_Client.send_negotiate&gt;],</span> <span class="pre">'NEGOTIATED':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.should_send_session_setup_request&gt;],</span> <span class="pre">'NEGO_FAILED':</span> <span class="pre">[],</span> <span class="pre">'SENT_NEGOTIATE':</span> <span class="pre">[],</span> <span class="pre">'SENT_SESSION_REQUEST':</span> <span class="pre">[],</span> <span class="pre">'SMB2_NEGOTIATE':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.send_negotiate_smb2&gt;],</span> <span class="pre">'SOCKET_BIND':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.start_smb_socket&gt;],</span> <span class="pre">'SOCKET_MODE_SMB':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.continue_smb2">
+<span class="sig-name descname"><span class="pre">continue_smb2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L245-L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.continue_smb2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.eofs">
+<span class="sig-name descname"><span class="pre">eofs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.eofs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.from_tcpsock">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_tcpsock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L184-L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.from_tcpsock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.incoming_data_received_smb">
+<span class="sig-name descname"><span class="pre">incoming_data_received_smb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L639-L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.incoming_data_received_smb" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.initial_states">
+<span class="sig-name descname"><span class="pre">initial_states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;]</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.initial_states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.intercepted_packet">
+<span class="sig-name descname"><span class="pre">intercepted_packet</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><span class="pre">Packet</span></a></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.intercepted_packet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.interception_points">
+<span class="sig-name descname"><span class="pre">interception_points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.interception_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.ioevents">
+<span class="sig-name descname"><span class="pre">ioevents</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTHENTICATED':</span> <span class="pre">[],</span> <span class="pre">'AUTH_FAILED':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'NEGOTIATED':</span> <span class="pre">[],</span> <span class="pre">'NEGO_FAILED':</span> <span class="pre">[],</span> <span class="pre">'SENT_NEGOTIATE':</span> <span class="pre">[],</span> <span class="pre">'SENT_SESSION_REQUEST':</span> <span class="pre">[],</span> <span class="pre">'SMB2_NEGOTIATE':</span> <span class="pre">[],</span> <span class="pre">'SOCKET_BIND':</span> <span class="pre">[],</span> <span class="pre">'SOCKET_MODE_SMB':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.outgoing_data_received_smb&gt;]}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.ioevents" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.ionames">
+<span class="sig-name descname"><span class="pre">ionames</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['smbpipe']</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.ionames" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.iosupersockets">
+<span class="sig-name descname"><span class="pre">iosupersockets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">SMB_Client.outgoing_data_received_smb&gt;]</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.iosupersockets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.listen_sock">
+<span class="sig-name descname"><span class="pre">listen_sock</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.listen_sock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.on_negotiate">
+<span class="sig-name descname"><span class="pre">on_negotiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L255-L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.on_negotiate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.on_negotiate_smb2">
+<span class="sig-name descname"><span class="pre">on_negotiate_smb2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L305-L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.on_negotiate_smb2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.outgoing_data_received_smb">
+<span class="sig-name descname"><span class="pre">outgoing_data_received_smb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fd</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L658-L660"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.outgoing_data_received_smb" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.packets">
+<span class="sig-name descname"><span class="pre">packets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.plist.html#scapy.plist.PacketList" title="scapy.plist.PacketList"><span class="pre">PacketList</span></a></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.packets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.port">
+<span class="sig-name descname"><span class="pre">port</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">445</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.port" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.receive_data_smb">
+<span class="sig-name descname"><span class="pre">receive_data_smb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L643-L656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.receive_data_smb" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.receive_negotiate_response">
+<span class="sig-name descname"><span class="pre">receive_negotiate_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L369-L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.receive_negotiate_response" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.receive_session_setup_response">
+<span class="sig-name descname"><span class="pre">receive_session_setup_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L536-L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.receive_session_setup_response" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.recv_conditions">
+<span class="sig-name descname"><span class="pre">recv_conditions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTHENTICATED':</span> <span class="pre">[],</span> <span class="pre">'AUTH_FAILED':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'NEGOTIATED':</span> <span class="pre">[],</span> <span class="pre">'NEGO_FAILED':</span> <span class="pre">[],</span> <span class="pre">'SENT_NEGOTIATE':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.receive_negotiate_response&gt;],</span> <span class="pre">'SENT_SESSION_REQUEST':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.receive_session_setup_response&gt;],</span> <span class="pre">'SMB2_NEGOTIATE':</span> <span class="pre">[],</span> <span class="pre">'SOCKET_BIND':</span> <span class="pre">[],</span> <span class="pre">'SOCKET_MODE_SMB':</span> <span class="pre">[&lt;function</span> <span class="pre">SMB_Client.incoming_data_received_smb&gt;]}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.recv_conditions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L197-L239"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.send" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.send_data">
+<span class="sig-name descname"><span class="pre">send_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L662-L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.send_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.send_negotiate">
+<span class="sig-name descname"><span class="pre">send_negotiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L251-L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.send_negotiate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.send_negotiate_smb2">
+<span class="sig-name descname"><span class="pre">send_negotiate_smb2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L301-L303"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.send_negotiate_smb2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.send_setup_session_request">
+<span class="sig-name descname"><span class="pre">send_setup_session_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssp_tuple</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L488-L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.send_setup_session_request" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.send_sock">
+<span class="sig-name descname"><span class="pre">send_sock</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><span class="pre">SuperSocket</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.send_sock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.session">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.session" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.should_send_session_setup_request">
+<span class="sig-name descname"><span class="pre">should_send_session_setup_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssp_tuple</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L477-L482"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.should_send_session_setup_request" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.smblink">
+<span class="sig-name descname"><span class="pre">smblink</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scapy.automaton._ATMT_to_supersocket</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.smblink" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.start_smb_socket">
+<span class="sig-name descname"><span class="pre">start_smb_socket</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L631-L633"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.start_smb_socket" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.states">
+<span class="sig-name descname"><span class="pre">states</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTHENTICATED':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'AUTH_FAILED':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'BEGIN':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'NEGOTIATED':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'NEGO_FAILED':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SENT_NEGOTIATE':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SENT_SESSION_REQUEST':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SMB2_NEGOTIATE':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SOCKET_BIND':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;,</span> <span class="pre">'SOCKET_MODE_SMB':</span> <span class="pre">&lt;function</span> <span class="pre">ATMT.state.&lt;locals&gt;.deco.&lt;locals&gt;._state_wrapper&gt;}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.states" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.stop_state">
+<span class="sig-name descname"><span class="pre">stop_state</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_StateWrapper</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.stop_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.threadid">
+<span class="sig-name descname"><span class="pre">threadid</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.threadid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">_TimerList</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AUTHENTICATED':</span> <span class="pre">[],</span> <span class="pre">'AUTH_FAILED':</span> <span class="pre">[],</span> <span class="pre">'BEGIN':</span> <span class="pre">[],</span> <span class="pre">'NEGOTIATED':</span> <span class="pre">[],</span> <span class="pre">'NEGO_FAILED':</span> <span class="pre">[],</span> <span class="pre">'SENT_NEGOTIATE':</span> <span class="pre">[],</span> <span class="pre">'SENT_SESSION_REQUEST':</span> <span class="pre">[],</span> <span class="pre">'SMB2_NEGOTIATE':</span> <span class="pre">[],</span> <span class="pre">'SOCKET_BIND':</span> <span class="pre">[],</span> <span class="pre">'SOCKET_MODE_SMB':</span> <span class="pre">[]}</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_Client.update_smbheader">
+<span class="sig-name descname"><span class="pre">update_smbheader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L459-L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_Client.update_smbheader" title="Link to this definition"></a></dt>
+<dd><p>Called when receiving a SMB2 packet to update the current smb_header</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_RPC_SOCKET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.smbclient.</span></span><span class="sig-name descname"><span class="pre">SMB_RPC_SOCKET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smbsock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ioctl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L997-L1087"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_RPC_SOCKET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.automaton.html#scapy.automaton.ObjectPipe" title="scapy.automaton.ObjectPipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectPipe</span></code></a>, <a class="reference internal" href="#scapy.layers.smbclient.SMB_SOCKET" title="scapy.layers.smbclient.SMB_SOCKET"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code></a></p>
+<p>Extends SMB_SOCKET (which is a wrapper over SMB_Client.smblink) to send
+DCE/RPC messages (bind, reqs, etc.)</p>
+<p>This is usable as a normal SuperSocket (sr1, etc.) and performs the
+wrapping of the DCE/RPC messages into SMB2_Write/Read packets.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_RPC_SOCKET.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1085-L1087"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_RPC_SOCKET.close" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_RPC_SOCKET.close_pipe">
+<span class="sig-name descname"><span class="pre">close_pipe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1014-L1016"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_RPC_SOCKET.close_pipe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_RPC_SOCKET.open_pipe">
+<span class="sig-name descname"><span class="pre">open_pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1011-L1012"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_RPC_SOCKET.open_pipe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_RPC_SOCKET.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1018-L1083"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_RPC_SOCKET.send" title="Link to this definition"></a></dt>
+<dd><p>Internal ObjectPipe function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.smbclient.</span></span><span class="sig-name descname"><span class="pre">SMB_SOCKET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smbsock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_ioctl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L667-L994"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.supersocket.html#scapy.supersocket.SuperSocket" title="scapy.supersocket.SuperSocket"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperSocket</span></code></a></p>
+<p>Mid-level wrapper over SMB_Client.smblink that provides some basic SMB
+client functions, such as tree connect, directory query, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.changenotify">
+<span class="sig-name descname"><span class="pre">changenotify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FileId</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L980-L994"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.changenotify" title="Link to this definition"></a></dt>
+<dd><p>Register change notify</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.close_request">
+<span class="sig-name descname"><span class="pre">close_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FileId</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L878-L887"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.close_request" title="Link to this definition"></a></dt>
+<dd><p>Close the FileId</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.create_request">
+<span class="sig-name descname"><span class="pre">create_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pipe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_create_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_desired_access</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L763-L876"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.create_request" title="Link to this definition"></a></dt>
+<dd><p>Open a file/pipe by its name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – the name of the file or named pipe. e.g. ‘srvsvc’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.from_tcpsock">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_tcpsock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L688-L698"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.from_tcpsock" title="Link to this definition"></a></dt>
+<dd><p>Wraps the tcp socket in a SMB_Client.smblink first, then into the
+SMB_SOCKET/SMB_RPC_SOCKET</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.get_TID">
+<span class="sig-name descname"><span class="pre">get_TID</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L711-L715"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.get_TID" title="Link to this definition"></a></dt>
+<dd><p>Get the current TID from the underlying socket</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.ins">
+<span class="sig-name descname"><span class="pre">ins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">socket</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.ins" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.outs">
+<span class="sig-name descname"><span class="pre">outs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">socket</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.outs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.query_directory">
+<span class="sig-name descname"><span class="pre">query_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FileName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L927-L960"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.query_directory" title="Link to this definition"></a></dt>
+<dd><p>Query the Directory with FileId</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.query_info">
+<span class="sig-name descname"><span class="pre">query_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">InfoType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FileInfoClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AdditionalInformation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L962-L978"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.query_info" title="Link to this definition"></a></dt>
+<dd><p>Query the Info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.read_request">
+<span class="sig-name descname"><span class="pre">read_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L889-L906"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.read_request" title="Link to this definition"></a></dt>
+<dd><p>Read request</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.session">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.session" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.set_TID">
+<span class="sig-name descname"><span class="pre">set_TID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TID</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L704-L709"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.set_TID" title="Link to this definition"></a></dt>
+<dd><p>Set the TID (Tree ID).
+This can be called before sending a packet</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.tree_connect">
+<span class="sig-name descname"><span class="pre">tree_connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L717-L747"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.tree_connect" title="Link to this definition"></a></dt>
+<dd><p>Send a TreeConnect request</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.tree_disconnect">
+<span class="sig-name descname"><span class="pre">tree_disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L749-L761"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.tree_disconnect" title="Link to this definition"></a></dt>
+<dd><p>Send a TreeDisconnect request</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.SMB_SOCKET.write_request">
+<span class="sig-name descname"><span class="pre">write_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L908-L925"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.SMB_SOCKET.write_request" title="Link to this definition"></a></dt>
+<dd><p>Write request</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.smbclient.</span></span><span class="sig-name descname"><span class="pre">smbclient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UPN</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kerberos_required</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashNt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashAes256Sha96</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashAes128Sha96</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">445</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ST</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KEY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cli</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">REQUIRE_ENCRYPTION</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1090-L1877"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.utils.html#scapy.utils.CLIUtil" title="scapy.utils.CLIUtil"><code class="xref py py-class docutils literal notranslate"><span class="pre">CLIUtil</span></code></a></p>
+<p>A simple SMB client CLI powered by Scapy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> – can be a hostname, the IPv4 or the IPv6 to connect to</p></li>
+<li><p><strong>UPN</strong> – the upn to use (DOMAIN/USER, DOMAINUSER, <a class="reference external" href="mailto:USER&#37;&#52;&#48;DOMAIN">USER<span>&#64;</span>DOMAIN</a> or USER)</p></li>
+<li><p><strong>guest</strong> – use guest mode (over NTLM)</p></li>
+<li><p><strong>ssp</strong> – if provided, use this SSP for auth.</p></li>
+<li><p><strong>kerberos_required</strong> – require kerberos</p></li>
+<li><p><strong>port</strong> – the TCP port. default 445</p></li>
+<li><p><strong>password</strong> – if provided, used for auth</p></li>
+<li><p><strong>HashNt</strong> – if provided, used for auth (NTLM)</p></li>
+<li><p><strong>HashAes256Sha96</strong> – if provided, used for auth (Kerberos)</p></li>
+<li><p><strong>HashAes128Sha96</strong> – if provided, used for auth (Kerberos)</p></li>
+<li><p><strong>ST</strong> – if provided, the service ticket to use (Kerberos)</p></li>
+<li><p><strong>KEY</strong> – if provided, the session key associated to the ticket (Kerberos)</p></li>
+<li><p><strong>cli</strong> – CLI mode (default True). False to use for scripting</p></li>
+</ul>
+</dd>
+</dl>
+<p>Some additional SMB parameters are available under help(SMB_Client). Some of
+them include the following:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>REQUIRE_ENCRYPTION</strong> – requires encryption.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.backup">
+<span class="sig-name descname"><span class="pre">backup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1777-L1787"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.backup" title="Link to this definition"></a></dt>
+<dd><p>Turn on or off backup intent</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.cat">
+<span class="sig-name descname"><span class="pre">cat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1693-L1703"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.cat" title="Link to this definition"></a></dt>
+<dd><p>Print a file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.cat_complete">
+<span class="sig-name descname"><span class="pre">cat_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1712-L1719"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.cat_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete cat</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.cat_output">
+<span class="sig-name descname"><span class="pre">cat_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1705-L1710"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.cat_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘cat’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.cd">
+<span class="sig-name descname"><span class="pre">cd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1460-L1472"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.cd" title="Link to this definition"></a></dt>
+<dd><p>Change the remote current directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.cd_complete">
+<span class="sig-name descname"><span class="pre">cd_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1474-L1481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.cd_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete cd</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.cd_output">
+<span class="sig-name descname"><span class="pre">cd_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1496-L1502"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.cd_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘cd’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1249-L1251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.close" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.collapse_path">
+<span class="sig-name descname"><span class="pre">collapse_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1259-L1262"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.collapse_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'backup':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.backup&gt;,</span> <span class="pre">'cat':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.cat&gt;,</span> <span class="pre">'cd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.cd&gt;,</span> <span class="pre">'get':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.get&gt;,</span> <span class="pre">'getsd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.getsd&gt;,</span> <span class="pre">'lcd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.lcd&gt;,</span> <span class="pre">'lls':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.lls&gt;,</span> <span class="pre">'ls':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.ls&gt;,</span> <span class="pre">'put':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.put&gt;,</span> <span class="pre">'rm':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.rm&gt;,</span> <span class="pre">'shares':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.shares&gt;,</span> <span class="pre">'use':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.use&gt;,</span> <span class="pre">'watch':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.watch&gt;}</span></span><a class="headerlink" href="#scapy.layers.smbclient.smbclient.commands" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.commands_complete">
+<span class="sig-name descname"><span class="pre">commands_complete</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cat':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.cat_complete&gt;,</span> <span class="pre">'cd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.cd_complete&gt;,</span> <span class="pre">'get':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.get_complete&gt;,</span> <span class="pre">'getsd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.getsd_complete&gt;,</span> <span class="pre">'lcd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.lcd_complete&gt;,</span> <span class="pre">'ls':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.ls_complete&gt;,</span> <span class="pre">'put':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.put_complete&gt;,</span> <span class="pre">'rm':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.rm_complete&gt;,</span> <span class="pre">'use':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.use_complete&gt;}</span></span><a class="headerlink" href="#scapy.layers.smbclient.smbclient.commands_complete" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.commands_output">
+<span class="sig-name descname"><span class="pre">commands_output</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cat':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.cat_output&gt;,</span> <span class="pre">'cd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.cd_output&gt;,</span> <span class="pre">'get':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.get_output&gt;,</span> <span class="pre">'getsd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.getsd_output&gt;,</span> <span class="pre">'lcd':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.lcd_output&gt;,</span> <span class="pre">'lls':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.lls_output&gt;,</span> <span class="pre">'ls':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.ls_output&gt;,</span> <span class="pre">'shares':</span> <span class="pre">&lt;function</span> <span class="pre">smbclient.shares_output&gt;}</span></span><a class="headerlink" href="#scapy.layers.smbclient.smbclient.commands_output" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_verb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1653-L1675"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.get" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a file
+-r: recursively download a directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.get_complete">
+<span class="sig-name descname"><span class="pre">get_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1684-L1691"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.get_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete get</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.get_output">
+<span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1677-L1682"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.get_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘get’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.getsd">
+<span class="sig-name descname"><span class="pre">getsd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1818-L1851"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.getsd" title="Link to this definition"></a></dt>
+<dd><p>Get the Security Descriptor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.getsd_complete">
+<span class="sig-name descname"><span class="pre">getsd_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1853-L1860"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.getsd_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete getsd</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.getsd_output">
+<span class="sig-name descname"><span class="pre">getsd_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1862-L1877"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.getsd_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘getsd’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.lcd">
+<span class="sig-name descname"><span class="pre">lcd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1528-L1537"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.lcd" title="Link to this definition"></a></dt>
+<dd><p>Change the local current directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.lcd_complete">
+<span class="sig-name descname"><span class="pre">lcd_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1539-L1544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.lcd_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete lcd</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.lcd_output">
+<span class="sig-name descname"><span class="pre">lcd_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1546-L1552"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.lcd_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘lcd’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.lls">
+<span class="sig-name descname"><span class="pre">lls</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1504-L1509"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.lls" title="Link to this definition"></a></dt>
+<dd><p>List the files in the local directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.lls_output">
+<span class="sig-name descname"><span class="pre">lls_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1511-L1526"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.lls_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘lls’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.ls">
+<span class="sig-name descname"><span class="pre">ls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1385-L1415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.ls" title="Link to this definition"></a></dt>
+<dd><p>List the files in the remote directory
+-t: sort by timestamp
+-S: sort by size
+-r: reverse while sorting</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.ls_complete">
+<span class="sig-name descname"><span class="pre">ls_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1451-L1458"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.ls_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete ls</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.ls_output">
+<span class="sig-name descname"><span class="pre">ls_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1417-L1449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.ls_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘ls’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.normalize_path">
+<span class="sig-name descname"><span class="pre">normalize_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1264-L1268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.normalize_path" title="Link to this definition"></a></dt>
+<dd><p>Normalize path for CIFS usage</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.ps1">
+<span class="sig-name descname"><span class="pre">ps1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1246-L1247"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.ps1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1721-L1737"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.put" title="Link to this definition"></a></dt>
+<dd><p>Upload a file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.put_complete">
+<span class="sig-name descname"><span class="pre">put_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1739-L1744"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.put_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete put</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.rm">
+<span class="sig-name descname"><span class="pre">rm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1746-L1766"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.rm" title="Link to this definition"></a></dt>
+<dd><p>Delete a file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.rm_complete">
+<span class="sig-name descname"><span class="pre">rm_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1768-L1775"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.rm_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete rm</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.shares">
+<span class="sig-name descname"><span class="pre">shares</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1270-L1308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.shares" title="Link to this definition"></a></dt>
+<dd><p>List the shares available</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.shares_output">
+<span class="sig-name descname"><span class="pre">shares_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1310-L1315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.shares_output" title="Link to this definition"></a></dt>
+<dd><p>Print the output of ‘shares’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.use">
+<span class="sig-name descname"><span class="pre">use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">share</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1317-L1324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.use" title="Link to this definition"></a></dt>
+<dd><p>Open a share</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.use_complete">
+<span class="sig-name descname"><span class="pre">use_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">share</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1326-L1333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.use_complete" title="Link to this definition"></a></dt>
+<dd><p>Auto-complete ‘use’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.smbclient.smbclient.watch">
+<span class="sig-name descname"><span class="pre">watch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/smbclient.py#L1789-L1816"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.smbclient.smbclient.watch" title="Link to this definition"></a></dt>
+<dd><p>Watch file changes in folder (recursively)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.smb2.html" class="btn btn-neutral float-left" title="scapy.layers.smb2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.smbserver.html" class="btn btn-neutral float-right" title="scapy.layers.smbserver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

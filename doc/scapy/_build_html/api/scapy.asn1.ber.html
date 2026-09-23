@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.asn1.ber &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.asn1.mib" href="scapy.asn1.mib.html" />
+    <link rel="prev" title="scapy.asn1.asn1" href="scapy.asn1.asn1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.asn1.asn1.html">scapy.asn1.asn1</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.asn1.ber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.asn1.mib.html">scapy.asn1.mib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.asn1.html">scapy.asn1 package</a></li>
+      <li class="breadcrumb-item active">scapy.asn1.ber</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.asn1.ber.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.asn1.ber">
+<span id="scapy-asn1-ber"></span><h1>scapy.asn1.ber<a class="headerlink" href="#module-scapy.asn1.ber" title="Link to this heading"></a></h1>
+<p>Basic Encoding Rules (BER) for ASN.1</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_BadTag_Decoding_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_BadTag_Decoding_Error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remaining</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L102-L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_BadTag_Decoding_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BER_Decoding_Error" title="scapy.asn1.ber.BER_Decoding_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">BER_Decoding_Error</span></code></a>, <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_BadTag_Decoding_Error" title="scapy.asn1.asn1.ASN1_BadTag_Decoding_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_BadTag_Decoding_Error</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_Decoding_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_Decoding_Error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remaining</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L80-L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_Decoding_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Decoding_Error" title="scapy.asn1.asn1.ASN1_Decoding_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Decoding_Error</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_Encoding_Error">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_Encoding_Error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><span class="pre">BERcodec_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remaining</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L58-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_Encoding_Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Encoding_Error" title="scapy.asn1.asn1.ASN1_Encoding_Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Encoding_Error</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_Exception">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_Exception</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L54-L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_Exception" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_id_dec">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_id_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L175-L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_id_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_id_enc">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_id_enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L202-L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_id_enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_len_dec">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_len_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L127-L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_len_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_len_enc">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_len_enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ll</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L107-L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_len_enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_num_dec">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_num_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L158-L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_num_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_num_enc">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_num_enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ll</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L146-L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_num_enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_tagging_dec">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_tagging_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1Tag" title="scapy.asn1.asn1.ASN1Tag"><span class="pre">ASN1Tag</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implicit_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explicit_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L219-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_tagging_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BER_tagging_enc">
+<span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BER_tagging_enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implicit_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explicit_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L258-L265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BER_tagging_enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BIT_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_BIT_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L457-L500"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BIT_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BIT_STRING.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L460-L485"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BIT_STRING.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BIT_STRING.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L487-L500"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BIT_STRING.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BIT_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BIT_STRING[3]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BIT_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BMP_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_BMP_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L622-L623"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BMP_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BMP_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BMP_STRING[30]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BMP_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BOOLEAN">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_BOOLEAN</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L453-L454"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BOOLEAN" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_BOOLEAN.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BOOLEAN[1]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_BOOLEAN.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_COUNTER32">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_COUNTER32</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L697-L698"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_COUNTER32" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_COUNTER32.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER32[65]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_COUNTER32.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_COUNTER64">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_COUNTER64</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L701-L702"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_COUNTER64" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_COUNTER64.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER64[70]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_COUNTER64.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_ENUMERATED">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_ENUMERATED</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L574-L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_ENUMERATED" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_ENUMERATED.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ENUMERATED[10]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_ENUMERATED.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_GAUGE32">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_GAUGE32</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L705-L706"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_GAUGE32" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_GAUGE32.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GAUGE32[66]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_GAUGE32.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_GENERALIZED_TIME">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_GENERALIZED_TIME</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L610-L611"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_GENERALIZED_TIME" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_GENERALIZED_TIME.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERALIZED_TIME[24]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_GENERALIZED_TIME.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_GENERAL_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_GENERAL_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L602-L603"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_GENERAL_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_GENERAL_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERAL_STRING[27]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_GENERAL_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_IA5_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_IA5_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L598-L599"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_IA5_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_IA5_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IA5_STRING[22]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_IA5_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_INTEGER">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_INTEGER</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L413-L450"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_INTEGER" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_INTEGER.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L435-L450"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_INTEGER.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_INTEGER.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L416-L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_INTEGER.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_INTEGER.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">INTEGER[2]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_INTEGER.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_IPADDRESS">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_IPADDRESS</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L673-L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_IPADDRESS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_IPADDRESS.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L685-L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_IPADDRESS.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_IPADDRESS.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ipaddr_ascii</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L676-L683"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_IPADDRESS.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_IPADDRESS.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IPADDRESS[64]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_IPADDRESS.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_ISO646_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_ISO646_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L614-L615"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_ISO646_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_ISO646_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ISO646_STRING[26]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_ISO646_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_NULL">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_NULL</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L524-L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_NULL" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_NULL.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L527-L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_NULL.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_NULL.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NULL[5]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_NULL.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_NUMERIC_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_NUMERIC_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L582-L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_NUMERIC_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_NUMERIC_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NUMERIC_STRING[18]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_NUMERIC_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_OID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_OID</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L536-L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_OID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_OID.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L553-L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_OID.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_OID.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_oid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L539-L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_OID.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_OID.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">OID[6]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_OID.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_Object</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L289-L403"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_K</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.asn1_object">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">asn1_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_K</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L293-L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.asn1_object" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.check_string">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L298-L305"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.check_string" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.check_type">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L307-L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.check_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.check_type_check_len">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check_type_check_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L328-L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.check_type_check_len" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.check_type_get_len">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check_type_get_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L319-L326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.check_type_get_len" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.codec">
+<span class="sig-name descname"><span class="pre">codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">_ASN1_ERROR</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_K</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L365-L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L337-L363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L394-L403"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.safedec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">safedec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">_ASN1_ERROR</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_K</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L386-L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.safedec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_Object.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ANY[0]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_Object.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_PRINTABLE_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_PRINTABLE_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L586-L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_PRINTABLE_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_PRINTABLE_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PRINTABLE_STRING[19]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_PRINTABLE_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_SEQUENCE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SEQUENCE</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L626-L666"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_SEQUENCE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_Object</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]]]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_SEQUENCE.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L638-L666"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_SEQUENCE.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_SEQUENCE.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ll</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><span class="pre">BERcodec_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L629-L636"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_SEQUENCE.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_SEQUENCE.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SEQUENCE[48]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_SEQUENCE.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_SET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SET</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L669-L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_SET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_SET.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SET[49]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_SET.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L503-L521"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_Object" title="scapy.asn1.ber.BERcodec_Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_Object</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_STRING.do_dec">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class" title="scapy.asn1.asn1.ASN1_Class"><span class="pre">ASN1_Class</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Object" title="scapy.asn1.asn1.ASN1_Object"><span class="pre">ASN1_Object</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L513-L521"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_STRING.do_dec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_STRING.enc">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">enc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L506-L511"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_STRING.enc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">STRING[4]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_T61_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_T61_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L590-L591"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_T61_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_T61_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">T61_STRING[20]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_T61_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_TIME_TICKS">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_TIME_TICKS</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L709-L710"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_TIME_TICKS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_INTEGER" title="scapy.asn1.ber.BERcodec_INTEGER"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_INTEGER</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_TIME_TICKS.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">TIME_TICKS[67]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_TIME_TICKS.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_UNIVERSAL_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_UNIVERSAL_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L618-L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_UNIVERSAL_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_UNIVERSAL_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UNIVERSAL_STRING[28]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_UNIVERSAL_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_UTC_TIME">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_UTC_TIME</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L606-L607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_UTC_TIME" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_UTC_TIME.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTC_TIME[23]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_UTC_TIME.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_UTF8_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_UTF8_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L578-L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_UTF8_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_UTF8_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTF8_STRING[12]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_UTF8_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_VIDEOTEX_STRING">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_VIDEOTEX_STRING</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L594-L595"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_VIDEOTEX_STRING" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.asn1.ber.BERcodec_STRING" title="scapy.asn1.ber.BERcodec_STRING"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_STRING</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_VIDEOTEX_STRING.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">VIDEOTEX_STRING[21]&gt;</span></span><a class="headerlink" href="#scapy.asn1.ber.BERcodec_VIDEOTEX_STRING.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.asn1.ber.BERcodec_metaclass">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.asn1.ber.</span></span><span class="sig-name descname"><span class="pre">BERcodec_metaclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.automaton.html#scapy.automaton.Message.type" title="scapy.automaton.Message.type"><span class="pre">type</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/asn1/ber.py#L270-L283"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.asn1.ber.BERcodec_metaclass" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.asn1.asn1.html" class="btn btn-neutral float-left" title="scapy.asn1.asn1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.asn1.mib.html" class="btn btn-neutral float-right" title="scapy.asn1.mib" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

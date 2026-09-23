@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.tls package &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.tls.crypto package" href="scapy.layers.tls.crypto.html" />
+    <link rel="prev" title="scapy.layers.msrpce.rpcserver" href="scapy.layers.msrpce.rpcserver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.tls package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.crypto.html">scapy.layers.tls.crypto package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.all.html">scapy.layers.tls.all</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton.html">scapy.layers.tls.automaton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton_cli.html">scapy.layers.tls.automaton_cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.automaton_srv.html">scapy.layers.tls.automaton_srv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.basefields.html">scapy.layers.tls.basefields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.cert.html">scapy.layers.tls.cert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.extensions.html">scapy.layers.tls.extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.handshake.html">scapy.layers.tls.handshake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.handshake_sslv2.html">scapy.layers.tls.handshake_sslv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.keyexchange.html">scapy.layers.tls.keyexchange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.keyexchange_tls13.html">scapy.layers.tls.keyexchange_tls13</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.quic.html">scapy.layers.tls.quic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record.html">scapy.layers.tls.record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record_sslv2.html">scapy.layers.tls.record_sslv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.record_tls13.html">scapy.layers.tls.record_tls13</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.session.html">scapy.layers.tls.session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scapy.layers.tls.tools.html">scapy.layers.tls.tools</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.tls package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.tls.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.tls">
+<span id="scapy-layers-tls-package"></span><h1>scapy.layers.tls package<a class="headerlink" href="#module-scapy.layers.tls" title="Link to this heading"></a></h1>
+<p>Tools for handling TLS sessions and digital certificates.
+Use load_layer(‘tls’) to load them to the main namespace.</p>
+<p>Prerequisites:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>You may need to ‘pip install cryptography’ for the module to be loaded.</p></li>
+</ul>
+</div></blockquote>
+<p>Main features:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>X.509 certificates parsing/building.</p></li>
+<li><p>RSA &amp; ECDSA keys sign/verify methods.</p></li>
+<li><p>TLS records and sublayers (handshake…) parsing/building. Works with
+versions SSLv2 to TLS 1.3. This may be enhanced by a TLS context. For
+instance, if Scapy reads a ServerHello with version TLS 1.2 and a cipher
+suite using AES, it will assume the presence of IVs prepending the data.
+See test/tls.uts for real examples.</p></li>
+<li><p>TLS encryption/decryption capabilities with many ciphersuites, including
+some which may be deemed dangerous. Once again, the TLS context enables
+Scapy to transparently send/receive protected data if it learnt the
+session secrets. Note that if Scapy acts as one side of the handshake
+(e.g. reads all server-related packets and builds all client-related
+packets), it will indeed compute the session secrets.</p></li>
+<li><p>TLS client &amp; server basic automatons, provided for testing and tweaking
+purposes. These make for a very primitive TLS stack.</p></li>
+<li><p>Additionally, a basic test PKI (key + certificate for a CA, a client and
+a server) is provided in tls/examples/pki_test.</p></li>
+</ul>
+</div></blockquote>
+<p>Unit tests:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Various cryptography checks.</p></li>
+<li><p>Reading a TLS handshake between a Firefox client and a GitHub server.</p></li>
+<li><p>Reading TLS 1.3 handshakes from test vectors of the 8448 RFC.</p></li>
+<li><p>Reading a SSLv2 handshake between s_client and s_server, without PFS.</p></li>
+<li><p>Test our TLS server against s_client with different cipher suites.</p></li>
+<li><p>Test our TLS client against our TLS server (s_server is unscriptable).</p></li>
+<li><p>Test our TLS client against python’s SSL Socket wrapper (for TLS 1.3)</p></li>
+</ul>
+</div></blockquote>
+<p>TODO list (may it be carved away by good souls):</p>
+<blockquote>
+<div><ul>
+<li><p>Features to add (or wait for) in the cryptography library:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the compressed EC point format.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>About the automatons:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Allow upgrade from TLS 1.2 to TLS 1.3 in the Automaton client.
+Currently we’ll use TLS 1.3 only if the automaton client was given
+version=”tls13”.</p></li>
+<li><p>Add various checks for discrepancies between client and server.
+Is the ServerHello ciphersuite ok? What about the SKE params? Etc.</p></li>
+<li><p>Add some examples which illustrate how the automatons could be used.
+Typically, we could showcase this with Heartbleed.</p></li>
+<li><p>Allow the server to store both one RSA key and one ECDSA key, and
+select the right one to use according to the ClientHello suites.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Miscellaneous:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Define several Certificate Transparency objects.</p></li>
+<li><p>Mostly unused features : DSS, fixed DH, SRP, char2 curves…</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.crypto.html">scapy.layers.tls.crypto package</a></li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.all.html">scapy.layers.tls.all</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.automaton.html">scapy.layers.tls.automaton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.automaton_cli.html">scapy.layers.tls.automaton_cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.automaton_srv.html">scapy.layers.tls.automaton_srv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.basefields.html">scapy.layers.tls.basefields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.cert.html">scapy.layers.tls.cert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.extensions.html">scapy.layers.tls.extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.handshake.html">scapy.layers.tls.handshake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.handshake_sslv2.html">scapy.layers.tls.handshake_sslv2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.keyexchange.html">scapy.layers.tls.keyexchange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.keyexchange_tls13.html">scapy.layers.tls.keyexchange_tls13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.quic.html">scapy.layers.tls.quic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.record.html">scapy.layers.tls.record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.record_sslv2.html">scapy.layers.tls.record_sslv2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.record_tls13.html">scapy.layers.tls.record_tls13</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.session.html">scapy.layers.tls.session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scapy.layers.tls.tools.html">scapy.layers.tls.tools</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.msrpce.rpcserver.html" class="btn btn-neutral float-left" title="scapy.layers.msrpce.rpcserver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.tls.crypto.html" class="btn btn-neutral float-right" title="scapy.layers.tls.crypto package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

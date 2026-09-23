@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMB &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TCP" href="tcp.html" />
+    <link rel="prev" title="SCTP" href="sctp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SMB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smb-2-3-client">SMB 2/3 client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#high-level-smbclient">High-Level <code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mid-level-smb-socket">Mid-Level <code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#low-level-smb-client">Low-Level <code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Client</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#smb-2-3-server">SMB 2/3 server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#high-level-smbserver">High-Level <code class="xref py py-class docutils literal notranslate"><span class="pre">smbserver</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#low-level-smb-server">Low-Level <code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Server</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">SMB</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/smb.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="smb">
+<h1>SMB<a class="headerlink" href="#smb" title="Link to this heading"></a></h1>
+<p>Scapy provides pretty good support for SMB 2/3 and very partial support of SMB1.</p>
+<p>You can use the <a class="reference internal" href="../api/scapy.layers.smb2.html#scapy.layers.smb2.SMB2_Header" title="scapy.layers.smb2.SMB2_Header"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB2_Header</span></code></a> to dissect or build SMB2/3, or <a class="reference internal" href="../api/scapy.layers.smb.html#scapy.layers.smb.SMB_Header" title="scapy.layers.smb.SMB_Header"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Header</span></code></a> for SMB1.</p>
+<section id="smb-2-3-client">
+<span id="client"></span><h2>SMB 2/3 client<a class="headerlink" href="#smb-2-3-client" title="Link to this heading"></a></h2>
+<p>Scapy provides a small SMB 2/3 client Automaton: <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_Client" title="scapy.layers.smbclient.SMB_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Client</span></code></a></p>
+<img alt="../_images/smb_client.png" class="align-center" src="../_images/smb_client.png" />
+<p>Scapy’s SMB client stack is as follows:</p>
+<ul class="simple">
+<li><p>the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_Client" title="scapy.layers.smbclient.SMB_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Client</span></code></a> Automaton handles the logic to bind, negotiate and establish the SMB session (eventually using Security Providers).</p></li>
+<li><p>This Automaton is wrapped into a <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_SOCKET" title="scapy.layers.smbclient.SMB_SOCKET"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code></a> object which provides access to basic SMB commands such as open, read, write, close, etc.</p></li>
+<li><p>This socket is wrapped into a <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a> class which provides a high-level SMB client, with functions such as <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">get</span></code>, <code class="docutils literal notranslate"><span class="pre">put</span></code>, etc.</p></li>
+</ul>
+<p>You can access any of the 3 layers depending on how low-level you want to get.
+We’ll skip over the lowest one in this documentation, as it not really usable as an API, but note that this is where to look if you want to change SMB negotiation or session setup .(people wanting to use this are welcomed to have a look at the <code class="docutils literal notranslate"><span class="pre">scapy/layers/smbclient.py</span></code> code).</p>
+<section id="high-level-smbclient">
+<h3>High-Level <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a><a class="headerlink" href="#high-level-smbclient" title="Link to this heading"></a></h3>
+<section id="from-the-cli">
+<h4>From the CLI<a class="headerlink" href="#from-the-cli" title="Link to this heading"></a></h4>
+<p>Let’s start by using <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a> from the Scapy CLI:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="s2">"Administrator@domain.local"</span><span class="p">)</span>
+<span class="go">Password: ************</span>
+<span class="go">SMB authentication successful using SPNEGOSSP[KerberosSSP] !</span>
+<span class="go">smb: \&gt; shares</span>
+<span class="go">ShareName  ShareType  Comment</span>
+<span class="go">ADMIN$     DISKTREE   Remote Admin</span>
+<span class="go">C$         DISKTREE   Default share</span>
+<span class="go">IPC$       IPC        Remote IPC</span>
+<span class="go">NETLOGON   DISKTREE   Logon server share</span>
+<span class="go">SYSVOL     DISKTREE   Logon server share</span>
+<span class="go">Users      DISKTREE</span>
+<span class="go">common     DISKTREE</span>
+<span class="go">smb: \&gt; use c$</span>
+<span class="go">smb: \&gt; cd Program Files\Microsoft\</span>
+<span class="go">smb: \Program Files\Microsoft&gt; ls</span>
+<span class="go">FileName     FileAttributes  EndOfFile  LastWriteTime</span>
+<span class="go">.            DIRECTORY       0B         Fri, 24 Feb 2023 17:00:27  (1677254427)</span>
+<span class="go">..           DIRECTORY       0B         Fri, 24 Feb 2023 17:00:27  (1677254427)</span>
+<span class="go">EdgeUpdater  DIRECTORY       0B         Fri, 24 Feb 2023 17:00:27  (1677254427)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">help</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code> in the CLI to get the list of available commands.</p>
+</div>
+<p>As you can see, the previous example used Kerberos to authenticate.
+By default, the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a> class will use a <a class="reference internal" href="../api/scapy.layers.spnego.html#scapy.layers.spnego.SPNEGOSSP" title="scapy.layers.spnego.SPNEGOSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">SPNEGOSSP</span></code></a> and provide ask for both <code class="docutils literal notranslate"><span class="pre">NTLM</span></code> and <code class="docutils literal notranslate"><span class="pre">Kerberos</span></code>. but it is possible to have a greater control over this by providing your own <code class="docutils literal notranslate"><span class="pre">ssp</span></code> attribute.</p>
+<p><strong>smbclient using a</strong> <a class="reference internal" href="../api/scapy.layers.ntlm.html#scapy.layers.ntlm.NTLMSSP" title="scapy.layers.ntlm.NTLMSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLMSSP</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"password"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You might be wondering if you can pass the <code class="docutils literal notranslate"><span class="pre">HashNT</span></code> of the password of the user ‘Administrator’ directly. The answer is yes, you can ‘pass the hash’ directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span> <span class="n">HASHNT</span><span class="o">=</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">"8846f7eaee8fb117ad06bdd830b7586c"</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p><strong>smbclient using a</strong> <code class="xref py py-class docutils literal notranslate"><span class="pre">KerberosSSP</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="n">ssp</span><span class="o">=</span><span class="n">KerberosSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"password"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>smbclient using a</strong> <code class="xref py py-class docutils literal notranslate"><span class="pre">KerberosSSP</span></code> <strong>created by</strong> <a class="reference external" href="kerberos.html#ticketer">Ticketer++</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_module</span><span class="p">(</span><span class="s2">"ticketer"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Ticketer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">request_tgt</span><span class="p">(</span><span class="s2">"Administrator@DOMAIN.LOCAL"</span><span class="p">)</span>
+<span class="go">Enter password: **********</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">request_st</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"host/server1.domain.local"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="n">ssp</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">ssp</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="go">SMB authentication successful using KerberosSSP !</span>
+</pre></div>
+</div>
+<p>If you pay very close attention, you’ll notice that in this case we aren’t using the <a class="reference internal" href="../api/scapy.layers.spnego.html#scapy.layers.spnego.SPNEGOSSP" title="scapy.layers.spnego.SPNEGOSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">SPNEGOSSP</span></code></a> wrapper. You could have used <code class="docutils literal notranslate"><span class="pre">ssp=SPNEGOSSP([t.ssp(1)])</span></code>.</p>
+<p><strong>smbclient forcing encryption</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="s2">"admin"</span><span class="p">,</span> <span class="n">REQUIRE_ENCRYPTION</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is also possible to start the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a> directly from the OS, using the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m scapy.layers.smbclient server1.domain.local Administrator@DOMAIN.LOCAL
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">scapy.layers.smbclient</span> <span class="pre">-h</span></code> to see the list of available options.</p>
+</div>
+</section>
+<section id="programmatically">
+<h4>Programmatically<a class="headerlink" href="#programmatically" title="Link to this heading"></a></h4>
+<p>A cool feature of the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a> is that all commands that you can call from the CLI, you can also call programmatically.</p>
+<p>Let’s re-do the initial example programmatically, by turning off the CLI mode. Obviously prompting for passwords will not work so make sure the client has everything it needs for Session Setup.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">smbclient</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cli</span> <span class="o">=</span> <span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"password"</span><span class="p">,</span> <span class="n">cli</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shares</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">shares</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shares</span>
+<span class="go">[('ADMIN$', 'DISKTREE', 'Remote Admin'),</span>
+<span class="go">('C$', 'DISKTREE', 'Default share'),</span>
+<span class="go">('common', 'DISKTREE', ''),</span>
+<span class="go">('IPC$', 'IPC', 'Remote IPC'),</span>
+<span class="go">('NETLOGON', 'DISKTREE', 'Logon server share '),</span>
+<span class="go">('SYSVOL', 'DISKTREE', 'Logon server share '),</span>
+<span class="go">('Users', 'DISKTREE', '')]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cli</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'c$'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cli</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="sa">r</span><span class="s1">'Program Files\Microsoft'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cli</span><span class="o">.</span><span class="n">ls</span><span class="p">()]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span>
+<span class="go">['.', '..', 'EdgeUpdater']</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="mid-level-smb-socket">
+<h3>Mid-Level <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_SOCKET" title="scapy.layers.smbclient.SMB_SOCKET"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code></a><a class="headerlink" href="#mid-level-smb-socket" title="Link to this heading"></a></h3>
+<p>If you know what you’re doing, then the High-Level smbclient might not be enough for you. You can go a level lower using the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_SOCKET" title="scapy.layers.smbclient.SMB_SOCKET"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code></a>.
+You can instantiate the object directly or via the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_SOCKET.from_tcpsock" title="scapy.layers.smbclient.SMB_SOCKET.from_tcpsock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_tcpsock()</span></code></a> helper.</p>
+<p>Let’s write a script that connects to a share and list the files in the root folder.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMB_SOCKET</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.spnego</span><span class="w"> </span><span class="kn">import</span> <span class="n">SPNEGOSSP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="n">NTLMSSP</span><span class="p">,</span> <span class="n">MD4le</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.kerberos</span><span class="w"> </span><span class="kn">import</span> <span class="n">KerberosSSP</span>
+<span class="c1"># Build SSP first. In SMB_SOCKET you have to do this yourself</span>
+<span class="n">password</span> <span class="o">=</span> <span class="s2">"password"</span>
+<span class="n">ssp</span> <span class="o">=</span> <span class="n">SPNEGOSSP</span><span class="p">([</span>
+    <span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="n">password</span><span class="p">),</span>
+    <span class="n">KerberosSSP</span><span class="p">(</span>
+        <span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator@domain.local"</span><span class="p">,</span>
+        <span class="n">PASSWORD</span><span class="o">=</span><span class="n">password</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+<span class="c1"># Connect to the server</span>
+<span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+<span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="mi">445</span><span class="p">))</span>
+<span class="n">smbsock</span> <span class="o">=</span> <span class="n">SMB_SOCKET</span><span class="o">.</span><span class="n">from_tcpsock</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">ssp</span><span class="o">=</span><span class="n">ssp</span><span class="p">)</span>
+<span class="c1"># Tree connect</span>
+<span class="n">tid</span> <span class="o">=</span> <span class="n">smbsock</span><span class="o">.</span><span class="n">tree_connect</span><span class="p">(</span><span class="s2">"C$"</span><span class="p">)</span>
+<span class="n">smbsock</span><span class="o">.</span><span class="n">set_TID</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+<span class="c1"># Open root folder and query files at root</span>
+<span class="n">fileid</span> <span class="o">=</span> <span class="n">smbsock</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">'folder'</span><span class="p">)</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">smbsock</span><span class="o">.</span><span class="n">query_directory</span><span class="p">(</span><span class="n">fileid</span><span class="p">)</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
+<span class="c1"># Close the handle</span>
+<span class="n">smbsock</span><span class="o">.</span><span class="n">close_request</span><span class="p">(</span><span class="n">fileid</span><span class="p">)</span>
+<span class="c1"># Close the socket</span>
+<span class="n">smbsock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This has a lot more overhead so make sure you need it.</p>
+<p>Something hybrid that might be easier to use, is to access the underlying <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_SOCKET" title="scapy.layers.smbclient.SMB_SOCKET"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code></a> in a higher-level <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.smbclient" title="scapy.layers.smbclient.smbclient"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbclient</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">smbclient</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cli</span> <span class="o">=</span> <span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"password"</span><span class="p">,</span> <span class="n">cli</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cli</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'c$'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smbsock</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">smbsock</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Open root folder and query files at root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fileid</span> <span class="o">=</span> <span class="n">smbsock</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">'folder'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="n">smbsock</span><span class="o">.</span><span class="n">query_directory</span><span class="p">(</span><span class="n">fileid</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="low-level-smb-client">
+<h3>Low-Level <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_Client" title="scapy.layers.smbclient.SMB_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Client</span></code></a><a class="headerlink" href="#low-level-smb-client" title="Link to this heading"></a></h3>
+<p>Finally, it’s also possible to call the underlying <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_Client.smblink" title="scapy.layers.smbclient.SMB_Client.smblink"><code class="xref py py-attr docutils literal notranslate"><span class="pre">smblink</span></code></a> socket directly.
+Again, you can instantiate the object directly or via the <a class="reference internal" href="../api/scapy.layers.smbclient.html#scapy.layers.smbclient.SMB_Client.from_tcpsock" title="scapy.layers.smbclient.SMB_Client.from_tcpsock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_tcpsock()</span></code></a> helper.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMB_Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s2">"192.168.0.100"</span><span class="p">,</span> <span class="mi">445</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lowsmbsock</span> <span class="o">=</span> <span class="n">SMB_Client</span><span class="o">.</span><span class="n">from_tcpsock</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Administrator"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"password"</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">SMB2_Tree_Connect_Request</span><span class="p">(</span><span class="n">Path</span><span class="o">=</span><span class="sa">r</span><span class="s2">"</span><span class="se">\\</span><span class="s2">server1\c$"</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>It’s also accessible as the <code class="docutils literal notranslate"><span class="pre">ins</span></code> attribute of a <code class="docutils literal notranslate"><span class="pre">SMB_SOCKET</span></code>, or the <code class="docutils literal notranslate"><span class="pre">sock</span></code> attribute of a <code class="docutils literal notranslate"><span class="pre">smbclient</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">smbclient</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cli</span> <span class="o">=</span> <span class="n">smbclient</span><span class="p">(</span><span class="s2">"server1.domain.local"</span><span class="p">,</span> <span class="s2">"Administrator@domain.local"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"password"</span><span class="p">,</span> <span class="n">cli</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lowsmbsock</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">sock</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">SMB2_Tree_Connect_Request</span><span class="p">(</span><span class="n">Path</span><span class="o">=</span><span class="sa">r</span><span class="s2">"</span><span class="se">\\</span><span class="s2">server1\c$"</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="smb-2-3-server">
+<span id="server"></span><h2>SMB 2/3 server<a class="headerlink" href="#smb-2-3-server" title="Link to this heading"></a></h2>
+<p>Scapy provides a SMB 2/3 server Automaton: <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.SMB_Server" title="scapy.layers.smbserver.SMB_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Server</span></code></a></p>
+<img alt="../_images/smb_server.png" class="align-center" src="../_images/smb_server.png" />
+<p>Once again, Scapy provides high level <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.smbserver" title="scapy.layers.smbserver.smbserver"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbserver</span></code></a> class that allows to spawn a SMB server.</p>
+<section id="high-level-smbserver">
+<h3>High-Level <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.smbserver" title="scapy.layers.smbserver.smbserver"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbserver</span></code></a><a class="headerlink" href="#high-level-smbserver" title="Link to this heading"></a></h3>
+<p>The <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.smbserver" title="scapy.layers.smbserver.smbserver"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbserver</span></code></a> class allows to spawn a SMB server serving a selection of shares.
+A share is identified by a <code class="docutils literal notranslate"><span class="pre">name</span></code> and a <code class="docutils literal notranslate"><span class="pre">path</span></code> (+ an optional description called <code class="docutils literal notranslate"><span class="pre">remark</span></code>).</p>
+<p><strong>Start a SMB server with NTLM auth for 2 users:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smbserver</span><span class="p">(</span>
+    <span class="n">shares</span><span class="o">=</span><span class="p">[</span><span class="n">SMBShare</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Scapy"</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"/tmp"</span><span class="p">)],</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span>
+        <span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"User1"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password1"</span><span class="p">),</span>
+            <span class="s2">"Administrator"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password2"</span><span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Start a SMB server with NTLM auth in an AD, using machine credentials:</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This requires an active account with <code class="docutils literal notranslate"><span class="pre">WORKSTATION_TRUST_ACCOUNT</span></code> in its <code class="docutils literal notranslate"><span class="pre">userAccountControl</span></code>. (otherwise you might get <code class="docutils literal notranslate"><span class="pre">STATUS_NO_TRUST_SAM_ACCOUNT</span></code>)</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smbserver</span><span class="p">(</span><span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP_DOMAIN</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"Computer1@domain.local"</span><span class="p">,</span> <span class="n">HASHNT</span><span class="o">=</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">"7facdc498ed1680c4fd1448319a8c04f"</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p><strong>Start a SMB server with Kerberos auth:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smbserver</span><span class="p">(</span>
+    <span class="n">shares</span><span class="o">=</span><span class="p">[</span><span class="n">SMBShare</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Scapy"</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"/tmp"</span><span class="p">)],</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">KerberosSSP</span><span class="p">(</span>
+        <span class="n">KEY</span><span class="o">=</span><span class="n">Key</span><span class="p">(</span>
+            <span class="n">EncryptionType</span><span class="o">.</span><span class="n">AES256_CTS_HMAC_SHA1_96</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">"0000000000000000000000000000000000000000000000000000000000000000"</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">SPN</span><span class="o">=</span><span class="s2">"cifs/server.domain.local"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>You can of course combine a NTLM and Kerberos server and provide them both over a</strong> <a class="reference internal" href="../api/scapy.layers.spnego.html#scapy.layers.spnego.SPNEGOSSP" title="scapy.layers.spnego.SPNEGOSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">SPNEGOSSP</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smbserver</span><span class="p">(</span>
+    <span class="n">shares</span><span class="o">=</span><span class="p">[</span><span class="n">SMBShare</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Scapy"</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"/tmp"</span><span class="p">)],</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">SPNEGOSSP</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">KerberosSSP</span><span class="p">(</span>
+                <span class="n">KEY</span><span class="o">=</span><span class="n">Key</span><span class="p">(</span>
+                    <span class="n">EncryptionType</span><span class="o">.</span><span class="n">AES256_CTS_HMAC_SHA1_96</span><span class="p">,</span>
+                    <span class="n">key</span><span class="o">=</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">"0000000000000000000000000000000000000000000000000000000000000000"</span><span class="p">),</span>
+                <span class="p">),</span>
+                <span class="n">SPN</span><span class="o">=</span><span class="s2">"cifs/server.domain.local"</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">NTLMSSP</span><span class="p">(</span>
+                <span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"User1"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password1"</span><span class="p">),</span>
+                    <span class="s2">"Administrator"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password2"</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, Scapy’s SMB server is read-only. You can set <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> to disable it, as follows.</p>
+</div>
+<p><strong>Start a SMB server with NTLM in Read-Write mode</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smbserver</span><span class="p">(</span>
+    <span class="n">shares</span><span class="o">=</span><span class="p">[</span><span class="n">SMBShare</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Scapy"</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"/tmp"</span><span class="p">)],</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span>
+        <span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"User1"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password1"</span><span class="p">),</span>
+            <span class="s2">"Administrator"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"Password2"</span><span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="c1"># Enable Read-Write</span>
+    <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Start a SMB server requiring encryption (two methods)</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Method 1: require encryption globally (available in SMB 3.0.0+)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">smbserver</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">REQUIRE_ENCRYPTION</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Method 2: for a specific share (only available in SMB 3.1.1+)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">smbserver</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">shares</span><span class="o">=</span><span class="p">[</span><span class="n">SMBShare</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Scapy"</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"/tmp"</span><span class="p">,</span> <span class="n">encryptdata</span><span class="o">=</span><span class="kc">True</span><span class="p">)])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to start the <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.smbserver" title="scapy.layers.smbserver.smbserver"><code class="xref py py-class docutils literal notranslate"><span class="pre">smbserver</span></code></a> (albeit only in unauthenticated mode) directly from the OS, using the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m scapy.layers.smbserver --port 12345
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">scapy.layers.smbserver</span> <span class="pre">-h</span></code> to see the list of available options.</p>
+</div>
+</section>
+<section id="low-level-smb-server">
+<h3>Low-Level <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.SMB_Server" title="scapy.layers.smbserver.SMB_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Server</span></code></a><a class="headerlink" href="#low-level-smb-server" title="Link to this heading"></a></h3>
+<p>To change the functionality of the <a class="reference internal" href="../api/scapy.layers.smbserver.html#scapy.layers.smbserver.SMB_Server" title="scapy.layers.smbserver.SMB_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMB_Server</span></code></a>, you shall extend the server class (which is an automaton) and provide additional custom conditions (or overwrite existing ones).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.smbserver</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMB_Server</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCustomSMBServer</span><span class="p">(</span><span class="n">SMB_Server</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Ridiculous demo SMB Server</span>
+
+<span class="sd">    We overwrite the handler of "SMB Echo Request" to do some crazy stuff</span>
+<span class="sd">    """</span>
+    <span class="nd">@ATMT</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">SMB_Server</span><span class="o">.</span><span class="n">receive_echo_request</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_echo_reply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyCustomSMBServer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">send_echo_reply</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>  <span class="c1"># send echo response</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"WHAT? An ECHO REQUEST? You MUUUSST be a linux user then, since Windows NEEEVER sends those !"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sctp.html" class="btn btn-neutral float-left" title="SCTP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tcp.html" class="btn btn-neutral float-right" title="TCP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

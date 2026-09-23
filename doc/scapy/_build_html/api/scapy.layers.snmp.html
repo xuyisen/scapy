@@ -1,0 +1,1005 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.snmp &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.spnego" href="scapy.layers.spnego.html" />
+    <link rel="prev" title="scapy.layers.smbserver" href="scapy.layers.smbserver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntlm.html">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.snmp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.snmp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.snmp">
+<span id="scapy-layers-snmp"></span><h1>scapy.layers.snmp<a class="headerlink" href="#module-scapy.layers.snmp" title="Link to this heading"></a></h1>
+<p>SNMP (Simple Network Management Protocol).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_BULK">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_BULK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L132-L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_BULK" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_BULK.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_BULK[165]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_BULK.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_GET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_GET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L112-L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_GET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_GET.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_GET[160]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_GET.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_INFORM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_INFORM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L136-L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_INFORM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_INFORM.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_INFORM[166]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_INFORM.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_NEXT">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_NEXT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L116-L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_NEXT" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_NEXT.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_NEXT[161]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_NEXT.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_RESPONSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L120-L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_RESPONSE.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_RESPONSE[162]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_RESPONSE.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_SET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_SET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L124-L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_SET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_SET.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_SET[163]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_SET.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_TRAPv1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L128-L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv1.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv1[164]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv1.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1F_SNMP_PDU_TRAPv2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L140-L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1fields.html#scapy.asn1fields.ASN1F_SEQUENCE" title="scapy.asn1fields.ASN1F_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1F_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv2.ASN1_tag">
+<span class="sig-name descname"><span class="pre">ASN1_tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv2[167]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1F_SNMP_PDU_TRAPv2.ASN1_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_Class_SNMP</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_Class_UNIVERSAL" title="scapy.asn1.asn1.ASN1_Class_UNIVERSAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Class_UNIVERSAL</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.ANY">
+<span class="sig-name descname"><span class="pre">ANY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ANY[0]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.ANY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.BIT_STRING">
+<span class="sig-name descname"><span class="pre">BIT_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BIT_STRING[3]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.BIT_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.BMP_STRING">
+<span class="sig-name descname"><span class="pre">BMP_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BMP_STRING[30]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.BMP_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.BOOLEAN">
+<span class="sig-name descname"><span class="pre">BOOLEAN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">BOOLEAN[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.BOOLEAN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.CHAR_STRING">
+<span class="sig-name descname"><span class="pre">CHAR_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">CHAR_STRING[29]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.CHAR_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.COUNTER32">
+<span class="sig-name descname"><span class="pre">COUNTER32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER32[65]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.COUNTER32" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.COUNTER64">
+<span class="sig-name descname"><span class="pre">COUNTER64</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">COUNTER64[70]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.COUNTER64" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.EMBEDDED_PDF">
+<span class="sig-name descname"><span class="pre">EMBEDDED_PDF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">EMBEDDED_PDF[11]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.EMBEDDED_PDF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.ENUMERATED">
+<span class="sig-name descname"><span class="pre">ENUMERATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ENUMERATED[10]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.ENUMERATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ERROR[-3]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.EXTERNAL">
+<span class="sig-name descname"><span class="pre">EXTERNAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">EXTERNAL[8]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.EXTERNAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.GAUGE32">
+<span class="sig-name descname"><span class="pre">GAUGE32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GAUGE32[66]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.GAUGE32" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.GENERALIZED_TIME">
+<span class="sig-name descname"><span class="pre">GENERALIZED_TIME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERALIZED_TIME[24]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.GENERALIZED_TIME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.GENERAL_STRING">
+<span class="sig-name descname"><span class="pre">GENERAL_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GENERAL_STRING[27]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.GENERAL_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.GRAPHIC_STRING">
+<span class="sig-name descname"><span class="pre">GRAPHIC_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">GRAPHIC_STRING[25]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.GRAPHIC_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.IA5_STRING">
+<span class="sig-name descname"><span class="pre">IA5_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IA5_STRING[22]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.IA5_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.INTEGER">
+<span class="sig-name descname"><span class="pre">INTEGER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">INTEGER[2]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.INTEGER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.IPADDRESS">
+<span class="sig-name descname"><span class="pre">IPADDRESS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">IPADDRESS[64]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.IPADDRESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.ISO646_STRING">
+<span class="sig-name descname"><span class="pre">ISO646_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">ISO646_STRING[26]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.ISO646_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NONE[-1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.NONE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.NULL">
+<span class="sig-name descname"><span class="pre">NULL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NULL[5]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.NULL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.NUMERIC_STRING">
+<span class="sig-name descname"><span class="pre">NUMERIC_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">NUMERIC_STRING[18]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.NUMERIC_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.OBJECT_DESCRIPTOR">
+<span class="sig-name descname"><span class="pre">OBJECT_DESCRIPTOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">OBJECT_DESCRIPTOR[7]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.OBJECT_DESCRIPTOR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.OID">
+<span class="sig-name descname"><span class="pre">OID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">OID[6]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.OID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_BULK">
+<span class="sig-name descname"><span class="pre">PDU_BULK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_BULK[165]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_BULK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_GET">
+<span class="sig-name descname"><span class="pre">PDU_GET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_GET[160]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_GET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_INFORM">
+<span class="sig-name descname"><span class="pre">PDU_INFORM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_INFORM[166]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_INFORM" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_NEXT">
+<span class="sig-name descname"><span class="pre">PDU_NEXT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_NEXT[161]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_NEXT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_RESPONSE">
+<span class="sig-name descname"><span class="pre">PDU_RESPONSE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_RESPONSE[162]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_RESPONSE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_SET">
+<span class="sig-name descname"><span class="pre">PDU_SET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_SET[163]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_SET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_TRAPv1">
+<span class="sig-name descname"><span class="pre">PDU_TRAPv1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv1[164]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_TRAPv1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PDU_TRAPv2">
+<span class="sig-name descname"><span class="pre">PDU_TRAPv2</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv2[167]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PDU_TRAPv2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.PRINTABLE_STRING">
+<span class="sig-name descname"><span class="pre">PRINTABLE_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PRINTABLE_STRING[19]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.PRINTABLE_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.RAW">
+<span class="sig-name descname"><span class="pre">RAW</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">RAW[-2]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.RAW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.REAL">
+<span class="sig-name descname"><span class="pre">REAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">REAL[9]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.REAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.RELATIVE_OID">
+<span class="sig-name descname"><span class="pre">RELATIVE_OID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">RELATIVE_OID[13]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.RELATIVE_OID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.SEQUENCE">
+<span class="sig-name descname"><span class="pre">SEQUENCE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SEQUENCE[48]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.SEQUENCE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.SET">
+<span class="sig-name descname"><span class="pre">SET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">SET[49]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.SET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.STRING">
+<span class="sig-name descname"><span class="pre">STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">STRING[4]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.T61_STRING">
+<span class="sig-name descname"><span class="pre">T61_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">T61_STRING[20]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.T61_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.TIME_TICKS">
+<span class="sig-name descname"><span class="pre">TIME_TICKS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">TIME_TICKS[67]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.TIME_TICKS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.UNIVERSAL_STRING">
+<span class="sig-name descname"><span class="pre">UNIVERSAL_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UNIVERSAL_STRING[28]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.UNIVERSAL_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.UTC_TIME">
+<span class="sig-name descname"><span class="pre">UTC_TIME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTC_TIME[23]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.UTC_TIME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.UTF8_STRING">
+<span class="sig-name descname"><span class="pre">UTF8_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">UTF8_STRING[12]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.UTF8_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.VIDEOTEX_STRING">
+<span class="sig-name descname"><span class="pre">VIDEOTEX_STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">VIDEOTEX_STRING[21]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.VIDEOTEX_STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_Class_SNMP.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SNMP'</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_Class_SNMP.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_BULK">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_BULK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L64-L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_BULK" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_BULK.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_BULK[165]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_BULK.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_GET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_GET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L44-L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_GET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_GET.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_GET[160]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_GET.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_INFORM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_INFORM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L68-L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_INFORM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_INFORM.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_INFORM[166]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_INFORM.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_NEXT">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_NEXT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L48-L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_NEXT" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_NEXT.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_NEXT[161]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_NEXT.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_RESPONSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L52-L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_RESPONSE.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_RESPONSE[162]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_RESPONSE.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_SET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_SET</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L56-L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_SET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_SET.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_SET[163]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_SET.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_TRAPv1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L60-L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv1.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv1[164]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv1.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">ASN1_SNMP_PDU_TRAPv2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_K</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L72-L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.asn1.html#scapy.asn1.asn1.ASN1_SEQUENCE" title="scapy.asn1.asn1.ASN1_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv2.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv2[167]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.ASN1_SNMP_PDU_TRAPv2.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_BULK">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_BULK</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L98-L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_BULK" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_BULK.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_BULK[165]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_BULK.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_GET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_GET</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L78-L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_GET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_GET.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_GET[160]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_GET.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_INFORM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_INFORM</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L102-L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_INFORM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_INFORM.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_INFORM[166]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_INFORM.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_NEXT">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_NEXT</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L82-L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_NEXT" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_NEXT.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_NEXT[161]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_NEXT.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_RESPONSE</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L86-L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_RESPONSE.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_RESPONSE[162]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_RESPONSE.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_SET">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_SET</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L90-L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_SET" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_SET.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_SET[163]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_SET.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_TRAPv1</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L94-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv1.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv1[164]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv1.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">BERcodec_SNMP_PDU_TRAPv2</span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L106-L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1.ber.html#scapy.asn1.ber.BERcodec_SEQUENCE" title="scapy.asn1.ber.BERcodec_SEQUENCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">BERcodec_SEQUENCE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv2.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Tag</span> <span class="pre">PDU_TRAPv2[167]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.BERcodec_SNMP_PDU_TRAPv2.tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x1</span> <span class="pre">&lt;ASN1_INTEGER[1]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_STRING['public']&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PDU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;SNMPget</span>&#160; <span class="pre">|&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L267-L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMP.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMP.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMP.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_STRING</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_CHOICE</span> <span class="pre">object&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMP.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMP.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMP'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMP.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMP.answers">
+<span class="sig-name descname"><span class="pre">answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L277-L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMP.answers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMP.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_STRING</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_CHOICE</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMP.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPbulk">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPbulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_repeaters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_repetitions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L240-L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPbulk" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPbulk.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPbulk.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPbulk.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_BULK(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPbulk.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPbulk.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPbulk'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPbulk.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPbulk.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPbulk.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPget">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L193-L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPget" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPget.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPget.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPget.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_GET(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPget.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPget.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPget'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPget.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPget.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPget.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPinform">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPinform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L249-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPinform" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPinform.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPinform.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPinform.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_INFORM(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPinform.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPinform.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPinform'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPinform.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPinform.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPinform.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPnext">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPnext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L202-L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPnext" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPnext.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPnext.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPnext.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_NEXT(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPnext.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPnext.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPnext'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPnext.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPnext.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPnext.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPresponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPresponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L211-L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPresponse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPresponse.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPresponse.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPresponse.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_RESPONSE(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPresponse.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPresponse.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPresponse'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPresponse.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPresponse.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPresponse.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPset">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L220-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPset" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPset.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPset.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPset.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_SET(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPset.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPset.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPset'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPset.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPset.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPset.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPtrapv1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enterprise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_OID['.1.3']&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_IPADDRESS['0.0.0.0']&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generic_trap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specific_trap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_stamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x6aa042cf</span> <span class="pre">&lt;ASN1_TIME_TICKS[&lt;IntAutoTime&gt;]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L229-L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv1.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv1.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv1.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_TRAPv1(&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_IPADDRESS</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_TIME_TICKS</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv1.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv1.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPtrapv1'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv1.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv1.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_IPADDRESS</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_TIME_TICKS</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv1.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPtrapv2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0x0</span> <span class="pre">&lt;ASN1_INTEGER[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varbindlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L258-L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv2.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv2.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv2.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SNMP_PDU_TRAPv2(&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv2.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv2.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPtrapv2'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv2.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPtrapv2.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_enum_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_INTEGER</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">varbindlist&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPtrapv2.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPvarbind">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">SNMPvarbind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_OID['.1.3']&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_NULL[0]&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noSuchObject</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noSuchInstance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endOfMibView</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L178-L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.SNMPvarbind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPvarbind.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPvarbind.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPvarbind.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_optional</span> <span class="pre">object&gt;)&gt;</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPvarbind.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPvarbind.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.snmp.SNMPvarbind'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPvarbind.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.snmp.SNMPvarbind.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_field</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_NULL</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_NULL</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_NULL</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.snmp.SNMPvarbind.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.snmp.snmpwalk">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.snmp.</span></span><span class="sig-name descname"><span class="pre">snmpwalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'public'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/snmp.py#L290-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.snmp.snmpwalk" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.smbserver.html" class="btn btn-neutral float-left" title="scapy.layers.smbserver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.spnego.html" class="btn btn-neutral float-right" title="scapy.layers.spnego" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

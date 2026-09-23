@@ -1,0 +1,973 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scapy.layers.ntlm &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scapy.layers.ntp" href="scapy.layers.ntp.html" />
+    <link rel="prev" title="scapy.layers.netflow" href="scapy.layers.netflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="scapy.html">Scapy API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1.html">scapy.asn1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.contrib.html">scapy.contrib package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="scapy.layers.html">scapy.layers package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.msrpce.html">scapy.layers.msrpce package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tls.html">scapy.layers.tls package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth.html">scapy.layers.bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.bluetooth4LE.html">scapy.layers.bluetooth4LE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.can.html">scapy.layers.can</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.clns.html">scapy.layers.clns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dcerpc.html">scapy.layers.dcerpc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp.html">scapy.layers.dhcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dhcp6.html">scapy.layers.dhcp6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dns.html">scapy.layers.dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot11.html">scapy.layers.dot11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.dot15d4.html">scapy.layers.dot15d4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.eap.html">scapy.layers.eap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gprs.html">scapy.layers.gprs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.gssapi.html">scapy.layers.gssapi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.hsrp.html">scapy.layers.hsrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.http.html">scapy.layers.http</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet.html">scapy.layers.inet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.inet6.html">scapy.layers.inet6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ipsec.html">scapy.layers.ipsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ir.html">scapy.layers.ir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.isakmp.html">scapy.layers.isakmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.kerberos.html">scapy.layers.kerberos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2.html">scapy.layers.l2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.l2tp.html">scapy.layers.l2tp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ldap.html">scapy.layers.ldap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.llmnr.html">scapy.layers.llmnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.lltd.html">scapy.layers.lltd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mgcp.html">scapy.layers.mgcp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.mobileip.html">scapy.layers.mobileip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ms_nrtp.html">scapy.layers.ms_nrtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netbios.html">scapy.layers.netbios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.netflow.html">scapy.layers.netflow</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">scapy.layers.ntlm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ntp.html">scapy.layers.ntp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pflog.html">scapy.layers.pflog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppi.html">scapy.layers.ppi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ppp.html">scapy.layers.ppp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.pptp.html">scapy.layers.pptp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.quic.html">scapy.layers.quic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.radius.html">scapy.layers.radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rip.html">scapy.layers.rip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.rtp.html">scapy.layers.rtp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sctp.html">scapy.layers.sctp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.sixlowpan.html">scapy.layers.sixlowpan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.skinny.html">scapy.layers.skinny</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb.html">scapy.layers.smb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smb2.html">scapy.layers.smb2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbclient.html">scapy.layers.smbclient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.smbserver.html">scapy.layers.smbserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.snmp.html">scapy.layers.snmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.spnego.html">scapy.layers.spnego</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.ssh.html">scapy.layers.ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tftp.html">scapy.layers.tftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.tuntap.html">scapy.layers.tuntap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.usb.html">scapy.layers.usb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vrrp.html">scapy.layers.vrrp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.vxlan.html">scapy.layers.vxlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.x509.html">scapy.layers.x509</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scapy.layers.zigbee.html">scapy.layers.zigbee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.libs.html">scapy.libs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.modules.html">scapy.modules package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.ansmachine.html">scapy.ansmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.as_resolvers.html">scapy.as_resolvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1fields.html">scapy.asn1fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.asn1packet.html">scapy.asn1packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.automaton.html">scapy.automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.autorun.html">scapy.autorun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.base_classes.html">scapy.base_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.config.html">scapy.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.consts.html">scapy.consts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.dadict.html">scapy.dadict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.data.html">scapy.data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.error.html">scapy.error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fields.html">scapy.fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.fwdmachine.html">scapy.fwdmachine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.interfaces.html">scapy.interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.main.html">scapy.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.packet.html">scapy.packet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pipetool.html">scapy.pipetool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.plist.html">scapy.plist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.pton_ntop.html">scapy.pton_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route.html">scapy.route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.route6.html">scapy.route6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.scapypipes.html">scapy.scapypipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sendrecv.html">scapy.sendrecv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.sessions.html">scapy.sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.supersocket.html">scapy.supersocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.themes.html">scapy.themes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils.html">scapy.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.utils6.html">scapy.utils6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scapy.volatile.html">scapy.volatile</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="scapy.html">Scapy API reference</a></li>
+          <li class="breadcrumb-item"><a href="scapy.layers.html">scapy.layers package</a></li>
+      <li class="breadcrumb-item active">scapy.layers.ntlm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/scapy.layers.ntlm.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scapy.layers.ntlm">
+<span id="scapy-layers-ntlm"></span><h1>scapy.layers.ntlm<a class="headerlink" href="#module-scapy.layers.ntlm" title="Link to this heading"></a></h1>
+<p>NTLM</p>
+<p>This is documented in [MS-NLMP]</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will find more complete documentation for this layer over at
+<a class="reference external" href="https://scapy.readthedocs.io/en/latest/layers/gssapi.html#ntlm">GSSAPI</a></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.AV_PAIR">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">AV_PAIR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">AvId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AvLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L569-L628"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.AV_PAIR" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.AV_PAIR.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.AV_PAIR'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.AV_PAIR.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.AV_PAIR.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L627-L628"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.AV_PAIR.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.AV_PAIR.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEShortEnumField</span> <span class="pre">(AV_PAIR).AvId&gt;,</span> <span class="pre">&lt;FieldLenField</span> <span class="pre">(AV_PAIR).AvLen&gt;,</span> <span class="pre">&lt;scapy.fields.MultipleTypeField</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.AV_PAIR.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.HMAC_MD5">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">HMAC_MD5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L950-L951"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.HMAC_MD5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.HTTP_ntlm_negotiate">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">HTTP_ntlm_negotiate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ntlm_negotiate</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L902-L909"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.HTTP_ntlm_negotiate" title="Link to this definition"></a></dt>
+<dd><p>Create an HTTP NTLM negotiate packet from an NTLM_NEGOTIATE message</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.LM_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">LM_RESPONSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L699-L702"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.LM_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.LM_RESPONSE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.LM_RESPONSE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.LM_RESPONSE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.LM_RESPONSE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(LM_RESPONSE).Response&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.LM_RESPONSE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.LMv2_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">LMv2_RESPONSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ChallengeFromClient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L705-L709"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.LMv2_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.LMv2_RESPONSE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.LMv2_RESPONSE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.LMv2_RESPONSE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.LMv2_RESPONSE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(LMv2_RESPONSE).Response&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(LMv2_RESPONSE).ChallengeFromClient&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.LMv2_RESPONSE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.MAC">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">MAC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SigningKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SeqNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1048-L1056"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.MAC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.MD4le">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">MD4le</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L954-L958"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.MD4le" title="Link to this definition"></a></dt>
+<dd><p>MD4 over a string encoded as utf-16le</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_EXCHANGE_NTLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L933-L944"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<p>GSSAPI NegoEX Exchange metadata blob
+This was reversed and may be meaningless</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;ASN1F_SEQUENCE(&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">items&gt;,)&gt;,)&gt;</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ASN1F_SEQUENCE_OF</span> <span class="pre">items&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NEGOEX_EXCHANGE_NTLM_ITEM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_OID['.']&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;ASN1_PRINTABLE_STRING['']&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L919-L930"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.asn1packet.html#scapy.asn1packet.ASN1_Packet" title="scapy.asn1packet.ASN1_Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASN1_Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.ASN1_codec">
+<span class="sig-name descname"><span class="pre">ASN1_codec</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1Codec</span> <span class="pre">BER[1]&gt;</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.ASN1_codec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.ASN1_root">
+<span class="sig-name descname"><span class="pre">ASN1_root</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ASN1F_SEQUENCE(&lt;ASN1F_SEQUENCE(&lt;ASN1F_SEQUENCE(&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PRINTABLE_STRING</span> <span class="pre">object&gt;)&gt;,)&gt;,)&gt;</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.ASN1_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.asn1packet.ASN1_Packet'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;scapy.asn1fields.ASN1F_OID</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.asn1fields.ASN1F_PRINTABLE_STRING</span> <span class="pre">object&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NEGOEX_EXCHANGE_NTLM_ITEM.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLMSSP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">UPN</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HASHNT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PASSWORD</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">USE_MIC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NTLM_VALUES</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DOMAIN_FQDN</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DOMAIN_NB_NAME</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">COMPUTER_NB_NAME</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">COMPUTER_FQDN</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IDENTITIES</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DO_NOT_CHECK_LOGIN</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SERVER_CHALLENGE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1146-L1889"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP" title="scapy.layers.gssapi.SSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">SSP</span></code></a></p>
+<p>The NTLM SSP</p>
+<p>Common arguments:</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param auth_level<span class="colon">:</span></dt>
+<dd class="field-odd"><p>One of DCE_C_AUTHN_LEVEL</p>
+</dd>
+<dt class="field-even">param USE_MIC<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether to use a MIC or not (default: True)</p>
+</dd>
+<dt class="field-odd">param NTLM_VALUES<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dictionary used to override the following values</p>
+</dd>
+</dl>
+<p>In case of a client:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">NegotiateFlags</span>
+<span class="o">-</span> <span class="n">ProductMajorVersion</span>
+<span class="o">-</span> <span class="n">ProductMinorVersion</span>
+<span class="o">-</span> <span class="n">ProductBuild</span>
+</pre></div>
+</div>
+<p>In case of a server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">NetbiosDomainName</span>
+<span class="o">-</span> <span class="n">NetbiosComputerName</span>
+<span class="o">-</span> <span class="n">DnsComputerName</span>
+<span class="o">-</span> <span class="n">DnsDomainName</span> <span class="p">(</span><span class="n">defaults</span> <span class="n">to</span> <span class="n">DOMAIN</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">DnsTreeName</span> <span class="p">(</span><span class="n">defaults</span> <span class="n">to</span> <span class="n">DOMAIN</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Flags</span>
+<span class="o">-</span> <span class="n">Timestamp</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Client-only arguments:</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param UPN<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the UPN to use for NTLM auth. If no domain is specified, will
+use the one provided by the server (domain in a domain, local
+if without domain)</p>
+</dd>
+<dt class="field-even">param HASHNT<span class="colon">:</span></dt>
+<dd class="field-even"><p>the password to use for NTLM auth</p>
+</dd>
+<dt class="field-odd">param PASSWORD<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the password to use for NTLM auth</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Server-only arguments:</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param DOMAIN_FQDN<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the domain FQDN (default: domain.local)</p>
+</dd>
+<dt class="field-even">param DOMAIN_NB_NAME<span class="colon">:</span></dt>
+<dd class="field-even"><p>the domain Netbios name (default: strip DOMAIN_FQDN)</p>
+</dd>
+<dt class="field-odd">param COMPUTER_NB_NAME<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the server Netbios name (default: SRV)</p>
+</dd>
+<dt class="field-even">param COMPUTER_FQDN<span class="colon">:</span></dt>
+<dd class="field-even"><p>the server FQDN
+(default: &lt;computer_nb_name&gt;.&lt;domain_fqdn&gt;)</p>
+</dd>
+<dt class="field-odd">param IDENTITIES<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dict {“username”: &lt;HashNT&gt;}
+Setting this value enables signature computation and
+authenticates inbound users.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CONTEXT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IsAcceptor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1202-L1242"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP.CONTEXT" title="scapy.layers.gssapi.SSP.CONTEXT"><code class="xref py py-class docutils literal notranslate"><span class="pre">CONTEXT</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.ExportedSessionKey">
+<span class="sig-name descname"><span class="pre">ExportedSessionKey</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.ExportedSessionKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.IsAcceptor">
+<span class="sig-name descname"><span class="pre">IsAcceptor</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.IsAcceptor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSealHandle">
+<span class="sig-name descname"><span class="pre">RecvSealHandle</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSealHandle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSealKey">
+<span class="sig-name descname"><span class="pre">RecvSealKey</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSealKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSeqNum">
+<span class="sig-name descname"><span class="pre">RecvSeqNum</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSeqNum" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSignKey">
+<span class="sig-name descname"><span class="pre">RecvSignKey</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.RecvSignKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSealHandle">
+<span class="sig-name descname"><span class="pre">SendSealHandle</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSealHandle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSealKey">
+<span class="sig-name descname"><span class="pre">SendSealKey</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSealKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSeqNum">
+<span class="sig-name descname"><span class="pre">SendSeqNum</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSeqNum" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSignKey">
+<span class="sig-name descname"><span class="pre">SendSignKey</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.SendSignKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.ServerHostname">
+<span class="sig-name descname"><span class="pre">ServerHostname</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.ServerHostname" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.SessionKey">
+<span class="sig-name descname"><span class="pre">SessionKey</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.SessionKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.chall_tok">
+<span class="sig-name descname"><span class="pre">chall_tok</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.chall_tok" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.clifailure">
+<span class="sig-name descname"><span class="pre">clifailure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1238-L1239"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.clifailure" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.CONTEXT.neg_tok">
+<span class="sig-name descname"><span class="pre">neg_tok</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT.neg_tok" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_Accept_sec_context">
+<span class="sig-name descname"><span class="pre">GSS_Accept_sec_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="scapy.layers.ntlm.NTLMSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GSS_S_FLAGS" title="scapy.layers.gssapi.GSS_S_FLAGS"><span class="pre">GSS_S_FLAGS</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;GSS_S_FLAGS.GSS_S_ALLOW_MISSING_BINDINGS:</span> <span class="pre">268435456&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan_bindings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GssChannelBindings" title="scapy.layers.gssapi.GssChannelBindings"><span class="pre">GssChannelBindings</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1602-L1777"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_Accept_sec_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_GetMICEx">
+<span class="sig-name descname"><span class="pre">GSS_GetMICEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qop_req</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1293-L1306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_GetMICEx" title="Link to this definition"></a></dt>
+<dd><p>[MS-NLMP] sect 3.4.8</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_Init_sec_context">
+<span class="sig-name descname"><span class="pre">GSS_Init_sec_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="scapy.layers.ntlm.NTLMSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GSS_C_FLAGS" title="scapy.layers.gssapi.GSS_C_FLAGS"><span class="pre">GSS_C_FLAGS</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan_bindings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.GssChannelBindings" title="scapy.layers.gssapi.GssChannelBindings"><span class="pre">GssChannelBindings</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1387-L1600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_Init_sec_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_Passive">
+<span class="sig-name descname"><span class="pre">GSS_Passive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="scapy.layers.ntlm.NTLMSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1788-L1820"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_Passive" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_Passive_set_Direction">
+<span class="sig-name descname"><span class="pre">GSS_Passive_set_Direction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="scapy.layers.ntlm.NTLMSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">IsAcceptor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1822-L1839"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_Passive_set_Direction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_UnwrapEx">
+<span class="sig-name descname"><span class="pre">GSS_UnwrapEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1340-L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_UnwrapEx" title="Link to this definition"></a></dt>
+<dd><p>[MS-NLMP] sect 3.4.7</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_VerifyMICEx">
+<span class="sig-name descname"><span class="pre">GSS_VerifyMICEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1308-L1322"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_VerifyMICEx" title="Link to this definition"></a></dt>
+<dd><p>[MS-NLMP] sect 3.4.9</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.GSS_WrapEx">
+<span class="sig-name descname"><span class="pre">GSS_WrapEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qop_req</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1324-L1338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.GSS_WrapEx" title="Link to this definition"></a></dt>
+<dd><p>[MS-NLMP] sect 3.4.6</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.LegsAmount">
+<span class="sig-name descname"><span class="pre">LegsAmount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="scapy.layers.ntlm.NTLMSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1290-L1291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.LegsAmount" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.MaximumSignatureLength">
+<span class="sig-name descname"><span class="pre">MaximumSignatureLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP.CONTEXT" title="scapy.layers.ntlm.NTLMSSP.CONTEXT"><span class="pre">CONTEXT</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1779-L1786"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.MaximumSignatureLength" title="Link to this definition"></a></dt>
+<dd><p>Returns the Maximum Signature length.</p>
+<p>This will be used in auth_len in DceRpc5, and is necessary for
+PFC_SUPPORT_HEADER_SIGN to work properly.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.STATE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">STATE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1196-L1200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.STATE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.layers.gssapi.html#scapy.layers.gssapi.SSP.STATE" title="scapy.layers.gssapi.SSP.STATE"><code class="xref py py-class docutils literal notranslate"><span class="pre">STATE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.STATE.CLI_SENT_AUTH">
+<span class="sig-name descname"><span class="pre">CLI_SENT_AUTH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.STATE.CLI_SENT_AUTH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.STATE.CLI_SENT_NEGO">
+<span class="sig-name descname"><span class="pre">CLI_SENT_NEGO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.STATE.CLI_SENT_NEGO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.STATE.INIT">
+<span class="sig-name descname"><span class="pre">INIT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.STATE.INIT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.STATE.SRV_SENT_CHAL">
+<span class="sig-name descname"><span class="pre">SRV_SENT_CHAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.STATE.SRV_SENT_CHAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.auth_type">
+<span class="sig-name descname"><span class="pre">auth_type</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.auth_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.canMechListMIC">
+<span class="sig-name descname"><span class="pre">canMechListMIC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1352-L1361"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.canMechListMIC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.getMechListMIC">
+<span class="sig-name descname"><span class="pre">getMechListMIC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1363-L1373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.getMechListMIC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.oid">
+<span class="sig-name descname"><span class="pre">oid</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1.3.6.1.4.1.311.2.2.10'</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.oid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP.verifyMechListMIC">
+<span class="sig-name descname"><span class="pre">verifyMechListMIC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">otherMIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1375-L1385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP.verifyMechListMIC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP_DOMAIN">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLMSSP_DOMAIN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">UPN</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1892-L2052"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP_DOMAIN" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.ntlm.NTLMSSP" title="scapy.layers.ntlm.NTLMSSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLMSSP</span></code></a></p>
+<p>A variant of the NTLMSSP to be used in server mode that gets the session
+keys from the domain using a Netlogon channel.</p>
+<p>This has the same arguments as NTLMSSP, but supports the following in server
+mode:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>UPN</strong> – the UPN of the machine account to login for Netlogon.</p></li>
+<li><p><strong>HASHNT</strong> – the HASHNT of the machine account to use for Netlogon.</p></li>
+<li><p><strong>PASSWORD</strong> – the PASSWORD of the machine acconut to use for Netlogon.</p></li>
+<li><p><strong>DC_IP</strong> – (optional) specify the IP of the DC.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mySSP</span> <span class="o">=</span> <span class="n">NTLMSSP_DOMAIN</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">UPN</span><span class="o">=</span><span class="s2">"Server1@domain.local"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">HASHNT</span><span class="o">=</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">"8846f7eaee8fb117ad06bdd830b7586c"</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLMSSP_MESSAGE_SIGNATURE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SeqNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1007-L1016"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1015-L1016"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntField</span> <span class="pre">(NTLMSSP_MESSAGE_SIGNATURE).Version&gt;,</span> <span class="pre">&lt;XStrFixedLenField</span> <span class="pre">(NTLMSSP_MESSAGE_SIGNATURE).Checksum&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLMSSP_MESSAGE_SIGNATURE).SeqNum&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMSSP_MESSAGE_SIGNATURE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLM_AUTHENTICATE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NTLMSSP\x00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LmChallengeResponseLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LmChallengeResponseMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LmChallengeResponseBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NtChallengeResponseLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NtChallengeResponseMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NtChallengeResponseBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptedRandomSessionKeyLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptedRandomSessionKeyMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptedRandomSessionKeyBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NegotiateFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMajorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMinorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductBuild</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_ver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NTLMRevisionCurrent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L773-L895"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_NTLMPayloadPacket</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE.NTLM_VERSION">
+<span class="sig-name descname"><span class="pre">NTLM_VERSION</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE.NTLM_VERSION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE.OFFSET">
+<span class="sig-name descname"><span class="pre">OFFSET</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L777-L781"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE.OFFSET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_AUTHENTICATE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE.compute_mic">
+<span class="sig-name descname"><span class="pre">compute_mic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ExportedSessionKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negotiate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">challenge</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L891-L895"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE.compute_mic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).MessageType&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).LmChallengeResponseLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).LmChallengeResponseMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).LmChallengeResponseBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NtChallengeResponseLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NtChallengeResponseMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NtChallengeResponseBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).DomainNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).DomainNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).DomainNameBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).UserNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).UserNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).UserNameBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).WorkstationLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).WorkstationMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).WorkstationBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).EncryptedRandomSessionKeyLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).EncryptedRandomSessionKeyMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).EncryptedRandomSessionKeyBufferOffset&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NegotiateFlags&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;_NTLMPayloadField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Payload&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L872-L889"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE_V2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLM_AUTHENTICATE_V2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NTLMSSP\x00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LmChallengeResponseLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LmChallengeResponseMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LmChallengeResponseBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NtChallengeResponseLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NtChallengeResponseMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NtChallengeResponseBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptedRandomSessionKeyLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptedRandomSessionKeyMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EncryptedRandomSessionKeyBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NegotiateFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMajorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMinorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductBuild</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_ver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NTLMRevisionCurrent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L898-L899"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE_V2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE" title="scapy.layers.ntlm.NTLM_AUTHENTICATE"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLM_AUTHENTICATE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE_V2.NTLM_VERSION">
+<span class="sig-name descname"><span class="pre">NTLM_VERSION</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE_V2.NTLM_VERSION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE_V2.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_AUTHENTICATE_V2'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_AUTHENTICATE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE_V2.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_AUTHENTICATE_V2.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).MessageType&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).LmChallengeResponseLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).LmChallengeResponseMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).LmChallengeResponseBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NtChallengeResponseLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NtChallengeResponseMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NtChallengeResponseBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).DomainNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).DomainNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).DomainNameBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).UserNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).UserNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).UserNameBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).WorkstationLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).WorkstationMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).WorkstationBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).EncryptedRandomSessionKeyLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).EncryptedRandomSessionKeyMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).EncryptedRandomSessionKeyBufferOffset&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).NegotiateFlags&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;_NTLMPayloadField</span> <span class="pre">(NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Payload&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_AUTHENTICATE_V2.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_CHALLENGE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLM_CHALLENGE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NTLMSSP\x00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NegotiateFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ServerChallenge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Reserved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetInfoLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetInfoMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TargetInfoBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMajorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMinorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductBuild</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_ver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NTLMRevisionCurrent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L631-L693"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_CHALLENGE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_NTLMPayloadPacket</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_CHALLENGE.OFFSET">
+<span class="sig-name descname"><span class="pre">OFFSET</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L634-L634"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_CHALLENGE.OFFSET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_CHALLENGE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_CHALLENGE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_CHALLENGE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_CHALLENGE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).MessageType&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_CHALLENGE).TargetNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_CHALLENGE).TargetNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_CHALLENGE).TargetNameBufferOffset&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(NTLM_CHALLENGE).NegotiateFlags&gt;,</span> <span class="pre">&lt;XStrFixedLenField</span> <span class="pre">(NTLM_CHALLENGE).ServerChallenge&gt;,</span> <span class="pre">&lt;XStrFixedLenField</span> <span class="pre">(NTLM_CHALLENGE).Reserved&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_CHALLENGE).TargetInfoLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_CHALLENGE).TargetInfoMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_CHALLENGE).TargetInfoBufferOffset&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;_NTLMPayloadField</span> <span class="pre">(NTLM_CHALLENGE).Payload&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_CHALLENGE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_CHALLENGE.getAv">
+<span class="sig-name descname"><span class="pre">getAv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AvId</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L674-L678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_CHALLENGE.getAv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_CHALLENGE.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L680-L693"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_CHALLENGE.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_Header">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLM_Header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NTLMSSP\x00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L402-L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_Header" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_Header.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_Header'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_Header.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_Header.dispatch_hook">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dispatch_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L413-L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_Header.dispatch_hook" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_Header.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).MessageType&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_Header.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_NEGOTIATE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLM_NEGOTIATE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Signature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'NTLMSSP\x00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MessageType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NegotiateFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Flag</span> <span class="pre">0</span> <span class="pre">()&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DomainNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationNameLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationNameMaxLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WorkstationNameBufferOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMajorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductMinorVersion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ProductBuild</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_ver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NTLMRevisionCurrent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L491-L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_NEGOTIATE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_NTLMPayloadPacket</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_NEGOTIATE.OFFSET">
+<span class="sig-name descname"><span class="pre">OFFSET</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L494-L494"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_NEGOTIATE.OFFSET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_NEGOTIATE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_NEGOTIATE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm._NTLMPayloadPacket'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_NEGOTIATE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_NEGOTIATE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).Signature&gt;,</span> <span class="pre">&lt;LEIntEnumField</span> <span class="pre">(NTLM_Header,NTLM_NEGOTIATE,NTLM_CHALLENGE,NTLM_AUTHENTICATE,NTLM_AUTHENTICATE_V2).MessageType&gt;,</span> <span class="pre">&lt;FlagsField</span> <span class="pre">(NTLM_NEGOTIATE).NegotiateFlags&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_NEGOTIATE).DomainNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_NEGOTIATE).DomainNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_NEGOTIATE).DomainNameBufferOffset&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_NEGOTIATE).WorkstationNameLen&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLM_NEGOTIATE).WorkstationNameMaxLen&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLM_NEGOTIATE).WorkstationNameBufferOffset&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;scapy.fields.ConditionalField</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;_NTLMPayloadField</span> <span class="pre">(NTLM_NEGOTIATE).Payload&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_NEGOTIATE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_NEGOTIATE.post_build">
+<span class="sig-name descname"><span class="pre">post_build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L538-L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_NEGOTIATE.post_build" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLM_RESPONSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L712-L715"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLM_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_RESPONSE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLM_RESPONSE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_RESPONSE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLM_RESPONSE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;StrFixedLenField</span> <span class="pre">(NTLM_RESPONSE).Response&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLM_RESPONSE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLMv2_CLIENT_CHALLENGE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">_pkt,</span> <span class="pre">/,</span> <span class="pre">*,</span> <span class="pre">RespType=1,</span> <span class="pre">HiRespType=1,</span> <span class="pre">Reserved1=0,</span> <span class="pre">Reserved2=0,</span> <span class="pre">TimeStamp=None,</span> <span class="pre">ChallengeFromClient=b'12345678',</span> <span class="pre">Reserved3=0,</span> <span class="pre">AvPairs=[&lt;AV_PAIR</span>&#160; <span class="pre">|&gt;]</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L718-L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ByteField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).RespType&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).HiRespType&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).Reserved1&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).Reserved2&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).TimeStamp&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).ChallengeFromClient&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).Reserved3&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).AvPairs&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE.getAv">
+<span class="sig-name descname"><span class="pre">getAv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AvId</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L732-L736"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE.getAv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_ComputeSessionBaseKey">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLMv2_ComputeSessionBaseKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ResponseKeyNT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NTProofStr</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1041-L1042"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_ComputeSessionBaseKey" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_RESPONSE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTLMv2_RESPONSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">_pkt,</span> <span class="pre">/,</span> <span class="pre">*,</span> <span class="pre">NTProofStr=b'',</span> <span class="pre">RespType=1,</span> <span class="pre">HiRespType=1,</span> <span class="pre">Reserved1=0,</span> <span class="pre">Reserved2=0,</span> <span class="pre">TimeStamp=None,</span> <span class="pre">ChallengeFromClient=b'12345678',</span> <span class="pre">Reserved3=0,</span> <span class="pre">AvPairs=[&lt;AV_PAIR</span>&#160; <span class="pre">|&gt;]</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L739-L770"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_RESPONSE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE" title="scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTLMv2_CLIENT_CHALLENGE</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_RESPONSE.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLMv2_RESPONSE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.layers.ntlm.NTLMv2_CLIENT_CHALLENGE'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_RESPONSE.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_RESPONSE.computeNTProofStr">
+<span class="sig-name descname"><span class="pre">computeNTProofStr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ResponseKeyNT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ServerChallenge</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L745-L770"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_RESPONSE.computeNTProofStr" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Set temp to ConcatenationOf(Responserversion, HiResponserversion,</dt><dd><p>Z(6), Time, ClientChallenge, Z(4), ServerName, Z(4))</p>
+</dd>
+<dt>Set NTProofStr to HMAC_MD5(ResponseKeyNT,</dt><dd><p>ConcatenationOf(CHALLENGE_MESSAGE.ServerChallenge,temp))</p>
+</dd>
+</dl>
+<p>Remember ServerName = AvPairs</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTLMv2_RESPONSE.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;XStrFixedLenField</span> <span class="pre">(NTLMv2_RESPONSE).NTProofStr&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).RespType&gt;,</span> <span class="pre">&lt;ByteField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).HiRespType&gt;,</span> <span class="pre">&lt;LEShortField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).Reserved1&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).Reserved2&gt;,</span> <span class="pre">&lt;UTCTimeField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).TimeStamp&gt;,</span> <span class="pre">&lt;StrFixedLenField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).ChallengeFromClient&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).Reserved3&gt;,</span> <span class="pre">&lt;PacketListField</span> <span class="pre">(NTLMv2_CLIENT_CHALLENGE,NTLMv2_RESPONSE).AvPairs&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.NTLMv2_RESPONSE.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.NTOWFv2">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">NTOWFv2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Passwd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">User</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UserDom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HashNt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1026-L1038"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.NTOWFv2" title="Link to this definition"></a></dt>
+<dd><p>Computes the ResponseKeyNT (per [MS-NLMP] sect 3.3.2)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Passwd</strong> – the plain password</p></li>
+<li><p><strong>User</strong> – the username</p></li>
+<li><p><strong>UserDom</strong> – the domain name</p></li>
+<li><p><strong>HashNt</strong> – (out of spec) if you have the HashNt, use this and set
+Passwd to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.RC4">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">RC4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L979-L981"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.RC4" title="Link to this definition"></a></dt>
+<dd><p>The RC4 Encryption Algorithm</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.RC4Init">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">RC4Init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L961-L976"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.RC4Init" title="Link to this definition"></a></dt>
+<dd><p>Alleged RC4</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.RC4K">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">RC4K</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L984-L1001"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.RC4K" title="Link to this definition"></a></dt>
+<dd><p>Indicates the encryption of data item D with the key K using the
+RC4 algorithm.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.SEAL">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">SEAL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SigningKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SeqNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1070-L1077"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.SEAL" title="Link to this definition"></a></dt>
+<dd><p>SEAL() according to [MS-NLMP]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.SEALKEY">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">SEALKEY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NegFlg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExportedSessionKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1114-L1140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.SEALKEY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.SIGN">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">SIGN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SigningKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SeqNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1062-L1064"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.SIGN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.SIGNKEY">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">SIGNKEY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NegFlg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExportedSessionKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mode</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1093-L1108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.SIGNKEY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.Single_Host_Data">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">Single_Host_Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_pkt</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">Size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">48</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z4</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CustomData</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MachineID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L557-L566"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.Single_Host_Data" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scapy.packet.html#scapy.packet.Packet" title="scapy.packet.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packet</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.Single_Host_Data.aliastypes">
+<span class="sig-name descname"><span class="pre">aliastypes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'scapy.layers.ntlm.Single_Host_Data'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'scapy.packet.Packet'&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.Single_Host_Data.aliastypes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.Single_Host_Data.default_payload_class">
+<span class="sig-name descname"><span class="pre">default_payload_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L565-L566"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.Single_Host_Data.default_payload_class" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.Single_Host_Data.fields_desc">
+<span class="sig-name descname"><span class="pre">fields_desc</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scapy.fields.html#scapy.fields.Field" title="scapy.fields.Field"><span class="pre">Field</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_FieldContainer</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;LEIntField</span> <span class="pre">(Single_Host_Data).Size&gt;,</span> <span class="pre">&lt;LEIntField</span> <span class="pre">(Single_Host_Data).Z4&gt;,</span> <span class="pre">&lt;XStrFixedLenField</span> <span class="pre">(Single_Host_Data).CustomData&gt;,</span> <span class="pre">&lt;XStrFixedLenField</span> <span class="pre">(Single_Host_Data).MachineID&gt;]</span></span><a class="headerlink" href="#scapy.layers.ntlm.Single_Host_Data.fields_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scapy.layers.ntlm.UNSEAL">
+<span class="sig-prename descclassname"><span class="pre">scapy.layers.ntlm.</span></span><span class="sig-name descname"><span class="pre">UNSEAL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SigningKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SeqNum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/secdev/scapy/blob/master/scapy/layers/ntlm.py#L1080-L1087"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scapy.layers.ntlm.UNSEAL" title="Link to this definition"></a></dt>
+<dd><p>UNSEAL() according to [MS-NLMP]</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scapy.layers.netflow.html" class="btn btn-neutral float-left" title="scapy.layers.netflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scapy.layers.ntp.html" class="btn btn-neutral float-right" title="scapy.layers.ntp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

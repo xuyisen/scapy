@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTTP &mdash; Scapy 2.6.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0a414f3d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kerberos" href="kerberos.html" />
+    <link rel="prev" title="GSSAPI" href="gssapi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scapy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_usage/index.html">Advanced usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../routing.html">Scapy network stack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extend scapy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Build your own tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_dissect.html">Adding new protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Calling Scapy functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Layer-specific documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Layers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automotive.html">Automotive-specific Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bluetooth.html">Bluetooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcerpc.html">DCE/RPC &amp; [MS-RPCE]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcom.html">[MS-DCOM]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dotnet.html">.NET Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gssapi.html">GSSAPI</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HTTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#http-1-x">HTTP 1.X</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#about-http-1-x">About HTTP 1.X</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#http-1-x-in-scapy">HTTP 1.X in Scapy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-scapy-to-send-receive-http-1-x">Use Scapy to send/receive HTTP 1.X</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#http-2-x">HTTP 2.X</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kerberos.html">Kerberos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflow.html">Netflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pnio.html">PROFINET IO RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sctp.html">SCTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smb.html">SMB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp.html">TCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuntap.html">TUN / TAP Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Scapy development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter.html">Credits</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/scapy.html">Scapy API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scapy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Layers</a></li>
+      <li class="breadcrumb-item active">HTTP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/layers/http.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="http">
+<h1>HTTP<a class="headerlink" href="#http" title="Link to this heading"></a></h1>
+<p>Scapy supports the sending / receiving of HTTP packets natively.</p>
+<section id="http-1-x">
+<h2>HTTP 1.X<a class="headerlink" href="#http-1-x" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for HTTP 1.X was added in <code class="docutils literal notranslate"><span class="pre">2.4.3</span></code>, whereas HTTP 2.X was already in <code class="docutils literal notranslate"><span class="pre">2.4.0</span></code>.</p>
+</div>
+<section id="about-http-1-x">
+<h3>About HTTP 1.X<a class="headerlink" href="#about-http-1-x" title="Link to this heading"></a></h3>
+<p>HTTP 1.X is a <em>text protocol</em>. Those are pretty unusual nowadays (HTTP 2.X is binary), therefore its implementation is very different.</p>
+<p>For transmission purposes, HTTP 1.X frames are split in various fragments during the connection, which may or not have been encoded.
+This is explain over <a class="reference external" href="https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Transfer-Encoding">https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Transfer-Encoding</a></p>
+<p>To summarize, the frames can be split in 3 different ways:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chunks</span></code>: split in fragments called chunks that are preceded by their length. The end of a frame is marked by an empty chunk</p></li>
+<li><p>using <code class="docutils literal notranslate"><span class="pre">Content-Length</span></code>: the header of the HTTP frame announces the total length of the frame</p></li>
+<li><p>None of the above: the HTTP frame ends when the TCP stream ends / when a TCP push happens.</p></li>
+</ul>
+<p>Moreover, each frame may be additionally compressed, depending on the algorithm specified in the HTTP header:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compress</span></code>: compressed using <em>LZW</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deflate</span></code>: compressed using <em>ZLIB</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">br</span></code>: compressed using <em>Brotli</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gzip</span></code></p></li>
+</ul>
+<p>Let’s have a look at what happens when you perform an HTTPRequest using Scapy’s <code class="docutils literal notranslate"><span class="pre">TCP_client</span></code> (explained below):</p>
+<img alt="../_images/http_tcp.png" src="../_images/http_tcp.png" />
+<p>Once the first SYN/ACK is done, the connection is established. Scapy will send the <code class="docutils literal notranslate"><span class="pre">HTTPRequest()</span></code>, and the host will answer with HTTP fragments. Scapy will ACK each of those, and recompile them using <code class="docutils literal notranslate"><span class="pre">TCPSession</span></code>, like Wireshark does when it displays the answer frame.</p>
+</section>
+<section id="http-1-x-in-scapy">
+<h3>HTTP 1.X in Scapy<a class="headerlink" href="#http-1-x-in-scapy" title="Link to this heading"></a></h3>
+<p>Let’s list the module’s content:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">explore</span><span class="p">(</span><span class="n">scapy</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">http</span><span class="p">)</span>
+<span class="go">Packets contained in scapy.layers.http:</span>
+<span class="go">Class       |Name</span>
+<span class="go">------------|-------------</span>
+<span class="go">HTTP        |HTTP 1</span>
+<span class="go">HTTPRequest |HTTP Request</span>
+<span class="go">HTTPResponse|HTTP Response</span>
+</pre></div>
+</div>
+<p>There are two frames available: <code class="docutils literal notranslate"><span class="pre">HTTPRequest</span></code> and <code class="docutils literal notranslate"><span class="pre">HTTPResponse</span></code>. The <code class="docutils literal notranslate"><span class="pre">HTTP</span></code> is only used during dissection, as a util to choose between the two.
+All common header fields should be supported.</p>
+<ul class="simple">
+<li><p><strong>Default HTTPRequest:</strong></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">HTTPRequest</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">###[ HTTP Request ]###</span>
+<span class="go">  Method= 'GET'</span>
+<span class="go">  Path= '/'</span>
+<span class="go">  Http_Version= 'HTTP/1.1'</span>
+<span class="go">  A_IM= None</span>
+<span class="go">  Accept= None</span>
+<span class="go">  Accept_Charset= None</span>
+<span class="go">  Accept_Datetime= None</span>
+<span class="go">  Accept_Encoding= None</span>
+<span class="go">  [...]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Default HTTPResponse:</strong></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">HTTPResponse</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">###[ HTTP Response ]###</span>
+<span class="go">  Http_Version= 'HTTP/1.1'</span>
+<span class="go">  Status_Code= '200'</span>
+<span class="go">  Reason_Phrase= 'OK'</span>
+<span class="go">  Accept_Patch43= None</span>
+<span class="go">  Accept_Ranges= None</span>
+<span class="go">  [...]</span>
+</pre></div>
+</div>
+</section>
+<section id="use-scapy-to-send-receive-http-1-x">
+<h3>Use Scapy to send/receive HTTP 1.X<a class="headerlink" href="#use-scapy-to-send-receive-http-1-x" title="Link to this heading"></a></h3>
+<p>Scapy uses <a class="reference external" href="../usage.html#advanced-sniffing-sessions">Sessions classes</a> (more specifically the <code class="docutils literal notranslate"><span class="pre">TCPSession</span></code> class), in order to dissect and reconstruct HTTP packets.
+This handles Content-Length, chunks and/or compression.</p>
+<p>Here are the main ways of using HTTP 1.X with Scapy:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.http.html#scapy.layers.http.HTTP_Client" title="scapy.layers.http.HTTP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTP_Client</span></code></a>: Automata that send HTTP requests. It supports the <a class="reference internal" href="../api/scapy.layers.gssapi.html#scapy.layers.gssapi.SSP" title="scapy.layers.gssapi.SSP"><code class="xref py py-func docutils literal notranslate"><span class="pre">SSP()</span></code></a> mechanism to support authorization with NTLM, Kerberos, etc.</p></li>
+<li><p><a class="reference internal" href="../api/scapy.layers.http.html#scapy.layers.http.HTTP_Server" title="scapy.layers.http.HTTP_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTP_Server</span></code></a>: Automata to handle incoming HTTP requests. Also supports <a class="reference internal" href="../api/scapy.layers.gssapi.html#scapy.layers.gssapi.SSP" title="scapy.layers.gssapi.SSP"><code class="xref py py-func docutils literal notranslate"><span class="pre">SSP()</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sniff(session=TCPSession,</span> <span class="pre">[...])</span></code>: Perform decompression / defragmentation on all TCP streams simultaneously, but only acts passively.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TCP_client.tcplink(HTTP,</span> <span class="pre">host,</span> <span class="pre">80)</span></code>: Acts as a raw TCP client, handles SYN/ACK, and all TCP actions, but only creates one stream. It however supports some specific features, such as changing the source IP.</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.http.html#scapy.layers.http.HTTP_Client" title="scapy.layers.http.HTTP_Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTP_Client</span></code></a>:</p></li>
+</ul>
+<p>Let’s perform a very simple GET request to an HTTP server:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.http</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>  <span class="c1"># or load_layer("http")</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">HTTP_Client</span><span class="p">()</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">"http://127.0.0.1:8080"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can use the following shorthand to do the same very basic feature: <a class="reference internal" href="../api/scapy.layers.http.html#scapy.layers.http.http_request" title="scapy.layers.http.http_request"><code class="xref py py-func docutils literal notranslate"><span class="pre">http_request()</span></code></a>, usable as so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_layer</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+<span class="n">http_request</span><span class="p">(</span><span class="s2">"www.google.com"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)</span>  <span class="c1"># first argument is Host, second is Path</span>
+</pre></div>
+</div>
+<p>Let’s do the same request, but this time to a server that requires NTLM authentication:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.http</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>  <span class="c1"># or load_layer("http")</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">HTTP_Client</span><span class="p">(</span>
+    <span class="n">HTTP_AUTH_MECHS</span><span class="o">.</span><span class="n">NTLM</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">UPN</span><span class="o">=</span><span class="s2">"user"</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s2">"password"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">"http://127.0.0.1:8080"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/scapy.layers.http.html#scapy.layers.http.HTTP_Server" title="scapy.layers.http.HTTP_Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTP_Server</span></code></a>:</p></li>
+</ul>
+<p>Start an unauthenticated HTTP server automaton:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.http</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scapy.layers.ntlm</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Custom_HTTP_Server</span><span class="p">(</span><span class="n">HTTP_Server</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">answer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pkt</span><span class="o">.</span><span class="n">Path</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"/"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HTTPResponse</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="s2">"&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;OK&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;"</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HTTPResponse</span><span class="p">(</span>
+                <span class="n">Status_Code</span><span class="o">=</span><span class="sa">b</span><span class="s2">"404"</span><span class="p">,</span>
+                <span class="n">Reason_Phrase</span><span class="o">=</span><span class="sa">b</span><span class="s2">"Not Found"</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="s2">"&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;404 - Not Found&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;"</span>
+            <span class="p">)</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">HTTP_Server</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We could also have started the same server, but requiring <strong>NTLM authorization using</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="o">=</span> <span class="n">HTTP_Server</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">mech</span><span class="o">=</span><span class="n">HTTP_AUTH_MECHS</span><span class="o">.</span><span class="n">NTLM</span><span class="p">,</span>
+    <span class="n">ssp</span><span class="o">=</span><span class="n">NTLMSSP</span><span class="p">(</span><span class="n">IDENTITIES</span><span class="o">=</span><span class="p">{</span><span class="s2">"user"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)}),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Or <strong>basic auth</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="o">=</span> <span class="n">HTTP_Server</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span>
+    <span class="n">iface</span><span class="o">=</span><span class="s2">"eth0"</span><span class="p">,</span>
+    <span class="n">mech</span><span class="o">=</span><span class="n">HTTP_AUTH_MECHS</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span>
+    <span class="n">BASIC_IDENTITIES</span><span class="o">=</span><span class="p">{</span><span class="s2">"user"</span><span class="p">:</span> <span class="n">MD4le</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TCP_client.tcplink</span></code>:</p></li>
+</ul>
+<p>Send an HTTPRequest to <code class="docutils literal notranslate"><span class="pre">www.secdev.org</span></code> and write the result in a file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_layer</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">HTTP</span><span class="p">()</span><span class="o">/</span><span class="n">HTTPRequest</span><span class="p">(</span>
+    <span class="n">Accept_Encoding</span><span class="o">=</span><span class="sa">b</span><span class="s1">'gzip, deflate'</span><span class="p">,</span>
+    <span class="n">Cache_Control</span><span class="o">=</span><span class="sa">b</span><span class="s1">'no-cache'</span><span class="p">,</span>
+    <span class="n">Connection</span><span class="o">=</span><span class="sa">b</span><span class="s1">'keep-alive'</span><span class="p">,</span>
+    <span class="n">Host</span><span class="o">=</span><span class="sa">b</span><span class="s1">'www.secdev.org'</span><span class="p">,</span>
+    <span class="n">Pragma</span><span class="o">=</span><span class="sa">b</span><span class="s1">'no-cache'</span>
+<span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">TCP_client</span><span class="o">.</span><span class="n">tcplink</span><span class="p">(</span><span class="n">HTTP</span><span class="p">,</span> <span class="s2">"www.secdev.org"</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">sr1</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"www.secdev.org.html"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">load</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TCP_client.tcplink</span></code> makes it feel like it only received one packet, but in reality it was recombined in <code class="docutils literal notranslate"><span class="pre">TCPSession</span></code>.
+If you performed a plain <code class="docutils literal notranslate"><span class="pre">sniff()</span></code>, you would have seen those packets.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sniff()</span></code>:</p></li>
+</ul>
+<p>Dissect a pcap which contains a JPEG image that was sent over HTTP using chunks. This is able to reconstruct all HTTP streams in parallel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">http_chunk.pcap.gz</span></code> file is available in <code class="docutils literal notranslate"><span class="pre">scapy/test/pcaps</span></code></p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_layer</span><span class="p">(</span><span class="s2">"http"</span><span class="p">)</span>
+<span class="n">pkts</span> <span class="o">=</span> <span class="n">sniff</span><span class="p">(</span><span class="n">offline</span><span class="o">=</span><span class="s2">"http_chunk.pcap.gz"</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">TCPSession</span><span class="p">)</span>
+<span class="c1"># a[29] is the HTTPResponse</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"image.jpg"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pkts</span><span class="p">[</span><span class="mi">29</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="http-2-x">
+<h2>HTTP 2.X<a class="headerlink" href="#http-2-x" title="Link to this heading"></a></h2>
+<p>The HTTP 2 documentation is available as a Jupyter notebook over here: <a class="reference external" href="https://github.com/secdev/scapy/blob/master/doc/notebooks/HTTP_2_Tuto.ipynb">HTTP 2 Tuto</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gssapi.html" class="btn btn-neutral float-left" title="GSSAPI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="kerberos.html" class="btn btn-neutral float-right" title="Kerberos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2008-2026 Philippe Biondi and the Scapy community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
