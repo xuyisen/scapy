@@ -1,10 +1,11 @@
 .. Advanced usage documentation
 
-Advanced usage
-==============
+################
+ Advanced usage
+################
 
 .. toctree::
-   :glob:
-   :titlesonly:
-   
-   *
+    :glob:
+    :titlesonly:
+
+    *

@@ -1,24 +1,24 @@
-********************
-TUN / TAP Interfaces
-********************
+######################
+ TUN / TAP Interfaces
+######################
 
 .. note::
 
     This module only works on BSD, Linux and macOS.
 
-TUN/TAP lets you create virtual network interfaces from userspace. There are two
-types of devices:
+TUN/TAP lets you create virtual network interfaces from userspace. There are two types
+of devices:
 
 TUN devices
-    Operates at Layer 3 (:py:class:`IP`), and is generally limited to one
-    protocol.
+    Operates at Layer 3 (:py:class:`IP`), and is generally limited to one protocol.
 
 TAP devices
-    Operates at Layer 2 (:py:class:`Ether`), and allows you to use any Layer 3
-    protocol (:py:class:`IP`, :py:class:`IPv6`, IPX, etc.)
+    Operates at Layer 2 (:py:class:`Ether`), and allows you to use any Layer 3 protocol
+    (:py:class:`IP`, :py:class:`IPv6`, IPX, etc.)
 
-Requirements
-============
+**************
+ Requirements
+**************
 
 FreeBSD
     Requires the ``if_tap`` and ``if_tun`` kernel modules.
@@ -38,37 +38,44 @@ Linux
     information.
 
 macOS
-    On macOS 10.14 and earlier, you need to install `tuntaposx`__. macOS
-    10.14.5 and later will warn about the ``tuntaposx`` kexts not being
-    `notarised`__, but this works because it was built before 2019-04-07.
+    On macOS 10.14 and earlier, you need to install tuntaposx__. macOS 10.14.5 and later
+    will warn about the ``tuntaposx`` kexts not being notarised__, but this works
+    because it was built before 2019-04-07.
 
-    On macOS 10.15 and later, you need to use a `notarized build`__ of
-    ``tuntaposx``. `Tunnelblick`__ (OpenVPN client) contains a notarized build
-    of ``tuntaposx`` `which can be extracted`__.
+    On macOS 10.15 and later, you need to use a `notarized build`__ of ``tuntaposx``.
+    Tunnelblick__ (OpenVPN client) contains a notarized build of ``tuntaposx`` `which
+    can be extracted`__.
 
     .. note::
 
-        On macOS 10.13 and later, you need to `explicitly approve loading
-        each third-party kext for the first time`__.
+        On macOS 10.13 and later, you need to `explicitly approve loading each
+        third-party kext for the first time`__.
 
-__ https://www.freebsd.org/cgi/man.cgi?query=tap&sektion=4
-__ https://www.freebsd.org/cgi/man.cgi?query=tun&sektion=4
-__ https://www.kernel.org/doc/Documentation/networking/tuntap.txt
-__ http://tuntaposx.sourceforge.net/
-__ https://developer.apple.com/documentation/security/notarizing_your_app_before_distribution?language=objc
-__ https://developer.apple.com/documentation/security/notarizing_your_app_before_distribution?language=objc
-__ https://tunnelblick.net/downloads.html
-__ https://sourceforge.net/p/tuntaposx/bugs/28/#ac64
-__ https://developer.apple.com/library/archive/technotes/tn2459/_index.html
+.. __: https://www.freebsd.org/cgi/man.cgi?query=tap&sektion=4
 
+.. __: https://www.freebsd.org/cgi/man.cgi?query=tun&sektion=4
 
-Using TUN/TAP in Scapy
-======================
+.. __: https://www.kernel.org/doc/Documentation/networking/tuntap.txt
+
+.. __: http://tuntaposx.sourceforge.net/
+
+.. __: https://developer.apple.com/documentation/security/notarizing_your_app_before_distribution?language=objc
+
+.. __: https://developer.apple.com/documentation/security/notarizing_your_app_before_distribution?language=objc
+
+.. __: https://tunnelblick.net/downloads.html
+
+.. __: https://sourceforge.net/p/tuntaposx/bugs/28/#ac64
+
+.. __: https://developer.apple.com/library/archive/technotes/tn2459/_index.html
+
+************************
+ Using TUN/TAP in Scapy
+************************
 
 .. tip::
 
-    Using TUN/TAP generally requires running Scapy (and these utilities) as
-    ``root``.
+    Using TUN/TAP generally requires running Scapy (and these utilities) as ``root``.
 
 :py:class:`TunTapInterface` lets you easily create a new device:
 
@@ -79,11 +86,11 @@ Using TUN/TAP in Scapy
 You'll then need to bring the interface up, and assign an IP address in another
 terminal.
 
-Because TUN is a layer 3 connection, it acts as a point-to-point link.  We'll
-assign these parameters:
+Because TUN is a layer 3 connection, it acts as a point-to-point link. We'll assign
+these parameters:
 
-* local address (for your machine): 192.0.2.1
-* remote address (for Scapy): 192.0.2.2
+- local address (for your machine): 192.0.2.1
+- remote address (for Scapy): 192.0.2.2
 
 On Linux, you would use:
 
@@ -99,12 +106,11 @@ On BSD and macOS, use:
     sudo ifconfig tun0 up
     sudo ifconfig tun0 192.0.2.1 192.0.2.2
 
-Now, nothing will happen when you ping those addresses -- you'll need to make
-Scapy respond to that traffic.
+Now, nothing will happen when you ping those addresses -- you'll need to make Scapy
+respond to that traffic.
 
-:py:class:`TunTapInterface` works the same as a :py:class:`SuperSocket`, so lets
-setup an :py:class:`AnsweringMachine` to respond to :py:class:`ICMP`
-``echo-request``:
+:py:class:`TunTapInterface` works the same as a :py:class:`SuperSocket`, so lets setup
+an :py:class:`AnsweringMachine` to respond to :py:class:`ICMP` ``echo-request``:
 
 .. code-block:: pycon3
 
@@ -113,7 +119,8 @@ setup an :py:class:`AnsweringMachine` to respond to :py:class:`ICMP`
 
 Now, you can ping Scapy in another terminal:
 
-.. code-block: console:
+..
+    code-block: console:
 
     $ ping -c 3 192.0.2.2
     PING 192.0.2.2 (192.0.2.2): 56 data bytes
@@ -134,18 +141,18 @@ You should see those packets show up in Scapy:
     Replying 192.0.2.1 to 192.0.2.2
     Replying 192.0.2.1 to 192.0.2.2
 
-You might have noticed that didn't configure Scapy with any IP address... and
-there's a trick to this: :py:class:`ICMPEcho_am` swaps the ``source`` and
-``destination`` fields of any :py:class:`Ether` and :py:class:`IP` headers on
-the :py:class:`ICMP` packet that it receives. As a result, it actually responds
-to *any* IP address.
+You might have noticed that didn't configure Scapy with any IP address... and there's a
+trick to this: :py:class:`ICMPEcho_am` swaps the ``source`` and ``destination`` fields
+of any :py:class:`Ether` and :py:class:`IP` headers on the :py:class:`ICMP` packet that
+it receives. As a result, it actually responds to *any* IP address.
 
 You can stop the :py:class:`ICMPEcho_am` AnsweringMachine with :kbd:`^C`.
 
 When you close Scapy, the ``tun0`` interface will automatically disappear.
 
-TunTapInterface reference
-=========================
+***************************
+ TunTapInterface reference
+***************************
 
 .. py:class:: TunTapInterface(SimpleSocket)
 
@@ -197,7 +204,7 @@ TunTapInterface reference
         with a value from :py:data:`scapy.data.ETHER_TYPES`.
 
 Linux-specific structures
--------------------------
+=========================
 
 .. py:class:: LinuxTunPacketInfo(TunPacketInfo)
 

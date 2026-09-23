@@ -41,9 +41,7 @@ import scapy
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 def linkcode_resolve(domain, info):
-    """
-    Determine the URL corresponding to Python object
-    """
+    """Determine the URL corresponding to Python object"""
     if domain != 'py':
         return None
 

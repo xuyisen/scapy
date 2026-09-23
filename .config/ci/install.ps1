@@ -9,7 +9,20 @@
 & "$PSScriptRoot\windows\InstallWindumpNpcap.ps1"
 
 # Install wireshark
-choco install -y wireshark
+$maxAttempts = 3
+$attempt = 0
+do {
+    $attempt++
+    choco install -y wireshark
+    if ($LASTEXITCODE -eq 0) { break }
+    if ($attempt -lt $maxAttempts) {
+        Write-Host "Wireshark installation failed, retrying in $([int](15 * $attempt)) seconds..."
+        Start-Sleep -Seconds ([int](15 * $attempt))
+    }
+} while ($attempt -lt $maxAttempts)
+if ($LASTEXITCODE -ne 0) {
+    throw "Wireshark installation failed after $maxAttempts attempts"
+}
 
 # Add to PATH
 echo "C:\Program Files\Wireshark;C:\Program Files\Windump" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append

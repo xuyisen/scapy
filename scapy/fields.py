@@ -3031,7 +3031,13 @@ class FlagValue(object):
         if isinstance(value, list):
             y = 0
             for i in value:
-                y |= 1 << self.names.index(i)
+                try:
+                    y |= 1 << self.names.index(i)
+                except ValueError:
+                    if '-' in i:
+                        y |= 1 << self.names.index(i.replace('-', '_'))
+                    else:
+                        raise
             value = y
         return int(value)
 

@@ -1,26 +1,36 @@
-*******************
-Scapy network stack
-*******************
+#####################
+ Scapy network stack
+#####################
 
-Scapy maintains its own network stack, which is independent from the one of your operating system.
-It possesses its own *interfaces list*, *routing table*, *ARP cache*, *IPv6 neighbour* cache, *nameservers* config... and so on, all of which is configurable.
+Scapy maintains its own network stack, which is independent from the one of your
+operating system. It possesses its own *interfaces list*, *routing table*, *ARP cache*,
+*IPv6 neighbour* cache, *nameservers* config... and so on, all of which is configurable.
 
-Here are a few examples of where this is used::
+Here are a few examples of where this is used:
 
-- When you use ``sr()/send()``, Scapy will use internally its own routing table (``conf.route``) in order to find which interface to use, and eventually send an ARP request.
-- When using ``dns_resolve()``, Scapy uses its own nameservers list (``conf.nameservers``) to perform the request
-- etc.
+::
+
+    - When you use ``sr()/send()``, Scapy will use internally its own routing table (``conf.route``) in order to find which interface to use, and eventually send an ARP request.
+    - When using ``dns_resolve()``, Scapy uses its own nameservers list (``conf.nameservers``) to perform the request
+    - etc.
 
 .. note::
-    What's important to note is that Scapy initializes its own tables by querying the OS-specific ones.
-    It has therefore implemented bindings for Linux/Windows/BSD.. in order to retrieve such data, which may also be used as a high-level API, documented below.
 
+    What's important to note is that Scapy initializes its own tables by querying the
+    OS-specific ones. It has therefore implemented bindings for Linux/Windows/BSD.. in
+    order to retrieve such data, which may also be used as a high-level API, documented
+    below.
 
-Interfaces list
----------------
+*****************
+ Interfaces list
+*****************
 
-Scapy stores its interfaces list in the :py:attr:`conf.ifaces <scapy.interfaces.NetworkInterfaceDict>` object.
-It provides a few utility functions such as :py:attr:`dev_from_networkname() <scapy.interfaces.NetworkInterfaceDict.dev_from_networkname>`, :py:attr:`dev_from_name() <scapy.interfaces.NetworkInterfaceDict.dev_from_name>` or :py:attr:`dev_from_index() <scapy.interfaces.NetworkInterfaceDict.dev_from_index>` in order to access those.
+Scapy stores its interfaces list in the :py:attr:`conf.ifaces
+<scapy.interfaces.NetworkInterfaceDict>` object. It provides a few utility functions
+such as :py:attr:`dev_from_networkname()
+<scapy.interfaces.NetworkInterfaceDict.dev_from_networkname>`, :py:attr:`dev_from_name()
+<scapy.interfaces.NetworkInterfaceDict.dev_from_name>` or :py:attr:`dev_from_index()
+<scapy.interfaces.NetworkInterfaceDict.dev_from_index>` in order to access those.
 
 .. code-block:: pycon
 
@@ -31,7 +41,8 @@ It provides a few utility functions such as :py:attr:`dev_from_networkname() <sc
     >>> conf.ifaces.dev_from_index(2)
     <NetworkInterface eth0 [UP+BROADCAST+RUNNING+SLAVE]>
 
-You can also use the older ``get_if_list()`` function in order to only get the interface names.
+You can also use the older ``get_if_list()`` function in order to only get the interface
+names.
 
 .. code-block:: pycon
 
@@ -39,9 +50,11 @@ You can also use the older ``get_if_list()`` function in order to only get the i
     ['lo', 'eth0']
 
 Extcap interfaces
-~~~~~~~~~~~~~~~~~
+=================
 
-Scapy supports sniffing on `Wireshark's extcap <https://www.wireshark.org/docs/man-pages/extcap.html>`_ interfaces. You can simply enable it using ``load_extcap()`` (from ``scapy.libs.extcap``).
+Scapy supports sniffing on `Wireshark's extcap
+<https://www.wireshark.org/docs/man-pages/extcap.html>`_ interfaces. You can simply
+enable it using ``load_extcap()`` (from ``scapy.libs.extcap``).
 
 .. code-block:: pycon
 
@@ -59,8 +72,9 @@ Scapy supports sniffing on `Wireshark's extcap <https://www.wireshark.org/docs/m
     sys     1      lo    00:00:00:00:00:00  127.0.0.1     ::1
     sys     2      eth0  Microsof:12:cb:ef  10.0.0.5  fe80::10a:2bef:dc12:afae
 
-
-Here's an example of how to use `sshdump <https://www.wireshark.org/docs/man-pages/sshdump.html>`_. As you can see you can pass arguments that are properly converted:
+Here's an example of how to use `sshdump
+<https://www.wireshark.org/docs/man-pages/sshdump.html>`_. As you can see you can pass
+arguments that are properly converted:
 
 .. code-block:: pycon
 
@@ -73,7 +87,6 @@ Here's an example of how to use `sshdump <https://www.wireshark.org/docs/man-pag
     ...     remote_password="SCAPY",
     ... )
 
-
 You can check the available options by using the following.
 
 .. code-block:: python
@@ -82,13 +95,17 @@ You can check the available options by using the following.
 
 .. todo:: The sections below can be greatly improved.
 
-IPv4 routes
------------
+*************
+ IPv4 routes
+*************
 
 .. note::
-    If you want to change or edit the routes, have a look at `the "Routing" section in Usage <usage.html#routing>`_
 
-The routes are stores in :py:attr:`conf.route <scapy.route.Route>`. You can use it to display the routes, or get specific routing
+    If you want to change or edit the routes, have a look at `the "Routing" section in
+    Usage <usage.html#routing>`_
+
+The routes are stores in :py:attr:`conf.route <scapy.route.Route>`. You can use it to
+display the routes, or get specific routing
 
 .. code-block:: pycon
 
@@ -101,20 +118,23 @@ The routes are stores in :py:attr:`conf.route <scapy.route.Route>`. You can use 
     168.63.129.16    255.255.255.255  10.0.0.1  eth0   10.0.0.5   100
     169.254.169.254  255.255.255.255  10.0.0.1  eth0   10.0.0.5   100
 
-Get the route for a specific IP:  :py:func:`conf.route.route() <scapy.route.Route.route>` will return ``(interface, outgoing_ip, gateway)``
+Get the route for a specific IP: :py:func:`conf.route.route() <scapy.route.Route.route>`
+will return ``(interface, outgoing_ip, gateway)``
 
 .. code-block:: pycon
 
     >>> conf.route.route("127.0.0.1")
     ('lo', '127.0.0.1', '0.0.0.0')
 
-IPv6 routes
------------
+*************
+ IPv6 routes
+*************
 
 Same as IPv4 but with :py:attr:`conf.route6 <scapy.route6.Route6>`
 
-Get default gateway IP address
-------------------------------
+********************************
+ Get default gateway IP address
+********************************
 
 .. code-block:: pycon
 
@@ -122,8 +142,9 @@ Get default gateway IP address
     >>> gw
     '10.0.0.1'
 
-Get the IP of an interface
---------------------------
+****************************
+ Get the IP of an interface
+****************************
 
 Use ``conf.iface``
 
@@ -134,8 +155,9 @@ Use ``conf.iface``
     >>> ip
     '10.0.0.5'
 
-Get the MAC of an interface
----------------------------
+*****************************
+ Get the MAC of an interface
+*****************************
 
 .. code-block:: pycon
 
@@ -144,8 +166,9 @@ Get the MAC of an interface
     >>> mac
     '54:3f:19:c9:38:6d'
 
-Get MAC address of the next hop to reach an IP
-----------------------------------------------
+************************************************
+ Get MAC address of the next hop to reach an IP
+************************************************
 
 This basically performs a cached ARP who-has when the IP is on the same local link,
 returns the MAC of the gateway when it's not, and handle special cases like multicast.
@@ -155,4 +178,3 @@ returns the MAC of the gateway when it's not, and handle special cases like mult
     >>> mac = getmacbyip("10.0.0.1")
     >>> mac
     'f3:ae:5e:76:31:9b'
-

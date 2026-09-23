@@ -3,9 +3,7 @@
 # See https://scapy.net/ for more information
 # Copyright (C) Gabriel Potter <gabriel[]potter[]fr>
 
-"""
-A Sphinx Extension for Scapy's doc preprocessing
-"""
+"""A Sphinx Extension for Scapy's doc preprocessing"""
 
 import subprocess
 import os
@@ -16,9 +14,7 @@ from sphinx.ext.autodoc import AttributeDocumenter
 # Utils
 
 def generate_rest_table(items):
-    """
-    Generates a ReST table from a list of tuples
-    """
+    """Generates a ReST table from a list of tuples"""
     lengths = [max(len(y) for y in x) for x in zip(*items)]
     sep = "+%s+" % "+".join("-" * x for x in lengths)
     sized = "|%s|" % "|".join("{:%ss}" % x for x in lengths)
@@ -31,27 +27,21 @@ def generate_rest_table(items):
 
 
 def tab(items):
-    """
-    Tabulize a generator.
-    """
+    """Tabulize a generator."""
     for i in items:
         # Tabs are 3-wide in autodoc
         yield "   " + i
 
 
 def class_ref(cls):
-    """
-    Get Sphinx reference to a class
-    """
+    """Get Sphinx reference to a class"""
     return ":class:`~%s`" % (
         cls.__module__ + '.' + cls.__name__
     )
 
 
 def get_fields_desc(obj):
-    """
-    Create a readable documentation for fields_desc
-    """
+    """Create a readable documentation for fields_desc"""
     output = []
     for value in _pkt_ls(obj):
         fname, cls, clsne, dflt, long_attrs = value
@@ -89,9 +79,7 @@ def get_fields_desc(obj):
 # Documenter
 
 class AttrsDocumenter(AttributeDocumenter):
-    """
-    Mock of AttributeDocumenter to handle Scapy settings
-    """
+    """Mock of AttributeDocumenter to handle Scapy settings"""
 
     def add_directive_header(self, *args, **kwargs):
         def call_parent():
@@ -144,10 +132,10 @@ def builder_inited_handler(app):
 
 
 def setup(app):
-    """
-    Entry point of the scapy_doc extension.
+    """Entry point of the scapy_doc extension.
 
     Called by sphinx while booting up.
+
     """
     app.add_autodocumenter(AttrsDocumenter, override=True)
     app.connect('builder-inited', builder_inited_handler)

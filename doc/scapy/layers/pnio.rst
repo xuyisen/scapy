@@ -1,21 +1,29 @@
-***************
-PROFINET IO RTC
-***************
+#################
+ PROFINET IO RTC
+#################
 
-PROFINET IO is an industrial protocol composed of different layers such as the Real-Time Cyclic (RTC) layer, used to exchange data. However, this RTC layer is stateful and depends on a configuration sent through another layer: the DCE/RPC endpoint of PROFINET. This configuration defines where each exchanged piece of data must be located in the RTC ``data`` buffer, as well as the length of this same buffer. Building such packet is then a bit more complicated than other protocols.
+PROFINET IO is an industrial protocol composed of different layers such as the Real-Time
+Cyclic (RTC) layer, used to exchange data. However, this RTC layer is stateful and
+depends on a configuration sent through another layer: the DCE/RPC endpoint of PROFINET.
+This configuration defines where each exchanged piece of data must be located in the RTC
+``data`` buffer, as well as the length of this same buffer. Building such packet is then
+a bit more complicated than other protocols.
 
-RTC data packet
----------------
+*****************
+ RTC data packet
+*****************
 
-The first thing to do when building the RTC ``data`` buffer is to instantiate each Scapy packet which represents a piece of data. Some of the basic packets are:
+The first thing to do when building the RTC ``data`` buffer is to instantiate each Scapy
+packet which represents a piece of data. Some of the basic packets are:
 
-* ``ProfinetIO``: the building block for PROFINET packets. Can be layered on top of Ether() or UDP()
+- ``ProfinetIO``: the building block for PROFINET packets. Can be layered on top of
+  Ether() or UDP()
+- ``PROFIsafe``: the PROFIsafe profile to perform functional safety
+- ``PNIORealTime_IOxS``: either an IO Consumer or Provider Status byte
 
-* ``PROFIsafe``: the PROFIsafe profile to perform functional safety
+Instantiate the packets as follows:
 
-* ``PNIORealTime_IOxS``: either an IO Consumer or Provider Status byte
-
-Instantiate the packets as follows::
+::
 
     >>> load_contrib('pnio')
     >>> raw(ProfinetIO()/b'AAA')
@@ -25,12 +33,16 @@ Instantiate the packets as follows::
     >>> hexdump(PNIORealTime_IOxS())
     0000   80                                                 .
 
+************
+ RTC packet
+************
 
-RTC packet
-----------
+Now that a data packet can be instantiated, a whole RTC packet may be built.
+``PNIORealTimeCyclicPDU`` contains a field ``data`` which is a list of all data packets
+to add in the buffer, however, without the configuration, Scapy won't be able to dissect
+it:
 
-Now that a data packet can be instantiated, a whole RTC packet may be built. ``PNIORealTimeCyclicPDU`` contains a field ``data`` which is a list of all data packets to add in the buffer, however, without the configuration, Scapy won't be
-able to dissect it::
+::
 
     >>> load_contrib('pnio')
     >>> p=PNIORealTimeCyclicPDU(cycleCounter=1024, data=[
@@ -67,8 +79,16 @@ able to dissect it::
       dataStatus= primary+validData+run+no_problem
       transferStatus= 0
 
+For Scapy to be able to dissect it correctly, one must also configure the layer for it
+to know the location of each data in the buffer. This configuration is saved in the
+dictionary ``conf.contribs["PNIO_RTC"]`` which can be updated with the
+``conf.contribs["PNIO_RTC"].update`` method. Each item in the dictionary uses the tuple
+``(Ether.src, Ether.dst, ProfinetIO.frameID)`` as key, to be able to separate the
+configuration of each communication. Each value is then a list of classes which
+describes a data packet. If we continue the previous example, here is the configuration
+to set:
 
-For Scapy to be able to dissect it correctly, one must also configure the layer for it to know the location of each data in the buffer. This configuration is saved in the dictionary ``conf.contribs["PNIO_RTC"]`` which can be updated with the ``conf.contribs["PNIO_RTC"].update`` method. Each item in the dictionary uses the tuple ``(Ether.src, Ether.dst, ProfinetIO.frameID)`` as key, to be able to separate the configuration of each communication. Each value is then a list of classes which describes a data packet. If we continue the previous example, here is the configuration to set::
+::
 
     >>> e=Ether(src='00:01:02:03:04:05', dst='06:07:08:09:0a:0b') / ProfinetIO(frameID="RT_CLASS_1") / p
     >>> e.show2()
@@ -128,4 +148,5 @@ For Scapy to be able to dissect it correctly, one must also configure the layer 
             dataStatus= primary+validData+run+no_problem
             transferStatus= 0
 
-If no data packets are configured for a given offset, it defaults to a ``PNIORealTimeCyclicDefaultRawData``.
+If no data packets are configured for a given offset, it defaults to a
+``PNIORealTimeCyclicDefaultRawData``.

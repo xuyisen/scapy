@@ -1,10 +1,11 @@
 .. Layer-specific documentation
 
-Layers
-======
+########
+ Layers
+########
 
 .. toctree::
-   :glob:
-   :titlesonly:
-   
-   *
+    :glob:
+    :titlesonly:
+
+    *
